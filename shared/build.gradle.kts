@@ -22,11 +22,25 @@ kotlin {
         }
     }
 
+    val ballast = "2.3.0"
+
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation("io.github.copper-leaf:ballast-core:$ballast")
+                implementation("io.github.copper-leaf:ballast-saved-state:$ballast")
+                implementation("io.github.copper-leaf:ballast-repository:$ballast")
+                implementation("io.github.copper-leaf:ballast-firebase-crashlytics:$ballast")
+                implementation("io.github.copper-leaf:ballast-firebase-analytics:$ballast")
+                implementation("io.github.copper-leaf:ballast-debugger:$ballast")
+                implementation("io.github.copper-leaf:ballast-navigation:$ballast")
+
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation("io.github.copper-leaf:ballast-test:$ballast")
             }
         }
         val androidMain by getting
