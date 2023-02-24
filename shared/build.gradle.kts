@@ -22,6 +22,11 @@ kotlin {
         }
     }
 
+    js(IR) {
+        useCommonJs()
+        browser()
+    }
+
     val ballast = "2.3.0"
 
     sourceSets {
@@ -63,6 +68,9 @@ kotlin {
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
         }
+
+        val jsMain by getting
+        val jsTest by getting
     }
 }
 
