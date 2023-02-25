@@ -1,0 +1,25 @@
+fragment MenuItemFragment on MenuItem {
+  id
+  name
+  translation(languageCode: $locale) {
+    id
+    name
+  }
+  category {
+    id
+    slug
+    backgroundImage {
+      url
+      alt
+    }
+  }
+  collection {
+    id
+    slug
+  }
+  page {
+    id
+    slug
+  }
+  url
+}

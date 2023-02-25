@@ -1,0 +1,17 @@
+mutation LoginCustomer($email: String!, $password: String!) {
+    tokenCreate(email: $email, password: $password){
+        token
+        csrfToken
+        refreshToken
+        user {
+            email
+            metadata{
+                key
+                value
+            }
+        }
+        errors {
+            message
+        }
+    }
+}

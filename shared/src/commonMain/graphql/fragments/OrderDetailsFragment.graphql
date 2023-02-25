@@ -1,0 +1,17 @@
+fragment OrderDetailsFragment on Order {
+  id
+  token
+  created
+  number
+  status
+  statusDisplay
+  total {
+    currency
+    gross {
+      ...PriceFragment
+    }
+    net {
+      ...PriceFragment
+    }
+  }
+}

@@ -1,0 +1,8 @@
+query HomeMenu($locale: LanguageCodeEnum!, $channel: String!) {
+    menu(slug: "mobilehome", channel: $channel) {
+        id
+        items {
+            ...MenuItemWithChildrenFragmentProducts
+        }
+    }
+}

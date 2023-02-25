@@ -1,0 +1,27 @@
+fragment ProductDetailsFragment on Product {
+    id
+    name
+    slug
+    description
+    isAvailableForPurchase
+    translation(languageCode: $locale) {
+        id
+        description
+        name
+    }
+    attributes {
+        ...SelectedAttributeDetailsFragment
+    }
+    variants {
+        ...ProductVariantDetailsFragment
+    }
+    media {
+        ...ProductMediaFragment
+    }
+    thumbnail {
+        ...ImageFragment
+    }
+    category {
+        name
+    }
+}

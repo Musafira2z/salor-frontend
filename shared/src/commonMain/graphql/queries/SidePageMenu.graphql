@@ -1,0 +1,8 @@
+query SidePageMenu($locale: LanguageCodeEnum!, $channel: String!) {
+    menu(slug: "mobile-pages", channel: $channel) {
+        id
+        items {
+            ...MenuItemWithChildrenFragment
+        }
+    }
+}

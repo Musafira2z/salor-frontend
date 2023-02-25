@@ -1,0 +1,8 @@
+query HomeBannerMenu($locale: LanguageCodeEnum!, $channel: String!) {
+    menu(slug: "mobile-banner", channel: $channel) {
+        id
+        items {
+            ...MenuItemWithChildrenFragment
+        }
+    }
+}

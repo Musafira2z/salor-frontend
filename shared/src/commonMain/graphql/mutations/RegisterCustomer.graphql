@@ -1,0 +1,12 @@
+mutation RegisterCustomer($firstname:String!, $email: String!, $password: String!, $redirect: String!, $channel: String!) {
+    accountRegister(input: {firstName: $firstname, email: $email, password: $password, redirectUrl: $redirect, channel: $channel}){
+        user {
+            email
+            isActive
+        }
+        errors {
+            code
+            message
+        }
+    }
+}

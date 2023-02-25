@@ -1,0 +1,68 @@
+fragment MenuItemWithChildrenFragment on MenuItem {
+    id
+    name
+    translation(languageCode: $locale) {
+        id
+        name
+    }
+    category {
+        id
+        slug
+        backgroundImage {
+            url
+            alt
+        }
+    }
+    collection {
+        id
+        slug
+        backgroundImage {
+            url
+            alt
+        }
+    }
+    page {
+        id
+        slug
+    }
+    children {
+        ...MenuItemFragment
+        children {
+            ...MenuItemFragment
+        }
+    }
+    url
+}
+
+fragment MenuItemWithChildrenFragmentProducts on MenuItem {
+    id
+    name
+    translation(languageCode: $locale) {
+        id
+        name
+    }
+    category {
+        id
+        slug
+        backgroundImage {
+            url
+            alt
+        }
+        products(first: 7, channel: $channel){
+            edges {
+                node {
+                    ...ProductDetailsFragment
+                }
+            }
+        }
+    }
+    collection {
+        id
+        slug
+    }
+    page {
+        id
+        slug
+    }
+    url
+}

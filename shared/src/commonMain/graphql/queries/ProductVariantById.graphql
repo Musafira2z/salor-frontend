@@ -1,0 +1,5 @@
+query ProductVariantById($id: ID!, $channel: String!, $locale: LanguageCodeEnum!) {
+    productVariant(channel: $channel, id: $id){
+        ...ProductVariantDetailsFragment
+    }
+}
