@@ -1,67 +1,37 @@
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
-
 plugins {
-    val kotlinVersion = "1.8.0"
-    kotlin("plugin.serialization") version kotlinVersion
-    kotlin("js")
-    val kvisionVersion: String by System.getProperties()
-    id("io.kvision") version kvisionVersion
+    kotlin("multiplatform")
+    id("org.jetbrains.compose") version "1.3.0"
 }
 
-version = "1.0.0-SNAPSHOT"
-group = "com.musafira2z"
+version = "1.0"
 
 repositories {
     mavenCentral()
-    mavenLocal()
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }
 
-// Versions
-val kotlinVersion = "1.8.0"
-val kvisionVersion: String by System.getProperties()
-
-val webDir = file("src/main/web")
-
 kotlin {
-    js {
-        browser {
-            commonWebpackConfig {
-                outputFileName = "main.bundle.js"
-            }
-            runTask {
-                sourceMaps = false
-                devServer = KotlinWebpackConfig.DevServer(
-                    open = false,
-                    port = 3000,
-                    proxy = mutableMapOf(
-                        "/kv/*" to "http://localhost:8080",
-                        "/kvws/*" to mapOf("target" to "ws://localhost:8080", "ws" to true)
-                    ),
-                    static = mutableListOf("$buildDir/processedResources/js/main")
-                )
-            }
-//            testTask {
-//                useKarma {
-//                    useChromeHeadless()
-//                }
-//            }
-        }
+    js(IR) {
+        browser()
         binaries.executable()
     }
-    sourceSets["main"].dependencies {
-        implementation("io.kvision:kvision:$kvisionVersion")
-        implementation("io.kvision:kvision-bootstrap:$kvisionVersion")
-        implementation("io.kvision:kvision-tom-select:$kvisionVersion")
-        implementation("io.kvision:kvision-imask:$kvisionVersion")
-        implementation("io.kvision:kvision-toastify:$kvisionVersion")
-        implementation("io.kvision:kvision-fontawesome:$kvisionVersion")
-        implementation("io.kvision:kvision-routing-ballast:$kvisionVersion")
-        implementation("io.kvision:kvision-ballast:$kvisionVersion")
-        implementation(project(":shared"))
+
+    sourceSets {
+        val jsMain by getting {
+            dependencies {
+                implementation(compose.web.core)
+                implementation(compose.runtime)
+
+                implementation(project(":shared"))
+            }
+        }
     }
-//    sourceSets["test"].dependencies {
-//        implementation(kotlin("test-js"))
-//        implementation("io.kvision:kvision-testutils:$kvisionVersion")
-//    }
-    sourceSets["main"].resources.srcDir(webDir)
+}
+
+// workaround for https://youtrack.jetbrains.com/issue/KT-48273
+afterEvaluate {
+    rootProject.extensions.configure<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension> {
+        versions.webpackDevServer.version = "4.0.0"
+        versions.webpackCli.version = "4.10.0"
+    }
 }
