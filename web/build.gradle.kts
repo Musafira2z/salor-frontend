@@ -12,7 +12,12 @@ repositories {
 
 kotlin {
     js(IR) {
-        browser()
+        browser {
+            commonWebpackConfig {
+                cssSupport { enabled.set(true) }
+                scssSupport { enabled.set(true) }
+            }
+        }
         binaries.executable()
     }
 
@@ -21,6 +26,10 @@ kotlin {
             dependencies {
                 implementation(compose.web.core)
                 implementation(compose.runtime)
+
+                // Be lazy and use the shortcut
+                implementation("dev.petuska:kmdc:0.1.0")
+                implementation("dev.petuska:kmdcx:0.1.0")
 
                 implementation(project(":shared"))
             }

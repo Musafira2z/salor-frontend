@@ -1,31 +1,26 @@
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.dom.*
+import androidx.compose.runtime.*
+import dev.petuska.kmdc.checkbox.MDCCheckbox
+import dev.petuska.kmdc.form.field.MDCFormField
 import org.jetbrains.compose.web.renderComposable
 
 fun main() {
-    var count: Int by mutableStateOf(0)
-
     renderComposable(rootElementId = "root") {
-        Div({ style { padding(25.px) } }) {
-            Button(attrs = {
-                onClick { count -= 1 }
-            }) {
-                Text("-")
-            }
+        Showcase()
+    }
+}
 
-            Span({ style { padding(15.px) } }) {
-                Text("$count")
-            }
+@Composable
+fun Showcase() {
+    var checked by remember { mutableStateOf(false) } // Declaring controlled state
 
-            Button(attrs = {
-                onClick { count += 1 }
-            }) {
-                Text("+")
+    MDCFormField { // Using implicit `content` argument to wrap MDCCheckbox inside MDCFormField UI as recommended by the MDC docs
+        MDCCheckbox(
+            checked = checked,
+            label = "Yes/No",
+            attrs = { // Overriding underlying HTMLInput element attributes
+                onInput { checked = !checked }
             }
-        }
+        ) // MDCCheckbox doesn't allow for additional inner content
     }
 }
 
