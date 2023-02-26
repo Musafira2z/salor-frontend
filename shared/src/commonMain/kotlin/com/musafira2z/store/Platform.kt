@@ -1,7 +1,8 @@
+@file:JvmName("PlatformKtJvm")
 package com.musafira2z.store
 
 import io.ktor.client.*
-import io.ktor.client.engine.*
+import kotlin.jvm.JvmName
 
 interface Platform {
     val name: String
