@@ -8,6 +8,8 @@ version = "1.0"
 repositories {
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers")
+    google()
 }
 
 kotlin {
@@ -26,6 +28,14 @@ kotlin {
             dependencies {
                 implementation(compose.web.core)
                 implementation(compose.runtime)
+
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.201-kotlin-1.5.0")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.201-kotlin-1.5.0")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.0-pre.201-kotlin-1.5.0")
+
+                implementation(npm("react", "17.0.2"))
+                implementation(npm("react-dom", "17.0.2"))
+                implementation(npm("react-youtube-lite", "1.0.1"))
 
                 // Be lazy and use the shortcut
                 implementation("dev.petuska:kmdc:0.1.0")

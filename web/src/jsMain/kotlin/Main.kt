@@ -1,26 +1,19 @@
-import androidx.compose.runtime.*
-import dev.petuska.kmdc.checkbox.MDCCheckbox
-import dev.petuska.kmdc.form.field.MDCFormField
-import org.jetbrains.compose.web.renderComposable
+import kotlinx.browser.window
+import org.w3c.dom.url.URLSearchParams
 
 fun main() {
-    renderComposable(rootElementId = "root") {
-        Showcase()
-    }
-}
 
-@Composable
-fun Showcase() {
-    var checked by remember { mutableStateOf(false) } // Declaring controlled state
+    val urlParams = URLSearchParams(window.location.search)
 
-    MDCFormField { // Using implicit `content` argument to wrap MDCCheckbox inside MDCFormField UI as recommended by the MDC docs
-        MDCCheckbox(
-            checked = checked,
-            label = "Yes/No",
-            attrs = { // Overriding underlying HTMLInput element attributes
-                onInput { checked = !checked }
-            }
-        ) // MDCCheckbox doesn't allow for additional inner content
+    val app = urlParams.get("app") ?: "composeApp"
+
+    when (app) {
+        "composeApp" -> reactInComposeAppExample()
+        "reactApp" -> composeInReactAppExample()
     }
+
+    /*renderComposable(rootElementId = "root") {
+        HomeScreen()
+    }*/
 }
 
