@@ -1,19 +1,24 @@
-import kotlinx.browser.window
-import org.w3c.dom.url.URLSearchParams
+import androidx.compose.runtime.Composable
+import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.dom.H1
+import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.renderComposable
+
+
+@JsModule("./input.css")
+external val cssFile: dynamic
 
 fun main() {
-
-    val urlParams = URLSearchParams(window.location.search)
-
-    val app = urlParams.get("app") ?: "composeApp"
-
-    when (app) {
-        "composeApp" -> reactInComposeAppExample()
-        "reactApp" -> composeInReactAppExample()
+    renderComposable(rootElementId = "root") {
+        Div({ classes("container", "mx-auto") }) {
+            H1({ classes("text-3xl", "font-bold", "underline") }) {
+                Text("Hello World")
+            }
+        }
     }
-
-    /*renderComposable(rootElementId = "root") {
-        HomeScreen()
-    }*/
 }
 
+@Composable
+fun Home() {
+
+}
