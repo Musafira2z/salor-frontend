@@ -2,20 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    gridColumn: {
+                        'span-16': 'span 16 / span 16',
+                    },
+                    spacing: {
+                        '128': '32rem',
+                        '140': '34rem',
+                        '150': '40rem',
+                    },
+                    height: {
+                        '128': '32rem',
+                    },
+                    gridColumnStart: {
+                        '13': '13',
+                        '14': '14',
+                        '15': '15',
+                        '16': '16',
+                        '17': '17',
+                    },
+                    gridAutoRows: {
+                        '2fr': 'minmax(0, 2fr)',
+                    }
+                },
+            }
+        }
 
-    <meta content="#da532c" name="msapplication-TileColor">
-    <meta content="#ffffff" name="theme-color">
-    <title id="title">Musafir Online whole sale</title>
 
-    <!--Import Google Icon Font-->
-    <!--  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">-->
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block"
-          rel="stylesheet">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css"
+          rel="stylesheet"/>
 </head>
 <body>
 <div id="root"></div>
 <script src="web.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
 </body>
 </html>

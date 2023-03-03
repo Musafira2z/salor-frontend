@@ -1,19 +1,9 @@
-import kotlinx.browser.window
-import org.w3c.dom.url.URLSearchParams
+import com.musafira2z.store.web.ui.app.AppScreen
+import org.jetbrains.compose.web.renderComposable
 
 fun main() {
-
-    val urlParams = URLSearchParams(window.location.search)
-
-    val app = urlParams.get("app") ?: "composeApp"
-
-    when (app) {
-        "composeApp" -> reactInComposeAppExample()
-        "reactApp" -> composeInReactAppExample()
+    renderComposable(rootElementId = "root") {
+        AppScreen()
     }
-
-    /*renderComposable(rootElementId = "root") {
-        HomeScreen()
-    }*/
 }
 
