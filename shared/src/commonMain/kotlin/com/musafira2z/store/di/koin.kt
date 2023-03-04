@@ -43,22 +43,6 @@ val commonModule = module {
             .serverUrl("https://api.musafira2z.com/graphql/")
             .build()
     }
-    single<EventBus> { EventBusImpl() }
-    factory<MenuRepository> {
-        MenuRepositoryImpl(
-            coroutineScope = get(),
-            eventBus = get(),
-            configBuilder = get(),
-            inputHandler = MenuRepositoryInputHandler(get(), get())
-        )
-    }
-
-    factory { HomeInputHandler(get()) }
-    factory { HomeEventHandler() }
-    factory { parametersHolder ->
-        HomeViewModel(parametersHolder.get(), get(), get())
-    }
-
 }
 
 val platformModule = module {

@@ -16,6 +16,7 @@ kotlin {
         browser {
             commonWebpackConfig {
                 cssSupport { enabled.set(true) }
+                devServer = devServer?.copy(port = 9000)
             }
         }
         binaries.executable()

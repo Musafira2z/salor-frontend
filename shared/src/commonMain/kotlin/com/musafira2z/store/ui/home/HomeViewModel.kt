@@ -9,18 +9,13 @@ import kotlinx.coroutines.CoroutineScope
 class HomeViewModel(
     coroutineScope: CoroutineScope,
     configBuilder: BallastViewModelConfiguration.Builder,
-    inputHandler: HomeInputHandler
+    eventHandler: HomeEventHandler
 ) : BasicViewModel<
         HomeContract.Inputs,
         HomeContract.Events,
         HomeContract.State>(
     coroutineScope = coroutineScope,
     config = configBuilder
-        .withViewModel(
-            inputHandler = inputHandler,
-            initialState = HomeContract.State(),
-            name = "Home",
-        )
         .build(),
-    eventHandler = HomeEventHandler(),
+    eventHandler = eventHandler,
 )

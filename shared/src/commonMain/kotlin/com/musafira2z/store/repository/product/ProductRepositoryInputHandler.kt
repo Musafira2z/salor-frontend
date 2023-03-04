@@ -8,9 +8,10 @@ import com.copperleaf.ballast.postInput
 import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.bus.observeInputsFromBus
 import com.copperleaf.ballast.repository.cache.fetchWithCache
-import com.musafira2z.store.HomeMenuQuery
+import com.musafira2z.store.ProductCollectionQuery
 import com.musafira2z.store.defaultChannel
 import com.musafira2z.store.type.LanguageCodeEnum
+import com.musafira2z.store.type.ProductFilterInput
 
 class ProductRepositoryInputHandler(
     private val eventBus: EventBus,
@@ -56,17 +57,25 @@ class ProductRepositoryInputHandler(
         }
 
         is ProductRepositoryContract.Inputs.DataListUpdated -> {
-            updateState { it.copy(dataList = input.dataList) }
+            updateState { it.copy(products = input.dataList) }
         }
         is ProductRepositoryContract.Inputs.RefreshDataList -> {
             updateState { it.copy(dataListInitialized = true) }
             fetchWithCache(
                 input = input,
                 forceRefresh = input.forceRefresh,
-                getValue = { it.dataList },
+                getValue = { it.products },
                 updateState = { ProductRepositoryContract.Inputs.DataListUpdated(it) },
                 doFetch = {
-                         TODO()
+                    apolloClient.query(
+                        ProductCollectionQuery(
+                            after = "",
+                            first = 20,
+                            channel = defaultChannel,
+                            filter = ProductFilterInput(),
+                            locale = LanguageCodeEnum.EN
+                        )
+                    ).execute().data!!
                 },
             )
         }

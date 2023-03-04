@@ -6,6 +6,7 @@ import com.copperleaf.ballast.repository.BallastRepository
 import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.cache.Cached
 import com.copperleaf.ballast.repository.withRepository
+import com.musafira2z.store.ProductCollectionQuery
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -13,27 +14,23 @@ import kotlinx.coroutines.flow.map
 class ProductRepositoryImpl(
     coroutineScope: CoroutineScope,
     eventBus: EventBus,
-    configBuilder: BallastViewModelConfiguration.Builder,
-    inputHandler: ProductRepositoryInputHandler
+    configBuilder: BallastViewModelConfiguration.Builder
 ) : BallastRepository<
         ProductRepositoryContract.Inputs,
-        ProductRepositoryContract.State>(coroutineScope = coroutineScope,
+        ProductRepositoryContract.State>(
+    coroutineScope = coroutineScope,
     eventBus = eventBus,
     config = configBuilder
-        .apply {
-            this.inputHandler = inputHandler
-            initialState = ProductRepositoryContract.State()
-            name = "Product Repository"
-        }.withRepository().build()
+        .build()
 ), ProductRepository {
     override fun clearAllCaches() {
         trySend(ProductRepositoryContract.Inputs.ClearCaches)
     }
 
-    override fun getDataList(refreshCache: Boolean): Flow<Cached<List<String>>> {
+    override fun getDataList(refreshCache: Boolean): Flow<Cached<ProductCollectionQuery.Data>> {
         trySend(ProductRepositoryContract.Inputs.Initialize)
         trySend(ProductRepositoryContract.Inputs.RefreshDataList(refreshCache))
         return observeStates()
-            .map { it.dataList }
+            .map { it.products }
     }
 }

@@ -14,18 +14,13 @@ import kotlinx.coroutines.flow.map
 class MenuRepositoryImpl(
     coroutineScope: CoroutineScope,
     eventBus: EventBus,
-    configBuilder: BallastViewModelConfiguration.Builder,
-    inputHandler: MenuRepositoryInputHandler
+    configBuilder: BallastViewModelConfiguration.Builder
 ) : BallastRepository<
         MenuRepositoryContract.Inputs,
         MenuRepositoryContract.State>(
     coroutineScope = coroutineScope,
     eventBus = eventBus,
-    config = configBuilder.apply {
-        this.inputHandler = inputHandler
-        initialState = MenuRepositoryContract.State()
-        name = "Menu Repository"
-    }.withRepository().build()
+    config = configBuilder.build()
 ), MenuRepository {
     override fun clearAllCaches() {
         trySend(MenuRepositoryContract.Inputs.ClearCaches)

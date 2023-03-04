@@ -5,10 +5,12 @@ import com.copperleaf.ballast.InputHandlerScope
 import com.copperleaf.ballast.observeFlows
 import com.copperleaf.ballast.postInput
 import com.musafira2z.store.repository.menu.MenuRepository
+import com.musafira2z.store.repository.product.ProductRepository
 import kotlinx.coroutines.flow.map
 
 class HomeInputHandler(
-    private val menuRepository: MenuRepository
+    private val menuRepository: MenuRepository,
+    private val productRepository: ProductRepository
 ) : InputHandler<
         HomeContract.Inputs,
         HomeContract.Events,
@@ -20,7 +22,8 @@ class HomeInputHandler(
         input: HomeContract.Inputs
     ) = when (input) {
         is HomeContract.Inputs.Initialize -> {
-            postInput(HomeContract.Inputs.FetchHomeBlocks(true))
+//            postInput(HomeContract.Inputs.FetchHomeBlocks(true))
+            postInput(HomeContract.Inputs.FetchHomeProducts(true))
         }
         is HomeContract.Inputs.GoBack -> {
             postEvent(HomeContract.Events.NavigateUp)
@@ -35,6 +38,17 @@ class HomeInputHandler(
         }
         is HomeContract.Inputs.UpdateHomeBlocks -> {
             updateState { it.copy(blocks = input.blocks) }
+        }
+        is HomeContract.Inputs.FetchHomeProducts -> {
+            observeFlows("FetchHomeProducts") {
+                listOf(
+                    productRepository.getDataList(input.forceRefresh)
+                        .map { HomeContract.Inputs.UpdateHomeProducts(it) }
+                )
+            }
+        }
+        is HomeContract.Inputs.UpdateHomeProducts -> {
+            updateState { it.copy(products = input.products) }
         }
     }
 }

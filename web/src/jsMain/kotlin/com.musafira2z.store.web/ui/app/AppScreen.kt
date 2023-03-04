@@ -1,7 +1,13 @@
 package com.musafira2z.store.web.ui.app
 
 import androidx.compose.runtime.*
+import com.copperleaf.ballast.navigation.routing.currentDestinationOrNull
+import com.copperleaf.ballast.navigation.routing.currentRouteOrNull
+import com.copperleaf.ballast.navigation.routing.renderCurrentDestination
 import com.musafira2z.store.web.ui.components.*
+import com.musafira2z.store.web.ui.di.ComposeWebInjector
+import com.musafira2z.store.web.ui.home.HomePage
+import com.musafira2z.store.web.ui.router.WebPage
 import org.jetbrains.compose.web.ExperimentalComposeWebSvgApi
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.svg.Path
@@ -10,6 +16,20 @@ import com.musafira2z.store.web.ui.utils.toClasses
 
 @Composable
 fun AppScreen() {
+    val applicationScope = rememberCoroutineScope()
+    val injector: ComposeWebInjector = remember(applicationScope) {
+        ComposeWebInjector(
+            applicationScope,
+            true,
+            WebPage.HomePage
+        )
+    }
+
+    val router = remember(injector) { injector.router() }
+    val routerState by router.observeStates().collectAsState()
+    val currentDestination = routerState.currentDestinationOrNull
+    val currentRoute = routerState.currentRouteOrNull
+
     //TopAppBar
     TopAppBar()
     //sidebar
@@ -18,28 +38,18 @@ fun AppScreen() {
     Div(attrs = {
         toClasses("md:ml-60  lg:ml-60 p-5")
     }) {
-        //carousal
-        Carousal()
-        Div(attrs = {
-            toClasses("container mx-auto")
-        }) {
-            Div(attrs = {
-                toClasses("text-start")
-            }) {
-                H1(attrs = {
-                    classes("font-bold", "pt-5", "text-xl")
-                }) {
-                    Text("Popular Product")
+        routerState.renderCurrentDestination(
+            route = {
+                when (it) {
+                    WebPage.HomePage -> {
+                        HomePage(webInjector = injector)
+                    }
                 }
-                Div(attrs = {
-                    classes("lg:hidden")
-                }) {
-                    SearchBox()
-                }
+            },
+            notFound = {
+                Text("Not found")
             }
-
-            Products()
-        }
+        )
     }
     //carts
     CartBar()
