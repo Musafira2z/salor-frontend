@@ -12,9 +12,13 @@ import com.musafira2z.store.web.ui.components.SearchBox
 import com.musafira2z.store.web.ui.components.Spinner
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.utils.toClasses
+import kotlinx.browser.document
+import kotlinx.browser.window
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.H1
 import org.jetbrains.compose.web.dom.Text
+import org.w3c.dom.events.EventListener
+import kotlin.math.floor
 
 @Composable
 fun HomePage(
@@ -38,14 +42,35 @@ fun HomePageContent(
     uiState: HomeContract.State,
     postInput: (HomeContract.Inputs) -> Unit
 ) {
+    val onScroll = EventListener {
+
+        val documentHeight = document.documentElement?.scrollHeight
+        val scrollDifference = floor(window.innerHeight + window.scrollY).toInt()
+        val scrollEnded = documentHeight == scrollDifference
+
+        if (scrollEnded) {
+            println("load more...")
+        }
+    }
+
     //carousal
     Carousal()
     Div(attrs = {
         toClasses("container mx-auto")
     }) {
+        DisposableEffect(Unit) {
+            println("adding listener...")
+            window.addEventListener("scroll", callback = onScroll)
+            onDispose {
+                println("removing listener...")
+                window.removeEventListener("scroll", onScroll)
+            }
+        }
+
         if (uiState.products.isLoading() && uiState.products !is Cached.NotLoaded) {
             Spinner()
         }
+
         Div(attrs = {
             toClasses("text-start")
         }) {

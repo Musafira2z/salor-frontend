@@ -13,8 +13,10 @@ fun Products(products: ProductCollectionQuery.Data) {
         Div(attrs = {
             toClasses("grid grid-cols-12 gap-5")
         }) {
-            products.products?.edges?.forEach {
-                Product()
+            products.products?.edges?.forEach { _product ->
+                _product.node.productDetailsFragment.variants?.forEach {
+                    Product(product = _product, variant = it)
+                }
             }
         }
     }

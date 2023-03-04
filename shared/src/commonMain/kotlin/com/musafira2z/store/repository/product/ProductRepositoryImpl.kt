@@ -5,7 +5,6 @@ import com.copperleaf.ballast.build
 import com.copperleaf.ballast.repository.BallastRepository
 import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.cache.Cached
-import com.copperleaf.ballast.repository.withRepository
 import com.musafira2z.store.ProductCollectionQuery
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow

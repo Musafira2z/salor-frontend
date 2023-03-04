@@ -1,21 +1,14 @@
 package com.musafira2z.store.di
 
 import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo3.api.http.HttpRequest
+import com.apollographql.apollo3.api.http.HttpResponse
+import com.apollographql.apollo3.network.http.HttpInterceptor
+import com.apollographql.apollo3.network.http.HttpInterceptorChain
 import com.copperleaf.ballast.BallastViewModelConfiguration
 import com.copperleaf.ballast.core.LoggingInterceptor
 import com.copperleaf.ballast.core.PrintlnLogger
-import com.copperleaf.ballast.debugger.BallastDebuggerClientConnection
-import com.copperleaf.ballast.debugger.BallastDebuggerInterceptor
 import com.copperleaf.ballast.plusAssign
-import com.copperleaf.ballast.repository.bus.EventBus
-import com.copperleaf.ballast.repository.bus.EventBusImpl
-import com.musafira2z.store.httpClient
-import com.musafira2z.store.repository.menu.MenuRepository
-import com.musafira2z.store.repository.menu.MenuRepositoryImpl
-import com.musafira2z.store.repository.menu.MenuRepositoryInputHandler
-import com.musafira2z.store.ui.home.HomeEventHandler
-import com.musafira2z.store.ui.home.HomeInputHandler
-import com.musafira2z.store.ui.home.HomeViewModel
 import org.koin.dsl.module
 
 val commonModule = module {
@@ -39,8 +32,23 @@ val commonModule = module {
     }
 
     single {
+
+        val httpInterceptor = object : HttpInterceptor {
+            override suspend fun intercept(
+                request: HttpRequest,
+                chain: HttpInterceptorChain
+            ): HttpResponse {
+                val newRequest = request.newBuilder()
+                    // remove apollo headers
+                    .headers(request.headers.filter { !it.name.lowercase().startsWith("x-apollo") })
+                    .build()
+                return chain.proceed(newRequest)
+            }
+        }
+
         ApolloClient.Builder()
             .serverUrl("https://api.musafira2z.com/graphql/")
+            .addHttpInterceptor(httpInterceptor)
             .build()
     }
 }

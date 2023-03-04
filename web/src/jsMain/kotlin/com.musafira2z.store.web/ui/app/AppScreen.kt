@@ -4,15 +4,18 @@ import androidx.compose.runtime.*
 import com.copperleaf.ballast.navigation.routing.currentDestinationOrNull
 import com.copperleaf.ballast.navigation.routing.currentRouteOrNull
 import com.copperleaf.ballast.navigation.routing.renderCurrentDestination
+import com.copperleaf.ballast.repository.cache.getCachedOrNull
+import com.musafira2z.store.ui.app.AppContract
+import com.musafira2z.store.ui.app.AppViewModel
 import com.musafira2z.store.web.ui.components.*
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.home.HomePage
 import com.musafira2z.store.web.ui.router.WebPage
+import com.musafira2z.store.web.ui.utils.toClasses
 import org.jetbrains.compose.web.ExperimentalComposeWebSvgApi
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.svg.Path
 import org.jetbrains.compose.web.svg.Svg
-import com.musafira2z.store.web.ui.utils.toClasses
 
 @Composable
 fun AppScreen() {
@@ -29,6 +32,14 @@ fun AppScreen() {
     val routerState by router.observeStates().collectAsState()
     val currentDestination = routerState.currentDestinationOrNull
     val currentRoute = routerState.currentRouteOrNull
+
+    val vm: AppViewModel = remember(applicationScope) { injector.appViewModel(applicationScope) }
+
+    LaunchedEffect(vm) {
+        vm.trySend(AppContract.Inputs.Initialize)
+    }
+
+    val uiState by vm.observeStates().collectAsState()
 
     //TopAppBar
     TopAppBar()
@@ -51,8 +62,13 @@ fun AppScreen() {
             }
         )
     }
+
     //carts
-    CartBar()
+    uiState.carts.getCachedOrNull()?.let {
+        if (it.lines.isNotEmpty()) {
+            CartBar()
+        }
+    }
 }
 
 @OptIn(ExperimentalComposeWebSvgApi::class)

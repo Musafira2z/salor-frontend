@@ -11,12 +11,19 @@ import com.copperleaf.ballast.navigation.routing.fromEnum
 import com.copperleaf.ballast.navigation.vm.withRouter
 import com.copperleaf.ballast.repository.bus.EventBusImpl
 import com.copperleaf.ballast.repository.withRepository
+import com.musafira2z.store.repository.cart.CartRepositoryContract
+import com.musafira2z.store.repository.cart.CartRepositoryImpl
+import com.musafira2z.store.repository.cart.CartRepositoryInputHandler
 import com.musafira2z.store.repository.menu.MenuRepositoryContract
 import com.musafira2z.store.repository.menu.MenuRepositoryImpl
 import com.musafira2z.store.repository.menu.MenuRepositoryInputHandler
 import com.musafira2z.store.repository.product.ProductRepositoryContract
 import com.musafira2z.store.repository.product.ProductRepositoryImpl
 import com.musafira2z.store.repository.product.ProductRepositoryInputHandler
+import com.musafira2z.store.ui.app.AppContract
+import com.musafira2z.store.ui.app.AppEventHandler
+import com.musafira2z.store.ui.app.AppInputHandler
+import com.musafira2z.store.ui.app.AppViewModel
 import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.ui.home.HomeEventHandler
 import com.musafira2z.store.ui.home.HomeInputHandler
@@ -56,6 +63,23 @@ class ComposeWebInjector(
         return router
     }
 
+    private val cartRepository by lazy {
+        CartRepositoryImpl(
+            coroutineScope = applicationScope,
+            eventBus = eventBus,
+            configBuilder = commonBuilder()
+                .withViewModel(
+                    inputHandler = CartRepositoryInputHandler(
+                        eventBus = eventBus,
+                        apolloClient = get()
+                    ),
+                    initialState = CartRepositoryContract.State(),
+                    name = "Cart Repository",
+                )
+                .withRepository(),
+        )
+    }
+
     private val menuRepository by lazy {
         MenuRepositoryImpl(
             coroutineScope = applicationScope,
@@ -88,17 +112,33 @@ class ComposeWebInjector(
         )
     }
 
+    fun appViewModel(coroutineScope: CoroutineScope): AppViewModel {
+        return AppViewModel(
+            coroutineScope = coroutineScope,
+            configBuilder = commonBuilder().withViewModel(
+                initialState = AppContract.State(),
+                inputHandler = AppInputHandler(
+                    cartRepository = cartRepository
+                ),
+                name = "AppScreen"
+            ),
+            eventHandler = AppEventHandler()
+        )
+    }
+
     fun homeViewModel(coroutineScope: CoroutineScope): HomeViewModel {
         return HomeViewModel(
             coroutineScope = coroutineScope,
-            configBuilder = commonBuilder().withViewModel(
-                initialState = HomeContract.State(),
-                inputHandler = HomeInputHandler(
-                    menuRepository = menuRepository,
-                    productRepository = productRepository
+            configBuilder = commonBuilder()
+                .withViewModel(
+                    initialState = HomeContract.State(),
+                    inputHandler = HomeInputHandler(
+                        menuRepository = menuRepository,
+                        productRepository = productRepository,
+                        cartRepository = cartRepository
+                    ),
+                    name = "HomeScreen"
                 ),
-                name = "HomeScreen"
-            ),
             eventHandler = HomeEventHandler()
         )
     }

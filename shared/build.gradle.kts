@@ -7,7 +7,7 @@ object Versions {
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    id("com.apollographql.apollo3").version("3.7.3")
+    id("com.apollographql.apollo3").version("3.7.4")
 }
 
 kotlin {
@@ -47,8 +47,9 @@ kotlin {
                 implementation("io.github.copper-leaf:ballast-debugger:$ballast")
                 implementation("io.github.copper-leaf:ballast-navigation:$ballast")
                 api("io.insert-koin:koin-core:${Versions.koin}")
-                implementation("com.apollographql.apollo3:apollo-runtime:3.7.3")
+                implementation("com.apollographql.apollo3:apollo-runtime:3.7.4")
                 implementation("io.ktor:ktor-client-logging:${Versions.Ktor}")
+                implementation("com.russhwolf:multiplatform-settings:1.0.0")
             }
         }
         val commonTest by getting {
