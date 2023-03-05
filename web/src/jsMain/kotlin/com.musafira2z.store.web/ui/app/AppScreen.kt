@@ -5,6 +5,7 @@ import com.copperleaf.ballast.navigation.routing.currentDestinationOrNull
 import com.copperleaf.ballast.navigation.routing.currentRouteOrNull
 import com.copperleaf.ballast.navigation.routing.renderCurrentDestination
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
+import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.ui.app.AppViewModel
 import com.musafira2z.store.web.ui.components.*
@@ -64,9 +65,9 @@ fun AppScreen() {
     }
 
     //carts
-    uiState.carts.getCachedOrNull()?.let {
-        if (it.lines.isNotEmpty()) {
-            CartBar()
+    uiState.carts.getCachedOrNull()?.let { cart ->
+        if (cart.lines.isNotEmpty()) {
+            CartBar(cart = cart)
         }
     }
 }
@@ -218,9 +219,7 @@ fun SideBar() {
                             )
                         }) {
                             Text("Pro")
-
                         }
-
                     }
 
                 }
@@ -496,7 +495,7 @@ fun SideBar() {
 }
 
 @Composable
-fun CartBar() {
+fun CartBar(cart: CheckoutDetailsFragment) {
     var isOpen by remember { mutableStateOf(false) }
     Div {
         if (!isOpen) {
@@ -525,17 +524,12 @@ fun CartBar() {
                 P(attrs = {
                     classes("text-slate-50", "text-sm", "md:text-xl", "text-center", "font-bold")
                 }) {
-                    Text("6 Items")
+                    Text("${cart.lines.size} Items")
                 }
                 Button(attrs = {
-                    classes(
-                        *"bg-slate-50 text-slate-800 text-sm md:text-base py-2 px-6 rounded-lg font-bold".split(
-                            " "
-                        )
-                            .toTypedArray()
-                    )
+                    toClasses("bg-slate-50 text-slate-800 text-sm md:text-base py-2 px-6 rounded-lg font-bold")
                 }) {
-                    Text("৳50420")
+                    Text("৳${cart.totalPrice.gross.priceFragment.amount}")
                 }
             }
         }

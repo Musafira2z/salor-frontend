@@ -1,38 +1,32 @@
-package com.musafira2z.store.repository.cart
+package com.musafira2z.store.repository.auth
 
 import com.copperleaf.ballast.BallastViewModelConfiguration
 import com.copperleaf.ballast.build
 import com.copperleaf.ballast.repository.BallastRepository
 import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.cache.Cached
-import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class CartRepositoryImpl(
+class AuthRepositoryImpl(
     coroutineScope: CoroutineScope,
     eventBus: EventBus,
     configBuilder: BallastViewModelConfiguration.Builder,
 ) : BallastRepository<
-        CartRepositoryContract.Inputs,
-        CartRepositoryContract.State>(
-    coroutineScope = coroutineScope,
+        AuthRepositoryContract.Inputs,
+        AuthRepositoryContract.State>(coroutineScope = coroutineScope,
     eventBus = eventBus,
     config = configBuilder.build()
-), CartRepository {
+), AuthRepository {
     override fun clearAllCaches() {
-        trySend(CartRepositoryContract.Inputs.ClearCaches)
+        trySend(AuthRepositoryContract.Inputs.ClearCaches)
     }
 
-    override fun getCarts(refreshCache: Boolean): Flow<Cached<CheckoutDetailsFragment>> {
-        trySend(CartRepositoryContract.Inputs.Initialize)
-        trySend(CartRepositoryContract.Inputs.RefreshDataList(refreshCache))
+    override fun getDataList(refreshCache: Boolean): Flow<Cached<List<String>>> {
+        trySend(AuthRepositoryContract.Inputs.Initialize)
+        trySend(AuthRepositoryContract.Inputs.RefreshDataList(refreshCache))
         return observeStates()
             .map { it.dataList }
-    }
-
-    override fun postInput(input: CartRepositoryContract.Inputs) {
-        trySend(input)
     }
 }

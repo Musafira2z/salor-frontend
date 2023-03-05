@@ -71,7 +71,8 @@ class ComposeWebInjector(
                 .withViewModel(
                     inputHandler = CartRepositoryInputHandler(
                         eventBus = eventBus,
-                        apolloClient = get()
+                        apolloClient = get(),
+                        settingsRepository = get()
                     ),
                     initialState = CartRepositoryContract.State(),
                     name = "Cart Repository",

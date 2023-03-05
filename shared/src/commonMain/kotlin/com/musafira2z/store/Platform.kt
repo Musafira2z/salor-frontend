@@ -1,6 +1,7 @@
 @file:JvmName("PlatformKtJvm")
 package com.musafira2z.store
 
+import com.russhwolf.settings.Settings
 import io.ktor.client.*
 import kotlin.jvm.JvmName
 

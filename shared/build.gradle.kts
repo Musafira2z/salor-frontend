@@ -1,4 +1,3 @@
-
 object Versions {
     const val koin = "3.2.0"
     const val Ktor = "2.2.2"
@@ -18,7 +17,7 @@ kotlin {
             }
         }
     }
-    
+
 //    listOf(
 //        iosX64(),
 //        iosArm64(),
@@ -49,7 +48,9 @@ kotlin {
                 api("io.insert-koin:koin-core:${Versions.koin}")
                 implementation("com.apollographql.apollo3:apollo-runtime:3.7.4")
                 implementation("io.ktor:ktor-client-logging:${Versions.Ktor}")
-                implementation("com.russhwolf:multiplatform-settings:1.0.0")
+//                implementation("com.russhwolf:multiplatform-settings:1.0.0")
+                implementation("com.russhwolf:multiplatform-settings-no-arg:1.0.0")
+                implementation("com.russhwolf:multiplatform-settings-coroutines:1.0.0")
             }
         }
         val commonTest by getting {

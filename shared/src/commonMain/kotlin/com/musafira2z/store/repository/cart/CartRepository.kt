@@ -7,4 +7,6 @@ import kotlinx.coroutines.flow.Flow
 interface CartRepository {
     fun clearAllCaches()
     fun getCarts(refreshCache: Boolean = false): Flow<Cached<CheckoutDetailsFragment>>
+
+    fun postInput(input: CartRepositoryContract.Inputs)
 }

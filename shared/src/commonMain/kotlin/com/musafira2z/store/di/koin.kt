@@ -9,20 +9,11 @@ import com.copperleaf.ballast.BallastViewModelConfiguration
 import com.copperleaf.ballast.core.LoggingInterceptor
 import com.copperleaf.ballast.core.PrintlnLogger
 import com.copperleaf.ballast.plusAssign
+import com.musafira2z.store.repository.settings.SettingsRepository
+import com.russhwolf.settings.Settings
 import org.koin.dsl.module
 
 val commonModule = module {
-
-//    factory {
-//        BallastDebuggerClientConnection(
-//            engineFactory = ,
-//            applicationCoroutineScope = get(),
-//            host = "127.0.0.1",
-//        ).also {
-//            it.connect()
-//        }
-//    }
-
     factory {
         BallastViewModelConfiguration.Builder().apply {
             this += LoggingInterceptor()
@@ -32,7 +23,14 @@ val commonModule = module {
     }
 
     single {
+        Settings()
+    }
 
+    single {
+        SettingsRepository(get())
+    }
+
+    single {
         val httpInterceptor = object : HttpInterceptor {
             override suspend fun intercept(
                 request: HttpRequest,

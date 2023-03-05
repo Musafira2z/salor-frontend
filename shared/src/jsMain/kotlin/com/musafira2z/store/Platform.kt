@@ -1,5 +1,6 @@
 package com.musafira2z.store
 
+import com.russhwolf.settings.Settings
 import io.ktor.client.*
 import io.ktor.client.engine.*
 import io.ktor.client.engine.js.*
