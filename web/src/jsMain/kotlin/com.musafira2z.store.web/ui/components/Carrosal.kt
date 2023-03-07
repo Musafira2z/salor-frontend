@@ -1,6 +1,7 @@
 package com.musafira2z.store.web.ui.components
 
 import androidx.compose.runtime.Composable
+import com.musafira2z.store.HomeBannerMenuQuery
 import org.jetbrains.compose.web.ExperimentalComposeWebSvgApi
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.svg.Path
@@ -8,7 +9,7 @@ import org.jetbrains.compose.web.svg.Svg
 
 @OptIn(ExperimentalComposeWebSvgApi::class)
 @Composable
-fun Carousal() {
+fun Carousal(banners: HomeBannerMenuQuery.Data) {
     Div(attrs = {
         id("default-carousel")
         classes("relative")
@@ -18,58 +19,71 @@ fun Carousal() {
         Div(attrs = {
             classes("relative", "h-56", "overflow-hidden", "rounded-lg", "md:h-96")
         }) {
-            // Item 1
-            Div(attrs = {
-                classes("hidden", "duration-700", "ease-in-out")
-                attr("data-carousel-item", "")
-            }) {
-                Span(attrs = {
-                    classes(
-                        "absolute",
-                        "text-2xl",
-                        "font-semibold",
-                        "text-white",
-                        "-translate-x-1/2",
-                        "-translate-y-1/2",
-                        "top-1/2",
-                        "left-1/2",
-                        "sm:text-3xl",
-                        "dark:text-gray-800"
-                    )
+            banners.menu?.items?.forEachIndexed { index, item ->
+                // Item 1
+                Div(attrs = {
+                    classes("hidden", "duration-700", "ease-in-out")
+                    attr("data-carousel-item", "")
                 }) {
-                    Text("First Slide")
+                    Span(attrs = {
+                        classes(
+                            "absolute",
+                            "text-2xl",
+                            "font-semibold",
+                            "text-white",
+                            "-translate-x-1/2",
+                            "-translate-y-1/2",
+                            "top-1/2",
+                            "left-1/2",
+                            "sm:text-3xl",
+                            "dark:text-gray-800"
+                        )
+                    }) {
+                        Text(item.menuItemWithChildrenFragment.name)
+                    }
+                    Img(
+                        attrs = {
+                            classes(
+                                "absolute",
+                                "block",
+                                "w-full",
+                                "-translate-x-1/2",
+                                "-translate-y-1/2",
+                                "top-1/2",
+                                "left-1/2"
+                            )
+                        },
+                        src = item.menuItemWithChildrenFragment.collection?.backgroundImage?.url
+                            ?.replace(
+                                "http://localhost:8000",
+                                "https://musafirtd.sgp1.cdn.digitaloceanspaces.com"
+                            ) ?: "",
+                        alt = item.menuItemWithChildrenFragment.collection?.backgroundImage?.url
+                            ?: ""
+                    )
                 }
-                Img(attrs = {
-                    classes(
-                        "absolute",
-                        "block",
-                        "w-full",
-                        "-translate-x-1/2",
-                        "-translate-y-1/2",
-                        "top-1/2",
-                        "left-1/2"
-                    )
-                }, src = "https://flowbite.com/docs/images/carousel/carousel-1.svg", alt = "...")
             }
+
             // Item 2
-            Div(attrs = {
-                classes("hidden", "duration-700", "ease-in-out")
-                attr("data-carousel-item", "")
-            }) {
-                Img(attrs = {
-                    classes(
-                        "absolute",
-                        "block",
-                        "w-full",
-                        "-translate-x-1/2",
-                        "-translate-y-1/2",
-                        "top-1/2",
-                        "left-1/2"
-                    )
-                }, src = "https://flowbite.com/docs/images/carousel/carousel-2.svg", alt = "...")
-            }
+            /* Div(attrs = {
+                 classes("hidden", "duration-700", "ease-in-out")
+                 attr("data-carousel-item", "")
+             }) {
+                 Img(attrs = {
+                     classes(
+                         "absolute",
+                         "block",
+                         "w-full",
+                         "-translate-x-1/2",
+                         "-translate-y-1/2",
+                         "top-1/2",
+                         "left-1/2"
+                     )
+                 }, src = "https://flowbite.com/docs/images/carousel/carousel-2.svg", alt = "...")
+             }*/
+
             // Item 3
-            Div(attrs = {
+            /*Div(attrs = {
                 classes("hidden", "duration-700", "ease-in-out")
                 attr("data-carousel-item", "")
             }) {
@@ -85,12 +99,20 @@ fun Carousal() {
                     )
                 }, src = "https://flowbite.com/docs/images/carousel/carousel-3.svg", alt = "...")
 
-            }
+            }*/
 
         }
         // Slider indicators
         Div(attrs = {
-            classes("absolute", "z-30", "flex", "space-x-3", "-translate-x-1/2", "bottom-5", "left-1/2")
+            classes(
+                "absolute",
+                "z-30",
+                "flex",
+                "space-x-3",
+                "-translate-x-1/2",
+                "bottom-5",
+                "left-1/2"
+            )
         }) {
             Button(attrs = {
                 attr("type", "button")

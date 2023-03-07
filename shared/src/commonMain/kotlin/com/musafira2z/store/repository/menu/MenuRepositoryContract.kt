@@ -1,6 +1,7 @@
 package com.musafira2z.store.repository.menu
 
 import com.copperleaf.ballast.repository.cache.Cached
+import com.musafira2z.store.HomeBannerMenuQuery
 import com.musafira2z.store.HomeMenuQuery
 
 object MenuRepositoryContract {
@@ -9,6 +10,7 @@ object MenuRepositoryContract {
 
         val dataListInitialized: Boolean = false,
         val dataList: Cached<HomeMenuQuery.Data> = Cached.NotLoaded(),
+        val homeBanner: Cached<HomeBannerMenuQuery.Data> = Cached.NotLoaded()
     )
 
     sealed class Inputs {
@@ -18,5 +20,8 @@ object MenuRepositoryContract {
 
         data class RefreshDataList(val forceRefresh: Boolean) : Inputs()
         data class DataListUpdated(val dataList: Cached<HomeMenuQuery.Data>) : Inputs()
+
+        data class GetHomeBanner(val forceRefresh: Boolean) : Inputs()
+        data class UpdateHomeBanner(val homeBanner: Cached<HomeBannerMenuQuery.Data>): Inputs()
     }
 }

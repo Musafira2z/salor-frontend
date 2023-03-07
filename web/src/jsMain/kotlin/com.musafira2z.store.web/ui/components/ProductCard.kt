@@ -61,7 +61,7 @@ fun Product(
 
         Div {
             Div(attrs = {
-                classes("flex", "justify-center")
+                classes("flex", "justify-center", "w-full", "aspect-square")
             }) {
                 val image = productNode.thumbnail?.imageFragment?.url?.replace(
                     "http://localhost:8000",
@@ -70,7 +70,7 @@ fun Product(
                 Img(
                     src = image
                         ?: "",
-                    alt = ""
+                    alt = "",
                 )
             }
             H1(attrs = {

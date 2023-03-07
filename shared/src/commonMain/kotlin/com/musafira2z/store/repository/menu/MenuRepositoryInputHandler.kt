@@ -8,6 +8,7 @@ import com.copperleaf.ballast.postInput
 import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.bus.observeInputsFromBus
 import com.copperleaf.ballast.repository.cache.fetchWithCache
+import com.musafira2z.store.HomeBannerMenuQuery
 import com.musafira2z.store.HomeMenuQuery
 import com.musafira2z.store.defaultChannel
 import com.musafira2z.store.type.LanguageCodeEnum
@@ -74,6 +75,25 @@ class MenuRepositoryInputHandler(
                     ).execute().data!!
                 },
             )
+        }
+        is MenuRepositoryContract.Inputs.GetHomeBanner -> {
+            fetchWithCache(
+                input = input,
+                forceRefresh = input.forceRefresh,
+                getValue = { it.homeBanner },
+                updateState = { MenuRepositoryContract.Inputs.UpdateHomeBanner(it) },
+                doFetch = {
+                    apolloClient.query(
+                        HomeBannerMenuQuery(
+                            locale = LanguageCodeEnum.EN_US,
+                            channel = defaultChannel
+                        )
+                    ).execute().data!!
+                },
+            )
+        }
+        is MenuRepositoryContract.Inputs.UpdateHomeBanner -> {
+            updateState { it.copy(homeBanner = input.homeBanner) }
         }
     }
 }

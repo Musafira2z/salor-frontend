@@ -27,6 +27,7 @@ class HomeInputHandler(
             postInput(HomeContract.Inputs.FetchHomeBlocks(true))
             postInput(HomeContract.Inputs.FetchHomeProducts(true))
             postInput(HomeContract.Inputs.FetchCarts(true))
+            postInput(HomeContract.Inputs.FetchBanners(true))
         }
         is HomeContract.Inputs.GoBack -> {
             postEvent(HomeContract.Events.NavigateUp)
@@ -63,6 +64,17 @@ class HomeInputHandler(
         }
         is HomeContract.Inputs.UpdateCarts -> {
             updateState { it.copy(carts = input.carts) }
+        }
+        is HomeContract.Inputs.FetchBanners -> {
+            observeFlows("FetchBanners") {
+                listOf(
+                    menuRepository.getHomeBanner(input.forceRefresh)
+                        .map { HomeContract.Inputs.UpdateBanners(it) }
+                )
+            }
+        }
+        is HomeContract.Inputs.UpdateBanners -> {
+            updateState { it.copy(banners = input.banners) }
         }
     }
 }

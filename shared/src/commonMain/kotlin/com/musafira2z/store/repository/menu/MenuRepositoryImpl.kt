@@ -5,7 +5,7 @@ import com.copperleaf.ballast.build
 import com.copperleaf.ballast.repository.BallastRepository
 import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.cache.Cached
-import com.copperleaf.ballast.repository.withRepository
+import com.musafira2z.store.HomeBannerMenuQuery
 import com.musafira2z.store.HomeMenuQuery
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -31,5 +31,10 @@ class MenuRepositoryImpl(
         trySend(MenuRepositoryContract.Inputs.RefreshDataList(refreshCache))
         return observeStates()
             .map { it.dataList }
+    }
+
+    override fun getHomeBanner(refreshCache: Boolean): Flow<Cached<HomeBannerMenuQuery.Data>> {
+        trySend(MenuRepositoryContract.Inputs.GetHomeBanner(refreshCache))
+        return observeStates().map { it.homeBanner }
     }
 }

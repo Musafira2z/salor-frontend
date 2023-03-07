@@ -53,8 +53,10 @@ fun HomePageContent(
         }
     }
 
+    uiState.banners.getCachedOrNull()?.let {
+        Carousal(banners = it)
+    }
     //carousal
-    Carousal()
     Div(attrs = {
         toClasses("container mx-auto")
     }) {
