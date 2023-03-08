@@ -11,6 +11,9 @@ import com.copperleaf.ballast.navigation.routing.fromEnum
 import com.copperleaf.ballast.navigation.vm.withRouter
 import com.copperleaf.ballast.repository.bus.EventBusImpl
 import com.copperleaf.ballast.repository.withRepository
+import com.musafira2z.store.repository.auth.AuthRepositoryContract
+import com.musafira2z.store.repository.auth.AuthRepositoryImpl
+import com.musafira2z.store.repository.auth.AuthRepositoryInputHandler
 import com.musafira2z.store.repository.cart.CartRepositoryContract
 import com.musafira2z.store.repository.cart.CartRepositoryImpl
 import com.musafira2z.store.repository.cart.CartRepositoryInputHandler
@@ -25,12 +28,12 @@ import com.musafira2z.store.ui.app.AppEventHandler
 import com.musafira2z.store.ui.app.AppInputHandler
 import com.musafira2z.store.ui.app.AppViewModel
 import com.musafira2z.store.ui.category.CategoryContract
-import com.musafira2z.store.web.ui.category.CategoryEventHandler
 import com.musafira2z.store.ui.category.CategoryInputHandler
-import com.musafira2z.store.web.ui.category.CategoryViewModel
 import com.musafira2z.store.ui.home.HomeContract
-import com.musafira2z.store.web.ui.home.HomeEventHandler
 import com.musafira2z.store.ui.home.HomeInputHandler
+import com.musafira2z.store.web.ui.category.CategoryEventHandler
+import com.musafira2z.store.web.ui.category.CategoryViewModel
+import com.musafira2z.store.web.ui.home.HomeEventHandler
 import com.musafira2z.store.web.ui.home.HomeViewModel
 import com.musafira2z.store.web.ui.router.WebPage
 import com.musafira2z.store.web.ui.router.WebPagerRouter
@@ -117,6 +120,24 @@ class ComposeWebInjector(
         )
     }
 
+    private val authRepository by lazy {
+        AuthRepositoryImpl(
+            coroutineScope = applicationScope,
+            eventBus = eventBus,
+            configBuilder = commonBuilder()
+                .withViewModel(
+                    inputHandler = AuthRepositoryInputHandler(
+                        eventBus = eventBus,
+                        apolloClient = get(),
+                        settingsRepository = get()
+                    ),
+                    initialState = AuthRepositoryContract.State(),
+                    name = "Auth Repository",
+                )
+                .withRepository(),
+        )
+    }
+
     fun appViewModel(coroutineScope: CoroutineScope): AppViewModel {
         return AppViewModel(
             coroutineScope = coroutineScope,
@@ -124,7 +145,9 @@ class ComposeWebInjector(
                 initialState = AppContract.State(),
                 inputHandler = AppInputHandler(
                     cartRepository = cartRepository,
-                    menuRepository = menuRepository
+                    menuRepository = menuRepository,
+                    authRepository = authRepository,
+                    settingsRepository = get()
                 ),
                 name = "AppScreen"
             ),

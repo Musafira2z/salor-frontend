@@ -64,26 +64,29 @@ class CartRepositoryInputHandler(
         }
         is CartRepositoryContract.Inputs.RefreshDataList -> {
             updateState { it.copy(dataListInitialized = true) }
-            fetchWithCache(
-                input = input,
-                forceRefresh = input.forceRefresh,
-                getValue = { it.dataList },
-                updateState = { CartRepositoryContract.Inputs.DataListUpdated(it) },
-                doFetch = {
-                    apolloClient.query(
-                        CheckoutByTokenQuery(
-                            checkoutToken = "",
-                            locale = LanguageCodeEnum.EN
-                        )
-                    ).execute().let {
-                        if (it.data == null || it.hasErrors()) {
-                            throw Exception(it.errors?.first()?.message)
-                        } else {
-                            it.data?.checkout?.checkoutDetailsFragment!!
+            settingsRepository.checkoutToken?.let { _checkoutToken ->
+                fetchWithCache(
+                    input = input,
+                    forceRefresh = input.forceRefresh,
+                    getValue = { it.dataList },
+                    updateState = { CartRepositoryContract.Inputs.DataListUpdated(it) },
+                    doFetch = {
+                        apolloClient.query(
+                            CheckoutByTokenQuery(
+                                checkoutToken = _checkoutToken,
+                                locale = LanguageCodeEnum.EN
+                            )
+                        ).execute().let {
+                            if (it.data == null || it.hasErrors()) {
+                                throw Exception(it.errors?.first()?.message)
+                            } else {
+                                it.data?.checkout?.checkoutDetailsFragment!!
+                            }
                         }
-                    }
-                },
-            )
+                    },
+                )
+            }
+            Unit
         }
         is CartRepositoryContract.Inputs.AddItem -> {
             sideJob("AddItem") {
