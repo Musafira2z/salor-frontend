@@ -24,10 +24,14 @@ import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.ui.app.AppEventHandler
 import com.musafira2z.store.ui.app.AppInputHandler
 import com.musafira2z.store.ui.app.AppViewModel
+import com.musafira2z.store.ui.category.CategoryContract
+import com.musafira2z.store.web.ui.category.CategoryEventHandler
+import com.musafira2z.store.ui.category.CategoryInputHandler
+import com.musafira2z.store.web.ui.category.CategoryViewModel
 import com.musafira2z.store.ui.home.HomeContract
-import com.musafira2z.store.ui.home.HomeEventHandler
+import com.musafira2z.store.web.ui.home.HomeEventHandler
 import com.musafira2z.store.ui.home.HomeInputHandler
-import com.musafira2z.store.ui.home.HomeViewModel
+import com.musafira2z.store.web.ui.home.HomeViewModel
 import com.musafira2z.store.web.ui.router.WebPage
 import com.musafira2z.store.web.ui.router.WebPagerRouter
 import io.ktor.client.engine.js.*
@@ -119,7 +123,8 @@ class ComposeWebInjector(
             configBuilder = commonBuilder().withViewModel(
                 initialState = AppContract.State(),
                 inputHandler = AppInputHandler(
-                    cartRepository = cartRepository
+                    cartRepository = cartRepository,
+                    menuRepository = menuRepository
                 ),
                 name = "AppScreen"
             ),
@@ -140,7 +145,22 @@ class ComposeWebInjector(
                     ),
                     name = "HomeScreen"
                 ),
-            eventHandler = HomeEventHandler()
+            eventHandler = HomeEventHandler(router = router)
+        )
+    }
+
+    fun categoryViewModel(coroutineScope: CoroutineScope): CategoryViewModel {
+        return CategoryViewModel(
+            coroutineScope = coroutineScope,
+            configBuilder = commonBuilder()
+                .withViewModel(
+                    initialState = CategoryContract.State(),
+                    inputHandler = CategoryInputHandler(
+                        menuRepository = menuRepository
+                    ),
+                    name = "CategoryScreen"
+                ),
+            categoryEventHandler = CategoryEventHandler(router = router)
         )
     }
 

@@ -5,10 +5,12 @@ import com.copperleaf.ballast.InputHandlerScope
 import com.copperleaf.ballast.observeFlows
 import com.copperleaf.ballast.postInput
 import com.musafira2z.store.repository.cart.CartRepository
+import com.musafira2z.store.repository.menu.MenuRepository
 import kotlinx.coroutines.flow.map
 
 class AppInputHandler(
-    private val cartRepository: CartRepository
+    private val cartRepository: CartRepository,
+    private val menuRepository: MenuRepository
 ) : InputHandler<
         AppContract.Inputs,
         AppContract.Events,
@@ -21,6 +23,7 @@ class AppInputHandler(
     ) = when (input) {
         is AppContract.Inputs.Initialize -> {
             postInput(AppContract.Inputs.FetchCarts(true))
+            postInput(AppContract.Inputs.FetchCategories(true))
         }
         is AppContract.Inputs.GoBack -> {
             postEvent(AppContract.Events.NavigateUp)
@@ -35,6 +38,17 @@ class AppInputHandler(
         }
         is AppContract.Inputs.UpdateCarts -> {
             updateState { it.copy(carts = input.carts) }
+        }
+        is AppContract.Inputs.FetchCategories -> {
+            observeFlows("FetchCategories") {
+                listOf(
+                    menuRepository.getAllCategories(input.forceRefresh)
+                        .map { AppContract.Inputs.UpdateCategories(it) }
+                )
+            }
+        }
+        is AppContract.Inputs.UpdateCategories -> {
+            updateState { it.copy(categories = input.categories) }
         }
     }
 }

@@ -9,6 +9,7 @@ enum class WebPage(
     override val annotations: Set<RouteAnnotation> = emptySet(),
 ) : Route {
     HomePage("/"),
+    Category("/category/{slug}"),
     ;
 
     override val matcher: RouteMatcher = RouteMatcher.create(routeFormat)

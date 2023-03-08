@@ -5,11 +5,7 @@ import com.copperleaf.ballast.repository.cache.Cached
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.copperleaf.ballast.repository.cache.isLoading
 import com.musafira2z.store.ui.home.HomeContract
-import com.musafira2z.store.ui.home.HomeViewModel
-import com.musafira2z.store.web.ui.components.Carousal
-import com.musafira2z.store.web.ui.components.Products
-import com.musafira2z.store.web.ui.components.SearchBox
-import com.musafira2z.store.web.ui.components.Spinner
+import com.musafira2z.store.web.ui.components.*
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.utils.toClasses
 import kotlinx.browser.document
@@ -73,6 +69,35 @@ fun HomePageContent(
             Spinner()
         }
 
+        uiState.blocks.getCachedOrNull()?.let {
+            it.menu?.items?.forEachIndexed { index, item ->
+                Div(attrs = {
+                    toClasses("text-start")
+                }) {
+                    H1(attrs = {
+                        classes("font-bold", "pt-5", "text-xl")
+                    }) {
+                        Text(item.menuItemWithChildrenFragmentProducts.name)
+                    }
+                }
+
+                Div(attrs = {
+                    classes("py-10")
+                }) {
+                    Div(attrs = {
+                        toClasses("grid grid-cols-12 gap-5")
+                    }) {
+                        item.menuItemWithChildrenFragmentProducts.category?.products?.edges?.forEach { _product ->
+                            _product.node.productDetailsFragment.variants?.forEach {
+                                Product(product = _product, variant = it)
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
         Div(attrs = {
             toClasses("text-start")
         }) {
@@ -80,9 +105,6 @@ fun HomePageContent(
                 classes("font-bold", "pt-5", "text-xl")
             }) {
                 Text("Popular Product")
-                uiState.blocks.getCachedOrNull()?.let {
-                    Text("${it.menu?.items?.size}")
-                }
             }
             Div(attrs = {
                 classes("lg:hidden")
@@ -90,6 +112,7 @@ fun HomePageContent(
                 SearchBox()
             }
         }
+
         val products = uiState.products.getCachedOrNull()
         products?.let {
             Products(it)

@@ -5,6 +5,7 @@ import com.copperleaf.ballast.build
 import com.copperleaf.ballast.repository.BallastRepository
 import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.cache.Cached
+import com.musafira2z.store.CollectionBySlugQuery
 import com.musafira2z.store.ProductCollectionQuery
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -31,5 +32,13 @@ class ProductRepositoryImpl(
         trySend(ProductRepositoryContract.Inputs.RefreshDataList(refreshCache))
         return observeStates()
             .map { it.products }
+    }
+
+    override fun getProductsByCategory(
+        refreshCache: Boolean,
+        slug: String
+    ): Flow<Cached<CollectionBySlugQuery.Data>> {
+        trySend(ProductRepositoryContract.Inputs.GetProductByCategory(forceRefresh = refreshCache, slug = slug))
+        return observeStates().map { it.productsByCategory }
     }
 }

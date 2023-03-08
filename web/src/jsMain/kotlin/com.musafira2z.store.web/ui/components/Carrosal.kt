@@ -63,6 +63,50 @@ fun Carousal(banners: HomeBannerMenuQuery.Data) {
                     )
                 }
             }
+            banners.menu?.items?.forEachIndexed { index, item ->
+                // Item 1
+                Div(attrs = {
+                    classes("hidden", "duration-700", "ease-in-out")
+                    attr("data-carousel-item", "")
+                }) {
+                    Span(attrs = {
+                        classes(
+                            "absolute",
+                            "text-2xl",
+                            "font-semibold",
+                            "text-white",
+                            "-translate-x-1/2",
+                            "-translate-y-1/2",
+                            "top-1/2",
+                            "left-1/2",
+                            "sm:text-3xl",
+                            "dark:text-gray-800"
+                        )
+                    }) {
+                        Text(item.menuItemWithChildrenFragment.name)
+                    }
+                    Img(
+                        attrs = {
+                            classes(
+                                "absolute",
+                                "block",
+                                "w-full",
+                                "-translate-x-1/2",
+                                "-translate-y-1/2",
+                                "top-1/2",
+                                "left-1/2"
+                            )
+                        },
+                        src = item.menuItemWithChildrenFragment.collection?.backgroundImage?.url
+                            ?.replace(
+                                "http://localhost:8000",
+                                "https://musafirtd.sgp1.cdn.digitaloceanspaces.com"
+                            ) ?: "",
+                        alt = item.menuItemWithChildrenFragment.collection?.backgroundImage?.url
+                            ?: ""
+                    )
+                }
+            }
 
             // Item 2
             /* Div(attrs = {
@@ -114,28 +158,22 @@ fun Carousal(banners: HomeBannerMenuQuery.Data) {
                 "left-1/2"
             )
         }) {
-            Button(attrs = {
-                attr("type", "button")
-                classes("w-3", "h-3", "rounded-full")
-                attr("aria-current", "false")
-                attr("aria-label", "Slide 1")
-                attr("data-carousel-slide-to", "0")
-            }) {}
-            Button(attrs = {
-                attr("type", "button")
-                classes("w-3", "h-3", "rounded-full")
-                attr("aria-current", "false")
-                attr("aria-label", "Slide 2")
-                attr("data-carousel-slide-to", "1")
-            }) {}
-            Button(attrs = {
-                attr("type", "button")
-                classes("w-3", "h-3", "rounded-full")
-                attr("aria-current", "false")
-                attr("aria-label", "Slide 3")
-                attr("data-carousel-slide-to", "2")
-            }) {}
-
+            banners.menu?.items?.forEachIndexed { index, item ->
+                Button(attrs = {
+                    attr("type", "button")
+                    classes("w-3", "h-3", "rounded-full")
+                    attr("aria-current", "false")
+                    attr("aria-label", "Slide 1")
+                    attr("data-carousel-slide-to", "0")
+                }) {}
+                Button(attrs = {
+                    attr("type", "button")
+                    classes("w-3", "h-3", "rounded-full")
+                    attr("aria-current", "false")
+                    attr("aria-label", "Slide 1")
+                    attr("data-carousel-slide-to", "1")
+                }) {}
+            }
         }
         // Slider controls
         Button(attrs = {
