@@ -6,6 +6,7 @@ import com.copperleaf.ballast.observeFlows
 import com.copperleaf.ballast.postInput
 import com.musafira2z.store.repository.auth.AuthRepository
 import com.musafira2z.store.repository.cart.CartRepository
+import com.musafira2z.store.repository.cart.CartRepositoryContract
 import com.musafira2z.store.repository.menu.MenuRepository
 import com.musafira2z.store.repository.settings.SettingsRepository
 import com.musafira2z.store.utils.ResponseResource
@@ -29,6 +30,7 @@ class AppInputHandler(
         is AppContract.Inputs.Initialize -> {
             postInput(AppContract.Inputs.FetchCarts(true))
             postInput(AppContract.Inputs.FetchCategories(true))
+            postInput(AppContract.Inputs.FetchLoginStatus)
         }
         is AppContract.Inputs.GoBack -> {
             postEvent(AppContract.Events.NavigateUp)
@@ -93,6 +95,12 @@ class AppInputHandler(
         }
         is AppContract.Inputs.UpdateLoginStatus -> {
             updateState { it.copy(isLoggedIn = input.isLoggedIn) }
+        }
+        is AppContract.Inputs.Decrement -> {
+            cartRepository.postInput(CartRepositoryContract.Inputs.Decrement(input.lineId))
+        }
+        is AppContract.Inputs.Increment -> {
+            cartRepository.postInput(CartRepositoryContract.Inputs.Increment(input.lineId))
         }
     }
 }

@@ -30,6 +30,8 @@ object HomeContract {
 
         data class FetchBanners(val forceRefresh: Boolean) : Inputs()
         data class UpdateBanners(val banners: Cached<HomeBannerMenuQuery.Data>) : Inputs()
+
+        data class AddToCart(val variantId: String) : Inputs()
     }
 
     sealed class Events {

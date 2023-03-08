@@ -53,7 +53,9 @@ fun CategoryContent(
 
         if (it.children.isNullOrEmpty()) {
             uiState.products.getCachedOrNull()?.let {
-                Products(products = it)
+                Products(products = it){
+
+                }
             }
         } else {
             Div(attrs = {

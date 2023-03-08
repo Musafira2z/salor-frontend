@@ -6,7 +6,10 @@ import com.musafira2z.store.web.ui.utils.toClasses
 import org.jetbrains.compose.web.dom.Div
 
 @Composable
-fun Products(products: ProductCollectionQuery.Data) {
+fun Products(
+    products: ProductCollectionQuery.Data,
+    onAdd: (String) -> Unit
+) {
     Div(attrs = {
         classes("py-10")
     }) {
@@ -15,7 +18,9 @@ fun Products(products: ProductCollectionQuery.Data) {
         }) {
             products.products?.edges?.forEach { _product ->
                 _product.node.productDetailsFragment.variants?.forEach {
-                    Product(product = _product, variant = it)
+                    Product(product = _product, variant = it) {
+                        onAdd(it)
+                    }
                 }
             }
         }

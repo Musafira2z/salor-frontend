@@ -13,7 +13,8 @@ import org.jetbrains.compose.web.dom.*
 @Composable
 fun Product(
     product: ProductCollectionQuery.Edge,
-    variant: ProductDetailsFragment.Variant
+    variant: ProductDetailsFragment.Variant,
+    onAdd: (String) -> Unit
 ) {
     val productNode = product.node.productDetailsFragment
     Div(attrs = {
@@ -112,14 +113,18 @@ fun Product(
                 }
             }
             Div {
-                AddToCartButton()
+                AddToCartButton() {
+                    onAdd(variant.productVariantDetailsFragment.id)
+                }
             }
         }
     }
 }
 
 @Composable
-fun AddToCartButton() {
+fun AddToCartButton(
+    onAdd: () -> Unit
+) {
     Button(attrs = {
         classes(
             "border-2",
@@ -135,6 +140,9 @@ fun AddToCartButton() {
             "py-3",
             "px-6"
         )
+        onClick {
+            onAdd()
+        }
     }) {
         Text("Add to Cart")
     }
@@ -144,7 +152,8 @@ fun AddToCartButton() {
 @Composable
 fun Product(
     product: MenuItemWithChildrenFragmentProducts.Edge,
-    variant: ProductDetailsFragment.Variant
+    variant: ProductDetailsFragment.Variant,
+    onAdd: (String) -> Unit
 ) {
     val productNode = product.node.productDetailsFragment
     Div(attrs = {
@@ -243,7 +252,9 @@ fun Product(
                 }
             }
             Div {
-                AddToCartButton()
+                AddToCartButton() {
+                    onAdd(variant.productVariantDetailsFragment.id)
+                }
             }
         }
     }

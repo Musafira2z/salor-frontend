@@ -13,6 +13,9 @@ import com.musafira2z.store.web.ui.utils.toClasses
 
 @Composable
 fun CartSummary(
+    subTotal: String,
+    discount: String,
+    total: String,
     content: @Composable () -> Unit
 ) {
     Div(attrs = {
@@ -38,12 +41,19 @@ fun CartSummary(
                     toClasses("col-span-1 flex  items-center  font-bold")
                 }) {
                     TbCurrencyTaka()
-                    Text("500")
+                    Text(subTotal)
                 }
             }
 
             Div(attrs = {
-                classes("grid", "grid-cols-6", "text-red-500", "hover:bg-green-200", "p-1", "rounded-md")
+                classes(
+                    "grid",
+                    "grid-cols-6",
+                    "text-red-500",
+                    "hover:bg-green-200",
+                    "p-1",
+                    "rounded-md"
+                )
             }) {
                 P(attrs = {
                     classes("col-span-4", "text-left")
@@ -61,35 +71,19 @@ fun CartSummary(
                     Text(" -")
                     TbCurrencyTaka()
                     P {
-                        Text("500")
+                        Text(discount)
                     }
                 }
             }
             Div(attrs = {
-                classes("grid", "grid-cols-6", "text-red-500", "hover:bg-green-200", "p-1", "rounded-md")
-            }) {
-                P(attrs = {
-                    classes("col-span-4", "text-left")
-                }) {
-                    Text("Added from wallet")
-                }
-                Span(attrs = {
-                    classes("col-span-1", "text-left")
-                }) {
-                    Text(":")
-                }
-                Span(attrs = {
-                    classes("flex", "items-center", "font-bold")
-                }) {
-                    Text(" -")
-                    TbCurrencyTaka()
-                    P {
-                        Text(" 500")
-                    }
-                }
-            }
-            Div(attrs = {
-                classes("grid", "grid-cols-6", "text-green-500", "hover:bg-green-200", "p-1", "rounded-md")
+                classes(
+                    "grid",
+                    "grid-cols-6",
+                    "text-green-500",
+                    "hover:bg-green-200",
+                    "p-1",
+                    "rounded-md"
+                )
             }) {
                 P(attrs = {
                     classes("col-span-4", "text-left")
@@ -106,7 +100,7 @@ fun CartSummary(
                 }) {
                     TbCurrencyTaka()
                     P {
-                        Text("500")
+                        Text(total)
                     }
                 }
             }

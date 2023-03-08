@@ -1,12 +1,17 @@
 package com.musafira2z.store.web.ui.components
 
 import androidx.compose.runtime.Composable
+import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import org.jetbrains.compose.web.dom.*
 import com.musafira2z.store.web.ui.utils.toClasses
 
 @Composable
 fun CartBody(
-    onClose: () -> Unit, content: @Composable () -> Unit
+    cart: CheckoutDetailsFragment,
+    onClose: () -> Unit,
+    onIncrement: (String) -> Unit,
+    onDecrement: (String) -> Unit,
+    content: @Composable () -> Unit
 ) {
     Div(attrs = {
         toClasses("flex flex-col justify-end h-full overflow-hidden px-3")
@@ -23,11 +28,11 @@ fun CartBody(
                         attr("height", "24")
                     })
                     H4(attrs = { classes("ml-2", "font-bold") }) {
-                        Text("3 Items")
+                        Text("${cart.lines.size} Items")
                     }
                 }
                 Button(attrs = {
-                    classes(*"bg-red-500 text-slate-50 rounded-lg text-6xl".split(" ").toTypedArray())
+                    toClasses("bg-red-500 text-slate-50 rounded-lg text-6xl")
                     onClick {
                         onClose()
                     }
@@ -40,14 +45,29 @@ fun CartBody(
             }
 
             Div(attrs = { classes("h-140", "overflow-auto") }) {
-                repeat(5) {
-                    CartItem()
+                cart.lines.forEach { line ->
+                    CartItem(
+                        line = line,
+                        onIncrement = {
+                            onIncrement(line.checkoutLineDetailsFragment.id)
+                        },
+                        onDecrement = {
+                            onDecrement(line.checkoutLineDetailsFragment.id)
+                        },
+                        onAdjust = {
+
+                        }
+                    )
                 }
             }
             Hr(attrs = { classes("h-4", "mt-5") })
         }
         Div(attrs = { classes("pb-6") }) {
-            CartSummary {
+            CartSummary(
+                subTotal = cart.subtotalPrice.net.priceFragment.amount.toString(),
+                discount = cart.discount?.priceFragment?.amount?.toString() ?: "",
+                total = cart.totalPrice.gross.priceFragment.amount.toString()
+            ) {
                 Div(attrs = {
                     toClasses("grid grid-cols-6 text-slate-50 font-bold mt-2 bg-green-500 hover:bg-green-600 p-1 rounded-md")
                 }) {

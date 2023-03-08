@@ -5,6 +5,7 @@ import com.copperleaf.ballast.InputHandlerScope
 import com.copperleaf.ballast.observeFlows
 import com.copperleaf.ballast.postInput
 import com.musafira2z.store.repository.cart.CartRepository
+import com.musafira2z.store.repository.cart.CartRepositoryContract
 import com.musafira2z.store.repository.menu.MenuRepository
 import com.musafira2z.store.repository.product.ProductRepository
 import kotlinx.coroutines.flow.map
@@ -75,6 +76,9 @@ class HomeInputHandler(
         }
         is HomeContract.Inputs.UpdateBanners -> {
             updateState { it.copy(banners = input.banners) }
+        }
+        is HomeContract.Inputs.AddToCart -> {
+            cartRepository.postInput(CartRepositoryContract.Inputs.AddItem(variantId = input.variantId))
         }
     }
 }

@@ -1,10 +1,19 @@
 package com.musafira2z.store.web.ui.components
 
 import androidx.compose.runtime.Composable
+import com.musafira2z.store.fragment.CheckoutDetailsFragment
+import com.musafira2z.store.web.ui.utils.toFormatPrice
+import com.musafira2z.store.web.ui.utils.toUnDiscountFormatPrice
+import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.dom.*
 
 @Composable
-fun CartItem() {
+fun CartItem(
+    line: CheckoutDetailsFragment.Line,
+    onIncrement: () -> Unit,
+    onDecrement: () -> Unit,
+    onAdjust: (Int) -> Unit
+) {
     Div(attrs = {
         classes("py-2", "bg-white")
     }) {
@@ -42,6 +51,9 @@ fun CartItem() {
                         "hover:bg-green-500",
                         "hover:text-white"
                     )
+                    onClick {
+                        onIncrement()
+                    }
                 }) {
                     Plus()
                 }
@@ -60,7 +72,7 @@ fun CartItem() {
                         "border-gray-900"
                     )
                 }) {
-                    Text(" 5 ")
+                    Text("${line.checkoutLineDetailsFragment.quantity}")
                 }
                 Button(attrs = {
                     attr("type", "button")
@@ -77,6 +89,9 @@ fun CartItem() {
                         "hover:bg-red-500",
                         "hover:text-white"
                     )
+                    onClick {
+                        onDecrement()
+                    }
                 }) {
                     Minus()
                 }
@@ -85,11 +100,18 @@ fun CartItem() {
             Div(attrs = {
                 classes("col-span-4")
             }) {
+
+                val image =
+                    line.checkoutLineDetailsFragment.variant.product.thumbnail?.imageFragment?.url?.replace(
+                        "http://localhost:8000",
+                        "https://musafirtd.sgp1.cdn.digitaloceanspaces.com"
+                    )
+
                 Img(
                     attrs = {
                         classes("w-auto")
                     },
-                    src = "https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/thumbnails/products/8941100513194.webp"
+                    src = image ?: ""
                 )
             }
             Div(attrs = {
@@ -98,16 +120,21 @@ fun CartItem() {
                 P(attrs = {
                     classes("text-sm", "font-bold")
                 }) {
-                    Text("Ruchi BBQ Chanachur 150gm Ruchi BBQ Chanachur 150gm ")
+                    Text(line.checkoutLineDetailsFragment.variant.product.name)
                 }
-                P(attrs = {
-                    classes("text-red-500", "font-bold")
-                }) {
-                    Text("৳100")
+                line.checkoutLineDetailsFragment.variant.pricing?.price?.gross?.priceFragment.toUnDiscountFormatPrice(
+                    line.checkoutLineDetailsFragment.variant.pricing?.price?.gross?.priceFragment?.amount
+                )?.let {
+                    P(attrs = {
+                        classes("text-red-500", "font-bold")
+                    }) {
+                        Text("৳${it}")
+                    }
                 }
-                P {
-                    Text("150gm")
-                }
+
+//                P {
+//                    Text(line.checkoutLineDetailsFragment.variant.name)
+//                }
             }
             Div(attrs = {
                 classes("col-span-1")
@@ -115,7 +142,7 @@ fun CartItem() {
                 P(attrs = {
                     classes("text-green-500")
                 }) {
-                    Text("৳43")
+                    Text("৳${line.checkoutLineDetailsFragment.variant.pricing?.price?.gross?.priceFragment?.toFormatPrice()}")
                 }
             }
             Div(attrs = {

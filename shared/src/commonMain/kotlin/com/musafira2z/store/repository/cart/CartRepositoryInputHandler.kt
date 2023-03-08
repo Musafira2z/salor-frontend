@@ -53,7 +53,7 @@ class CartRepositoryInputHandler(
             // then refresh all the caches in this repository
             val currentState = getCurrentState()
             if (currentState.dataListInitialized) {
-                postInput(CartRepositoryContract.Inputs.RefreshDataList(true))
+                postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
             }
 
             Unit
@@ -62,7 +62,7 @@ class CartRepositoryInputHandler(
         is CartRepositoryContract.Inputs.DataListUpdated -> {
             updateState { it.copy(dataList = input.dataList) }
         }
-        is CartRepositoryContract.Inputs.RefreshDataList -> {
+        is CartRepositoryContract.Inputs.RefreshCarts -> {
             updateState { it.copy(dataListInitialized = true) }
             settingsRepository.checkoutToken?.let { _checkoutToken ->
                 fetchWithCache(
@@ -89,25 +89,29 @@ class CartRepositoryInputHandler(
             Unit
         }
         is CartRepositoryContract.Inputs.AddItem -> {
-            sideJob("AddItem") {
-                try {
-                    apolloClient.mutation(
-                        CheckoutAddProductLineMutation(
-                            checkoutToken = input.token,
-                            variantId = input.variantId,
-                            locale = LanguageCodeEnum.EN
-                        )
-                    ).execute().let {
-                        if (it.data == null || it.hasErrors()) {
-                            throw Exception(it.errors?.first()?.message)
-                        } else {
-                            //fetch checkout by token
-                            postInput(CartRepositoryContract.Inputs.RefreshDataList(true))
+            if (settingsRepository.checkoutToken != null) {
+                sideJob("AddItem") {
+                    try {
+                        apolloClient.mutation(
+                            CheckoutAddProductLineMutation(
+                                checkoutToken = settingsRepository.checkoutToken!!,
+                                variantId = input.variantId,
+                                locale = LanguageCodeEnum.EN
+                            )
+                        ).execute().let {
+                            if (it.data == null || it.hasErrors()) {
+                                throw Exception(it.errors?.first()?.message)
+                            } else {
+                                //fetch checkout by token
+                                postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
+                            }
                         }
+                    } catch (e: Exception) {
+                        throw e
                     }
-                } catch (e: Exception) {
-                    throw e
                 }
+            } else {
+                postInput(CartRepositoryContract.Inputs.CreateCheckout(variantId = input.variantId))
             }
         }
         is CartRepositoryContract.Inputs.AddUserToCart -> {
@@ -123,7 +127,7 @@ class CartRepositoryInputHandler(
                         if (it.data == null || it.hasErrors()) {
                             throw Exception(it.errors?.first()?.message)
                         } else {
-                            postInput(CartRepositoryContract.Inputs.RefreshDataList(true))
+                            postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
                         }
                     }
                 } catch (connectionException: Exception) {
@@ -146,7 +150,7 @@ class CartRepositoryInputHandler(
                             if (it.data?.checkoutAddPromoCode?.checkout == null) {
                                 throw Exception(it.data?.checkoutAddPromoCode?.errors?.first()?.message)
                             }
-                            postInput(CartRepositoryContract.Inputs.RefreshDataList(true))
+                            postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
                         }
                     }
                 } catch (connectionException: Exception) {
@@ -198,7 +202,7 @@ class CartRepositoryInputHandler(
             sideJob("CreateCheckout") {
                 try {
                     val checkoutLineInput = CheckoutLineInput(
-                        quantity = input.qty, variantId = input.variantId
+                        quantity = 1, variantId = input.variantId
                     )
                     apolloClient.mutation(
                         CreateCheckoutMutation(
@@ -215,7 +219,7 @@ class CartRepositoryInputHandler(
                             //fetch checkout by token
                             val token = it.data?.checkoutCreate?.checkout?.token as String?
                             settingsRepository.saveCheckoutToken(token)
-                            postInput(CartRepositoryContract.Inputs.RefreshDataList(true))
+                            postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
                         }
                     }
                 } catch (e: Exception) {
@@ -236,7 +240,7 @@ class CartRepositoryInputHandler(
                         if (it.data == null || it.hasErrors()) {
                             throw Exception(it.errors?.first()?.message)
                         } else {
-                            postInput(CartRepositoryContract.Inputs.RefreshDataList(true))
+                            postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
                         }
                     }
                 } catch (connectionException: Exception) {
@@ -264,7 +268,7 @@ class CartRepositoryInputHandler(
                         if (it.data == null || it.hasErrors()) {
                             throw Exception(it.errors?.first()?.message)
                         } else {
-                            postInput(CartRepositoryContract.Inputs.RefreshDataList(true))
+                            postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
                         }
                     }
                 } catch (connectionException: Exception) {
@@ -284,7 +288,7 @@ class CartRepositoryInputHandler(
                         if (it.data == null || it.hasErrors()) {
                             throw Exception(it.errors?.first()?.message)
                         } else {
-                            postInput(CartRepositoryContract.Inputs.RefreshDataList(true))
+                            postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
                         }
                     }
                 } catch (connectionException: Exception) {
@@ -307,7 +311,7 @@ class CartRepositoryInputHandler(
                             if (it.data?.checkoutShippingMethodUpdate?.errors?.isNotEmpty() == true || it.data?.checkoutShippingMethodUpdate?.checkout == null) {
                                 throw Exception(it.data?.checkoutShippingMethodUpdate?.errors?.first()?.message)
                             }
-                            postInput(CartRepositoryContract.Inputs.RefreshDataList(true))
+                            postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
                         }
                     }
                 } catch (connectionException: Exception) {
@@ -317,6 +321,12 @@ class CartRepositoryInputHandler(
         }
         is CartRepositoryContract.Inputs.UpdateLastOrder -> {
             updateState { it.copy(lastOrder = input.lastOrder) }
+        }
+        is CartRepositoryContract.Inputs.Decrement -> {
+
+        }
+        is CartRepositoryContract.Inputs.Increment -> {
+
         }
     }
 }

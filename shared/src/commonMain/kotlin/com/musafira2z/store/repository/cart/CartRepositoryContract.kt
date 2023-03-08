@@ -19,18 +19,24 @@ object CartRepositoryContract {
         object Initialize : Inputs()
         object RefreshAllCaches : Inputs()
 
-        data class RefreshDataList(val forceRefresh: Boolean) : Inputs()
+        data class RefreshCarts(val forceRefresh: Boolean) : Inputs()
         data class DataListUpdated(val dataList: Cached<CheckoutDetailsFragment>) : Inputs()
 
         data class CreateCheckout(
             val variantId: String,
-            val qty: Int = 1,
             val email: String? = null
         ) : Inputs()
 
         data class AddItem(
-            val variantId: String,
-            val token: String
+            val variantId: String
+        ) : Inputs()
+
+        data class Increment(
+            val lineId: String
+        ) : Inputs()
+
+        data class Decrement(
+            val lineId: String
         ) : Inputs()
 
         data class AddUserToCart(
@@ -54,6 +60,7 @@ object CartRepositoryContract {
         data class SetBillingAddress(val address: AddressInput, val checkoutId: String) : Inputs()
         data class SetShippingMethod(val methodId: String, val token: String) : Inputs()
         data class Checkout(val token: String) : Inputs()
-        data class UpdateLastOrder(val lastOrder: CheckoutCompleteMutation.CheckoutComplete?) : Inputs()
+        data class UpdateLastOrder(val lastOrder: CheckoutCompleteMutation.CheckoutComplete?) :
+            Inputs()
     }
 }

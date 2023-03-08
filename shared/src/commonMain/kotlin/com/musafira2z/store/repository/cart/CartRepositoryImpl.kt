@@ -27,7 +27,7 @@ class CartRepositoryImpl(
 
     override fun getCarts(refreshCache: Boolean): Flow<Cached<CheckoutDetailsFragment>> {
         trySend(CartRepositoryContract.Inputs.Initialize)
-        trySend(CartRepositoryContract.Inputs.RefreshDataList(refreshCache))
+        trySend(CartRepositoryContract.Inputs.RefreshCarts(refreshCache))
         return observeStates()
             .map { it.dataList }
     }

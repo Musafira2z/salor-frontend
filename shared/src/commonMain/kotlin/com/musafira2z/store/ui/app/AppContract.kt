@@ -30,6 +30,9 @@ object AppContract {
 
         data class UpdateLoginStatus(val isLoggedIn: Boolean) : Inputs()
         object FetchLoginStatus : Inputs()
+
+        data class Increment(val lineId: String) : Inputs()
+        data class Decrement(val lineId: String) : Inputs()
     }
 
     sealed class Events {

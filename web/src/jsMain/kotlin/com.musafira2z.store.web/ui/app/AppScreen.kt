@@ -81,7 +81,9 @@ fun AppScreen() {
     //carts
     uiState.carts.getCachedOrNull()?.let { cart ->
         if (cart.lines.isNotEmpty()) {
-            CartBar(cart = cart)
+            CartBar(cart = cart) {
+                vm.trySend(it)
+            }
         }
     }
 }
@@ -181,7 +183,10 @@ fun SideBar(categories: Cached<MainMenuQuery.Data>, onCategoryClick: (String) ->
 }
 
 @Composable
-fun CartBar(cart: CheckoutDetailsFragment) {
+fun CartBar(
+    cart: CheckoutDetailsFragment,
+    postInput: (AppContract.Inputs) -> Unit
+) {
     var isOpen by remember { mutableStateOf(false) }
     Div {
         if (!isOpen) {
@@ -221,9 +226,18 @@ fun CartBar(cart: CheckoutDetailsFragment) {
         }
 
         Drawer(isOpen = isOpen) {
-            CartBody(onClose = {
-                isOpen = false
-            }) {
+            CartBody(
+                onClose = {
+                    isOpen = false
+                },
+                cart = cart,
+                onDecrement = {
+                    postInput(AppContract.Inputs.Decrement(it))
+                },
+                onIncrement = {
+                    postInput(AppContract.Inputs.Increment(it))
+                }
+            ) {
                 NavLink(to = "/checkout") {
                     Button {
                         Text("Checkout")
