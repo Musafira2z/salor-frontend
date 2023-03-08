@@ -156,7 +156,8 @@ class ComposeWebInjector(
                 .withViewModel(
                     initialState = CategoryContract.State(),
                     inputHandler = CategoryInputHandler(
-                        menuRepository = menuRepository
+                        menuRepository = menuRepository,
+                        productRepository = productRepository
                     ),
                     name = "CategoryScreen"
                 ),

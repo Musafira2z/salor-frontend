@@ -3,14 +3,13 @@ package com.musafira2z.store.web.ui.category
 import androidx.compose.runtime.*
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.musafira2z.store.ui.category.CategoryContract
-import com.musafira2z.store.web.ui.components.AddToCartButton
-import com.musafira2z.store.web.ui.components.Product
-import com.musafira2z.store.web.ui.components.SearchBox
+import com.musafira2z.store.web.ui.components.Products
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.utils.toClasses
-import com.musafira2z.store.web.ui.utils.toFormatPrice
-import com.musafira2z.store.web.ui.utils.toUnDiscountFormatPrice
-import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.dom.H1
+import org.jetbrains.compose.web.dom.Img
+import org.jetbrains.compose.web.dom.Text
 
 @Composable
 fun CategoryScreen(
@@ -53,7 +52,9 @@ fun CategoryContent(
         }
 
         if (it.children.isNullOrEmpty()) {
-
+            uiState.products.getCachedOrNull()?.let {
+                Products(products = it)
+            }
         } else {
             Div(attrs = {
                 classes("py-10")

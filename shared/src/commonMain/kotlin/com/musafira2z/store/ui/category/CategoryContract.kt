@@ -3,6 +3,7 @@ package com.musafira2z.store.ui.category
 import com.copperleaf.ballast.repository.cache.Cached
 import com.musafira2z.store.CollectionBySlugQuery
 import com.musafira2z.store.MainMenuQuery
+import com.musafira2z.store.ProductCollectionQuery
 import com.musafira2z.store.fragment.MenuItemWithChildrenFragment
 
 object CategoryContract {
@@ -11,7 +12,7 @@ object CategoryContract {
         val slug: String = "",
         val categories: Cached<MainMenuQuery.Data> = Cached.NotLoaded(),
         val category: MenuItemWithChildrenFragment? = null,
-        val products: Cached<CollectionBySlugQuery.Data> = Cached.NotLoaded()
+        val products: Cached<ProductCollectionQuery.Data> = Cached.NotLoaded()
     )
 
     sealed class Inputs {
@@ -21,8 +22,9 @@ object CategoryContract {
         data class UpdateCategories(val categories: Cached<MainMenuQuery.Data>) : Inputs()
         data class UpdateCategory(val category: MenuItemWithChildrenFragment?) : Inputs()
         data class GetProductByCategory(val slug: String, val forceRefresh: Boolean) : Inputs()
-        data class UpdateProductByCategory(val products: Cached<CollectionBySlugQuery.Data>) :
-            Inputs()
+        data class UpdateProductByCategory(
+            val products: Cached<ProductCollectionQuery.Data>
+        ) : Inputs()
     }
 
     sealed class Events {

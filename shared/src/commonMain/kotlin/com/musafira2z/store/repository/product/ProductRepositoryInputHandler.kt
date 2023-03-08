@@ -1,6 +1,7 @@
 package com.musafira2z.store.repository.product
 
 import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo3.api.Optional
 import com.copperleaf.ballast.InputHandler
 import com.copperleaf.ballast.InputHandlerScope
 import com.copperleaf.ballast.observeFlows
@@ -8,8 +9,6 @@ import com.copperleaf.ballast.postInput
 import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.bus.observeInputsFromBus
 import com.copperleaf.ballast.repository.cache.fetchWithCache
-import com.musafira2z.store.CollectionBySlugQuery
-import com.musafira2z.store.ProductBySlugQuery
 import com.musafira2z.store.ProductCollectionQuery
 import com.musafira2z.store.defaultChannel
 import com.musafira2z.store.type.LanguageCodeEnum
@@ -89,10 +88,18 @@ class ProductRepositoryInputHandler(
                 updateState = { ProductRepositoryContract.Inputs.UpdateProductByCategory(it) },
                 doFetch = {
                     apolloClient.query(
-                        CollectionBySlugQuery(
+                        ProductCollectionQuery(
+                            after = "",
+                            first = 20,
                             channel = defaultChannel,
-                            locale = LanguageCodeEnum.EN,
-                            slug = input.slug
+                            filter = ProductFilterInput(
+                                categories = Optional.presentIfNotNull(
+                                    listOf(
+                                        input.slug
+                                    )
+                                )
+                            ),
+                            locale = LanguageCodeEnum.EN
                         )
                     ).execute().data!!
                 },

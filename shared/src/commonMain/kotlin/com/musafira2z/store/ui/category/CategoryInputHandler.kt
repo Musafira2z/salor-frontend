@@ -53,7 +53,7 @@ class CategoryInputHandler(
                 input.category?.category?.let {
                     postInput(
                         CategoryContract.Inputs.GetProductByCategory(
-                            it.slug,
+                            it.id,
                             forceRefresh = true
                         )
                     )
