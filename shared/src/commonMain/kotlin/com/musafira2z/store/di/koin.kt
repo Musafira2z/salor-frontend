@@ -10,7 +10,7 @@ import com.copperleaf.ballast.core.LoggingInterceptor
 import com.copperleaf.ballast.core.PrintlnLogger
 import com.copperleaf.ballast.plusAssign
 import com.musafira2z.store.repository.settings.SettingsRepository
-import com.musafira2z.store.utils.AuthorizationKmmInterceptor
+import com.musafira2z.store.utils.AuthorizationInterceptor
 import com.russhwolf.settings.Settings
 import org.koin.dsl.module
 
@@ -25,10 +25,6 @@ val commonModule = module {
 
     single {
         Settings()
-    }
-
-    single<HttpInterceptor> {
-        AuthorizationKmmInterceptor(get())
     }
 
     single {
@@ -49,10 +45,12 @@ val commonModule = module {
             }
         }
 
+        val authInterceptor = AuthorizationInterceptor(settingsRepository = get())
+
         ApolloClient.Builder()
             .serverUrl("https://api.musafira2z.com/graphql/")
             .addHttpInterceptor(httpInterceptor)
-            .addHttpInterceptor(get())
+            .addHttpInterceptor(authInterceptor)
             .build()
     }
 }
