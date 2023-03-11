@@ -42,7 +42,11 @@ fun AppScreen() {
     val uiState by vm.observeStates().collectAsState()
 
     //TopAppBar
-    TopAppBar(isLoggedIn = uiState.isLoggedIn, loginResponse = uiState.loginResponse) {
+    TopAppBar(
+        isLoggedIn = uiState.isLoggedIn,
+        loginResponse = uiState.loginResponse,
+        signupResponse = uiState.signupResponse
+    ) {
         vm.trySend(it)
     }
 

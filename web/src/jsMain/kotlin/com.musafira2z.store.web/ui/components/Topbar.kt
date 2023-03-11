@@ -2,6 +2,7 @@ package com.musafira2z.store.web.ui.components
 
 import androidx.compose.runtime.Composable
 import com.musafira2z.store.LoginCustomerMutation
+import com.musafira2z.store.RegisterCustomerMutation
 import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.utils.ResponseResource
 import com.musafira2z.store.web.ui.utils.toClasses
@@ -13,6 +14,7 @@ import org.jetbrains.compose.web.dom.*
 fun TopAppBar(
     isLoggedIn: Boolean,
     loginResponse: ResponseResource<LoginCustomerMutation.TokenCreate?>,
+    signupResponse: ResponseResource<RegisterCustomerMutation.AccountRegister?>,
     postInput: (AppContract.Inputs) -> Unit
 ) {
     Nav(attrs = {
@@ -95,9 +97,14 @@ fun TopAppBar(
                 }
                 Div {
                     if (isLoggedIn) {
-                        UserMenus()
+                        UserMenus(postInput = postInput)
                     } else {
-                        LoginModal(postInput = postInput, loginResponse = loginResponse)
+                        LoginModal(
+                            postInput = postInput,
+                            loginResponse = loginResponse,
+                            isLoggedIn = isLoggedIn,
+                            signUpResponse = signupResponse
+                        )
                     }
                 }
             }
@@ -106,7 +113,9 @@ fun TopAppBar(
 }
 
 @Composable
-fun UserMenus() {
+fun UserMenus(
+    postInput: (AppContract.Inputs) -> Unit
+) {
     Div(attrs = {
         classes("flex", "items-center", "ml-3")
     }) {
@@ -201,9 +210,7 @@ fun UserMenus() {
                         attr("role", "menuitem")
                     }, href = "#") {
                         Text("Dashboard")
-
                     }
-
                 }
                 Li {
                     A(attrs = {
@@ -221,7 +228,6 @@ fun UserMenus() {
                         attr("role", "menuitem")
                     }, href = "#") {
                         Text("Settings")
-
                     }
 
                 }
@@ -247,6 +253,9 @@ fun UserMenus() {
                 }
                 Li {
                     A(attrs = {
+                        onClick {
+                            postInput(AppContract.Inputs.SignOut)
+                        }
                         classes(
                             "block",
                             "px-4",

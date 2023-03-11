@@ -5,6 +5,7 @@ import com.copperleaf.ballast.InputHandlerScope
 import com.copperleaf.ballast.observeFlows
 import com.copperleaf.ballast.postInput
 import com.musafira2z.store.repository.auth.AuthRepository
+import com.musafira2z.store.repository.auth.AuthRepositoryContract
 import com.musafira2z.store.repository.cart.CartRepository
 import com.musafira2z.store.repository.cart.CartRepositoryContract
 import com.musafira2z.store.repository.menu.MenuRepository
@@ -83,6 +84,7 @@ class AppInputHandler(
                     settingsRepository.saveAuthToken(tokens?.token)
                     settingsRepository.saveRefreshToken(tokens?.refreshToken)
                     settingsRepository.saveCsrfToken(tokens?.csrfToken)
+                    postInput(AppContract.Inputs.FetchLoginStatus)
                 }
             }
         }
@@ -101,6 +103,28 @@ class AppInputHandler(
         }
         is AppContract.Inputs.Increment -> {
             cartRepository.postInput(CartRepositoryContract.Inputs.Increment(input.lineId))
+        }
+        is AppContract.Inputs.SignUpUser -> {
+            updateState { it.copy(signupResponse = ResponseResource.Loading) }
+            observeFlows("SignUpUser") {
+                listOf(
+                    authRepository.signupUser(
+                        username = input.username,
+                        password = input.password,
+                        fullName = input.fullName
+                    ).map { AppContract.Inputs.UpdateSignupResponse(it) }
+                )
+            }
+        }
+        is AppContract.Inputs.UpdateSignupResponse -> {
+            updateState { it.copy(signupResponse = input.signupResponse) }
+            postInput(AppContract.Inputs.FetchLoginStatus)
+        }
+        AppContract.Inputs.SignOut -> {
+            sideJob("SignOut") {
+                authRepository.postInput(AuthRepositoryContract.Inputs.SignOut)
+                postInput(AppContract.Inputs.FetchLoginStatus)
+            }
         }
     }
 }

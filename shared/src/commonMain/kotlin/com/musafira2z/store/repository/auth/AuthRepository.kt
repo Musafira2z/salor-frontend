@@ -2,6 +2,7 @@ package com.musafira2z.store.repository.auth
 
 import com.copperleaf.ballast.repository.cache.Cached
 import com.musafira2z.store.LoginCustomerMutation
+import com.musafira2z.store.RegisterCustomerMutation
 import com.musafira2z.store.utils.ResponseResource
 import kotlinx.coroutines.flow.Flow
 
@@ -14,4 +15,12 @@ interface AuthRepository {
         username: String,
         password: String
     ): Flow<ResponseResource<LoginCustomerMutation.TokenCreate?>>
+
+    fun signupUser(
+        fullName: String,
+        username: String,
+        password: String
+    ): Flow<ResponseResource<RegisterCustomerMutation.AccountRegister?>>
+
+    fun postInput(input: AuthRepositoryContract.Inputs)
 }

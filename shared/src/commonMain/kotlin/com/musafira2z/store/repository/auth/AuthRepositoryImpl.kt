@@ -6,6 +6,7 @@ import com.copperleaf.ballast.repository.BallastRepository
 import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.cache.Cached
 import com.musafira2z.store.LoginCustomerMutation
+import com.musafira2z.store.RegisterCustomerMutation
 import com.musafira2z.store.utils.ResponseResource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -44,5 +45,18 @@ class AuthRepositoryImpl(
     ): Flow<ResponseResource<LoginCustomerMutation.TokenCreate?>> {
         trySend(AuthRepositoryContract.Inputs.LoginUser(username = username, password = password))
         return observeStates().map { it.loginResponse }
+    }
+
+    override fun signupUser(
+        fullName: String,
+        username: String,
+        password: String
+    ): Flow<ResponseResource<RegisterCustomerMutation.AccountRegister?>> {
+        trySend(AuthRepositoryContract.Inputs.SignupUser(fullName, username, password))
+        return observeStates().map { it.signupResponse }
+    }
+
+    override fun postInput(input: AuthRepositoryContract.Inputs) {
+        trySend(input)
     }
 }

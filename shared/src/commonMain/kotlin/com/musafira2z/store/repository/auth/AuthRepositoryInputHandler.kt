@@ -9,6 +9,8 @@ import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.bus.observeInputsFromBus
 import com.copperleaf.ballast.repository.cache.fetchWithCache
 import com.musafira2z.store.LoginCustomerMutation
+import com.musafira2z.store.RegisterCustomerMutation
+import com.musafira2z.store.defaultChannel
 import com.musafira2z.store.repository.settings.SettingsRepository
 import com.musafira2z.store.utils.ResponseResource
 
@@ -108,6 +110,40 @@ class AuthRepositoryInputHandler(
         }
         is AuthRepositoryContract.Inputs.UpdateLoginStatus -> {
             updateState { it.copy(isLoggedIn = input.isLoggedIn) }
+        }
+        is AuthRepositoryContract.Inputs.SignupUser -> {
+            sideJob("SignupUser") {
+                val resource = try {
+                    val authenticateMutation =
+                        RegisterCustomerMutation(
+                            email = input.username,
+                            password = input.password,
+                            firstname = input.fullName,
+                            redirect = "http://localhost:8080",
+                            channel = defaultChannel
+                        )
+                    val response = apolloClient.mutation(authenticateMutation).execute()
+                    if (response.data == null || response.errors?.isNotEmpty() == true) {
+                        throw Exception("Signup failed")
+                    }
+                    ResponseResource.Success(response.data!!.accountRegister)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    ResponseResource.Error(exception = e)
+                }
+                postInput(AuthRepositoryContract.Inputs.UpdateSignupResponse(resource))
+            }
+        }
+        is AuthRepositoryContract.Inputs.UpdateSignupResponse -> {
+            updateState { it.copy(signupResponse = input.loginResponse) }
+        }
+        AuthRepositoryContract.Inputs.SignOut -> {
+            sideJob("SignOut") {
+                settingsRepository.saveAuthToken(null)
+                settingsRepository.saveCsrfToken(null)
+                settingsRepository.saveRefreshToken(null)
+                settingsRepository.saveCheckoutToken(null)
+            }
         }
     }
 }
