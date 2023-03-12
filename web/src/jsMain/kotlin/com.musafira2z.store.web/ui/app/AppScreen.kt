@@ -9,6 +9,7 @@ import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.ui.app.AppViewModel
 import com.musafira2z.store.web.ui.category.CategoryScreen
+import com.musafira2z.store.web.ui.checkout.CheckoutPage
 import com.musafira2z.store.web.ui.components.*
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.home.HomePage
@@ -74,6 +75,9 @@ fun AppScreen() {
                         val slug: String by stringPath()
                         CategoryScreen(webInjector = injector, slug = slug)
                     }
+                    WebPage.Checkout -> {
+                        CheckoutPage(injector = injector)
+                    }
                 }
             },
             notFound = {
@@ -85,7 +89,13 @@ fun AppScreen() {
     //carts
     uiState.carts.getCachedOrNull()?.let { cart ->
         if (cart.lines.isNotEmpty()) {
-            CartBar(cart = cart) {
+            CartBar(cart = cart, onCheckout = {
+                router.trySend(
+                    RouterContract.Inputs.GoToDestination(
+                        WebPage.Checkout.directions().build()
+                    )
+                )
+            }) {
                 vm.trySend(it)
             }
         }
@@ -189,6 +199,7 @@ fun SideBar(categories: Cached<MainMenuQuery.Data>, onCategoryClick: (String) ->
 @Composable
 fun CartBar(
     cart: CheckoutDetailsFragment,
+    onCheckout: () -> Unit,
     postInput: (AppContract.Inputs) -> Unit
 ) {
     var isOpen by remember { mutableStateOf(false) }
@@ -242,23 +253,22 @@ fun CartBar(
                     postInput(AppContract.Inputs.Increment(it))
                 }
             ) {
-                NavLink(to = "/checkout") {
+                A(
+                    attrs = {
+                        toClasses("col-span-6 w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50")
+                        onClick {
+                            it.preventDefault()
+                            isOpen = false
+                            onCheckout()
+                        }
+                    },
+                    href = "#",
+                ) {
                     Button {
                         Text("Checkout")
                     }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun NavLink(
-    to: String, content: @Composable () -> Unit
-) {
-    A(attrs = {
-        toClasses("col-span-6 w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50")
-    }, href = to) {
-        content()
     }
 }

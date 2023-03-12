@@ -10,6 +10,7 @@ enum class WebPage(
 ) : Route {
     HomePage("/"),
     Category("/category/{slug}"),
+    Checkout("/checkout"),
     ;
 
     override val matcher: RouteMatcher = RouteMatcher.create(routeFormat)

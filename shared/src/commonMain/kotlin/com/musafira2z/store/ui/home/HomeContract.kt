@@ -32,9 +32,11 @@ object HomeContract {
         data class UpdateBanners(val banners: Cached<HomeBannerMenuQuery.Data>) : Inputs()
 
         data class AddToCart(val variantId: String) : Inputs()
+        object GoCheckoutPage : Inputs()
     }
 
     sealed class Events {
         object NavigateUp : Events()
+        object GoCheckoutPage : Events()
     }
 }

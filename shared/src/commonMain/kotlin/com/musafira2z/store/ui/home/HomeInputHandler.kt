@@ -80,5 +80,8 @@ class HomeInputHandler(
         is HomeContract.Inputs.AddToCart -> {
             cartRepository.postInput(CartRepositoryContract.Inputs.AddItem(variantId = input.variantId))
         }
+        HomeContract.Inputs.GoCheckoutPage -> {
+            postEvent(HomeContract.Events.GoCheckoutPage)
+        }
     }
 }

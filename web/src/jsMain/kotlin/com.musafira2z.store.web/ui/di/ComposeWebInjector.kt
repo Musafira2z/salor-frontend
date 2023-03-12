@@ -29,10 +29,14 @@ import com.musafira2z.store.ui.app.AppInputHandler
 import com.musafira2z.store.ui.app.AppViewModel
 import com.musafira2z.store.ui.category.CategoryContract
 import com.musafira2z.store.ui.category.CategoryInputHandler
+import com.musafira2z.store.ui.checkout.CheckoutContract
+import com.musafira2z.store.ui.checkout.CheckoutInputHandler
 import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.ui.home.HomeInputHandler
 import com.musafira2z.store.web.ui.category.CategoryEventHandler
 import com.musafira2z.store.web.ui.category.CategoryViewModel
+import com.musafira2z.store.web.ui.checkout.CheckoutEventHandler
+import com.musafira2z.store.web.ui.checkout.CheckoutViewModel
 import com.musafira2z.store.web.ui.home.HomeEventHandler
 import com.musafira2z.store.web.ui.home.HomeViewModel
 import com.musafira2z.store.web.ui.router.WebPage
@@ -185,6 +189,22 @@ class ComposeWebInjector(
                     name = "CategoryScreen"
                 ),
             categoryEventHandler = CategoryEventHandler(router = router)
+        )
+    }
+
+    fun checkoutViewModel(coroutineScope: CoroutineScope): CheckoutViewModel {
+        return CheckoutViewModel(
+            coroutineScope = coroutineScope,
+            configBuilder = commonBuilder()
+                .withViewModel(
+                    initialState = CheckoutContract.State(),
+                    inputHandler = CheckoutInputHandler(
+                        cartRepository = cartRepository,
+                        authRepository = authRepository
+                    ),
+                    name = "CategoryScreen"
+                ),
+            eventHandler = CheckoutEventHandler(router = router)
         )
     }
 
