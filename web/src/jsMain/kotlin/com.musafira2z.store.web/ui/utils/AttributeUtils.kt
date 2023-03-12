@@ -8,6 +8,10 @@ fun AttrsScope<HTMLDivElement>.toClasses(clas: String) {
     val args = clas.trim().replace("\\s+".toRegex(), " ").split(" ").toTypedArray()
     classes(*args)
 }
+fun AttrsScope<HTMLImageElement>.toClasses(clas: String) {
+    val args = clas.trim().replace("\\s+".toRegex(), " ").split(" ").toTypedArray()
+    classes(*args)
+}
 
 fun AttrsScope<HTMLAnchorElement>.toClasses(clas: String) {
     val args = clas.trim().replace("\\s+".toRegex(), " ").split(" ").toTypedArray()
