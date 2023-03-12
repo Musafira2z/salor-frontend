@@ -1,10 +1,12 @@
-package com.musafira2z.store.web.ui.components
+package com.musafira2z.store.web.ui.components.shared
 
 import androidx.compose.runtime.Composable
 import com.musafira2z.store.LoginCustomerMutation
 import com.musafira2z.store.RegisterCustomerMutation
 import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.utils.ResponseResource
+import com.musafira2z.store.web.ui.components.LoginModal
+import com.musafira2z.store.web.ui.components.OutlineHelp
 import com.musafira2z.store.web.ui.utils.toClasses
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.attributes.name

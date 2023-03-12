@@ -84,6 +84,7 @@ class AppInputHandler(
                     settingsRepository.saveAuthToken(tokens?.token)
                     settingsRepository.saveRefreshToken(tokens?.refreshToken)
                     settingsRepository.saveCsrfToken(tokens?.csrfToken)
+                    settingsRepository.saveAuthChannel(tokens?.user?.metadata?.firstOrNull { it.key == "type" }?.value)
                     postInput(AppContract.Inputs.FetchLoginStatus)
                 }
             }
@@ -124,6 +125,7 @@ class AppInputHandler(
             sideJob("SignOut") {
                 authRepository.postInput(AuthRepositoryContract.Inputs.SignOut)
                 postInput(AppContract.Inputs.FetchLoginStatus)
+                postInput(AppContract.Inputs.FetchCarts(true))
             }
         }
     }

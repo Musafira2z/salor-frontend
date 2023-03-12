@@ -11,12 +11,14 @@ import com.copperleaf.ballast.repository.cache.fetchWithCache
 import com.musafira2z.store.HomeBannerMenuQuery
 import com.musafira2z.store.HomeMenuQuery
 import com.musafira2z.store.MainMenuQuery
-import com.musafira2z.store.defaultChannel
+import com.musafira2z.store.normalChannel
+import com.musafira2z.store.repository.settings.SettingsRepository
 import com.musafira2z.store.type.LanguageCodeEnum
 
 class MenuRepositoryInputHandler(
     private val eventBus: EventBus,
-    private val apolloClient: ApolloClient
+    private val apolloClient: ApolloClient,
+    private val settingsRepository: SettingsRepository
 ) : InputHandler<
         MenuRepositoryContract.Inputs,
         Any,
@@ -71,7 +73,7 @@ class MenuRepositoryInputHandler(
                     apolloClient.query(
                         HomeMenuQuery(
                             locale = LanguageCodeEnum.EN_US,
-                            channel = defaultChannel
+                            channel = settingsRepository.channel ?: normalChannel
                         )
                     ).execute().data!!
                 },
@@ -87,7 +89,7 @@ class MenuRepositoryInputHandler(
                     apolloClient.query(
                         HomeBannerMenuQuery(
                             locale = LanguageCodeEnum.EN_US,
-                            channel = defaultChannel
+                            channel = settingsRepository.channel ?: normalChannel
                         )
                     ).execute().data!!
                 },
@@ -106,7 +108,7 @@ class MenuRepositoryInputHandler(
                     apolloClient.query(
                         MainMenuQuery(
                             locale = LanguageCodeEnum.EN_US,
-                            channel = defaultChannel
+                            channel = settingsRepository.channel ?: normalChannel
                         )
                     ).execute().data!!
                 },

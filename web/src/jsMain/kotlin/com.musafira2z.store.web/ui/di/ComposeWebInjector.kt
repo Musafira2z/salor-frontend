@@ -99,7 +99,7 @@ class ComposeWebInjector(
             configBuilder = commonBuilder()
                 .withViewModel(
                     inputHandler = MenuRepositoryInputHandler(
-                        eventBus = eventBus, apolloClient = get()
+                        eventBus = eventBus, apolloClient = get(), settingsRepository = get()
                     ),
                     initialState = MenuRepositoryContract.State(),
                     name = "Menu Repository",
@@ -115,7 +115,7 @@ class ComposeWebInjector(
             configBuilder = commonBuilder()
                 .withViewModel(
                     inputHandler = ProductRepositoryInputHandler(
-                        eventBus = eventBus, apolloClient = get()
+                        eventBus = eventBus, apolloClient = get(), settingsRepository = get()
                     ),
                     initialState = ProductRepositoryContract.State(),
                     name = "Product Repository",

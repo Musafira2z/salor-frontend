@@ -1,8 +1,7 @@
 package com.musafira2z.store.repository.auth
 
 import com.copperleaf.ballast.repository.cache.Cached
-import com.musafira2z.store.LoginCustomerMutation
-import com.musafira2z.store.RegisterCustomerMutation
+import com.musafira2z.store.*
 import com.musafira2z.store.utils.ResponseResource
 
 object AuthRepositoryContract {
@@ -13,7 +12,10 @@ object AuthRepositoryContract {
         val dataList: Cached<List<String>> = Cached.NotLoaded(),
         val loginResponse: ResponseResource<LoginCustomerMutation.TokenCreate?> = ResponseResource.Idle,
         val signupResponse: ResponseResource<RegisterCustomerMutation.AccountRegister?> = ResponseResource.Idle,
-        val isLoggedIn: Boolean = false
+        val isLoggedIn: Boolean = false,
+        val me: Cached<CurrentUserDetailsQuery.Me> = Cached.NotLoaded(),
+        val address: Cached<CurrentUserAddressesQuery.Me> = Cached.NotLoaded(),
+        val orders: Cached<OrdersQuery.Me> = Cached.NotLoaded()
     )
 
     sealed class Inputs {
@@ -39,5 +41,14 @@ object AuthRepositoryContract {
 
         object FetchLoginStatus : Inputs()
         data class UpdateLoginStatus(val isLoggedIn: Boolean) : Inputs()
+
+        data class GetMe(val forceRefresh: Boolean) : Inputs()
+        data class UpdateMe(val me: Cached<CurrentUserDetailsQuery.Me>) : Inputs()
+
+        data class GetAddress(val forceRefresh: Boolean) : Inputs()
+        data class UpdateAddress(val address: Cached<CurrentUserAddressesQuery.Me>) : Inputs()
+
+        data class GetOrders(val forceRefresh: Boolean) : Inputs()
+        data class UpdateOrders(val orders: Cached<OrdersQuery.Me>) : Inputs()
     }
 }

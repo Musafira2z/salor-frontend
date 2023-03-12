@@ -1,7 +1,11 @@
 package com.musafira2z.store.web.ui.checkout
 
 import androidx.compose.runtime.*
+import com.apollographql.apollo3.api.Optional
+import com.copperleaf.ballast.repository.cache.getCachedOrNull
+import com.musafira2z.store.type.AddressInput
 import com.musafira2z.store.ui.checkout.CheckoutContract
+import com.musafira2z.store.web.ui.components.CartBody
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.utils.toClasses
 import org.jetbrains.compose.web.attributes.InputType
@@ -29,7 +33,6 @@ fun CheckoutPageContent(
     uiState: CheckoutContract.State,
     postInput: (CheckoutContract.Inputs) -> Unit
 ) {
-
     Div(attrs = {
 
     }) {
@@ -39,7 +42,7 @@ fun CheckoutPageContent(
             Div(attrs = {
                 classes("my-10", "w-full", "lg:space-x-10", "lg:mr-150")
             }) {
-                Div(attrs = {
+                /*Div(attrs = {
                     classes(
                         "flex",
                         "justify-around",
@@ -49,16 +52,15 @@ fun CheckoutPageContent(
                     )
                 }) {
                     //checked
-//                    bg-green-500 duration-500 text-slate-50
                     Button(attrs = {
-                        toClasses("font-bold  cursor-pointer py-5 px-12 md:px-28 lg:px-28   rounded-lg  border duration-500  select-none  ")
+                        toClasses("font-bold cursor-pointer py-5 px-12 md:px-28 lg:px-28 bg-green-500 duration-500 text-slate-50 rounded-lg border duration-500 select-none")
                     }) {
                         Text("Delivery")
                     }
-                }
-                Hr(attrs = {
-                    classes("mt-7")
-                })
+                }*/
+                /* Hr(attrs = {
+                     classes("mt-7")
+                 })*/
                 Div(attrs = {
                     classes("duration-500")
                 }) {
@@ -72,66 +74,129 @@ fun CheckoutPageContent(
                                 Div(attrs = {
                                     classes("flex", "items-center", "select-none")
                                 }) {
-                                    Div(attrs = {
-                                        classes(
-                                            "mr-2",
-                                            "bg-green-500",
-                                            "text-slate-50",
-                                            "text-lg",
-                                            "font-bold",
-                                            "rounded-full",
-                                            "h-10",
-                                            "w-10",
-                                            "flex",
-                                            "justify-center",
-                                            "items-center"
-                                        )
-                                    }) {
-                                        P {
-                                            Text("1")
-                                        }
-
-                                    }
                                     Div {
                                         H3(attrs = {
                                             classes("font-bold")
                                         }) {
-                                            Text("Delivery Address")
+                                            Text("Address")
                                         }
                                     }
-
                                 }
-
-                            }
-                            Div(attrs = {
-                                classes(
-                                    "bg-green-500",
-                                    "lg:w-96",
-                                    "md:w-96",
-                                    "sm:w-60",
-                                    "py-3",
-                                    "px-5",
-                                    "mt-3",
-                                    "rounded-xl",
-                                    "group/item",
-                                    "text-slate-50",
-                                    "font-bold"
-                                )
-                            }) {
-                                H3(attrs = {
-                                    classes("text-xl", "font-bold")
-                                }) {
-                                    Text("Musafir")
-                                }
-                                P(attrs = {
-                                    classes("text-slate-50", "font-bold")
-                                }) {
-                                    Text("1/3 Tarango, Mazumdari, Airport Road, Sylhet")
-                                }
-
                             }
 
-                            AddressForm()
+                            uiState.carts.getCachedOrNull()?.let {
+                                val shippingMethod = it.availableShippingMethods.firstOrNull()
+                                LaunchedEffect(shippingMethod) {
+                                    if (it.shippingMethod == null && shippingMethod != null) {
+                                        postInput(
+                                            CheckoutContract.Inputs.SetShippingMethod(
+                                                shippingMethod.deliveryMethodFragment.id
+                                            )
+                                        )
+                                    }
+                                }
+
+                                if (it.billingAddress == null) {
+                                    uiState.address.getCachedOrNull()?.let {
+                                        if (it.addresses?.isEmpty() == true) {
+                                            AddressForm(postInput = postInput)
+                                        } else {
+                                            Div(
+                                                attrs = {
+                                                    classes("grid", "md:grid-cols-3", "md:gap-6")
+                                                }
+                                            ) {
+                                                it.addresses?.forEach { address ->
+                                                    val name =
+                                                        "${address.addressDetailsFragment.firstName} ${address.addressDetailsFragment.lastName}"
+                                                    val adds =
+                                                        "${address.addressDetailsFragment.streetAddress1}, ${address.addressDetailsFragment.city}, ${address.addressDetailsFragment.postalCode}"
+                                                    val phone =
+                                                        address.addressDetailsFragment.phone ?: ""
+
+                                                    LaunchedEffect(address.addressDetailsFragment.isDefaultBillingAddress) {
+                                                        if (address.addressDetailsFragment.isDefaultBillingAddress == true) {
+                                                            val billingAddress =
+                                                                address.addressDetailsFragment
+                                                            postInput(
+                                                                CheckoutContract.Inputs.SetBillingAddress(
+                                                                    address = AddressInput(
+                                                                        firstName = Optional.presentIfNotNull(
+                                                                            billingAddress.firstName
+                                                                        ),
+                                                                        lastName = Optional.presentIfNotNull(
+                                                                            billingAddress.lastName
+                                                                        ),
+                                                                        city = Optional.presentIfNotNull(
+                                                                            billingAddress.city
+                                                                        ),
+                                                                        phone = Optional.presentIfNotNull(
+                                                                            billingAddress.phone
+                                                                        ),
+                                                                        postalCode = Optional.presentIfNotNull(
+                                                                            billingAddress.postalCode
+                                                                        ),
+                                                                        streetAddress1 = Optional.presentIfNotNull(
+                                                                            billingAddress.streetAddress1
+                                                                        )
+                                                                    )
+                                                                )
+                                                            )
+                                                        }
+                                                    }
+
+                                                    AddressItem(
+                                                        name = name,
+                                                        address = adds,
+                                                        phone = phone
+                                                    ) {
+                                                        val billingAddress =
+                                                            address.addressDetailsFragment
+                                                        postInput(
+                                                            CheckoutContract.Inputs.SetBillingAddress(
+                                                                address = AddressInput(
+                                                                    firstName = Optional.presentIfNotNull(
+                                                                        billingAddress.firstName
+                                                                    ),
+                                                                    lastName = Optional.presentIfNotNull(
+                                                                        billingAddress.lastName
+                                                                    ),
+                                                                    city = Optional.presentIfNotNull(
+                                                                        billingAddress.city
+                                                                    ),
+                                                                    phone = Optional.presentIfNotNull(
+                                                                        billingAddress.phone
+                                                                    ),
+                                                                    postalCode = Optional.presentIfNotNull(
+                                                                        billingAddress.postalCode
+                                                                    ),
+                                                                    streetAddress1 = Optional.presentIfNotNull(
+                                                                        billingAddress.streetAddress1
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    val address = it.billingAddress!!.addressDetailsFragment
+                                    val name = "${address.firstName} ${address.lastName}"
+                                    val adds =
+                                        "${address.streetAddress1}, ${address.city}, ${address.postalCode}"
+                                    val phone = address.phone ?: ""
+                                    AddressItem(
+                                        name = name,
+                                        address = adds,
+                                        phone = phone,
+                                        isChange = true
+                                    ) {
+
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -147,7 +212,43 @@ fun CheckoutPageContent(
                         "hidden"
                     )
                 }) {
-
+                    Div(
+                        attrs = {
+                            toClasses("mt-4 bg-slate-50")
+                        }
+                    ) {
+                        uiState.carts.getCachedOrNull()?.let { _cart ->
+                            CartBody(
+                                cart = _cart,
+                                onClose = {},
+                                onDecrement = {},
+                                onIncrement = {}
+                            ) {
+                                Div {
+                                    Div(attrs = {
+                                        toClasses("w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50")
+                                        onClick {
+                                            it.preventDefault()
+                                            _cart.availablePaymentGateways.firstOrNull()?.id?.let {
+                                                postInput(CheckoutContract.Inputs.PlaceOrder(it))
+                                            }
+                                        }
+                                    }) {
+                                        Button(attrs = {
+                                            onClick {
+                                                it.preventDefault()
+                                                _cart.availablePaymentGateways.firstOrNull()?.id?.let {
+                                                    postInput(CheckoutContract.Inputs.PlaceOrder(it))
+                                                }
+                                            }
+                                        }) {
+                                            Text("Place Order")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -157,87 +258,481 @@ fun CheckoutPageContent(
 }
 
 @Composable
-fun AddressForm() {
-    Div {
-        Form(attrs = {
-            attr("onSubmit", "{handleSubmit}")
-            classes( "px-8", "pt-6", "pb-8", "w-full")
-        }, action = "") {
-            Div(attrs = {
-                classes("lg:flex", "md:flex", "sm:flex", "gap-2", "justify-between", )
-            }) {
-                Div(attrs = {
-                    classes( "w-full")
-                }) {
-                    Input(InputType.Text) {
-                        id("firstName")
-                        name("firstName")
-                        attr("type", "name")
-                        attr("label", "Firs Name")
-                        attr("placeholder", "Firs Name")
-                        required()
-                    }
-                }
-                Div(attrs = {
-                    classes( "w-full")
-                }) {
-                    Input(InputType.Text) {
-                        id("lastName")
-                        name("lastName")
-                        attr("type", "lastName")
-                        attr("label", "Last Name")
-                        attr("placeholder", "Last Name")
-                        required()
-                    }
-                }
-
+fun AddressItem(
+    name: String,
+    address: String,
+    phone: String,
+    isChange: Boolean = false,
+    onSet: () -> Unit
+) {
+    Div(
+        attrs = {
+            classes(
+                "bg-green-500",
+                "lg:w-96",
+                "md:w-96",
+                "sm:w-60",
+                "py-3",
+                "px-5",
+                "mt-3",
+                "rounded-xl",
+                "group/item",
+                "text-slate-50",
+                "font-bold"
+            )
+            onClick {
+                onSet()
             }
-            Input(InputType.Text) {
-                id("Contact")
-                name("Contact")
-                attr("type", "tel")
-                attr("label", "Contact number")
-                attr("placeholder", "Contact number")
-                required()
-            }
+        }
+    ) {
+        H3(attrs = {
+            classes("text-xl", "font-bold")
+        }) {
+            Text(name)
+        }
 
+        H3(attrs = {
+            classes("text-xl", "font-bold")
+        }) {
+            Text(phone)
+        }
+
+        P(
+            attrs = {
+                classes("text-slate-50", "font-bold")
+            }
+        ) {
+            Text(address)
+        }
+    }
+}
+
+@Composable
+fun AddressForm(
+    postInput: (CheckoutContract.Inputs) -> Unit
+) {
+    var firstName by remember { mutableStateOf("") }
+    var lastName by remember { mutableStateOf("") }
+    var street by remember { mutableStateOf("") }
+    var city by remember { mutableStateOf("") }
+    var phone by remember { mutableStateOf("") }
+    var postcode by remember { mutableStateOf("") }
+
+    Form(action = "") {
+        Div(attrs = {
+            classes("grid", "md:grid-cols-2", "md:gap-6")
+        }) {
             Div(attrs = {
-                classes(
-                    "flex",
-                    "items-center",
-                    "justify-end",
-                    "p-6",
-                    "border-t",
-                    "border-solid",
-                    "border-blueGray-200",
-                    "rounded-b"
-                )
+                classes("relative", "z-0", "w-full", "mb-6", "group")
             }) {
-                Button(attrs = {
+                Input(type = InputType.Text) {
+                    name("floating_first_name")
+                    id("floating_first_name")
                     classes(
-                        "text-white",
-                        "bg-green-500",
-                        "active:bg-opacity-95",
-                        "font-bold",
-                        "uppercase",
+                        "block",
+                        "py-2.5",
+                        "px-0",
+                        "w-full",
                         "text-sm",
-                        "px-6",
-                        "py-3",
-                        "rounded",
-                        "shadow",
-                        "hover:shadow-lg",
-                        "outline-none",
+                        "text-gray-900",
+                        "bg-transparent",
+                        "border-0",
+                        "border-b-2",
+                        "border-gray-300",
+                        "appearance-none",
+                        "dark:text-white",
+                        "dark:border-gray-600",
+                        "dark:focus:border-blue-500",
                         "focus:outline-none",
-                        "mr-1",
-                        "mb-1"
+                        "focus:ring-0",
+                        "focus:border-blue-600",
+                        "peer"
                     )
-                    attr("type", "submit")
-                }) {
-                    Text(" Submit ")
+                    attr("placeholder", " ")
+                    required()
+                    onInput {
+                        firstName = it.value
+                    }
+                }
+                Label(attrs = {
+                    classes(
+                        "peer-focus:font-medium",
+                        "absolute",
+                        "text-sm",
+                        "text-gray-500",
+                        "dark:text-gray-400",
+                        "duration-300",
+                        "transform",
+                        "-translate-y-6",
+                        "scale-75",
+                        "top-3",
+                        "-z-10",
+                        "origin-[0]",
+                        "peer-focus:left-0",
+                        "peer-focus:text-blue-600",
+                        "peer-focus:dark:text-blue-500",
+                        "peer-placeholder-shown:scale-100",
+                        "peer-placeholder-shown:translate-y-0",
+                        "peer-focus:scale-75",
+                        "peer-focus:-translate-y-6"
+                    )
+                }, forId = "floating_first_name") {
+                    Text("First name")
+                }
+            }
+
+            Div(attrs = {
+                classes("relative", "z-0", "w-full", "mb-6", "group")
+            }) {
+                Input(type = InputType.Text) {
+                    name("floating_last_name")
+                    id("floating_last_name")
+                    classes(
+                        "block",
+                        "py-2.5",
+                        "px-0",
+                        "w-full",
+                        "text-sm",
+                        "text-gray-900",
+                        "bg-transparent",
+                        "border-0",
+                        "border-b-2",
+                        "border-gray-300",
+                        "appearance-none",
+                        "dark:text-white",
+                        "dark:border-gray-600",
+                        "dark:focus:border-blue-500",
+                        "focus:outline-none",
+                        "focus:ring-0",
+                        "focus:border-blue-600",
+                        "peer"
+                    )
+                    attr("placeholder", " ")
+                    required()
+                    onInput {
+                        lastName = it.value
+                    }
+                }
+                Label(attrs = {
+                    classes(
+                        "peer-focus:font-medium",
+                        "absolute",
+                        "text-sm",
+                        "text-gray-500",
+                        "dark:text-gray-400",
+                        "duration-300",
+                        "transform",
+                        "-translate-y-6",
+                        "scale-75",
+                        "top-3",
+                        "-z-10",
+                        "origin-[0]",
+                        "peer-focus:left-0",
+                        "peer-focus:text-blue-600",
+                        "peer-focus:dark:text-blue-500",
+                        "peer-placeholder-shown:scale-100",
+                        "peer-placeholder-shown:translate-y-0",
+                        "peer-focus:scale-75",
+                        "peer-focus:-translate-y-6"
+                    )
+                }, forId = "floating_last_name") {
+                    Text("Last name")
                 }
             }
         }
 
+        Div(attrs = {
+            classes("grid", "md:grid-cols-2", "md:gap-6")
+        }) {
+            Div(attrs = {
+                classes("relative", "z-0", "w-full", "mb-6", "group")
+            }) {
+                Input(type = InputType.Text) {
+                    name("floating_street")
+                    id("floating_street")
+                    classes(
+                        "block",
+                        "py-2.5",
+                        "px-0",
+                        "w-full",
+                        "text-sm",
+                        "text-gray-900",
+                        "bg-transparent",
+                        "border-0",
+                        "border-b-2",
+                        "border-gray-300",
+                        "appearance-none",
+                        "dark:text-white",
+                        "dark:border-gray-600",
+                        "dark:focus:border-blue-500",
+                        "focus:outline-none",
+                        "focus:ring-0",
+                        "focus:border-blue-600",
+                        "peer"
+                    )
+                    attr("placeholder", " ")
+                    required()
+                    onInput {
+                        street = it.value
+                    }
+                }
+                Label(attrs = {
+                    classes(
+                        "peer-focus:font-medium",
+                        "absolute",
+                        "text-sm",
+                        "text-gray-500",
+                        "dark:text-gray-400",
+                        "duration-300",
+                        "transform",
+                        "-translate-y-6",
+                        "scale-75",
+                        "top-3",
+                        "-z-10",
+                        "origin-[0]",
+                        "peer-focus:left-0",
+                        "peer-focus:text-blue-600",
+                        "peer-focus:dark:text-blue-500",
+                        "peer-placeholder-shown:scale-100",
+                        "peer-placeholder-shown:translate-y-0",
+                        "peer-focus:scale-75",
+                        "peer-focus:-translate-y-6"
+                    )
+                }, forId = "floating_street") {
+                    Text("Street")
+                }
+            }
+
+            Div(attrs = {
+                classes("relative", "z-0", "w-full", "mb-6", "group")
+            }) {
+                Input(type = InputType.Text) {
+                    name("floating_city")
+                    id("floating_city")
+                    classes(
+                        "block",
+                        "py-2.5",
+                        "px-0",
+                        "w-full",
+                        "text-sm",
+                        "text-gray-900",
+                        "bg-transparent",
+                        "border-0",
+                        "border-b-2",
+                        "border-gray-300",
+                        "appearance-none",
+                        "dark:text-white",
+                        "dark:border-gray-600",
+                        "dark:focus:border-blue-500",
+                        "focus:outline-none",
+                        "focus:ring-0",
+                        "focus:border-blue-600",
+                        "peer"
+                    )
+                    attr("placeholder", " ")
+                    required()
+                    onInput {
+                        city = it.value
+                    }
+                }
+                Label(attrs = {
+                    classes(
+                        "peer-focus:font-medium",
+                        "absolute",
+                        "text-sm",
+                        "text-gray-500",
+                        "dark:text-gray-400",
+                        "duration-300",
+                        "transform",
+                        "-translate-y-6",
+                        "scale-75",
+                        "top-3",
+                        "-z-10",
+                        "origin-[0]",
+                        "peer-focus:left-0",
+                        "peer-focus:text-blue-600",
+                        "peer-focus:dark:text-blue-500",
+                        "peer-placeholder-shown:scale-100",
+                        "peer-placeholder-shown:translate-y-0",
+                        "peer-focus:scale-75",
+                        "peer-focus:-translate-y-6"
+                    )
+                }, forId = "floating_city") {
+                    Text("City")
+                }
+            }
+        }
+
+        Div(attrs = {
+            classes("grid", "md:grid-cols-2", "md:gap-6")
+        }) {
+            Div(attrs = {
+                classes("relative", "z-0", "w-full", "mb-6", "group")
+            }) {
+                Input(type = InputType.Tel) {
+//                    attr("pattern", "[0-9]{3}-[0-9]{3}-[0-9]{4}")
+                    name("floating_phone")
+                    id("floating_phone")
+                    classes(
+                        "block",
+                        "py-2.5",
+                        "px-0",
+                        "w-full",
+                        "text-sm",
+                        "text-gray-900",
+                        "bg-transparent",
+                        "border-0",
+                        "border-b-2",
+                        "border-gray-300",
+                        "appearance-none",
+                        "dark:text-white",
+                        "dark:border-gray-600",
+                        "dark:focus:border-blue-500",
+                        "focus:outline-none",
+                        "focus:ring-0",
+                        "focus:border-blue-600",
+                        "peer"
+                    )
+                    attr("placeholder", " ")
+                    required()
+                    onInput {
+                        phone = it.value
+                    }
+                }
+                Label(attrs = {
+                    classes(
+                        "peer-focus:font-medium",
+                        "absolute",
+                        "text-sm",
+                        "text-gray-500",
+                        "dark:text-gray-400",
+                        "duration-300",
+                        "transform",
+                        "-translate-y-6",
+                        "scale-75",
+                        "top-3",
+                        "-z-10",
+                        "origin-[0]",
+                        "peer-focus:left-0",
+                        "peer-focus:text-blue-600",
+                        "peer-focus:dark:text-blue-500",
+                        "peer-placeholder-shown:scale-100",
+                        "peer-placeholder-shown:translate-y-0",
+                        "peer-focus:scale-75",
+                        "peer-focus:-translate-y-6"
+                    )
+                }, forId = "floating_phone") {
+                    Text("Phone number (123-456-7890)")
+                }
+
+            }
+            Div(attrs = {
+                classes("relative", "z-0", "w-full", "mb-6", "group")
+            }) {
+                Input(type = InputType.Text) {
+                    name("floating_postcode")
+                    id("floating_postcode")
+                    classes(
+                        "block",
+                        "py-2.5",
+                        "px-0",
+                        "w-full",
+                        "text-sm",
+                        "text-gray-900",
+                        "bg-transparent",
+                        "border-0",
+                        "border-b-2",
+                        "border-gray-300",
+                        "appearance-none",
+                        "dark:text-white",
+                        "dark:border-gray-600",
+                        "dark:focus:border-blue-500",
+                        "focus:outline-none",
+                        "focus:ring-0",
+                        "focus:border-blue-600",
+                        "peer"
+                    )
+                    attr("placeholder", " ")
+                    required()
+                    onInput {
+                        postcode = it.value
+                    }
+                }
+                Label(attrs = {
+                    classes(
+                        "peer-focus:font-medium",
+                        "absolute",
+                        "text-sm",
+                        "text-gray-500",
+                        "dark:text-gray-400",
+                        "duration-300",
+                        "transform",
+                        "-translate-y-6",
+                        "scale-75",
+                        "top-3",
+                        "-z-10",
+                        "origin-[0]",
+                        "peer-focus:left-0",
+                        "peer-focus:text-blue-600",
+                        "peer-focus:dark:text-blue-500",
+                        "peer-placeholder-shown:scale-100",
+                        "peer-placeholder-shown:translate-y-0",
+                        "peer-focus:scale-75",
+                        "peer-focus:-translate-y-6"
+                    )
+                }, forId = "floating_postcode") {
+                    Text("Postcode")
+                }
+            }
+        }
+        Button(attrs = {
+            attr("type", "submit")
+            classes(
+                "text-white",
+                "bg-blue-700",
+                "hover:bg-blue-800",
+                "focus:ring-4",
+                "focus:outline-none",
+                "focus:ring-blue-300",
+                "font-medium",
+                "rounded-lg",
+                "text-sm",
+                "w-full",
+                "sm:w-auto",
+                "px-5",
+                "py-2.5",
+                "text-center",
+                "dark:bg-blue-600",
+                "dark:hover:bg-blue-700",
+                "dark:focus:ring-blue-800"
+            )
+            onClick {
+                postInput(
+                    CheckoutContract.Inputs.SetBillingAddress(
+                        address = AddressInput(
+                            firstName = Optional.presentIfNotNull(
+                                firstName
+                            ),
+                            lastName = Optional.presentIfNotNull(
+                                lastName
+                            ),
+                            city = Optional.presentIfNotNull(
+                                city
+                            ),
+                            phone = Optional.presentIfNotNull(
+                                phone
+                            ),
+                            postalCode = Optional.presentIfNotNull(postcode),
+                            streetAddress1 = Optional.presentIfNotNull(street)
+                        )
+                    )
+                )
+            }
+        }) {
+            Text("Save")
+        }
     }
 }
+
+
 

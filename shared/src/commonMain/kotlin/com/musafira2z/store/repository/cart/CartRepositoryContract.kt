@@ -1,9 +1,11 @@
 package com.musafira2z.store.repository.cart
 
 import com.copperleaf.ballast.repository.cache.Cached
+import com.musafira2z.store.AvailableShippingMethodsQuery
 import com.musafira2z.store.CheckoutCompleteMutation
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import com.musafira2z.store.type.AddressInput
+import com.musafira2z.store.type.CheckoutErrorCode
 
 object CartRepositoryContract {
     data class State(
@@ -11,6 +13,7 @@ object CartRepositoryContract {
 
         val dataListInitialized: Boolean = false,
         val dataList: Cached<CheckoutDetailsFragment> = Cached.NotLoaded(),
+        val shippingMethods: Cached<List<AvailableShippingMethodsQuery.AvailableShippingMethod>> = Cached.NotLoaded(),
         val lastOrder: CheckoutCompleteMutation.CheckoutComplete? = null
     )
 
@@ -21,6 +24,10 @@ object CartRepositoryContract {
 
         data class RefreshCarts(val forceRefresh: Boolean) : Inputs()
         data class DataListUpdated(val dataList: Cached<CheckoutDetailsFragment>) : Inputs()
+
+        data class RefreshShippingMethod(val forceRefresh: Boolean) : Inputs()
+        data class UpdateShippingMethod(val shippingMethods: Cached<List<AvailableShippingMethodsQuery.AvailableShippingMethod>>) :
+            Inputs()
 
         data class CreateCheckout(
             val variantId: String,
@@ -57,10 +64,14 @@ object CartRepositoryContract {
 
         data class Clear(val token: String) : Inputs()
         data class ApplyPromoCode(val code: String, val checkoutId: String) : Inputs()
-        data class SetBillingAddress(val address: AddressInput, val checkoutId: String) : Inputs()
-        data class SetShippingMethod(val methodId: String, val token: String) : Inputs()
-        data class Checkout(val token: String) : Inputs()
+        data class SetBillingAddress(val address: AddressInput) : Inputs()
+        data class SetShippingAddress(val address: AddressInput) : Inputs()
+        data class SetShippingMethod(val methodId: String) : Inputs()
+        object Checkout : Inputs()
+        data class CreatePayment(val paymentMethodId: String) : Inputs()
         data class UpdateLastOrder(val lastOrder: CheckoutCompleteMutation.CheckoutComplete?) :
             Inputs()
+
+        data class HandleCartError(val errorCodes: List<CheckoutErrorCode>) : Inputs()
     }
 }

@@ -2,20 +2,20 @@ package com.musafira2z.store.web.ui.app
 
 import androidx.compose.runtime.*
 import com.copperleaf.ballast.navigation.routing.*
-import com.copperleaf.ballast.repository.cache.Cached
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
-import com.musafira2z.store.MainMenuQuery
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.ui.app.AppViewModel
 import com.musafira2z.store.web.ui.category.CategoryScreen
 import com.musafira2z.store.web.ui.checkout.CheckoutPage
-import com.musafira2z.store.web.ui.components.*
+import com.musafira2z.store.web.ui.components.CartBody
+import com.musafira2z.store.web.ui.components.Drawer
+import com.musafira2z.store.web.ui.components.shared.SideBar
+import com.musafira2z.store.web.ui.components.shared.TopAppBar
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.home.HomePage
 import com.musafira2z.store.web.ui.router.WebPage
 import com.musafira2z.store.web.ui.utils.toClasses
-import org.jetbrains.compose.web.ExperimentalComposeWebSvgApi
 import org.jetbrains.compose.web.dom.*
 
 @Composable
@@ -51,149 +51,26 @@ fun AppScreen() {
         vm.trySend(it)
     }
 
-    //sidebar
-    SideBar(categories = uiState.categories) {
-        router.trySend(
-            RouterContract.Inputs.ReplaceTopDestination(
-                WebPage.Category.directions()
-                    .path(it)
-                    .build()
-            )
-        )
-    }
     //content
-    Div(attrs = {
-        toClasses("md:ml-60  lg:ml-60 p-5")
-    }) {
-        routerState.renderCurrentDestination(
-            route = {
-                when (it) {
-                    WebPage.HomePage -> {
-                        HomePage(webInjector = injector)
-                    }
-                    WebPage.Category -> {
-                        val slug: String by stringPath()
-                        CategoryScreen(webInjector = injector, slug = slug)
-                    }
-                    WebPage.Checkout -> {
-                        CheckoutPage(injector = injector)
-                    }
+    routerState.renderCurrentDestination(
+        route = {
+            when (it) {
+                WebPage.HomePage -> {
+                    HomePage(webInjector = injector)
                 }
-            },
-            notFound = {
-                Text("Not found")
+                WebPage.Category -> {
+                    val slug: String by stringPath()
+                    CategoryScreen(webInjector = injector, slug = slug)
+                }
+                WebPage.Checkout -> {
+                    CheckoutPage(injector = injector)
+                }
             }
-        )
-    }
-
-    //carts
-    uiState.carts.getCachedOrNull()?.let { cart ->
-        if (cart.lines.isNotEmpty()) {
-            CartBar(cart = cart, onCheckout = {
-                router.trySend(
-                    RouterContract.Inputs.GoToDestination(
-                        WebPage.Checkout.directions().build()
-                    )
-                )
-            }) {
-                vm.trySend(it)
-            }
+        },
+        notFound = {
+            Text("Not found")
         }
-    }
-}
-
-@OptIn(ExperimentalComposeWebSvgApi::class)
-@Composable
-fun SideBar(categories: Cached<MainMenuQuery.Data>, onCategoryClick: (String) -> Unit) {
-    Aside(attrs = {
-        id("logo-sidebar")
-        classes(
-            "fixed",
-            "top-0",
-            "left-0",
-            "z-40",
-            "w-64",
-            "h-screen",
-            "pt-28",
-            "transition-transform",
-            "-translate-x-full",
-            "bg-white",
-            "border-r",
-            "border-gray-200",
-            "sm:translate-x-0",
-            "dark:bg-gray-800",
-            "dark:border-gray-700"
-        )
-        attr("aria-label", "Sidebar")
-    }) {
-        Div(attrs = {
-            classes("h-full", "px-3", "pb-4", "overflow-y-auto", "bg-white", "dark:bg-gray-800")
-        }) {
-            Div(attrs = {
-                toClasses("flex justify-center mb-5")
-            }) {
-                Button(attrs = {
-                    toClasses("w-full h-10 text-slate-50  text-lg font-extrabold bg-gradient-to-r from-yellow-300 rounded-lg to-pink-700")
-                }) {
-                    Text("Offer")
-                }
-            }
-            Hr()
-            Ul(attrs = {
-                classes("space-y-2")
-            }) {
-                categories.getCachedOrNull()?.menu?.items?.forEach {
-                    val category = it.menuItemWithChildrenFragment.category
-                    Li {
-                        A(
-                            attrs = {
-                                classes(
-                                    "flex",
-                                    "items-center",
-                                    "p-2",
-                                    "text-base",
-                                    "font-normal",
-                                    "text-gray-900",
-                                    "rounded-lg",
-                                    "dark:text-white",
-                                    "hover:bg-gray-100",
-                                    "dark:hover:bg-gray-700"
-                                )
-                                onClick {
-                                    category?.slug?.let(onCategoryClick)
-                                }
-                            },
-                        ) {
-                            Img(
-                                attrs = {
-                                    attr("aria-hidden", "true")
-                                    classes(
-                                        "flex-shrink-0",
-                                        "w-6",
-                                        "h-6",
-                                        "text-gray-500",
-                                        "transition",
-                                        "duration-75",
-                                        "dark:text-gray-400",
-                                        "group-hover:text-gray-900",
-                                        "dark:group-hover:text-white"
-                                    )
-                                },
-                                src = it.menuItemWithChildrenFragment.category?.backgroundImage?.url
-                                    ?: ""
-                            )
-                            Span(attrs = {
-                                classes("flex-1", "ml-3")
-                            }) {
-                                Text(it.menuItemWithChildrenFragment.name)
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
-    }
+    )
 }
 
 @Composable

@@ -8,9 +8,7 @@ import com.copperleaf.ballast.postInput
 import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.bus.observeInputsFromBus
 import com.copperleaf.ballast.repository.cache.fetchWithCache
-import com.musafira2z.store.LoginCustomerMutation
-import com.musafira2z.store.RegisterCustomerMutation
-import com.musafira2z.store.defaultChannel
+import com.musafira2z.store.*
 import com.musafira2z.store.repository.settings.SettingsRepository
 import com.musafira2z.store.utils.ResponseResource
 
@@ -119,8 +117,8 @@ class AuthRepositoryInputHandler(
                             email = input.username,
                             password = input.password,
                             firstname = input.fullName,
-                            redirect = "http://localhost:8080",
-                            channel = defaultChannel
+                            redirect = baseUrl,
+                            channel = settingsRepository.channel ?: normalChannel
                         )
                     val response = apolloClient.mutation(authenticateMutation).execute()
                     if (response.data == null || response.errors?.isNotEmpty() == true) {
@@ -142,8 +140,51 @@ class AuthRepositoryInputHandler(
                 settingsRepository.saveAuthToken(null)
                 settingsRepository.saveCsrfToken(null)
                 settingsRepository.saveRefreshToken(null)
+                settingsRepository.saveAuthChannel(null)
                 settingsRepository.saveCheckoutToken(null)
             }
+        }
+        is AuthRepositoryContract.Inputs.GetMe -> {
+            fetchWithCache(
+                input = input,
+                forceRefresh = input.forceRefresh,
+                getValue = { it.me },
+                updateState = { AuthRepositoryContract.Inputs.UpdateMe(it) },
+                doFetch = {
+                    apolloClient.query(CurrentUserDetailsQuery()).execute().data?.me!!
+                }
+            )
+        }
+        is AuthRepositoryContract.Inputs.UpdateMe -> {
+            updateState { it.copy(me = input.me) }
+        }
+        is AuthRepositoryContract.Inputs.GetAddress -> {
+            fetchWithCache(
+                input = input,
+                forceRefresh = input.forceRefresh,
+                getValue = { it.address },
+                updateState = { AuthRepositoryContract.Inputs.UpdateAddress(it) },
+                doFetch = {
+                    apolloClient.query(CurrentUserAddressesQuery()).execute().data?.me!!
+                }
+            )
+        }
+        is AuthRepositoryContract.Inputs.GetOrders -> {
+            fetchWithCache(
+                input = input,
+                forceRefresh = input.forceRefresh,
+                getValue = { it.orders },
+                updateState = { AuthRepositoryContract.Inputs.UpdateOrders(it) },
+                doFetch = {
+                    apolloClient.query(OrdersQuery()).execute().data?.me!!
+                }
+            )
+        }
+        is AuthRepositoryContract.Inputs.UpdateAddress -> {
+            updateState { it.copy(address = input.address) }
+        }
+        is AuthRepositoryContract.Inputs.UpdateOrders -> {
+            updateState { it.copy(orders = input.orders) }
         }
     }
 }

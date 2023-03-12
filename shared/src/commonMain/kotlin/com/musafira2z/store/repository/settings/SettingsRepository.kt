@@ -15,6 +15,9 @@ class SettingsRepository(
     val csrfToken: String?
         get() = settings.getStringOrNull("auth_token_csrf")
 
+    val channel: String?
+        get() = settings.getStringOrNull("auth_channel")
+
     fun saveCheckoutToken(token: String?) {
         if (token != null) {
             settings.putString("checkout_token", token)
@@ -45,5 +48,13 @@ class SettingsRepository(
             return
         }
         settings.remove("auth_token_refresh")
+    }
+
+    fun saveAuthChannel(token: String?) {
+        if (token != null) {
+            settings.putString("auth_channel", token)
+            return
+        }
+        settings.putString("auth_channel", "default")
     }
 }

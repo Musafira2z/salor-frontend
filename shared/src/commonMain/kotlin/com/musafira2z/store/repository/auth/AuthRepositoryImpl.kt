@@ -5,8 +5,7 @@ import com.copperleaf.ballast.build
 import com.copperleaf.ballast.repository.BallastRepository
 import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.cache.Cached
-import com.musafira2z.store.LoginCustomerMutation
-import com.musafira2z.store.RegisterCustomerMutation
+import com.musafira2z.store.*
 import com.musafira2z.store.utils.ResponseResource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -54,6 +53,21 @@ class AuthRepositoryImpl(
     ): Flow<ResponseResource<RegisterCustomerMutation.AccountRegister?>> {
         trySend(AuthRepositoryContract.Inputs.SignupUser(fullName, username, password))
         return observeStates().map { it.signupResponse }
+    }
+
+    override fun fetchMe(forceRefresh: Boolean): Flow<Cached<CurrentUserDetailsQuery.Me>> {
+        trySend(AuthRepositoryContract.Inputs.GetMe(forceRefresh))
+        return observeStates().map { it.me }
+    }
+
+    override fun fetchAddress(forceRefresh: Boolean): Flow<Cached<CurrentUserAddressesQuery.Me>> {
+        trySend(AuthRepositoryContract.Inputs.GetAddress(forceRefresh))
+        return observeStates().map { it.address }
+    }
+
+    override fun fetchOrders(forceRefresh: Boolean): Flow<Cached<OrdersQuery.Me>> {
+        trySend(AuthRepositoryContract.Inputs.GetOrders(forceRefresh))
+        return observeStates().map { it.orders }
     }
 
     override fun postInput(input: AuthRepositoryContract.Inputs) {

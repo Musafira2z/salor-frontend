@@ -10,13 +10,15 @@ import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.bus.observeInputsFromBus
 import com.copperleaf.ballast.repository.cache.fetchWithCache
 import com.musafira2z.store.ProductCollectionQuery
-import com.musafira2z.store.defaultChannel
+import com.musafira2z.store.normalChannel
+import com.musafira2z.store.repository.settings.SettingsRepository
 import com.musafira2z.store.type.LanguageCodeEnum
 import com.musafira2z.store.type.ProductFilterInput
 
 class ProductRepositoryInputHandler(
     private val eventBus: EventBus,
-    private val apolloClient: ApolloClient
+    private val apolloClient: ApolloClient,
+    private val settingsRepository: SettingsRepository
 ) : InputHandler<
         ProductRepositoryContract.Inputs,
         Any,
@@ -72,7 +74,7 @@ class ProductRepositoryInputHandler(
                         ProductCollectionQuery(
                             after = "",
                             first = 20,
-                            channel = defaultChannel,
+                            channel = settingsRepository.channel ?: normalChannel,
                             filter = ProductFilterInput(),
                             locale = LanguageCodeEnum.EN
                         )
@@ -91,7 +93,7 @@ class ProductRepositoryInputHandler(
                         ProductCollectionQuery(
                             after = "",
                             first = 20,
-                            channel = defaultChannel,
+                            channel = settingsRepository.channel ?: normalChannel,
                             filter = ProductFilterInput(
                                 categories = Optional.presentIfNotNull(
                                     listOf(

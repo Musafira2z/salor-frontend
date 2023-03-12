@@ -29,6 +29,7 @@ class HomeInputHandler(
             postInput(HomeContract.Inputs.FetchHomeProducts(true))
             postInput(HomeContract.Inputs.FetchCarts(true))
             postInput(HomeContract.Inputs.FetchBanners(true))
+            postInput(HomeContract.Inputs.FetchCategories)
         }
         is HomeContract.Inputs.GoBack -> {
             postEvent(HomeContract.Events.NavigateUp)
@@ -82,6 +83,17 @@ class HomeInputHandler(
         }
         HomeContract.Inputs.GoCheckoutPage -> {
             postEvent(HomeContract.Events.GoCheckoutPage)
+        }
+        HomeContract.Inputs.FetchCategories -> {
+            observeFlows("FetchCategories") {
+                listOf(
+                    menuRepository.getAllCategories(false)
+                        .map { HomeContract.Inputs.UpdateCategories(it) }
+                )
+            }
+        }
+        is HomeContract.Inputs.UpdateCategories -> {
+            updateState { it.copy(categories = input.categories) }
         }
     }
 }
