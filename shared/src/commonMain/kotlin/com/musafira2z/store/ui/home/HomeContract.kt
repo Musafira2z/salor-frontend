@@ -37,10 +37,12 @@ object HomeContract {
 
         data class AddToCart(val variantId: String) : Inputs()
         object GoCheckoutPage : Inputs()
+        data class GoCategoryPage(val slug: String) : Inputs()
     }
 
     sealed class Events {
         object NavigateUp : Events()
         object GoCheckoutPage : Events()
+        data class GoCategoryPage(val slug: String) : Events()
     }
 }

@@ -95,5 +95,8 @@ class HomeInputHandler(
         is HomeContract.Inputs.UpdateCategories -> {
             updateState { it.copy(categories = input.categories) }
         }
+        is HomeContract.Inputs.GoCategoryPage -> {
+            postEvent(HomeContract.Events.GoCategoryPage(input.slug))
+        }
     }
 }

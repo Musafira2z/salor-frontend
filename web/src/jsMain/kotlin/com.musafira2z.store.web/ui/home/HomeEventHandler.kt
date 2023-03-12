@@ -5,6 +5,7 @@ import com.copperleaf.ballast.EventHandlerScope
 import com.copperleaf.ballast.navigation.routing.RouterContract
 import com.copperleaf.ballast.navigation.routing.build
 import com.copperleaf.ballast.navigation.routing.directions
+import com.copperleaf.ballast.navigation.routing.path
 import com.copperleaf.ballast.navigation.vm.Router
 import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.web.ui.router.WebPage
@@ -28,6 +29,14 @@ class HomeEventHandler(
             router.trySend(
                 RouterContract.Inputs.GoToDestination(
                     WebPage.Checkout.directions().build()
+                )
+            )
+            Unit
+        }
+        is HomeContract.Events.GoCategoryPage -> {
+            router.trySend(
+                RouterContract.Inputs.GoToDestination(
+                    WebPage.Category.directions().path(event.slug).build()
                 )
             )
             Unit

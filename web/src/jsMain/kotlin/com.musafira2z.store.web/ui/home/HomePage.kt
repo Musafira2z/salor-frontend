@@ -86,7 +86,7 @@ fun HomePageContent(
                             )
                             onClick {
                                 category?.slug?.let {
-                                    postInput(HomeContract.Inputs.GoCheckoutPage)
+                                    postInput(HomeContract.Inputs.GoCategoryPage(slug = it))
                                 }
                             }
                         },
@@ -127,7 +127,6 @@ fun HomePageContent(
         uiState.banners.getCachedOrNull()?.let {
             Carousal(banners = it)
         }
-        //carousal
         Div(attrs = {
             toClasses("container mx-auto")
         }) {
@@ -204,7 +203,7 @@ fun HomePageContent(
             CartBar(cart = cart, onCheckout = {
                 postInput(HomeContract.Inputs.GoCheckoutPage)
             }) {
-                
+
             }
         }
     }

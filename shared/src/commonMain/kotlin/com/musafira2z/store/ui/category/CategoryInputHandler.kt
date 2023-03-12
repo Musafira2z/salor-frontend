@@ -74,5 +74,8 @@ class CategoryInputHandler(
         is CategoryContract.Inputs.UpdateProductByCategory -> {
             updateState { it.copy(products = input.products) }
         }
+        is CategoryContract.Inputs.GoCategoryPage -> {
+            postEvent(CategoryContract.Events.GoCategoryPage(input.slug))
+        }
     }
 }

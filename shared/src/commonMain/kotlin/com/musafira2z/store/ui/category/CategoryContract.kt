@@ -25,9 +25,12 @@ object CategoryContract {
         data class UpdateProductByCategory(
             val products: Cached<ProductCollectionQuery.Data>
         ) : Inputs()
+
+        data class GoCategoryPage(val slug: String) : Inputs()
     }
 
     sealed class Events {
         object NavigateUp : Events()
+        data class GoCategoryPage(val slug: String) : Events()
     }
 }
