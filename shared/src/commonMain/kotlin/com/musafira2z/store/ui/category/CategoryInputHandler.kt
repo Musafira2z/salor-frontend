@@ -5,13 +5,16 @@ import com.copperleaf.ballast.InputHandlerScope
 import com.copperleaf.ballast.observeFlows
 import com.copperleaf.ballast.postInput
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
+import com.musafira2z.store.repository.cart.CartRepository
+import com.musafira2z.store.repository.cart.CartRepositoryContract
 import com.musafira2z.store.repository.menu.MenuRepository
 import com.musafira2z.store.repository.product.ProductRepository
 import kotlinx.coroutines.flow.map
 
 class CategoryInputHandler(
     private val menuRepository: MenuRepository,
-    private val productRepository: ProductRepository
+    private val productRepository: ProductRepository,
+    private val cartRepository: CartRepository
 ) : InputHandler<
         CategoryContract.Inputs,
         CategoryContract.Events,
@@ -76,6 +79,9 @@ class CategoryInputHandler(
         }
         is CategoryContract.Inputs.GoCategoryPage -> {
             postEvent(CategoryContract.Events.GoCategoryPage(input.slug))
+        }
+        is CategoryContract.Inputs.AddToCart -> {
+            cartRepository.postInput(CartRepositoryContract.Inputs.AddItem(variantId = input.variantId))
         }
     }
 }

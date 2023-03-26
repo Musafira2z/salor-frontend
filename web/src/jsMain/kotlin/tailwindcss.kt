@@ -1,3 +1,4 @@
+/*
 @JsModule("./app.css")
 @JsNonModule
-internal external val Style: dynamic
+internal external val Style: dynamic*/

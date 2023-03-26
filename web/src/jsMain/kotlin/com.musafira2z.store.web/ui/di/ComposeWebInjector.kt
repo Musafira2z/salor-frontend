@@ -1,10 +1,7 @@
 package com.musafira2z.store.web.ui.di
 
 import com.copperleaf.ballast.*
-import com.copperleaf.ballast.core.JsConsoleBallastLogger
-import com.copperleaf.ballast.core.LoggingInterceptor
 import com.copperleaf.ballast.debugger.BallastDebuggerClientConnection
-import com.copperleaf.ballast.debugger.BallastDebuggerInterceptor
 import com.copperleaf.ballast.navigation.browser.BrowserHashNavigationInterceptor
 import com.copperleaf.ballast.navigation.routing.RoutingTable
 import com.copperleaf.ballast.navigation.routing.fromEnum
@@ -184,7 +181,8 @@ class ComposeWebInjector(
                     initialState = CategoryContract.State(),
                     inputHandler = CategoryInputHandler(
                         menuRepository = menuRepository,
-                        productRepository = productRepository
+                        productRepository = productRepository,
+                        cartRepository = cartRepository
                     ),
                     name = "CategoryScreen"
                 ),
@@ -221,9 +219,9 @@ class ComposeWebInjector(
     private fun commonBuilder(): BallastViewModelConfiguration.Builder {
         return BallastViewModelConfiguration.Builder()
             .apply {
-                this += LoggingInterceptor()
-                this += BallastDebuggerInterceptor(debuggerConnection)
-                logger = ::JsConsoleBallastLogger
+//                this += LoggingInterceptor()
+//                this += BallastDebuggerInterceptor(debuggerConnection)
+//                logger = ::JsConsoleBallastLogger
             }
     }
 }

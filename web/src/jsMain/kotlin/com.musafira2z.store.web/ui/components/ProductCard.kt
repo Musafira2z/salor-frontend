@@ -2,7 +2,6 @@ package com.musafira2z.store.web.ui.components
 
 import androidx.compose.runtime.Composable
 import com.musafira2z.store.ProductCollectionQuery
-import com.musafira2z.store.fragment.MenuItemWithChildrenFragment
 import com.musafira2z.store.fragment.MenuItemWithChildrenFragmentProducts
 import com.musafira2z.store.fragment.ProductDetailsFragment
 import com.musafira2z.store.web.ui.utils.toFormatPrice
@@ -92,7 +91,7 @@ fun Product(
                     P(attrs = {
                         classes("text-red-500", "font-bold", "line-through")
                     }) {
-                        Text("৳${it}")
+                        Text(it)
                     }
                 }
             }
@@ -109,7 +108,7 @@ fun Product(
                 P(attrs = {
                     classes("text-green-500")
                 }) {
-                    Text("৳${variant.productVariantDetailsFragment.pricing?.price?.gross?.priceFragment?.toFormatPrice()}")
+                    Text("${variant.productVariantDetailsFragment.pricing?.price?.gross?.priceFragment?.toFormatPrice()}")
                 }
             }
             Div {

@@ -43,10 +43,7 @@ fun PriceFragment?.toFormatPrice(): String {
         return ""
     }
 
-    val currency = this.currency
-    val price = this.amount
-
-    return price.toString()
+    return "${this.currency} $amount"
 }
 
 fun PriceFragment?.toUnDiscountFormatPrice(
@@ -56,12 +53,9 @@ fun PriceFragment?.toUnDiscountFormatPrice(
         return null
     }
 
-    val currency = this.currency
-    val price = this.amount
-
-    if (newPrice == price) {
+    if (newPrice == this.amount) {
         return null
     }
 
-    return price.toString()
+    return "${this.currency} ${this.amount}"
 }

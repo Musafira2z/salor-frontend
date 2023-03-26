@@ -5,6 +5,7 @@ import com.musafira2z.store.CollectionBySlugQuery
 import com.musafira2z.store.MainMenuQuery
 import com.musafira2z.store.ProductCollectionQuery
 import com.musafira2z.store.fragment.MenuItemWithChildrenFragment
+import com.musafira2z.store.ui.home.HomeContract
 
 object CategoryContract {
     data class State(
@@ -27,6 +28,7 @@ object CategoryContract {
         ) : Inputs()
 
         data class GoCategoryPage(val slug: String) : Inputs()
+        data class AddToCart(val variantId: String) : Inputs()
     }
 
     sealed class Events {

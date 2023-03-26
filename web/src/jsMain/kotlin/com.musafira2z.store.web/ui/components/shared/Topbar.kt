@@ -8,8 +8,10 @@ import com.musafira2z.store.utils.ResponseResource
 import com.musafira2z.store.web.ui.components.LoginModal
 import com.musafira2z.store.web.ui.components.OutlineHelp
 import com.musafira2z.store.web.ui.utils.toClasses
+import org.jetbrains.compose.web.attributes.ATarget
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.attributes.name
+import org.jetbrains.compose.web.attributes.target
 import org.jetbrains.compose.web.dom.*
 
 @Composable
@@ -56,18 +58,30 @@ fun TopAppBar(
                     Div(attrs = {
                         classes("flex", "items-center")
                     }) {
-                        Img(attrs = {
-                            classes("w-auto", "h-8")
-                        }, src = "https://shatkora.co/playstore.webp", alt = "")
-
+                        A(
+                            attrs = {
+                                target(ATarget.Blank)
+                            },
+                            href = "https://play.google.com/store/apps/details?id=com.musafira2z.store"
+                        ) {
+                            Img(attrs = {
+                                classes("w-auto", "h-8")
+                            }, src = "https://shatkora.co/playstore.webp", alt = "")
+                        }
                     }
                     Div(attrs = {
                         classes("flex", "items-center")
                     }) {
-                        Img(attrs = {
-                            classes("w-auto", "h-8")
-                        }, src = "https://shatkora.co/ios-store.png", alt = "")
-
+                        A(
+                            attrs = {
+                                target(ATarget.Blank)
+                            },
+                            href = "https://play.google.com/store/apps/details?id=com.musafira2z.store"
+                        ) {
+                            Img(attrs = {
+                                classes("w-auto", "h-8")
+                            }, src = "https://shatkora.co/ios-store.png", alt = "")
+                        }
                     }
 
                     Div(
