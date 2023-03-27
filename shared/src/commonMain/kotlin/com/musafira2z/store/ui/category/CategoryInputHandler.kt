@@ -5,10 +5,12 @@ import com.copperleaf.ballast.InputHandlerScope
 import com.copperleaf.ballast.observeFlows
 import com.copperleaf.ballast.postInput
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
+import com.musafira2z.store.data.categoryItems
 import com.musafira2z.store.repository.cart.CartRepository
 import com.musafira2z.store.repository.cart.CartRepositoryContract
 import com.musafira2z.store.repository.menu.MenuRepository
 import com.musafira2z.store.repository.product.ProductRepository
+import com.musafira2z.store.utils.findItem
 import kotlinx.coroutines.flow.map
 
 class CategoryInputHandler(
@@ -28,6 +30,7 @@ class CategoryInputHandler(
         is CategoryContract.Inputs.Initialize -> {
             updateState { it.copy(slug = input.slug) }
             postInput(CategoryContract.Inputs.FetchCategories)
+            postInput(CategoryContract.Inputs.FetchCarts(true))
         }
         is CategoryContract.Inputs.GoBack -> {
             postEvent(CategoryContract.Events.NavigateUp)
@@ -41,19 +44,45 @@ class CategoryInputHandler(
             }
         }
         is CategoryContract.Inputs.UpdateCategories -> {
-            val currentState = getCurrentState()
             updateState { it.copy(categories = input.categories) }
-            sideJob("GetCategories") {
-                val category = input.categories.getCachedOrNull()?.menu?.items?.firstOrNull {
-                    it.menuItemWithChildrenFragment.category?.slug == currentState.slug
+            val currentState = getCurrentState()
+//            val categories = currentState.categories.getCachedOrNull()?.menu?.items?.categoryItems()
+//                ?.map { item ->
+//                    item.child.map { _child ->
+//                        item.child.map { _child1 ->
+//                            _child1
+//                        }.toMutableList().apply {
+//                            add(_child)
+//                        }
+//                    }.flatten().toMutableList().apply {
+//                        add(item)
+//                    }
+//                }?.flatten()
+
+            val category =
+                currentState.categories.getCachedOrNull()?.menu?.items?.categoryItems()?.let {
+                    val item = it.firstOrNull {
+                        it.slug == currentState.slug
+                    }
+                    if (item != null) return@let item
+
+                    val ii = it.mapNotNull { it.child.firstOrNull { it.slug == currentState.slug } }
+                    if (ii.firstOrNull() != null) {
+                        return@let ii.first()
+                    }
+                    null
                 }
-                postInput(CategoryContract.Inputs.UpdateCategory(category?.menuItemWithChildrenFragment))
-            }
+
+            postInput(CategoryContract.Inputs.UpdateCategory(category))
         }
         is CategoryContract.Inputs.UpdateCategory -> {
             updateState { it.copy(category = input.category) }
-            if (input.category?.children.isNullOrEmpty()) {
-                input.category?.category?.let {
+            val currentState = getCurrentState()
+
+            println("category ${input.category}")
+
+            input.category?.let {
+                if (it.child.isEmpty()) {
                     postInput(
                         CategoryContract.Inputs.GetProductByCategory(
                             it.id,
@@ -61,7 +90,9 @@ class CategoryInputHandler(
                         )
                     )
                 }
+
             }
+
             Unit
         }
         is CategoryContract.Inputs.GetProductByCategory -> {
@@ -82,6 +113,20 @@ class CategoryInputHandler(
         }
         is CategoryContract.Inputs.AddToCart -> {
             cartRepository.postInput(CartRepositoryContract.Inputs.AddItem(variantId = input.variantId))
+        }
+        is CategoryContract.Inputs.FetchCarts -> {
+            observeFlows("FetchCarts") {
+                listOf(
+                    cartRepository.getCarts(input.forceRefresh)
+                        .map { CategoryContract.Inputs.UpdateCarts(it) }
+                )
+            }
+        }
+        CategoryContract.Inputs.GoCheckoutPage -> {
+
+        }
+        is CategoryContract.Inputs.UpdateCarts -> {
+            updateState { it.copy(carts = input.carts) }
         }
     }
 }

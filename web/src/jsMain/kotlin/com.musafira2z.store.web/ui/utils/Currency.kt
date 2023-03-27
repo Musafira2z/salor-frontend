@@ -59,3 +59,4 @@ fun PriceFragment?.toUnDiscountFormatPrice(
 
     return "${this.currency} ${this.amount}"
 }
+

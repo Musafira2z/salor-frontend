@@ -1,8 +1,10 @@
 package com.musafira2z.store.web.ui.app
 
 import androidx.compose.runtime.*
-import com.copperleaf.ballast.navigation.routing.*
-import com.copperleaf.ballast.repository.cache.getCachedOrNull
+import com.copperleaf.ballast.navigation.routing.currentDestinationOrNull
+import com.copperleaf.ballast.navigation.routing.currentRouteOrNull
+import com.copperleaf.ballast.navigation.routing.renderCurrentDestination
+import com.copperleaf.ballast.navigation.routing.stringPath
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.ui.app.AppViewModel
@@ -10,7 +12,6 @@ import com.musafira2z.store.web.ui.category.CategoryScreen
 import com.musafira2z.store.web.ui.checkout.CheckoutPage
 import com.musafira2z.store.web.ui.components.CartBody
 import com.musafira2z.store.web.ui.components.Drawer
-import com.musafira2z.store.web.ui.components.shared.SideBar
 import com.musafira2z.store.web.ui.components.shared.TopAppBar
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.home.HomePage

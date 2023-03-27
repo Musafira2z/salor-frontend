@@ -3,6 +3,7 @@ package com.musafira2z.store.web.ui.category
 import androidx.compose.runtime.*
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.musafira2z.store.ui.category.CategoryContract
+import com.musafira2z.store.web.ui.app.CartBar
 import com.musafira2z.store.web.ui.components.Products
 import com.musafira2z.store.web.ui.components.shared.SideBar
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
@@ -119,47 +120,52 @@ fun CategoryContent(
                         H1(attrs = {
                             classes("font-bold", "pt-5", "text-xl")
                         }) {
-                            Text(it.name)
+                            Text(it.title)
                         }
                     }
                 }
 
-                if (it.children.isNullOrEmpty()) {
-                    uiState.products.getCachedOrNull()?.let {
-                        Products(products = it) {
-                            //add to cart
-                            postInput(CategoryContract.Inputs.AddToCart(it))
-                        }
-                    }
-                } else {
+                //categories
+                if (it.child.isNotEmpty()) {
                     Div(attrs = {
                         classes("py-10")
                     }) {
                         Div(attrs = {
                             toClasses("grid grid-cols-12 gap-5")
                         }) {
-                            it.children?.forEach {
-                                Div(attrs = {
-                                    classes(
-                                        "col-span-12",
-                                        "sm:col-span-6",
-                                        "md:col-span-6",
-                                        "lg:col-span-3",
-                                        "border",
-                                        "p-5",
-                                        "rounded-lg",
-                                        "hover:shadow-green-200",
-                                        "relative",
-                                        "hover:no-underline",
-                                        "hover:text-slate-700",
-                                        "shadow-lg",
-                                        "hover:shadow-xl",
-                                        "hover:transform",
-                                        "hover:scale-105",
-                                        "duration-300",
-                                        "h-fit"
-                                    )
-                                }) {
+                            it.child.forEach { menuItem ->
+                                Div(
+                                    attrs = {
+                                        classes(
+                                            "col-span-12",
+                                            "sm:col-span-6",
+                                            "md:col-span-6",
+                                            "lg:col-span-3",
+                                            "border",
+                                            "p-5",
+                                            "rounded-lg",
+                                            "hover:shadow-green-200",
+                                            "relative",
+                                            "hover:no-underline",
+                                            "hover:text-slate-700",
+                                            "shadow-lg",
+                                            "hover:shadow-xl",
+                                            "hover:transform",
+                                            "hover:scale-105",
+                                            "duration-300",
+                                            "h-fit"
+                                        )
+                                        onClick {
+                                            menuItem.slug.let {
+                                                postInput(
+                                                    CategoryContract.Inputs.GoCategoryPage(
+                                                        slug = it
+                                                    )
+                                                )
+                                            }
+                                        }
+                                    }
+                                ) {
                                     Div {
                                         Div(attrs = {
                                             classes(
@@ -170,7 +176,7 @@ fun CategoryContent(
                                             )
                                         }) {
                                             val image =
-                                                it.menuItemFragment.category?.backgroundImage?.url?.replace(
+                                                menuItem.image?.replace(
                                                     "http://localhost:8000",
                                                     "https://musafirtd.sgp1.cdn.digitaloceanspaces.com"
                                                 )
@@ -188,14 +194,33 @@ fun CategoryContent(
                                                 "hover:text-clip"
                                             )
                                         }) {
-                                            Text(it.menuItemFragment.name)
+                                            Text(menuItem.title)
                                         }
                                     }
                                 }
                             }
                         }
                     }
+                } else {
+                    //products
+                    uiState.products.getCachedOrNull()?.let {
+                        Products(products = it) {
+                            //add to cart
+                            postInput(CategoryContract.Inputs.AddToCart(it))
+                        }
+                    }
                 }
+            }
+        }
+    }
+
+    //carts
+    uiState.carts.getCachedOrNull()?.let { cart ->
+        if (cart.lines.isNotEmpty()) {
+            CartBar(cart = cart, onCheckout = {
+                postInput(CategoryContract.Inputs.GoCheckoutPage)
+            }) {
+
             }
         }
     }
