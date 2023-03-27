@@ -30,12 +30,16 @@ import com.musafira2z.store.ui.checkout.CheckoutContract
 import com.musafira2z.store.ui.checkout.CheckoutInputHandler
 import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.ui.home.HomeInputHandler
+import com.musafira2z.store.ui.product_details.ProductDetailContract
+import com.musafira2z.store.ui.product_details.ProductDetailInputHandler
 import com.musafira2z.store.web.ui.category.CategoryEventHandler
 import com.musafira2z.store.web.ui.category.CategoryViewModel
 import com.musafira2z.store.web.ui.checkout.CheckoutEventHandler
 import com.musafira2z.store.web.ui.checkout.CheckoutViewModel
 import com.musafira2z.store.web.ui.home.HomeEventHandler
 import com.musafira2z.store.web.ui.home.HomeViewModel
+import com.musafira2z.store.web.ui.product_details.ProductDetailEventHandler
+import com.musafira2z.store.web.ui.product_details.ProductDetailViewModel
 import com.musafira2z.store.web.ui.router.WebPage
 import com.musafira2z.store.web.ui.router.WebPagerRouter
 import io.ktor.client.engine.js.*
@@ -187,6 +191,22 @@ class ComposeWebInjector(
                     name = "CategoryScreen"
                 ),
             categoryEventHandler = CategoryEventHandler(router = router)
+        )
+    }
+
+    fun productDetailsViewModel(coroutineScope: CoroutineScope): ProductDetailViewModel {
+        return ProductDetailViewModel(
+            coroutineScope = coroutineScope,
+            configBuilder = commonBuilder()
+                .withViewModel(
+                    initialState = ProductDetailContract.State(),
+                    inputHandler = ProductDetailInputHandler(
+                        productRepository = productRepository,
+                        cartRepository = cartRepository
+                    ),
+                    name = "CategoryScreen"
+                ),
+            eventHandler = ProductDetailEventHandler(router = router)
         )
     }
 

@@ -204,7 +204,12 @@ fun CategoryContent(
                 } else {
                     //products
                     uiState.products.getCachedOrNull()?.let {
-                        Products(products = it) {
+                        Products(
+                            products = it,
+                            onProductDetails = { productSlug, variantId ->
+
+                            }
+                        ) {
                             //add to cart
                             postInput(CategoryContract.Inputs.AddToCart(it))
                         }

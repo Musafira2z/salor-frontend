@@ -98,5 +98,9 @@ class HomeInputHandler(
         is HomeContract.Inputs.GoCategoryPage -> {
             postEvent(HomeContract.Events.GoCategoryPage(input.slug))
         }
+        is HomeContract.Inputs.GoProductDetailsPage -> {
+            println("clicked on details")
+            postEvent(HomeContract.Events.GoProductDetailsPage(input.slug, input.variantId))
+        }
     }
 }

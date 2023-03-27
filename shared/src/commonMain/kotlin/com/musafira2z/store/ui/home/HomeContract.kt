@@ -38,11 +38,13 @@ object HomeContract {
         data class AddToCart(val variantId: String) : Inputs()
         object GoCheckoutPage : Inputs()
         data class GoCategoryPage(val slug: String) : Inputs()
+        data class GoProductDetailsPage(val slug: String, val variantId: String?) : Inputs()
     }
 
     sealed class Events {
         object NavigateUp : Events()
         object GoCheckoutPage : Events()
         data class GoCategoryPage(val slug: String) : Events()
+        data class GoProductDetailsPage(val slug: String, val variantId: String?) : Events()
     }
 }

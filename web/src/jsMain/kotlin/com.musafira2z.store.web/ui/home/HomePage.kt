@@ -163,7 +163,18 @@ fun HomePageContent(
                         }) {
                             item.menuItemWithChildrenFragmentProducts.category?.products?.edges?.forEach { _product ->
                                 _product.node.productDetailsFragment.variants?.forEach {
-                                    Product(product = _product, variant = it) {
+                                    Product(
+                                        product = _product,
+                                        variant = it,
+                                        onProductDetails = { productSlug, variantId ->
+                                            postInput(
+                                                HomeContract.Inputs.GoProductDetailsPage(
+                                                    slug = productSlug,
+                                                    variantId = variantId
+                                                )
+                                            )
+                                        }
+                                    ) {
                                         postInput(HomeContract.Inputs.AddToCart(it))
                                     }
                                 }
@@ -190,7 +201,17 @@ fun HomePageContent(
 
             val products = uiState.products.getCachedOrNull()
             products?.let {
-                Products(it) {
+                Products(
+                    it,
+                    onProductDetails = { productSlug, variantId ->
+                        postInput(
+                            HomeContract.Inputs.GoProductDetailsPage(
+                                slug = productSlug,
+                                variantId = variantId
+                            )
+                        )
+                    }
+                ) {
                     postInput(HomeContract.Inputs.AddToCart(it))
                 }
             }

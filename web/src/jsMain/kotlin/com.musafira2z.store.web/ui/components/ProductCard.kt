@@ -8,11 +8,11 @@ import com.musafira2z.store.web.ui.utils.toFormatPrice
 import com.musafira2z.store.web.ui.utils.toUnDiscountFormatPrice
 import org.jetbrains.compose.web.dom.*
 
-
 @Composable
 fun Product(
     product: ProductCollectionQuery.Edge,
     variant: ProductDetailsFragment.Variant,
+    onProductDetails: (productSlug: String, variantId: String?) -> Unit,
     onAdd: (String) -> Unit
 ) {
     val productNode = product.node.productDetailsFragment
@@ -36,6 +36,12 @@ fun Product(
             "duration-300",
             "h-fit"
         )
+        onClick {
+            onProductDetails(
+                product.node.productDetailsFragment.slug,
+                variant.productVariantDetailsFragment.id
+            )
+        }
     }) {
         variant.productVariantDetailsFragment.pricing?.onSale?.let {
             if (it) {
@@ -152,6 +158,7 @@ fun AddToCartButton(
 fun Product(
     product: MenuItemWithChildrenFragmentProducts.Edge,
     variant: ProductDetailsFragment.Variant,
+    onProductDetails: (productSlug: String, variantId: String?) -> Unit,
     onAdd: (String) -> Unit
 ) {
     val productNode = product.node.productDetailsFragment
@@ -175,6 +182,12 @@ fun Product(
             "duration-300",
             "h-fit"
         )
+        onClick {
+            onProductDetails(
+                product.node.productDetailsFragment.slug,
+                variant.productVariantDetailsFragment.id
+            )
+        }
     }) {
         variant.productVariantDetailsFragment.pricing?.onSale?.let {
             if (it) {

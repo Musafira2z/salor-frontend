@@ -9,6 +9,7 @@ import com.copperleaf.ballast.postInput
 import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.bus.observeInputsFromBus
 import com.copperleaf.ballast.repository.cache.fetchWithCache
+import com.musafira2z.store.ProductBySlugQuery
 import com.musafira2z.store.ProductCollectionQuery
 import com.musafira2z.store.normalChannel
 import com.musafira2z.store.repository.settings.SettingsRepository
@@ -109,6 +110,26 @@ class ProductRepositoryInputHandler(
         }
         is ProductRepositoryContract.Inputs.UpdateProductByCategory -> {
             updateState { it.copy(productsByCategory = input.productsByCategory) }
+        }
+        is ProductRepositoryContract.Inputs.GetProduct -> {
+            fetchWithCache(
+                input = input,
+                forceRefresh = input.forceRefresh,
+                getValue = { it.product },
+                updateState = { ProductRepositoryContract.Inputs.UpdateProduct(it) },
+                doFetch = {
+                    apolloClient.query(
+                        ProductBySlugQuery(
+                            channel = settingsRepository.channel ?: normalChannel,
+                            locale = LanguageCodeEnum.EN,
+                            slug = input.slug
+                        )
+                    ).execute().data!!
+                },
+            )
+        }
+        is ProductRepositoryContract.Inputs.UpdateProduct -> {
+            updateState { it.copy(product = input.productsByCategory) }
         }
     }
 }

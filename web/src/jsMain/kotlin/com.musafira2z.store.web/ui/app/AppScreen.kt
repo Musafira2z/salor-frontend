@@ -1,10 +1,7 @@
 package com.musafira2z.store.web.ui.app
 
 import androidx.compose.runtime.*
-import com.copperleaf.ballast.navigation.routing.currentDestinationOrNull
-import com.copperleaf.ballast.navigation.routing.currentRouteOrNull
-import com.copperleaf.ballast.navigation.routing.renderCurrentDestination
-import com.copperleaf.ballast.navigation.routing.stringPath
+import com.copperleaf.ballast.navigation.routing.*
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.ui.app.AppViewModel
@@ -15,6 +12,7 @@ import com.musafira2z.store.web.ui.components.Drawer
 import com.musafira2z.store.web.ui.components.shared.TopAppBar
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.home.HomePage
+import com.musafira2z.store.web.ui.product_details.ProductDetailsScreen
 import com.musafira2z.store.web.ui.router.WebPage
 import com.musafira2z.store.web.ui.utils.toClasses
 import org.jetbrains.compose.web.dom.*
@@ -65,6 +63,13 @@ fun AppScreen() {
                 }
                 WebPage.Checkout -> {
                     CheckoutPage(injector = injector)
+                }
+                WebPage.ProductDetails -> {
+                    println("received")
+                    val slug: String by stringPath()
+                    val variantId: String? by optionalStringQuery()
+
+                    ProductDetailsScreen(injector = injector, slug = slug, variantId = variantId)
                 }
             }
         },

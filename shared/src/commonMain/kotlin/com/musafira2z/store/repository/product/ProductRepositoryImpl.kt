@@ -5,6 +5,7 @@ import com.copperleaf.ballast.build
 import com.copperleaf.ballast.repository.BallastRepository
 import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.cache.Cached
+import com.musafira2z.store.ProductBySlugQuery
 import com.musafira2z.store.ProductCollectionQuery
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -37,7 +38,25 @@ class ProductRepositoryImpl(
         refreshCache: Boolean,
         slug: String
     ): Flow<Cached<ProductCollectionQuery.Data>> {
-        trySend(ProductRepositoryContract.Inputs.GetProductByCategory(forceRefresh = refreshCache, slug = slug))
+        trySend(
+            ProductRepositoryContract.Inputs.GetProductByCategory(
+                forceRefresh = refreshCache,
+                slug = slug
+            )
+        )
         return observeStates().map { it.productsByCategory }
+    }
+
+    override fun getProductBySlug(
+        refreshCache: Boolean,
+        slug: String
+    ): Flow<Cached<ProductBySlugQuery.Data>> {
+        trySend(
+            ProductRepositoryContract.Inputs.GetProduct(
+                forceRefresh = refreshCache,
+                slug = slug
+            )
+        )
+        return observeStates().map { it.product }
     }
 }

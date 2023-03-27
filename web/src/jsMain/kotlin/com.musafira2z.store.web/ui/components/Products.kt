@@ -8,6 +8,7 @@ import org.jetbrains.compose.web.dom.Div
 @Composable
 fun Products(
     products: ProductCollectionQuery.Data,
+    onProductDetails: (productSlug: String, variantId: String?) -> Unit,
     onAdd: (String) -> Unit
 ) {
     Div(attrs = {
@@ -18,7 +19,11 @@ fun Products(
         }) {
             products.products?.edges?.forEach { _product ->
                 _product.node.productDetailsFragment.variants?.forEach {
-                    Product(product = _product, variant = it) {
+                    Product(
+                        product = _product,
+                        variant = it,
+                        onProductDetails = onProductDetails
+                    ) {
                         onAdd(it)
                     }
                 }
