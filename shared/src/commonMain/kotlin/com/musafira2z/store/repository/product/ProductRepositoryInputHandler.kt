@@ -33,6 +33,7 @@ class ProductRepositoryInputHandler(
         is ProductRepositoryContract.Inputs.ClearCaches -> {
             updateState { ProductRepositoryContract.State() }
         }
+
         is ProductRepositoryContract.Inputs.Initialize -> {
             val previousState = getCurrentState()
 
@@ -50,6 +51,7 @@ class ProductRepositoryInputHandler(
                 noOp()
             }
         }
+
         is ProductRepositoryContract.Inputs.RefreshAllCaches -> {
             // then refresh all the caches in this repository
             val currentState = getCurrentState()
@@ -63,6 +65,7 @@ class ProductRepositoryInputHandler(
         is ProductRepositoryContract.Inputs.DataListUpdated -> {
             updateState { it.copy(products = input.dataList) }
         }
+
         is ProductRepositoryContract.Inputs.RefreshDataList -> {
             updateState { it.copy(dataListInitialized = true) }
             fetchWithCache(
@@ -83,6 +86,7 @@ class ProductRepositoryInputHandler(
                 },
             )
         }
+
         is ProductRepositoryContract.Inputs.GetProductByCategory -> {
             fetchWithCache(
                 input = input,
@@ -108,9 +112,11 @@ class ProductRepositoryInputHandler(
                 },
             )
         }
+
         is ProductRepositoryContract.Inputs.UpdateProductByCategory -> {
             updateState { it.copy(productsByCategory = input.productsByCategory) }
         }
+
         is ProductRepositoryContract.Inputs.GetProduct -> {
             fetchWithCache(
                 input = input,
@@ -128,8 +134,35 @@ class ProductRepositoryInputHandler(
                 },
             )
         }
+
         is ProductRepositoryContract.Inputs.UpdateProduct -> {
             updateState { it.copy(product = input.productsByCategory) }
+        }
+
+        is ProductRepositoryContract.Inputs.SearchProducts -> {
+            fetchWithCache(
+                input = input,
+                forceRefresh = input.forceRefresh,
+                getValue = { it.filteredProducts },
+                updateState = { ProductRepositoryContract.Inputs.UpdateSearchedProducts(it) },
+                doFetch = {
+                    apolloClient.query(
+                        ProductCollectionQuery(
+                            after = "",
+                            first = 20,
+                            channel = settingsRepository.channel ?: normalChannel,
+                            filter = ProductFilterInput(
+                                search = Optional.presentIfNotNull(input.filter)
+                            ),
+                            locale = LanguageCodeEnum.EN
+                        )
+                    ).execute().data!!
+                },
+            )
+        }
+
+        is ProductRepositoryContract.Inputs.UpdateSearchedProducts -> {
+            updateState { it.copy(filteredProducts = input.products) }
         }
     }
 }

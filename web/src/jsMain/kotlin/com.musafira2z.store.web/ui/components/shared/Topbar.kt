@@ -1,6 +1,6 @@
 package com.musafira2z.store.web.ui.components.shared
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import com.musafira2z.store.LoginCustomerMutation
 import com.musafira2z.store.RegisterCustomerMutation
 import com.musafira2z.store.ui.app.AppContract
@@ -19,6 +19,7 @@ fun TopAppBar(
     isLoggedIn: Boolean,
     loginResponse: ResponseResource<LoginCustomerMutation.TokenCreate?>,
     signupResponse: ResponseResource<RegisterCustomerMutation.AccountRegister?>,
+    searchBox: @Composable () -> Unit,
     postInput: (AppContract.Inputs) -> Unit
 ) {
     Nav(attrs = {
@@ -46,7 +47,7 @@ fun TopAppBar(
                 Div(attrs = {
                     classes("hidden", "w-3/6", "lg:block", "xl:block")
                 }) {
-                    SearchBox()
+                    searchBox()
                 }
             }
             Div(attrs = {
@@ -286,9 +287,7 @@ fun UserMenus(
                         attr("role", "menuitem")
                     }, href = "#") {
                         Text("Sign out")
-
                     }
-
                 }
 
             }
@@ -297,7 +296,11 @@ fun UserMenus(
 }
 
 @Composable
-fun SearchBox() {
+fun SearchBox(
+    initial: String = "",
+    onSearch: (String, Boolean) -> Unit
+) {
+    var search by remember(initial) { mutableStateOf(initial) }
     Div(attrs = {
         classes("flex")
     }) {
@@ -307,18 +310,11 @@ fun SearchBox() {
             P(attrs = {
                 classes(
                     "absolute",
-
                     "p-1", "px-2", "left-2",
-
                     "top-1.5",
-
-
                     "flex", "items-center",
-
                     "rounded-lg",
-
                     "bg-slate-100", "text-green-500",
-
                     "font-bold", "select-none"
                 )
             }) {
@@ -329,7 +325,6 @@ fun SearchBox() {
                 classes(
                     "placeholder:italic",
                     "placeholder:text-slate-400",
-
                     "placeholder:text-xs",
                     "block",
                     "bg-white",
@@ -350,6 +345,11 @@ fun SearchBox() {
                 )
                 attr("placeholder", "Search your Product from hear")
                 name("search")
+                value(search)
+                onInput {
+                    search = it.value
+                    onSearch(it.value, false)
+                }
             }
         }
         Button(attrs = {
@@ -361,6 +361,9 @@ fun SearchBox() {
                 "rounded-lg",
                 "rounded-l-none"
             )
+            onClick {
+                onSearch(search, true)
+            }
         }) {
             Text(" Search")
         }

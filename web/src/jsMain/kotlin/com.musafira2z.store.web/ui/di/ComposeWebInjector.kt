@@ -21,9 +21,8 @@ import com.musafira2z.store.repository.product.ProductRepositoryContract
 import com.musafira2z.store.repository.product.ProductRepositoryImpl
 import com.musafira2z.store.repository.product.ProductRepositoryInputHandler
 import com.musafira2z.store.ui.app.AppContract
-import com.musafira2z.store.ui.app.AppEventHandler
 import com.musafira2z.store.ui.app.AppInputHandler
-import com.musafira2z.store.ui.app.AppViewModel
+import com.musafira2z.store.web.ui.app.AppViewModel
 import com.musafira2z.store.ui.category.CategoryContract
 import com.musafira2z.store.ui.category.CategoryInputHandler
 import com.musafira2z.store.ui.checkout.CheckoutContract
@@ -32,6 +31,9 @@ import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.ui.home.HomeInputHandler
 import com.musafira2z.store.ui.product_details.ProductDetailContract
 import com.musafira2z.store.ui.product_details.ProductDetailInputHandler
+import com.musafira2z.store.ui.search.SearchContract
+import com.musafira2z.store.ui.search.SearchInputHandler
+import com.musafira2z.store.web.ui.app.AppEventHandler
 import com.musafira2z.store.web.ui.category.CategoryEventHandler
 import com.musafira2z.store.web.ui.category.CategoryViewModel
 import com.musafira2z.store.web.ui.checkout.CheckoutEventHandler
@@ -42,6 +44,8 @@ import com.musafira2z.store.web.ui.product_details.ProductDetailEventHandler
 import com.musafira2z.store.web.ui.product_details.ProductDetailViewModel
 import com.musafira2z.store.web.ui.router.WebPage
 import com.musafira2z.store.web.ui.router.WebPagerRouter
+import com.musafira2z.store.web.ui.search.SearchEventHandler
+import com.musafira2z.store.web.ui.search.SearchViewModel
 import io.ktor.client.engine.js.*
 import kotlinx.coroutines.CoroutineScope
 import org.koin.core.component.KoinComponent
@@ -156,7 +160,7 @@ class ComposeWebInjector(
                 ),
                 name = "AppScreen"
             ),
-            eventHandler = AppEventHandler()
+            eventHandler = AppEventHandler(router = router)
         )
     }
 
@@ -223,6 +227,23 @@ class ComposeWebInjector(
                     name = "CategoryScreen"
                 ),
             eventHandler = CheckoutEventHandler(router = router)
+        )
+    }
+
+    fun searchViewModel(coroutineScope: CoroutineScope): SearchViewModel {
+        return SearchViewModel(
+            coroutineScope = coroutineScope,
+            configBuilder = commonBuilder()
+                .withViewModel(
+                    initialState = SearchContract.State(),
+                    inputHandler = SearchInputHandler(
+                        productRepository = productRepository,
+                        cartRepository = cartRepository,
+                        menuRepository = menuRepository
+                    ),
+                    name = "SearchScreen"
+                ),
+            eventHandler = SearchEventHandler(router = router)
         )
     }
 

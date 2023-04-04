@@ -42,9 +42,13 @@ object AppContract {
 
         data class Increment(val lineId: String) : Inputs()
         data class Decrement(val lineId: String) : Inputs()
+
+        data class GoSearchPage(val filter: String?) : Inputs()
+
     }
 
     sealed class Events {
         object NavigateUp : Events()
+        data class GoSearchPage(val filter: String?) : Events()
     }
 }

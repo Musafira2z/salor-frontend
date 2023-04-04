@@ -1,8 +1,9 @@
-package com.musafira2z.store.ui.app
+package com.musafira2z.store.web.ui.app
 
 import com.copperleaf.ballast.BallastViewModelConfiguration
 import com.copperleaf.ballast.build
 import com.copperleaf.ballast.core.BasicViewModel
+import com.musafira2z.store.ui.app.AppContract
 import kotlinx.coroutines.CoroutineScope
 
 class AppViewModel(

@@ -10,6 +10,7 @@ object ProductRepositoryContract {
 
         val dataListInitialized: Boolean = false,
         val products: Cached<ProductCollectionQuery.Data> = Cached.NotLoaded(),
+        val filteredProducts: Cached<ProductCollectionQuery.Data> = Cached.NotLoaded(),
         val productsByCategory: Cached<ProductCollectionQuery.Data> = Cached.NotLoaded(),
         val product: Cached<ProductBySlugQuery.Data> = Cached.NotLoaded()
     )
@@ -21,6 +22,9 @@ object ProductRepositoryContract {
 
         data class RefreshDataList(val forceRefresh: Boolean) : Inputs()
         data class DataListUpdated(val dataList: Cached<ProductCollectionQuery.Data>) : Inputs()
+
+        data class SearchProducts(val forceRefresh: Boolean, val filter: String) : Inputs()
+        data class UpdateSearchedProducts(val products: Cached<ProductCollectionQuery.Data>) : Inputs()
 
         data class GetProductByCategory(val slug: String, val forceRefresh: Boolean) : Inputs()
         data class UpdateProductByCategory(

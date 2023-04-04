@@ -1,13 +1,11 @@
-package com.musafira2z.store.web.ui.home
+package com.musafira2z.store.web.ui.search
 
 import androidx.compose.runtime.*
 import com.copperleaf.ballast.repository.cache.Cached
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.copperleaf.ballast.repository.cache.isLoading
-import com.musafira2z.store.ui.home.HomeContract
+import com.musafira2z.store.ui.search.SearchContract
 import com.musafira2z.store.web.ui.app.CartBar
-import com.musafira2z.store.web.ui.components.Carousal
-import com.musafira2z.store.web.ui.components.Product
 import com.musafira2z.store.web.ui.components.Products
 import com.musafira2z.store.web.ui.components.Spinner
 import com.musafira2z.store.web.ui.components.shared.SearchBox
@@ -21,26 +19,30 @@ import org.w3c.dom.events.EventListener
 import kotlin.math.floor
 
 @Composable
-fun HomePage(
-    webInjector: ComposeWebInjector
+fun SearchPage(
+    webInjector: ComposeWebInjector, search: String
 ) {
     val viewModelScope = rememberCoroutineScope()
-    val vm: HomeViewModel = remember(viewModelScope) { webInjector.homeViewModel(viewModelScope) }
+    val vm: SearchViewModel = remember(viewModelScope) { webInjector.searchViewModel(viewModelScope) }
     LaunchedEffect(vm) {
-        vm.trySend(HomeContract.Inputs.Initialize)
+        vm.trySend(SearchContract.Inputs.Initialize(search))
     }
 
     val uiState by vm.observeStates().collectAsState()
 
-    HomePageContent(uiState) {
+    LaunchedEffect(search) {
+        vm.trySend(SearchContract.Inputs.FetchProducts(true, search))
+    }
+
+    SearchContent(uiState = uiState) {
         vm.trySend(it)
     }
 }
 
 @Composable
-fun HomePageContent(
-    uiState: HomeContract.State,
-    postInput: (HomeContract.Inputs) -> Unit
+fun SearchContent(
+    uiState: SearchContract.State,
+    postInput: (SearchContract.Inputs) -> Unit
 ) {
     val onScroll = EventListener {
         val documentHeight = document.documentElement?.scrollHeight
@@ -86,7 +88,7 @@ fun HomePageContent(
                             )
                             onClick {
                                 category?.slug?.let {
-                                    postInput(HomeContract.Inputs.GoCategoryPage(slug = it))
+                                    postInput(SearchContract.Inputs.GoCategoryPage(slug = it))
                                 }
                             }
                         },
@@ -105,9 +107,7 @@ fun HomePageContent(
                                     "group-hover:text-gray-900",
                                     "dark:group-hover:text-white"
                                 )
-                            },
-                            src = it.menuItemWithChildrenFragment.category?.backgroundImage?.url
-                                ?: ""
+                            }, src = it.menuItemWithChildrenFragment.category?.backgroundImage?.url ?: ""
                         )
                         Span(attrs = {
                             classes("flex-1", "ml-3")
@@ -121,12 +121,10 @@ fun HomePageContent(
         }
     }
 
+    //content
     Div(attrs = {
         toClasses("md:ml-60 lg:ml-60 p-5")
     }) {
-        uiState.banners.getCachedOrNull()?.let {
-            Carousal(banners = it)
-        }
         Div(attrs = {
             toClasses("container mx-auto")
         }) {
@@ -143,54 +141,13 @@ fun HomePageContent(
                 Spinner()
             }
 
-            uiState.blocks.getCachedOrNull()?.let {
-                it.menu?.items?.forEachIndexed { index, item ->
-                    Div(attrs = {
-                        toClasses("text-start")
-                    }) {
-                        H1(attrs = {
-                            classes("font-bold", "pt-5", "text-xl")
-                        }) {
-                            Text(item.menuItemWithChildrenFragmentProducts.name)
-                        }
-                    }
-
-                    Div(attrs = {
-                        classes("py-10")
-                    }) {
-                        Div(attrs = {
-                            toClasses("grid grid-cols-12 gap-5")
-                        }) {
-                            item.menuItemWithChildrenFragmentProducts.category?.products?.edges?.forEach { _product ->
-                                _product.node.productDetailsFragment.variants?.forEach {
-                                    Product(
-                                        product = _product,
-                                        variant = it,
-                                        onProductDetails = { productSlug, variantId ->
-                                            postInput(
-                                                HomeContract.Inputs.GoProductDetailsPage(
-                                                    slug = productSlug,
-                                                    variantId = variantId
-                                                )
-                                            )
-                                        }
-                                    ) {
-                                        postInput(HomeContract.Inputs.AddToCart(it))
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
             Div(attrs = {
                 toClasses("text-start")
             }) {
                 H1(attrs = {
                     classes("font-bold", "pt-5", "text-xl")
                 }) {
-                    Text("Popular Product")
+                    Text("Filter for ${uiState.filter}")
                 }
                 Div(attrs = {
                     classes("lg:hidden")
@@ -203,31 +160,30 @@ fun HomePageContent(
 
             val products = uiState.products.getCachedOrNull()
             products?.let {
-                Products(
-                    it,
-                    onProductDetails = { productSlug, variantId ->
-                        postInput(
-                            HomeContract.Inputs.GoProductDetailsPage(
-                                slug = productSlug,
-                                variantId = variantId
-                            )
+                Products(it, onProductDetails = { productSlug, variantId ->
+                    postInput(
+                        SearchContract.Inputs.GoProductDetailsPage(
+                            slug = productSlug, variantId = variantId
                         )
-                    }
-                ) {
-                    postInput(HomeContract.Inputs.AddToCart(it))
+                    )
+                }) {
+                    postInput(SearchContract.Inputs.AddToCart(it))
                 }
             }
         }
     }
+    //end content
 
     //carts
     uiState.carts.getCachedOrNull()?.let { cart ->
         if (cart.lines.isNotEmpty()) {
             CartBar(cart = cart, onCheckout = {
-                postInput(HomeContract.Inputs.GoCheckoutPage)
+                postInput(SearchContract.Inputs.GoCheckoutPage)
             }) {
 
             }
         }
     }
+    //end carts
+
 }

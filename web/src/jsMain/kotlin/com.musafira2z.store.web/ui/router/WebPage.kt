@@ -10,6 +10,7 @@ enum class WebPage(
 ) : Route {
     HomePage("/"),
     Category("/category/{slug}"),
+    Search("/search?filter={?}"),
     ProductDetails("/product/{slug}?variantId={?}"),
     Checkout("/checkout"),
     ;

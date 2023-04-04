@@ -4,16 +4,17 @@ import androidx.compose.runtime.*
 import com.copperleaf.ballast.navigation.routing.*
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import com.musafira2z.store.ui.app.AppContract
-import com.musafira2z.store.ui.app.AppViewModel
 import com.musafira2z.store.web.ui.category.CategoryScreen
 import com.musafira2z.store.web.ui.checkout.CheckoutPage
 import com.musafira2z.store.web.ui.components.CartBody
 import com.musafira2z.store.web.ui.components.Drawer
+import com.musafira2z.store.web.ui.components.shared.SearchBox
 import com.musafira2z.store.web.ui.components.shared.TopAppBar
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.home.HomePage
 import com.musafira2z.store.web.ui.product_details.ProductDetailsScreen
 import com.musafira2z.store.web.ui.router.WebPage
+import com.musafira2z.store.web.ui.search.SearchPage
 import com.musafira2z.store.web.ui.utils.toClasses
 import org.jetbrains.compose.web.dom.*
 
@@ -22,9 +23,7 @@ fun AppScreen() {
     val applicationScope = rememberCoroutineScope()
     val injector: ComposeWebInjector = remember(applicationScope) {
         ComposeWebInjector(
-            applicationScope,
-            true,
-            WebPage.HomePage
+            applicationScope, true, WebPage.HomePage
         )
     }
 
@@ -41,49 +40,78 @@ fun AppScreen() {
 
     val uiState by vm.observeStates().collectAsState()
 
-    //TopAppBar
-    TopAppBar(
-        isLoggedIn = uiState.isLoggedIn,
-        loginResponse = uiState.loginResponse,
-        signupResponse = uiState.signupResponse
-    ) {
-        vm.trySend(it)
+    if (currentRoute != WebPage.Search) {
+        //TopAppBar
+        TopAppBar(isLoggedIn = uiState.isLoggedIn,
+            loginResponse = uiState.loginResponse,
+            signupResponse = uiState.signupResponse,
+            searchBox = {
+                SearchBox(onSearch = { term, isSubmit ->
+                    if (isSubmit) {
+                        vm.trySend(AppContract.Inputs.GoSearchPage(term))
+                    }
+                })
+            }) {
+            vm.trySend(it)
+        }
     }
 
     //content
-    routerState.renderCurrentDestination(
-        route = {
-            when (it) {
-                WebPage.HomePage -> {
-                    HomePage(webInjector = injector)
-                }
-                WebPage.Category -> {
-                    val slug: String by stringPath()
-                    CategoryScreen(webInjector = injector, slug = slug)
-                }
-                WebPage.Checkout -> {
-                    CheckoutPage(injector = injector)
-                }
-                WebPage.ProductDetails -> {
-                    println("received")
-                    val slug: String by stringPath()
-                    val variantId: String? by optionalStringQuery()
-
-                    ProductDetailsScreen(injector = injector, slug = slug, variantId = variantId)
-                }
+    routerState.renderCurrentDestination(route = {
+        when (it) {
+            WebPage.HomePage -> {
+                HomePage(webInjector = injector)
             }
-        },
-        notFound = {
-            Text("Not found")
+
+            WebPage.Category -> {
+                val slug: String by stringPath()
+                CategoryScreen(webInjector = injector, slug = slug)
+            }
+
+            WebPage.Checkout -> {
+                CheckoutPage(injector = injector)
+            }
+
+            WebPage.ProductDetails -> {
+                val slug: String by stringPath()
+                val variantId: String? by optionalStringQuery()
+
+                ProductDetailsScreen(injector = injector, slug = slug, variantId = variantId)
+            }
+
+            WebPage.Search -> {
+                val filter: String? by optionalStringQuery()
+                var search by remember { mutableStateOf(filter ?: "") }
+
+                TopAppBar(
+                    isLoggedIn = uiState.isLoggedIn,
+                    loginResponse = uiState.loginResponse,
+                    signupResponse = uiState.signupResponse,
+                    searchBox = {
+                        SearchBox(
+                            onSearch = { term, isSubmit ->
+                                search = term
+                            }, initial = filter ?: ""
+                        )
+                    }
+                ) {
+                    vm.trySend(it)
+                }
+
+                SearchPage(
+                    webInjector = injector,
+                    search = search
+                )
+            }
         }
-    )
+    }, notFound = {
+        Text("Not found")
+    })
 }
 
 @Composable
 fun CartBar(
-    cart: CheckoutDetailsFragment,
-    onCheckout: () -> Unit,
-    postInput: (AppContract.Inputs) -> Unit
+    cart: CheckoutDetailsFragment, onCheckout: () -> Unit, postInput: (AppContract.Inputs) -> Unit
 ) {
     var isOpen by remember { mutableStateOf(false) }
     Div {
@@ -124,18 +152,13 @@ fun CartBar(
         }
 
         Drawer(isOpen = isOpen) {
-            CartBody(
-                onClose = {
-                    isOpen = false
-                },
-                cart = cart,
-                onDecrement = {
-                    postInput(AppContract.Inputs.Decrement(it))
-                },
-                onIncrement = {
-                    postInput(AppContract.Inputs.Increment(it))
-                }
-            ) {
+            CartBody(onClose = {
+                isOpen = false
+            }, cart = cart, onDecrement = {
+                postInput(AppContract.Inputs.Decrement(it))
+            }, onIncrement = {
+                postInput(AppContract.Inputs.Increment(it))
+            }) {
                 A(
                     attrs = {
                         toClasses("col-span-6 w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50")

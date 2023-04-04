@@ -128,5 +128,9 @@ class AppInputHandler(
                 postInput(AppContract.Inputs.FetchCarts(true))
             }
         }
+
+        is AppContract.Inputs.GoSearchPage -> {
+            postEvent(AppContract.Events.GoSearchPage(input.filter))
+        }
     }
 }

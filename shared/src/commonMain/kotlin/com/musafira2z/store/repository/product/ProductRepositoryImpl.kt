@@ -34,6 +34,11 @@ class ProductRepositoryImpl(
             .map { it.products }
     }
 
+    override fun searchProducts(refreshCache: Boolean, filter: String): Flow<Cached<ProductCollectionQuery.Data>> {
+        trySend(ProductRepositoryContract.Inputs.SearchProducts(refreshCache, filter))
+        return observeStates().map { it.filteredProducts }
+    }
+
     override fun getProductsByCategory(
         refreshCache: Boolean,
         slug: String
