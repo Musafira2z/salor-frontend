@@ -5,6 +5,7 @@ import com.musafira2z.store.MainMenuQuery
 import com.musafira2z.store.ProductCollectionQuery
 import com.musafira2z.store.data.CategoryItem
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
+import com.musafira2z.store.ui.home.HomeContract
 
 object CategoryContract {
     data class State(
@@ -13,7 +14,8 @@ object CategoryContract {
         val categories: Cached<MainMenuQuery.Data> = Cached.NotLoaded(),
         val category: CategoryItem? = null,
         val products: Cached<ProductCollectionQuery.Data> = Cached.NotLoaded(),
-        val carts: Cached<CheckoutDetailsFragment> = Cached.NotLoaded()
+        val carts: Cached<CheckoutDetailsFragment> = Cached.NotLoaded(),
+        val allProducts: List<ProductCollectionQuery.Edge> = emptyList(),
     )
 
     sealed class Inputs {
@@ -22,10 +24,17 @@ object CategoryContract {
         object FetchCategories : Inputs()
         data class UpdateCategories(val categories: Cached<MainMenuQuery.Data>) : Inputs()
         data class UpdateCategory(val category: CategoryItem?) : Inputs()
-        data class GetProductByCategory(val slug: String, val forceRefresh: Boolean) : Inputs()
+        data class GetProductByCategory(
+            val slug: String,
+            val forceRefresh: Boolean
+        ) : Inputs()
+
         data class UpdateProductByCategory(
             val products: Cached<ProductCollectionQuery.Data>
         ) : Inputs()
+
+        data class AddHomeProducts(val products: Cached<ProductCollectionQuery.Data>) : Inputs()
+
 
         data class GoCategoryPage(val slug: String) : Inputs()
         data class AddToCart(val variantId: String) : Inputs()

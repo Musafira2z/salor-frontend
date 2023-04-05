@@ -10,7 +10,6 @@ import com.musafira2z.store.repository.cart.CartRepository
 import com.musafira2z.store.repository.cart.CartRepositoryContract
 import com.musafira2z.store.repository.menu.MenuRepository
 import com.musafira2z.store.repository.product.ProductRepository
-import com.musafira2z.store.utils.findItem
 import kotlinx.coroutines.flow.map
 
 class CategoryInputHandler(
@@ -32,9 +31,11 @@ class CategoryInputHandler(
             postInput(CategoryContract.Inputs.FetchCategories)
             postInput(CategoryContract.Inputs.FetchCarts(true))
         }
+
         is CategoryContract.Inputs.GoBack -> {
             postEvent(CategoryContract.Events.NavigateUp)
         }
+
         CategoryContract.Inputs.FetchCategories -> {
             observeFlows("FetchCategories") {
                 listOf(
@@ -43,6 +44,7 @@ class CategoryInputHandler(
                 )
             }
         }
+
         is CategoryContract.Inputs.UpdateCategories -> {
             updateState { it.copy(categories = input.categories) }
             val currentState = getCurrentState()
@@ -75,6 +77,7 @@ class CategoryInputHandler(
 
             postInput(CategoryContract.Inputs.UpdateCategory(category))
         }
+
         is CategoryContract.Inputs.UpdateCategory -> {
             updateState { it.copy(category = input.category) }
             val currentState = getCurrentState()
@@ -95,25 +98,34 @@ class CategoryInputHandler(
 
             Unit
         }
+
         is CategoryContract.Inputs.GetProductByCategory -> {
+            val currentState = getCurrentState()
+            val pageInfo = currentState.products.getCachedOrNull()?.products?.pageInfo
             observeFlows("GetProductByCategory") {
                 listOf(
                     productRepository.getProductsByCategory(
                         slug = input.slug,
-                        refreshCache = input.forceRefresh
+                        refreshCache = input.forceRefresh,
+                        pageInfo = pageInfo
                     ).map { CategoryContract.Inputs.UpdateProductByCategory(it) }
                 )
             }
         }
+
         is CategoryContract.Inputs.UpdateProductByCategory -> {
             updateState { it.copy(products = input.products) }
+            postInput(CategoryContract.Inputs.AddHomeProducts(products = input.products))
         }
+
         is CategoryContract.Inputs.GoCategoryPage -> {
             postEvent(CategoryContract.Events.GoCategoryPage(input.slug))
         }
+
         is CategoryContract.Inputs.AddToCart -> {
             cartRepository.postInput(CartRepositoryContract.Inputs.AddItem(variantId = input.variantId))
         }
+
         is CategoryContract.Inputs.FetchCarts -> {
             observeFlows("FetchCarts") {
                 listOf(
@@ -122,11 +134,24 @@ class CategoryInputHandler(
                 )
             }
         }
+
         CategoryContract.Inputs.GoCheckoutPage -> {
 
         }
+
         is CategoryContract.Inputs.UpdateCarts -> {
             updateState { it.copy(carts = input.carts) }
+        }
+
+        is CategoryContract.Inputs.AddHomeProducts -> {
+            val currentState = getCurrentState()
+            updateState {
+                it.copy(allProducts = currentState.allProducts.toMutableList().apply {
+                    input.products.getCachedOrNull()?.products?.edges?.let {
+                        addAll(it)
+                    }
+                })
+            }
         }
     }
 }

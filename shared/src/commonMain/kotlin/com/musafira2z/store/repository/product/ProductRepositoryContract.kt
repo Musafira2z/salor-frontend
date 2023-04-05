@@ -26,7 +26,11 @@ object ProductRepositoryContract {
         data class SearchProducts(val forceRefresh: Boolean, val filter: String) : Inputs()
         data class UpdateSearchedProducts(val products: Cached<ProductCollectionQuery.Data>) : Inputs()
 
-        data class GetProductByCategory(val slug: String, val forceRefresh: Boolean) : Inputs()
+        data class GetProductByCategory(
+            val slug: String,
+            val forceRefresh: Boolean,
+            val pageInfo: ProductCollectionQuery.PageInfo?
+        ) : Inputs()
         data class UpdateProductByCategory(
             val productsByCategory: Cached<ProductCollectionQuery.Data>
         ) : Inputs()

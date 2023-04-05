@@ -97,6 +97,14 @@ class ProductRepositoryInputHandler(
         }
 
         is ProductRepositoryContract.Inputs.GetProductByCategory -> {
+
+            val next = input.pageInfo?.let {
+                if (it.hasNextPage) {
+                    return@let it.endCursor ?: ""
+                }
+                return@let ""
+            } ?: ""
+
             fetchWithCache(
                 input = input,
                 forceRefresh = input.forceRefresh,
@@ -105,7 +113,7 @@ class ProductRepositoryInputHandler(
                 doFetch = {
                     apolloClient.query(
                         ProductCollectionQuery(
-                            after = "",
+                            after = next,
                             first = 20,
                             channel = settingsRepository.channel ?: normalChannel,
                             filter = ProductFilterInput(

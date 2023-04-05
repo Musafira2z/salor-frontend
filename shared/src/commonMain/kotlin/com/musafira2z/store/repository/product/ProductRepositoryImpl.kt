@@ -27,7 +27,10 @@ class ProductRepositoryImpl(
         trySend(ProductRepositoryContract.Inputs.ClearCaches)
     }
 
-    override fun getProducts(refreshCache: Boolean, pageInfo: ProductCollectionQuery.PageInfo?): Flow<Cached<ProductCollectionQuery.Data>> {
+    override fun getProducts(
+        refreshCache: Boolean,
+        pageInfo: ProductCollectionQuery.PageInfo?
+    ): Flow<Cached<ProductCollectionQuery.Data>> {
         trySend(ProductRepositoryContract.Inputs.Initialize)
         trySend(ProductRepositoryContract.Inputs.RefreshDataList(refreshCache, pageInfo = pageInfo))
         return observeStates()
@@ -41,12 +44,14 @@ class ProductRepositoryImpl(
 
     override fun getProductsByCategory(
         refreshCache: Boolean,
-        slug: String
+        slug: String,
+        pageInfo: ProductCollectionQuery.PageInfo?
     ): Flow<Cached<ProductCollectionQuery.Data>> {
         trySend(
             ProductRepositoryContract.Inputs.GetProductByCategory(
                 forceRefresh = refreshCache,
-                slug = slug
+                slug = slug,
+                pageInfo = pageInfo
             )
         )
         return observeStates().map { it.productsByCategory }

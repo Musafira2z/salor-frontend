@@ -243,7 +243,7 @@ fun Product(
                     P(attrs = {
                         classes("text-red-500", "font-bold", "line-through")
                     }) {
-                        Text("৳${it}")
+                        Text("$it")
                     }
                 }
             }
@@ -260,7 +260,7 @@ fun Product(
                 P(attrs = {
                     classes("text-green-500")
                 }) {
-                    Text("৳${variant.productVariantDetailsFragment.pricing?.price?.gross?.priceFragment?.toFormatPrice()}")
+                    Text("${variant.productVariantDetailsFragment.pricing?.price?.gross?.priceFragment?.toFormatPrice()}")
                 }
             }
             Div {

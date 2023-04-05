@@ -12,7 +12,8 @@ interface ProductRepository {
     fun searchProducts(refreshCache: Boolean = false, filter: String): Flow<Cached<ProductCollectionQuery.Data>>
     fun getProductsByCategory(
         refreshCache: Boolean = false,
-        slug: String
+        slug: String,
+        pageInfo: ProductCollectionQuery.PageInfo?
     ): Flow<Cached<ProductCollectionQuery.Data>>
 
     fun getProductBySlug(

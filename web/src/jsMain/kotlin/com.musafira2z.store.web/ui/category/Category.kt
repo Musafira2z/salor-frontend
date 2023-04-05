@@ -3,12 +3,17 @@ package com.musafira2z.store.web.ui.category
 import androidx.compose.runtime.*
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.musafira2z.store.ui.category.CategoryContract
+import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.web.ui.app.CartBar
 import com.musafira2z.store.web.ui.components.Products
 import com.musafira2z.store.web.ui.components.shared.SideBar
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.utils.toClasses
+import kotlinx.browser.document
+import kotlinx.browser.window
 import org.jetbrains.compose.web.dom.*
+import org.w3c.dom.events.EventListener
+import kotlin.math.floor
 
 @Composable
 fun CategoryScreen(
@@ -35,6 +40,18 @@ fun CategoryContent(
     uiState: CategoryContract.State,
     postInput: (CategoryContract.Inputs) -> Unit
 ) {
+
+    val onScroll = EventListener {
+        val documentHeight = document.documentElement?.scrollHeight
+        val scrollDifference = floor(window.innerHeight + window.scrollY).toInt()
+        val scrollEnded = documentHeight == scrollDifference
+
+        if (scrollEnded) {
+            println("load more...")
+            postInput(CategoryContract.Inputs.GetProductByCategory(uiState.slug, true))
+        }
+    }
+
     //sidebar
     SideBar {
         Div(attrs = {
@@ -202,17 +219,23 @@ fun CategoryContent(
                         }
                     }
                 } else {
-                    //products
-                    uiState.products.getCachedOrNull()?.products?.edges?.let {
-                        Products(
-                            products = it,
-                            onProductDetails = { productSlug, variantId ->
-
-                            }
-                        ) {
-                            //add to cart
-                            postInput(CategoryContract.Inputs.AddToCart(it))
+                    DisposableEffect(Unit) {
+                        println("adding listener...")
+                        window.addEventListener("scroll", callback = onScroll)
+                        onDispose {
+                            println("removing listener...")
+                            window.removeEventListener("scroll", onScroll)
                         }
+                    }
+                    //products
+                    Products(
+                        products = uiState.allProducts,
+                        onProductDetails = { productSlug, variantId ->
+
+                        }
+                    ) {
+                        //add to cart
+                        postInput(CategoryContract.Inputs.AddToCart(it))
                     }
                 }
             }
