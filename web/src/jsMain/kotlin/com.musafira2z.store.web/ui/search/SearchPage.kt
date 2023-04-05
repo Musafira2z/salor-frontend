@@ -159,7 +159,7 @@ fun SearchContent(
             }
 
             val products = uiState.products.getCachedOrNull()
-            products?.let {
+            products?.products?.edges?.let {
                 Products(it, onProductDetails = { productSlug, variantId ->
                     postInput(
                         SearchContract.Inputs.GoProductDetailsPage(

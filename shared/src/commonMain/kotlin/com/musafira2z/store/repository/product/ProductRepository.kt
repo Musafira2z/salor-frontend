@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface ProductRepository {
 
     fun clearAllCaches()
-    fun getDataList(refreshCache: Boolean = false): Flow<Cached<ProductCollectionQuery.Data>>
+    fun getProducts(refreshCache: Boolean = false, pageInfo: ProductCollectionQuery.PageInfo?): Flow<Cached<ProductCollectionQuery.Data>>
     fun searchProducts(refreshCache: Boolean = false, filter: String): Flow<Cached<ProductCollectionQuery.Data>>
     fun getProductsByCategory(
         refreshCache: Boolean = false,

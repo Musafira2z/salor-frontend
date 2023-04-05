@@ -7,7 +7,7 @@ import org.jetbrains.compose.web.dom.Div
 
 @Composable
 fun Products(
-    products: ProductCollectionQuery.Data,
+    products: List<ProductCollectionQuery.Edge>,
     onProductDetails: (productSlug: String, variantId: String?) -> Unit,
     onAdd: (String) -> Unit
 ) {
@@ -17,7 +17,7 @@ fun Products(
         Div(attrs = {
             toClasses("grid grid-cols-12 gap-5")
         }) {
-            products.products?.edges?.forEach { _product ->
+            products.forEach { _product ->
                 _product.node.productDetailsFragment.variants?.forEach {
                     Product(
                         product = _product,

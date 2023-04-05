@@ -20,7 +20,7 @@ object ProductRepositoryContract {
         object Initialize : Inputs()
         object RefreshAllCaches : Inputs()
 
-        data class RefreshDataList(val forceRefresh: Boolean) : Inputs()
+        data class RefreshDataList(val forceRefresh: Boolean, val pageInfo: ProductCollectionQuery.PageInfo?) : Inputs()
         data class DataListUpdated(val dataList: Cached<ProductCollectionQuery.Data>) : Inputs()
 
         data class SearchProducts(val forceRefresh: Boolean, val filter: String) : Inputs()

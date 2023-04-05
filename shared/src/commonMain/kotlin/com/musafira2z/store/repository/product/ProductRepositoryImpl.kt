@@ -27,9 +27,9 @@ class ProductRepositoryImpl(
         trySend(ProductRepositoryContract.Inputs.ClearCaches)
     }
 
-    override fun getDataList(refreshCache: Boolean): Flow<Cached<ProductCollectionQuery.Data>> {
+    override fun getProducts(refreshCache: Boolean, pageInfo: ProductCollectionQuery.PageInfo?): Flow<Cached<ProductCollectionQuery.Data>> {
         trySend(ProductRepositoryContract.Inputs.Initialize)
-        trySend(ProductRepositoryContract.Inputs.RefreshDataList(refreshCache))
+        trySend(ProductRepositoryContract.Inputs.RefreshDataList(refreshCache, pageInfo = pageInfo))
         return observeStates()
             .map { it.products }
     }

@@ -56,7 +56,7 @@ class ProductRepositoryInputHandler(
             // then refresh all the caches in this repository
             val currentState = getCurrentState()
             if (currentState.dataListInitialized) {
-                postInput(ProductRepositoryContract.Inputs.RefreshDataList(true))
+                postInput(ProductRepositoryContract.Inputs.RefreshDataList(true, null))
             }
 
             Unit
@@ -68,15 +68,24 @@ class ProductRepositoryInputHandler(
 
         is ProductRepositoryContract.Inputs.RefreshDataList -> {
             updateState { it.copy(dataListInitialized = true) }
+
             fetchWithCache(
                 input = input,
                 forceRefresh = input.forceRefresh,
                 getValue = { it.products },
                 updateState = { ProductRepositoryContract.Inputs.DataListUpdated(it) },
                 doFetch = {
+
+                    val next = input.pageInfo?.let {
+                        if (it.hasNextPage) {
+                            return@let it.endCursor ?: ""
+                        }
+                        return@let ""
+                    } ?: ""
+
                     apolloClient.query(
                         ProductCollectionQuery(
-                            after = "",
+                            after = next,
                             first = 20,
                             channel = settingsRepository.channel ?: normalChannel,
                             filter = ProductFilterInput(),

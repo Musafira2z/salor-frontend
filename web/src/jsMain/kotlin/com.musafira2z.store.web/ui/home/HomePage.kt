@@ -49,6 +49,7 @@ fun HomePageContent(
 
         if (scrollEnded) {
             println("load more...")
+            postInput(HomeContract.Inputs.FetchHomeProducts(true))
         }
     }
 
@@ -201,21 +202,18 @@ fun HomePageContent(
                 }
             }
 
-            val products = uiState.products.getCachedOrNull()
-            products?.let {
-                Products(
-                    it,
-                    onProductDetails = { productSlug, variantId ->
-                        postInput(
-                            HomeContract.Inputs.GoProductDetailsPage(
-                                slug = productSlug,
-                                variantId = variantId
-                            )
+            Products(
+                uiState.allProducts,
+                onProductDetails = { productSlug, variantId ->
+                    postInput(
+                        HomeContract.Inputs.GoProductDetailsPage(
+                            slug = productSlug,
+                            variantId = variantId
                         )
-                    }
-                ) {
-                    postInput(HomeContract.Inputs.AddToCart(it))
+                    )
                 }
+            ) {
+                postInput(HomeContract.Inputs.AddToCart(it))
             }
         }
     }

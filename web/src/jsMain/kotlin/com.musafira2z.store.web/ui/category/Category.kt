@@ -203,7 +203,7 @@ fun CategoryContent(
                     }
                 } else {
                     //products
-                    uiState.products.getCachedOrNull()?.let {
+                    uiState.products.getCachedOrNull()?.products?.edges?.let {
                         Products(
                             products = it,
                             onProductDetails = { productSlug, variantId ->
