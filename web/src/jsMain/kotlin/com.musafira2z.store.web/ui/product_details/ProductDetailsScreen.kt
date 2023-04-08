@@ -46,13 +46,6 @@ fun DetailsContent(
             toClasses("container mx-auto mt-5")
         }) {
             Div(attrs = {
-                toClasses("relative top-4")
-            }) {
-                CaretLeft()
-                Text(" Back")
-            }
-
-            Div(attrs = {
                 toClasses("grid xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-cols-1 gap-5")
             }) {
 
@@ -199,6 +192,11 @@ fun DetailsContent(
                                 Div {
                                     Button(attrs = {
                                         toClasses("border-2 border-green-500 rounded-lg text-green-500 hover:bg-green-500 hover:text-slate-50 font-bold hover:duration-500 duration-500 w-full py-3 px-6")
+                                        onClick {
+                                            selectedVariant?.let {
+                                                postInput(ProductDetailContract.Inputs.AddToCart(it.productVariantDetailsFragment.id))
+                                            }
+                                        }
                                     }) {
                                         Text("Add to Cart")
                                     }

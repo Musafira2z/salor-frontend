@@ -6,6 +6,7 @@ import com.copperleaf.ballast.observeFlows
 import com.copperleaf.ballast.postInput
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.musafira2z.store.repository.cart.CartRepository
+import com.musafira2z.store.repository.cart.CartRepositoryContract
 import com.musafira2z.store.repository.product.ProductRepository
 import kotlinx.coroutines.flow.map
 
@@ -40,7 +41,7 @@ class ProductDetailInputHandler(
         is ProductDetailContract.Inputs.UpdateProduct -> {
             updateState { it.copy(product = input.product) }
             input.product.getCachedOrNull()?.product?.productDetailsFragment?.let {
-                
+
             }
             Unit
         }
@@ -49,6 +50,9 @@ class ProductDetailInputHandler(
         }
         is ProductDetailContract.Inputs.UpdateRelatedProducts -> {
 
+        }
+        is ProductDetailContract.Inputs.AddToCart -> {
+            cartRepository.postInput(CartRepositoryContract.Inputs.AddItem(variantId = input.variantId))
         }
     }
 }

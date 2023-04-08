@@ -118,7 +118,7 @@ fun Product(
                 }
             }
             Div {
-                AddToCartButton() {
+                AddToCartButton {
                     onAdd(variant.productVariantDetailsFragment.id)
                 }
             }
@@ -146,6 +146,7 @@ fun AddToCartButton(
             "px-6"
         )
         onClick {
+            it.preventDefault()
             onAdd()
         }
     }) {
@@ -243,7 +244,7 @@ fun Product(
                     P(attrs = {
                         classes("text-red-500", "font-bold", "line-through")
                     }) {
-                        Text("$it")
+                        Text(it)
                     }
                 }
             }
@@ -264,7 +265,7 @@ fun Product(
                 }
             }
             Div {
-                AddToCartButton() {
+                AddToCartButton {
                     onAdd(variant.productVariantDetailsFragment.id)
                 }
             }

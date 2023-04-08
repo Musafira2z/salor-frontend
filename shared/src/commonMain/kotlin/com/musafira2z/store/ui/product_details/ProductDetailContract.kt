@@ -19,6 +19,7 @@ object ProductDetailContract {
         data class GetProduct(val forceRefresh: Boolean, val slug: String) : Inputs()
         data class UpdateProduct(val product: Cached<ProductBySlugQuery.Data>) : Inputs()
         data class GetRelatedProducts(val forceRefresh: Boolean, val categoryId: String) : Inputs()
+        data class AddToCart(val variantId: String) : Inputs()
         data class UpdateRelatedProducts(
             val relatedProducts: Cached<ProductCollectionQuery.Data>
         ) : Inputs()
