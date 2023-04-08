@@ -12,6 +12,7 @@ import com.musafira2z.store.web.ui.components.shared.SearchBox
 import com.musafira2z.store.web.ui.components.shared.TopAppBar
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.home.HomePage
+import com.musafira2z.store.web.ui.page.PageScreen
 import com.musafira2z.store.web.ui.product_details.ProductDetailsScreen
 import com.musafira2z.store.web.ui.router.WebPage
 import com.musafira2z.store.web.ui.search.SearchPage
@@ -108,10 +109,16 @@ fun AppScreen() {
                     search = search
                 )
             }
+            WebPage.Page -> {
+                val slug by stringPath()
+                PageScreen(webInjector = injector, slug = slug)
+            }
         }
-    }, notFound = {
-        Text("Not found")
-    })
+    },
+        notFound = {
+            Text("Not found")
+        }
+    )
 }
 
 @Composable

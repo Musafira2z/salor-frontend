@@ -10,6 +10,11 @@ fun AttrsScope<HTMLDivElement>.toClasses(clas: String) {
     classes(*args)
 }
 
+fun AttrsScope<HTMLHeadingElement>.toClasses(clas: String) {
+    val args = clas.trim().replace("\\s+".toRegex(), " ").split(" ").toTypedArray()
+    classes(*args)
+}
+
 fun SelectAttrsScope.toClasses(clas: String) {
     val args = clas.trim().replace("\\s+".toRegex(), " ").split(" ").toTypedArray()
     classes(*args)

@@ -4,7 +4,6 @@ import com.copperleaf.ballast.repository.cache.Cached
 import com.musafira2z.store.ProductBySlugQuery
 import com.musafira2z.store.ProductCollectionQuery
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
-import com.musafira2z.store.ui.home.HomeContract
 
 object ProductDetailContract {
     data class State(

@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose") version "1.3.1"
+    kotlin("plugin.serialization") version "1.8.10"
 }
 
 version = "1.0"
@@ -35,11 +36,7 @@ kotlin {
                 implementation(devNpm("autoprefixer", "10.4.14"))
                 implementation(devNpm("postcss-loader", "7.0.2"))
                 implementation(npm("flowbite", "1.6.4"))
-//                implementation(npm("editorjs-parser", "1.5.3"))
-
-                // Be lazy and use the shortcut
-//                implementation("dev.petuska:kmdc:0.1.0")
-//                implementation("dev.petuska:kmdcx:0.1.0")
+                implementation(npm("editorjs-parser", "1.5.3"))
 
                 implementation(project(":shared"))
             }

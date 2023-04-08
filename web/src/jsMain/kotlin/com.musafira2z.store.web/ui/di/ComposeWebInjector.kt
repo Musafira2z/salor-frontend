@@ -22,24 +22,28 @@ import com.musafira2z.store.repository.product.ProductRepositoryImpl
 import com.musafira2z.store.repository.product.ProductRepositoryInputHandler
 import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.ui.app.AppInputHandler
-import com.musafira2z.store.web.ui.app.AppViewModel
 import com.musafira2z.store.ui.category.CategoryContract
 import com.musafira2z.store.ui.category.CategoryInputHandler
 import com.musafira2z.store.ui.checkout.CheckoutContract
 import com.musafira2z.store.ui.checkout.CheckoutInputHandler
 import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.ui.home.HomeInputHandler
+import com.musafira2z.store.ui.page.PageContract
+import com.musafira2z.store.ui.page.PageInputHandler
 import com.musafira2z.store.ui.product_details.ProductDetailContract
 import com.musafira2z.store.ui.product_details.ProductDetailInputHandler
 import com.musafira2z.store.ui.search.SearchContract
 import com.musafira2z.store.ui.search.SearchInputHandler
 import com.musafira2z.store.web.ui.app.AppEventHandler
+import com.musafira2z.store.web.ui.app.AppViewModel
 import com.musafira2z.store.web.ui.category.CategoryEventHandler
 import com.musafira2z.store.web.ui.category.CategoryViewModel
 import com.musafira2z.store.web.ui.checkout.CheckoutEventHandler
 import com.musafira2z.store.web.ui.checkout.CheckoutViewModel
 import com.musafira2z.store.web.ui.home.HomeEventHandler
 import com.musafira2z.store.web.ui.home.HomeViewModel
+import com.musafira2z.store.web.ui.page.PageEventHandler
+import com.musafira2z.store.web.ui.page.PageViewModel
 import com.musafira2z.store.web.ui.product_details.ProductDetailEventHandler
 import com.musafira2z.store.web.ui.product_details.ProductDetailViewModel
 import com.musafira2z.store.web.ui.router.WebPage
@@ -244,6 +248,19 @@ class ComposeWebInjector(
                     name = "SearchScreen"
                 ),
             eventHandler = SearchEventHandler(router = router)
+        )
+    }
+
+    fun pageViewModel(coroutineScope: CoroutineScope): PageViewModel {
+        return PageViewModel(
+            coroutineScope = coroutineScope,
+            configBuilder = commonBuilder()
+                .withViewModel(
+                    initialState = PageContract.State(),
+                    inputHandler = PageInputHandler(get()),
+                    name = "PageScreen"
+                ),
+            eventHandler = PageEventHandler(router = router)
         )
     }
 

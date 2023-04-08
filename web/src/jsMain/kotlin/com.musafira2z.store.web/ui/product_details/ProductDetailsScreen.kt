@@ -1,21 +1,24 @@
 package com.musafira2z.store.web.ui.product_details
 
+import editorjs.ETResponse
 import androidx.compose.runtime.*
 import com.copperleaf.ballast.repository.cache.Cached
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.copperleaf.ballast.repository.cache.isLoading
 import com.musafira2z.store.ui.app.AppContract
-import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.ui.product_details.ProductDetailContract
 import com.musafira2z.store.web.ui.app.CartBar
-import com.musafira2z.store.web.ui.components.CaretLeft
 import com.musafira2z.store.web.ui.components.Spinner
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.utils.toClasses
 import com.musafira2z.store.web.ui.utils.toFormatPrice
 import com.musafira2z.store.web.ui.utils.toUnDiscountFormatPrice
+import editorjs.EditorJs
 import org.jetbrains.compose.web.attributes.selected
 import org.jetbrains.compose.web.dom.*
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+
 
 @Composable
 fun ProductDetailsScreen(
@@ -98,7 +101,7 @@ fun DetailsContent(
                                     }
                                 ) {
                                     Img(
-                                        src = image ?: "",
+                                        src = image,
                                         alt = ""
                                     )
                                 }
@@ -146,22 +149,30 @@ fun DetailsContent(
                                     }
                                 }
 
-                                /*  Div {
-                                      //product description
-                                      val parser = edjsParser(
-                                          config = json(),
-                                          customs = json(),
-                                          embeds = json()
-                                      )
-                                      _product.description?.let {
-                                          val html = parser.parse(buildJsonObject {
-                                              it as String
-                                          })
-                                      }
-                                  }*/
+                                val jsonString = _product.description?.let {
+                                    it as String
+                                }
+
+                                jsonString?.let {
+                                    Div(attrs = {
+                                        classes("mt-2")
+                                    }) {
+                                        println(it)
+                                        //product description
+                                        val editorJsResponse =
+                                            remember(it) {
+                                                Json {
+                                                    ignoreUnknownKeys = true
+                                                }.decodeFromString<ETResponse>(it)
+                                            }
+                                        if (editorJsResponse.blocks.isNotEmpty()) {
+                                            EditorJs(editorJsResponse.blocks)
+                                        }
+                                    }
+                                }
 
                                 Div(attrs = {
-                                    classes("text-base")
+                                    classes("text-base", "mt-4")
                                 }) {
                                     P {
                                         Text("Supplied by Musafir")

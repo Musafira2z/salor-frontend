@@ -12,6 +12,7 @@ enum class WebPage(
     Category("/category/{slug}"),
     Search("/search?filter={?}"),
     ProductDetails("/product/{slug}?variantId={?}"),
+    Page("/page/{slug}"),
     Checkout("/checkout"),
     ;
 
