@@ -16,6 +16,7 @@ import com.musafira2z.store.web.ui.product_details.ProductDetailsScreen
 import com.musafira2z.store.web.ui.router.WebPage
 import com.musafira2z.store.web.ui.search.SearchPage
 import com.musafira2z.store.web.ui.utils.toClasses
+import com.musafira2z.store.web.ui.utils.toFormatPrice
 import org.jetbrains.compose.web.dom.*
 
 @Composable
@@ -60,7 +61,9 @@ fun AppScreen() {
     routerState.renderCurrentDestination(route = {
         when (it) {
             WebPage.HomePage -> {
-                HomePage(webInjector = injector)
+                HomePage(webInjector = injector, postAppInput = {
+                    vm.trySend(it)
+                })
             }
 
             WebPage.Category -> {
@@ -111,7 +114,9 @@ fun AppScreen() {
 
 @Composable
 fun CartBar(
-    cart: CheckoutDetailsFragment, onCheckout: () -> Unit, postInput: (AppContract.Inputs) -> Unit
+    cart: CheckoutDetailsFragment,
+    onCheckout: () -> Unit,
+    postInput: (AppContract.Inputs) -> Unit
 ) {
     var isOpen by remember { mutableStateOf(false) }
     Div {
@@ -146,19 +151,27 @@ fun CartBar(
                 Button(attrs = {
                     toClasses("bg-slate-50 text-slate-800 text-sm md:text-base py-2 px-6 rounded-lg font-bold")
                 }) {
-                    Text("৳${cart.totalPrice.gross.priceFragment.amount}")
+                    Text(cart.totalPrice.gross.priceFragment.toFormatPrice())
                 }
             }
         }
 
         Drawer(isOpen = isOpen) {
-            CartBody(onClose = {
-                isOpen = false
-            }, cart = cart, onDecrement = {
-                postInput(AppContract.Inputs.Decrement(it))
-            }, onIncrement = {
-                postInput(AppContract.Inputs.Increment(it))
-            }) {
+            CartBody(
+                onClose = {
+                    isOpen = false
+                },
+                cart = cart,
+                onDecrement = { variantId, qty ->
+                    postInput(AppContract.Inputs.Decrement(variantId, qty))
+                },
+                onIncrement = {
+                    postInput(AppContract.Inputs.Increment(it))
+                },
+                removeLine = {
+                    postInput(AppContract.Inputs.RemoveLine(it))
+                }
+            ) {
                 A(
                     attrs = {
                         toClasses("col-span-6 w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50")

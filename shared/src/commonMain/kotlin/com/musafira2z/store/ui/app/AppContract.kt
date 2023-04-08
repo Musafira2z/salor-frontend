@@ -40,8 +40,9 @@ object AppContract {
         object FetchLoginStatus : Inputs()
         object SignOut : Inputs()
 
-        data class Increment(val lineId: String) : Inputs()
-        data class Decrement(val lineId: String) : Inputs()
+        data class Increment(val variantId: String) : Inputs()
+        data class Decrement(val variantId: String, val qty: Int) : Inputs()
+        data class RemoveLine(val lineId: String) : Inputs()
 
         data class GoSearchPage(val filter: String?) : Inputs()
 

@@ -37,6 +37,7 @@ object CategoryContract {
 
 
         data class GoCategoryPage(val slug: String) : Inputs()
+        data class GoProductDetailsPage(val slug: String, val variantId: String?) : Inputs()
         data class AddToCart(val variantId: String) : Inputs()
         object GoCheckoutPage : Inputs()
 
@@ -48,5 +49,6 @@ object CategoryContract {
     sealed class Events {
         object NavigateUp : Events()
         data class GoCategoryPage(val slug: String) : Events()
+        data class GoProductDetailsPage(val slug: String, val variantId: String?) : Events()
     }
 }

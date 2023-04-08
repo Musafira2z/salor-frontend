@@ -30,15 +30,12 @@ kotlin {
                 implementation(compose.web.svg)
                 implementation(compose.runtime)
 
-//                implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.201-kotlin-1.5.0")
-//                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.201-kotlin-1.5.0")
-//                implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:5.3.0-pre.201-kotlin-1.5.0")
-
                 implementation(devNpm("tailwindcss", "3.2.7"))
                 implementation(devNpm("postcss", "8.4.21"))
                 implementation(devNpm("autoprefixer", "10.4.14"))
                 implementation(devNpm("postcss-loader", "7.0.2"))
                 implementation(npm("flowbite", "1.6.4"))
+//                implementation(npm("editorjs-parser", "1.5.3"))
 
                 // Be lazy and use the shortcut
 //                implementation("dev.petuska:kmdc:0.1.0")

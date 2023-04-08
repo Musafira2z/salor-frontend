@@ -39,11 +39,12 @@ object CartRepositoryContract {
         ) : Inputs()
 
         data class Increment(
-            val lineId: String
+            val variantId: String
         ) : Inputs()
 
         data class Decrement(
-            val lineId: String
+            val variantId: String,
+            val qty: Int
         ) : Inputs()
 
         data class AddUserToCart(
@@ -53,13 +54,11 @@ object CartRepositoryContract {
 
         data class UpdateQuantity(
             val itemId: String,
-            val qty: Int,
-            val token: String
+            val qty: Int
         ) : Inputs()
 
         data class RemoveCartItem(
-            val itemId: String,
-            val token: String
+            val itemId: String
         ) : Inputs()
 
         data class Clear(val token: String) : Inputs()

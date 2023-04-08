@@ -231,50 +231,54 @@ class CartRepositoryInputHandler(
         }
         is CartRepositoryContract.Inputs.RemoveCartItem -> {
             sideJob("RemoveCartItem") {
-                try {
-                    apolloClient.mutation(
-                        RemoveProductFromCheckoutMutation(
-                            checkoutToken = input.token,
-                            lineId = input.itemId,
-                            locale = LanguageCodeEnum.EN
-                        )
-                    ).execute().let {
-                        if (it.data == null || it.hasErrors()) {
-                            throw Exception(it.errors?.first()?.message)
-                        } else {
-                            postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
+                if (settingsRepository.checkoutToken != null) {
+                    try {
+                        apolloClient.mutation(
+                            RemoveProductFromCheckoutMutation(
+                                checkoutToken = settingsRepository.checkoutToken!!,
+                                lineId = input.itemId,
+                                locale = LanguageCodeEnum.EN
+                            )
+                        ).execute().let {
+                            if (it.data == null || it.hasErrors()) {
+                                throw Exception(it.errors?.first()?.message)
+                            } else {
+                                postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
+                            }
                         }
+                    } catch (connectionException: Exception) {
+                        throw connectionException
                     }
-                } catch (connectionException: Exception) {
-                    throw connectionException
                 }
             }
         }
         is CartRepositoryContract.Inputs.UpdateQuantity -> {
             sideJob("UpdateQuantity") {
-                val lineUpdate = CheckoutLineUpdateInput(
-                    quantity = Optional.presentIfNotNull(input.qty),
-                    variantId = input.itemId
-                )
+                if (settingsRepository.checkoutToken != null) {
+                    val lineUpdate = CheckoutLineUpdateInput(
+                        quantity = Optional.presentIfNotNull(input.qty),
+                        variantId = input.itemId
+                    )
 
-                try {
-                    apolloClient.mutation(
-                        CheckoutLineUpdateMutation(
-                            token = Optional.present(input.token),
-                            lines = listOf(
-                                lineUpdate
-                            ),
-                            locale = LanguageCodeEnum.EN
-                        )
-                    ).execute().let {
-                        if (it.data == null || it.hasErrors()) {
-                            throw Exception(it.errors?.first()?.message)
-                        } else {
-                            postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
+                    try {
+                        apolloClient.mutation(
+                            CheckoutLineUpdateMutation(
+                                token = Optional.present(settingsRepository.checkoutToken),
+                                lines = listOf(
+                                    lineUpdate
+                                ),
+                                locale = LanguageCodeEnum.EN
+                            )
+                        ).execute().let {
+                            if (it.data == null || it.hasErrors()) {
+                                throw Exception(it.errors?.first()?.message)
+                            } else {
+                                postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
+                            }
                         }
+                    } catch (connectionException: Exception) {
+                        throw connectionException
                     }
-                } catch (connectionException: Exception) {
-                    throw connectionException
                 }
             }
         }
@@ -357,10 +361,15 @@ class CartRepositoryInputHandler(
             }
         }
         is CartRepositoryContract.Inputs.Decrement -> {
-
+            postInput(
+                CartRepositoryContract.Inputs.UpdateQuantity(
+                    itemId = input.variantId,
+                    qty = input.qty
+                )
+            )
         }
         is CartRepositoryContract.Inputs.Increment -> {
-
+            postInput(CartRepositoryContract.Inputs.AddItem(input.variantId))
         }
         is CartRepositoryContract.Inputs.RefreshShippingMethod -> {
             settingsRepository.checkoutToken?.let { _checkoutToken ->

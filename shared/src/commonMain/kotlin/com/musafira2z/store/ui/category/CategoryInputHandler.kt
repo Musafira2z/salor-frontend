@@ -10,6 +10,7 @@ import com.musafira2z.store.repository.cart.CartRepository
 import com.musafira2z.store.repository.cart.CartRepositoryContract
 import com.musafira2z.store.repository.menu.MenuRepository
 import com.musafira2z.store.repository.product.ProductRepository
+import com.musafira2z.store.ui.home.HomeContract
 import kotlinx.coroutines.flow.map
 
 class CategoryInputHandler(
@@ -152,6 +153,9 @@ class CategoryInputHandler(
                     }
                 })
             }
+        }
+        is CategoryContract.Inputs.GoProductDetailsPage -> {
+            postEvent(CategoryContract.Events.GoProductDetailsPage(input.slug, input.variantId))
         }
     }
 }

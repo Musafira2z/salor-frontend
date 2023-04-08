@@ -2,10 +2,7 @@ package com.musafira2z.store.web.ui.category
 
 import com.copperleaf.ballast.EventHandler
 import com.copperleaf.ballast.EventHandlerScope
-import com.copperleaf.ballast.navigation.routing.RouterContract
-import com.copperleaf.ballast.navigation.routing.build
-import com.copperleaf.ballast.navigation.routing.directions
-import com.copperleaf.ballast.navigation.routing.path
+import com.copperleaf.ballast.navigation.routing.*
 import com.copperleaf.ballast.navigation.vm.Router
 import com.musafira2z.store.ui.category.CategoryContract
 import com.musafira2z.store.web.ui.router.WebPage
@@ -29,6 +26,17 @@ class CategoryEventHandler(
             router.trySend(
                 RouterContract.Inputs.GoToDestination(
                     WebPage.Category.directions().path(event.slug).build()
+                )
+            )
+            Unit
+        }
+        is CategoryContract.Events.GoProductDetailsPage -> {
+            router.trySend(
+                RouterContract.Inputs.GoToDestination(
+                    WebPage.ProductDetails.directions()
+                        .path(event.slug)
+                        .queryParameter("variantId", event.variantId ?: "")
+                        .build()
                 )
             )
             Unit

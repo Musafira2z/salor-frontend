@@ -91,5 +91,14 @@ class CheckoutInputHandler(
         is CheckoutContract.Inputs.PlaceOrder -> {
             cartRepository.postInput(CartRepositoryContract.Inputs.CreatePayment(input.paymentMethodId))
         }
+        is CheckoutContract.Inputs.Decrement -> {
+//            cartRepository.postInput(CartRepositoryContract.Inputs.Decrement(input.lineId))
+        }
+        is CheckoutContract.Inputs.Increment -> {
+            cartRepository.postInput(CartRepositoryContract.Inputs.Increment(input.lineId))
+        }
+        is CheckoutContract.Inputs.RemoveLine -> {
+            cartRepository.postInput(CartRepositoryContract.Inputs.RemoveCartItem(input.lineId))
+        }
     }
 }

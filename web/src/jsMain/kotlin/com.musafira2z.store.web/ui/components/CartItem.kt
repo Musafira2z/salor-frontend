@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import com.musafira2z.store.web.ui.utils.toFormatPrice
 import com.musafira2z.store.web.ui.utils.toUnDiscountFormatPrice
-import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.dom.*
 
 @Composable
@@ -12,7 +11,7 @@ fun CartItem(
     line: CheckoutDetailsFragment.Line,
     onIncrement: () -> Unit,
     onDecrement: () -> Unit,
-    onAdjust: (Int) -> Unit
+    removeLine: (String) -> Unit
 ) {
     Div(attrs = {
         classes("py-2", "bg-white")
@@ -52,6 +51,7 @@ fun CartItem(
                         "hover:text-white"
                     )
                     onClick {
+                        println("Increment")
                         onIncrement()
                     }
                 }) {
@@ -90,6 +90,7 @@ fun CartItem(
                         "hover:text-white"
                     )
                     onClick {
+                        println("Decrement")
                         onDecrement()
                     }
                 }) {
@@ -128,7 +129,7 @@ fun CartItem(
                     P(attrs = {
                         classes("text-red-500", "font-bold")
                     }) {
-                        Text("৳${it}")
+                        Text(it)
                     }
                 }
 
@@ -142,7 +143,7 @@ fun CartItem(
                 P(attrs = {
                     classes("text-green-500")
                 }) {
-                    Text("৳${line.checkoutLineDetailsFragment.variant.pricing?.price?.gross?.priceFragment?.toFormatPrice()}")
+                    Text("${line.checkoutLineDetailsFragment.variant.pricing?.price?.gross?.priceFragment?.toFormatPrice()}")
                 }
             }
             Div(attrs = {
@@ -150,6 +151,10 @@ fun CartItem(
             }) {
                 Button(attrs = {
                     classes("bg-red-500", "p-2", "rounded-md")
+                    onClick {
+                        println("Decrement")
+                        removeLine(line.checkoutLineDetailsFragment.id)
+                    }
                 }) {
                     RxCross2(clas = "text-slate-50")
                 }

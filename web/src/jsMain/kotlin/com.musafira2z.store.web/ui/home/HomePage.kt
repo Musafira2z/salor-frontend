@@ -4,6 +4,7 @@ import androidx.compose.runtime.*
 import com.copperleaf.ballast.repository.cache.Cached
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.copperleaf.ballast.repository.cache.isLoading
+import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.web.ui.app.CartBar
 import com.musafira2z.store.web.ui.components.Carousal
@@ -22,7 +23,8 @@ import kotlin.math.floor
 
 @Composable
 fun HomePage(
-    webInjector: ComposeWebInjector
+    webInjector: ComposeWebInjector,
+    postAppInput: (AppContract.Inputs) -> Unit
 ) {
     val viewModelScope = rememberCoroutineScope()
     val vm: HomeViewModel = remember(viewModelScope) { webInjector.homeViewModel(viewModelScope) }
@@ -32,7 +34,7 @@ fun HomePage(
 
     val uiState by vm.observeStates().collectAsState()
 
-    HomePageContent(uiState) {
+    HomePageContent(uiState, postAppInput = postAppInput) {
         vm.trySend(it)
     }
 }
@@ -40,6 +42,7 @@ fun HomePage(
 @Composable
 fun HomePageContent(
     uiState: HomeContract.State,
+    postAppInput: (AppContract.Inputs) -> Unit,
     postInput: (HomeContract.Inputs) -> Unit
 ) {
     val onScroll = EventListener {
@@ -221,10 +224,13 @@ fun HomePageContent(
     //carts
     uiState.carts.getCachedOrNull()?.let { cart ->
         if (cart.lines.isNotEmpty()) {
-            CartBar(cart = cart, onCheckout = {
-                postInput(HomeContract.Inputs.GoCheckoutPage)
-            }) {
-
+            CartBar(
+                cart = cart,
+                onCheckout = {
+                    postInput(HomeContract.Inputs.GoCheckoutPage)
+                }
+            ) {
+                postAppInput(it)
             }
         }
     }

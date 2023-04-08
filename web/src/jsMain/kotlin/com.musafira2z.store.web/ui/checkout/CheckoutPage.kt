@@ -221,8 +221,15 @@ fun CheckoutPageContent(
                             CartBody(
                                 cart = _cart,
                                 onClose = {},
-                                onDecrement = {},
-                                onIncrement = {}
+                                onDecrement = { variantId, qty ->
+//                                    postInput(CheckoutContract.Inputs.Decrement(variantId, qty))
+                                },
+                                onIncrement = {
+                                    postInput(CheckoutContract.Inputs.Increment(lineId = it))
+                                },
+                                removeLine = {
+                                    postInput(CheckoutContract.Inputs.RemoveLine(lineId = it))
+                                }
                             ) {
                                 Div {
                                     Div(attrs = {

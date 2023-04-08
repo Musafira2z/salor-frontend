@@ -6,6 +6,7 @@ import com.musafira2z.store.CurrentUserDetailsQuery
 import com.musafira2z.store.OrdersQuery
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import com.musafira2z.store.type.AddressInput
+import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.utils.ResponseResource
 
 object CheckoutContract {
@@ -35,6 +36,10 @@ object CheckoutContract {
         data class UpdateBillingResponse(val billingResponse: ResponseResource<Boolean>) : Inputs()
 
         data class PlaceOrder(val paymentMethodId: String) : Inputs()
+
+        data class Increment(val lineId: String) : Inputs()
+        data class Decrement(val lineId: String) : Inputs()
+        data class RemoveLine(val lineId: String) : Inputs()
 
         object GoBack : Inputs()
 

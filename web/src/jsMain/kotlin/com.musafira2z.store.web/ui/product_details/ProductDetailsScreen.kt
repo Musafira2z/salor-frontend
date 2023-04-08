@@ -7,7 +7,6 @@ import com.copperleaf.ballast.repository.cache.isLoading
 import com.musafira2z.store.ui.product_details.ProductDetailContract
 import com.musafira2z.store.web.ui.components.CaretLeft
 import com.musafira2z.store.web.ui.components.Spinner
-import com.musafira2z.store.web.ui.components.TbCurrencyTaka
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.utils.toClasses
 import com.musafira2z.store.web.ui.utils.toFormatPrice
@@ -91,7 +90,7 @@ fun DetailsContent(
                             toClasses("flex justify-center py-5")
                         }) {
                             _product.media?.forEach {
-                                val image = it?.productMediaFragment?.url?.replace(
+                                val image = it.productMediaFragment.url.replace(
                                     "http://localhost:8000",
                                     "https://musafirtd.sgp1.cdn.digitaloceanspaces.com"
                                 )
@@ -149,9 +148,19 @@ fun DetailsContent(
                                     }
                                 }
 
-                                Div {
-                                    //product description
-                                }
+                                /*  Div {
+                                      //product description
+                                      val parser = edjsParser(
+                                          config = json(),
+                                          customs = json(),
+                                          embeds = json()
+                                      )
+                                      _product.description?.let {
+                                          val html = parser.parse(buildJsonObject {
+                                              it as String
+                                          })
+                                      }
+                                  }*/
 
                                 Div(attrs = {
                                     classes("text-base")
@@ -173,7 +182,6 @@ fun DetailsContent(
                                     Div(attrs = {
                                         toClasses("flex text-red-500  justify-end items-center")
                                     }) {
-//                                    TbCurrencyTaka()
                                         P(attrs = { toClasses("text-red-500 font-bold line-through  text-sm") }) {
                                             Text(it)
                                         }
@@ -183,9 +191,16 @@ fun DetailsContent(
                                 Div(attrs = {
                                     toClasses("flex text-red-500  justify-end items-center")
                                 }) {
-//                                    TbCurrencyTaka()
                                     P(attrs = { toClasses("text-green-500 font-bold  text-lg") }) {
                                         Text("${selectedVariant?.productVariantDetailsFragment?.pricing?.price?.gross?.priceFragment?.toFormatPrice()}")
+                                    }
+                                }
+
+                                Div {
+                                    Button(attrs = {
+                                        toClasses("border-2 border-green-500 rounded-lg text-green-500 hover:bg-green-500 hover:text-slate-50 font-bold hover:duration-500 duration-500 w-full py-3 px-6")
+                                    }) {
+                                        Text("Add to Cart")
                                     }
                                 }
                             }
@@ -252,24 +267,24 @@ fun DetailsContent(
                 }
             }
 
-            Div(attrs = {
-                toClasses("mt-10 flex  justify-between px-5")
-            }) {
-                H2(attrs = {
-                    classes("font-bold", "text-lg")
-                }) {
-                    Text("Related Items")
-                }
-            }
-            Div(attrs = {
-                classes("py-10")
-            }) {
-                Div(attrs = {
-                    toClasses("grid grid-cols-12 gap-5")
-                }) {
-                    //products
-                }
-            }
+            /* Div(attrs = {
+                 toClasses("mt-10 flex  justify-between px-5")
+             }) {
+                 H2(attrs = {
+                     classes("font-bold", "text-lg")
+                 }) {
+                     Text("Related Items")
+                 }
+             }
+             Div(attrs = {
+                 classes("py-10")
+             }) {
+                 Div(attrs = {
+                     toClasses("grid grid-cols-12 gap-5")
+                 }) {
+                     //products
+                 }
+             }*/
         }
     }
 }

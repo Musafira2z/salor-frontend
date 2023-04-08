@@ -100,10 +100,15 @@ class AppInputHandler(
             updateState { it.copy(isLoggedIn = input.isLoggedIn) }
         }
         is AppContract.Inputs.Decrement -> {
-            cartRepository.postInput(CartRepositoryContract.Inputs.Decrement(input.lineId))
+            cartRepository.postInput(
+                CartRepositoryContract.Inputs.Decrement(
+                    input.variantId,
+                    input.qty
+                )
+            )
         }
         is AppContract.Inputs.Increment -> {
-            cartRepository.postInput(CartRepositoryContract.Inputs.Increment(input.lineId))
+            cartRepository.postInput(CartRepositoryContract.Inputs.Increment(input.variantId))
         }
         is AppContract.Inputs.SignUpUser -> {
             updateState { it.copy(signupResponse = ResponseResource.Loading) }
@@ -131,6 +136,9 @@ class AppInputHandler(
 
         is AppContract.Inputs.GoSearchPage -> {
             postEvent(AppContract.Events.GoSearchPage(input.filter))
+        }
+        is AppContract.Inputs.RemoveLine -> {
+            cartRepository.postInput(CartRepositoryContract.Inputs.RemoveCartItem(input.lineId))
         }
     }
 }

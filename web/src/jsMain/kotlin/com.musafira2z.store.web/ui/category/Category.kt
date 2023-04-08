@@ -231,7 +231,12 @@ fun CategoryContent(
                     Products(
                         products = uiState.allProducts,
                         onProductDetails = { productSlug, variantId ->
-
+                            postInput(
+                                CategoryContract.Inputs.GoProductDetailsPage(
+                                    slug = productSlug,
+                                    variantId = variantId
+                                )
+                            )
                         }
                     ) {
                         //add to cart

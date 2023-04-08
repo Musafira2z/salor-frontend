@@ -14,7 +14,7 @@ import com.musafira2z.store.web.ui.utils.toClasses
 @Composable
 fun CartSummary(
     subTotal: String,
-    discount: String,
+    discount: String? = null,
     total: String,
     content: @Composable () -> Unit
 ) {
@@ -40,38 +40,39 @@ fun CartSummary(
                 Span(attrs = {
                     toClasses("col-span-1 flex  items-center  font-bold")
                 }) {
-                    TbCurrencyTaka()
                     Text(subTotal)
                 }
             }
 
-            Div(attrs = {
-                classes(
-                    "grid",
-                    "grid-cols-6",
-                    "text-red-500",
-                    "hover:bg-green-200",
-                    "p-1",
-                    "rounded-md"
-                )
-            }) {
-                P(attrs = {
-                    classes("col-span-4", "text-left")
+            discount?.let {
+                Div(attrs = {
+                    classes(
+                        "grid",
+                        "grid-cols-6",
+                        "text-red-500",
+                        "hover:bg-green-200",
+                        "p-1",
+                        "rounded-md"
+                    )
                 }) {
-                    Text("Discount")
-                }
-                Span(attrs = {
-                    classes("col-span-1", "text-left")
-                }) {
-                    Text(":")
-                }
-                Span(attrs = {
-                    classes("flex", "items-center", "font-bold")
-                }) {
-                    Text(" -")
-                    TbCurrencyTaka()
-                    P {
-                        Text(discount)
+                    P(attrs = {
+                        classes("col-span-4", "text-left")
+                    }) {
+                        Text("Discount")
+                    }
+                    Span(attrs = {
+                        classes("col-span-1", "text-left")
+                    }) {
+                        Text(":")
+                    }
+                    Span(attrs = {
+                        classes("flex", "items-center", "font-bold")
+                    }) {
+                        Text(" -")
+
+                        P {
+                            Text(discount)
+                        }
                     }
                 }
             }
@@ -98,7 +99,7 @@ fun CartSummary(
                 Span(attrs = {
                     classes("flex", "items-center", "font-bold")
                 }) {
-                    TbCurrencyTaka()
+
                     P {
                         Text(total)
                     }

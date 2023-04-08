@@ -2,15 +2,17 @@ package com.musafira2z.store.web.ui.components
 
 import androidx.compose.runtime.Composable
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
-import org.jetbrains.compose.web.dom.*
 import com.musafira2z.store.web.ui.utils.toClasses
+import com.musafira2z.store.web.ui.utils.toFormatPrice
+import org.jetbrains.compose.web.dom.*
 
 @Composable
 fun CartBody(
     cart: CheckoutDetailsFragment,
     onClose: () -> Unit,
     onIncrement: (String) -> Unit,
-    onDecrement: (String) -> Unit,
+    onDecrement: (String, Int) -> Unit,
+    removeLine: (String) -> Unit,
     content: @Composable () -> Unit
 ) {
     Div(attrs = {
@@ -23,10 +25,7 @@ fun CartBody(
                 Div(attrs = {
                     toClasses("flex items-center")
                 }) {
-                    Img(src = "icons/rx/value.svg", attrs = {
-                        attr("width", "24")
-                        attr("height", "24")
-                    })
+                    IcShoppingCart()
                     H4(attrs = { classes("ml-2", "font-bold") }) {
                         Text("${cart.lines.size} Items")
                     }
@@ -49,14 +48,20 @@ fun CartBody(
                     CartItem(
                         line = line,
                         onIncrement = {
-                            onIncrement(line.checkoutLineDetailsFragment.id)
+                            onIncrement(line.checkoutLineDetailsFragment.variant.id)
                         },
                         onDecrement = {
-                            onDecrement(line.checkoutLineDetailsFragment.id)
+                            val qty = line.checkoutLineDetailsFragment.quantity
+                            if (qty > 1) {
+                                onDecrement(
+                                    line.checkoutLineDetailsFragment.variant.id,
+                                    qty - 1
+                                )
+                            } else {
+                                removeLine(line.checkoutLineDetailsFragment.id)
+                            }
                         },
-                        onAdjust = {
-
-                        }
+                        removeLine = removeLine
                     )
                 }
             }
@@ -64,9 +69,13 @@ fun CartBody(
         }
         Div(attrs = { classes("pb-6") }) {
             CartSummary(
-                subTotal = cart.subtotalPrice.net.priceFragment.amount.toString(),
-                discount = cart.discount?.priceFragment?.amount?.toString() ?: "",
-                total = cart.totalPrice.gross.priceFragment.amount.toString()
+                subTotal = cart.subtotalPrice.net.priceFragment.toFormatPrice(),
+                discount = cart.discount?.priceFragment?.let {
+                    if (it.amount > 0) {
+                        it.toFormatPrice()
+                    } else null
+                },
+                total = cart.totalPrice.gross.priceFragment.toFormatPrice()
             ) {
                 Div(attrs = {
                     toClasses("grid grid-cols-6 text-slate-50 font-bold mt-2 bg-green-500 hover:bg-green-600 p-1 rounded-md")
