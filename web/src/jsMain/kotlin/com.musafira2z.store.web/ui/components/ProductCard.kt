@@ -37,6 +37,7 @@ fun Product(
             "h-fit"
         )
         onClick {
+            it.preventDefault()
             onProductDetails(
                 product.node.productDetailsFragment.slug,
                 variant.productVariantDetailsFragment.id
@@ -146,7 +147,7 @@ fun AddToCartButton(
             "px-6"
         )
         onClick {
-            it.preventDefault()
+            it.stopImmediatePropagation()
             onAdd()
         }
     }) {

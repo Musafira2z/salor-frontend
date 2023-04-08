@@ -79,7 +79,9 @@ fun AppScreen() {
                 val slug: String by stringPath()
                 val variantId: String? by optionalStringQuery()
 
-                ProductDetailsScreen(injector = injector, slug = slug, variantId = variantId)
+                ProductDetailsScreen(injector = injector, slug = slug, variantId = variantId) {
+                    vm.trySend(it)
+                }
             }
 
             WebPage.Search -> {

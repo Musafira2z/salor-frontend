@@ -4,7 +4,10 @@ import androidx.compose.runtime.*
 import com.copperleaf.ballast.repository.cache.Cached
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.copperleaf.ballast.repository.cache.isLoading
+import com.musafira2z.store.ui.app.AppContract
+import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.ui.product_details.ProductDetailContract
+import com.musafira2z.store.web.ui.app.CartBar
 import com.musafira2z.store.web.ui.components.CaretLeft
 import com.musafira2z.store.web.ui.components.Spinner
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
@@ -18,7 +21,8 @@ import org.jetbrains.compose.web.dom.*
 fun ProductDetailsScreen(
     injector: ComposeWebInjector,
     slug: String,
-    variantId: String?
+    variantId: String?,
+    postAppInput: (AppContract.Inputs) -> Unit
 ) {
     val viewModelScope = rememberCoroutineScope()
     val vm: ProductDetailViewModel =
@@ -30,7 +34,7 @@ fun ProductDetailsScreen(
 
     val uiState by vm.observeStates().collectAsState()
 
-    DetailsContent(uiState = uiState) {
+    DetailsContent(uiState = uiState, postAppInput = postAppInput) {
         vm.trySend(it)
     }
 }
@@ -38,6 +42,7 @@ fun ProductDetailsScreen(
 @Composable
 fun DetailsContent(
     uiState: ProductDetailContract.State,
+    postAppInput: (AppContract.Inputs) -> Unit,
     postInput: (ProductDetailContract.Inputs) -> Unit
 ) {
 
@@ -285,4 +290,19 @@ fun DetailsContent(
              }*/
         }
     }
+
+    //carts
+    uiState.carts.getCachedOrNull()?.let { cart ->
+        if (cart.lines.isNotEmpty()) {
+            CartBar(
+                cart = cart,
+                onCheckout = {
+                    postInput(ProductDetailContract.Inputs.GoCheckoutPage)
+                }
+            ) {
+                postAppInput(it)
+            }
+        }
+    }
+
 }

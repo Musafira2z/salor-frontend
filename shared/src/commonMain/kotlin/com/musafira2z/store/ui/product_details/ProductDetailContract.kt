@@ -3,6 +3,8 @@ package com.musafira2z.store.ui.product_details
 import com.copperleaf.ballast.repository.cache.Cached
 import com.musafira2z.store.ProductBySlugQuery
 import com.musafira2z.store.ProductCollectionQuery
+import com.musafira2z.store.fragment.CheckoutDetailsFragment
+import com.musafira2z.store.ui.home.HomeContract
 
 object ProductDetailContract {
     data class State(
@@ -10,7 +12,8 @@ object ProductDetailContract {
         val slug: String = "",
         val variantId: String? = null,
         val product: Cached<ProductBySlugQuery.Data> = Cached.NotLoaded(),
-        val relatedProducts: Cached<ProductCollectionQuery.Data> = Cached.NotLoaded()
+        val relatedProducts: Cached<ProductCollectionQuery.Data> = Cached.NotLoaded(),
+        val carts: Cached<CheckoutDetailsFragment> = Cached.NotLoaded()
     )
 
     sealed class Inputs {
@@ -23,9 +26,14 @@ object ProductDetailContract {
         data class UpdateRelatedProducts(
             val relatedProducts: Cached<ProductCollectionQuery.Data>
         ) : Inputs()
+
+        data class FetchCarts(val forceRefresh: Boolean) : Inputs()
+        data class UpdateCarts(val carts: Cached<CheckoutDetailsFragment>) : Inputs()
+        object GoCheckoutPage : Inputs()
     }
 
     sealed class Events {
         object NavigateUp : Events()
+        object GoCheckoutPage : Events()
     }
 }

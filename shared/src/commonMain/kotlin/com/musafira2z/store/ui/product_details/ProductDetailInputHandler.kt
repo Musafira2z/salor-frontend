@@ -8,6 +8,7 @@ import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.musafira2z.store.repository.cart.CartRepository
 import com.musafira2z.store.repository.cart.CartRepositoryContract
 import com.musafira2z.store.repository.product.ProductRepository
+import com.musafira2z.store.ui.home.HomeContract
 import kotlinx.coroutines.flow.map
 
 class ProductDetailInputHandler(
@@ -26,6 +27,7 @@ class ProductDetailInputHandler(
         is ProductDetailContract.Inputs.Initialize -> {
             updateState { it.copy(slug = input.slug, variantId = input.variantId) }
             postInput(ProductDetailContract.Inputs.GetProduct(forceRefresh = true, input.slug))
+            postInput(ProductDetailContract.Inputs.FetchCarts(true))
         }
         is ProductDetailContract.Inputs.GoBack -> {
             postEvent(ProductDetailContract.Events.NavigateUp)
@@ -41,7 +43,7 @@ class ProductDetailInputHandler(
         is ProductDetailContract.Inputs.UpdateProduct -> {
             updateState { it.copy(product = input.product) }
             input.product.getCachedOrNull()?.product?.productDetailsFragment?.let {
-
+                
             }
             Unit
         }
@@ -53,6 +55,19 @@ class ProductDetailInputHandler(
         }
         is ProductDetailContract.Inputs.AddToCart -> {
             cartRepository.postInput(CartRepositoryContract.Inputs.AddItem(variantId = input.variantId))
+        }
+        is ProductDetailContract.Inputs.FetchCarts -> {
+            observeFlows("FetchCarts") {
+                listOf(
+                    cartRepository.getCarts(input.forceRefresh)
+                        .map { ProductDetailContract.Inputs.UpdateCarts(it) })
+            }
+        }
+        ProductDetailContract.Inputs.GoCheckoutPage -> {
+            postEvent(ProductDetailContract.Events.GoCheckoutPage)
+        }
+        is ProductDetailContract.Inputs.UpdateCarts -> {
+            updateState { it.copy(carts = input.carts) }
         }
     }
 }
