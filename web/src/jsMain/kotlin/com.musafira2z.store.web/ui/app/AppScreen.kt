@@ -2,6 +2,7 @@ package com.musafira2z.store.web.ui.app
 
 import androidx.compose.runtime.*
 import com.copperleaf.ballast.navigation.routing.*
+import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.web.ui.category.CategoryScreen
@@ -10,6 +11,7 @@ import com.musafira2z.store.web.ui.components.CartBody
 import com.musafira2z.store.web.ui.components.Drawer
 import com.musafira2z.store.web.ui.components.shared.SearchBox
 import com.musafira2z.store.web.ui.components.shared.TopAppBar
+import com.musafira2z.store.web.ui.dashboard.proifle.ProfileScreen
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.home.HomePage
 import com.musafira2z.store.web.ui.page.PageScreen
@@ -41,10 +43,12 @@ fun AppScreen() {
     }
 
     val uiState by vm.observeStates().collectAsState()
+    val me = uiState.me.getCachedOrNull()
 
     if (currentRoute != WebPage.Search) {
         //TopAppBar
-        TopAppBar(isLoggedIn = uiState.isLoggedIn,
+        TopAppBar(
+            isLoggedIn = uiState.isLoggedIn,
             loginResponse = uiState.loginResponse,
             signupResponse = uiState.signupResponse,
             searchBox = {
@@ -53,7 +57,10 @@ fun AppScreen() {
                         vm.trySend(AppContract.Inputs.GoSearchPage(term))
                     }
                 })
-            }) {
+            },
+            name = me?.firstName,
+            email = me?.email
+        ) {
             vm.trySend(it)
         }
     }
@@ -99,7 +106,9 @@ fun AppScreen() {
                                 search = term
                             }, initial = filter ?: ""
                         )
-                    }
+                    },
+                    name = me?.firstName,
+                    email = me?.email
                 ) {
                     vm.trySend(it)
                 }
@@ -112,6 +121,18 @@ fun AppScreen() {
             WebPage.Page -> {
                 val slug by stringPath()
                 PageScreen(webInjector = injector, slug = slug)
+            }
+            WebPage.PasswordReset -> {
+                val email by optionalStringQuery()
+                val token by optionalStringQuery()
+
+                Text("$email \n $token")
+            }
+            WebPage.Profile -> {
+                ProfileScreen(webInjector = injector)
+            }
+            WebPage.Orders -> {
+
             }
         }
     },

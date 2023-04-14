@@ -50,5 +50,7 @@ object AuthRepositoryContract {
 
         data class GetOrders(val forceRefresh: Boolean) : Inputs()
         data class UpdateOrders(val orders: Cached<OrdersQuery.Me>) : Inputs()
+
+        data class RequestPasswordReset(val email: String) : Inputs()
     }
 }

@@ -186,5 +186,23 @@ class AuthRepositoryInputHandler(
         is AuthRepositoryContract.Inputs.UpdateOrders -> {
             updateState { it.copy(orders = input.orders) }
         }
+        is AuthRepositoryContract.Inputs.RequestPasswordReset -> {
+            sideJob("RequestPasswordReset") {
+                if (settingsRepository.authToken == null) {
+                    try {
+                        val response = apolloClient.mutation(
+                            RequestPasswordResetMutation(
+                                channel = settingsRepository.channel ?: normalChannel,
+                                email = input.email,
+                                redirectUrl = "http://localhost:8080/#/reset-password"
+                            )
+                        ).execute()
+                        println(response.data)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+        }
     }
 }

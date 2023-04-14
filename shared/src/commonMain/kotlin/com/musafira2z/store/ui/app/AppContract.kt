@@ -1,6 +1,7 @@
 package com.musafira2z.store.ui.app
 
 import com.copperleaf.ballast.repository.cache.Cached
+import com.musafira2z.store.CurrentUserDetailsQuery
 import com.musafira2z.store.LoginCustomerMutation
 import com.musafira2z.store.MainMenuQuery
 import com.musafira2z.store.RegisterCustomerMutation
@@ -14,7 +15,8 @@ object AppContract {
         val categories: Cached<MainMenuQuery.Data> = Cached.NotLoaded(),
         val isLoggedIn: Boolean = false,
         val loginResponse: ResponseResource<LoginCustomerMutation.TokenCreate?> = ResponseResource.Idle,
-        val signupResponse: ResponseResource<RegisterCustomerMutation.AccountRegister?> = ResponseResource.Idle
+        val signupResponse: ResponseResource<RegisterCustomerMutation.AccountRegister?> = ResponseResource.Idle,
+        val me: Cached<CurrentUserDetailsQuery.Me> = Cached.NotLoaded(),
     )
 
     sealed class Inputs {
@@ -27,6 +29,7 @@ object AppContract {
         data class UpdateCategories(val categories: Cached<MainMenuQuery.Data>) : Inputs()
 
         data class LoginUser(val username: String, val password: String) : Inputs()
+        data class ForgetPassword(val username: String) : Inputs()
         data class SignUpUser(val fullName: String, val username: String, val password: String) :
             Inputs()
 
@@ -45,6 +48,10 @@ object AppContract {
         data class RemoveLine(val lineId: String) : Inputs()
 
         data class GoSearchPage(val filter: String?) : Inputs()
+
+
+        data class GetMe(val forceRefresh: Boolean) : Inputs()
+        data class UpdateMe(val me: Cached<CurrentUserDetailsQuery.Me>) : Inputs()
 
     }
 

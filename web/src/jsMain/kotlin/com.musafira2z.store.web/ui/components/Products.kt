@@ -15,7 +15,7 @@ fun Products(
         classes("py-10")
     }) {
         Div(attrs = {
-            toClasses("grid grid-cols-12 gap-5")
+            toClasses("grid grid-cols-12 gap-2")
         }) {
             products.forEach { _product ->
                 _product.node.productDetailsFragment.variants?.forEach {

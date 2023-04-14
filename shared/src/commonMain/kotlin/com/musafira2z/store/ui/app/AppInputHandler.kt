@@ -30,6 +30,7 @@ class AppInputHandler(
     ) = when (input) {
         is AppContract.Inputs.Initialize -> {
             postInput(AppContract.Inputs.FetchCarts(true))
+            postInput(AppContract.Inputs.GetMe(true))
             postInput(AppContract.Inputs.FetchCategories(true))
             postInput(AppContract.Inputs.FetchLoginStatus)
         }
@@ -139,6 +140,20 @@ class AppInputHandler(
         }
         is AppContract.Inputs.RemoveLine -> {
             cartRepository.postInput(CartRepositoryContract.Inputs.RemoveCartItem(input.lineId))
+        }
+        is AppContract.Inputs.GetMe -> {
+            observeFlows("FetchMe") {
+                listOf(
+                    authRepository.fetchMe(input.forceRefresh)
+                        .map { AppContract.Inputs.UpdateMe(it) }
+                )
+            }
+        }
+        is AppContract.Inputs.UpdateMe -> {
+            updateState { it.copy(me = input.me) }
+        }
+        is AppContract.Inputs.ForgetPassword -> {
+            authRepository.postInput(AuthRepositoryContract.Inputs.RequestPasswordReset(email = input.username))
         }
     }
 }

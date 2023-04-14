@@ -21,6 +21,8 @@ fun LoginModal(
 ) {
     var modalState by remember { mutableStateOf(false) }
     var isSignUp by remember { mutableStateOf(false) }
+
+
     LaunchedEffect(isLoggedIn) {
         if (isLoggedIn) {
             modalState = false
@@ -53,14 +55,19 @@ fun LoginModal(
             classes("pb-5")
         }) {
             if (isSignUp) {
-                SignUpForm(signUpResponse = signUpResponse, onLogin = {
-                    isSignUp = false
-                }) { fullName, username, password ->
+                SignUpForm(
+                    signUpResponse = signUpResponse,
+                    onLogin = {
+                        isSignUp = false
+                    }
+                ) { fullName, username, password ->
                     postInput(AppContract.Inputs.SignUpUser(fullName, username, password))
                 }
             } else {
                 LoginForm(loginResponse = loginResponse, onSignup = {
                     isSignUp = true
+                }, onForget = {
+                    postInput(AppContract.Inputs.ForgetPassword(username = it))
                 }) { username, password ->
                     postInput(AppContract.Inputs.LoginUser(username, password))
                 }
@@ -74,10 +81,12 @@ fun LoginModal(
 fun LoginForm(
     loginResponse: ResponseResource<LoginCustomerMutation.TokenCreate?>,
     onSignup: () -> Unit,
+    onForget: (username: String) -> Unit,
     onLogin: (username: String, password: String) -> Unit
 ) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var isForget by remember { mutableStateOf(false) }
 
     Label(
         attrs = {
@@ -147,60 +156,170 @@ fun LoginForm(
             }
         }
     }
-    Label(attrs = {
-        classes("block", "mb-2", "text-sm", "font-medium", "text-gray-900", "dark:text-white")
-    }, forId = "website-admin") {
-        Text("Password")
-    }
-    Div(attrs = {
-        classes("flex")
-    }) {
-        Span(attrs = {
-            classes(
-                "inline-flex",
-                "items-center",
-                "px-3",
-                "text-sm",
-                "text-gray-900",
-                "bg-gray-200",
-                "border",
-                "border-r-0",
-                "border-gray-300",
-                "rounded-l-md",
-                "dark:bg-gray-600",
-                "dark:text-gray-400",
-                "dark:border-gray-600"
-            )
+
+    if (isForget) {
+        Div(attrs = {
         }) {
-            Text(" @ ")
+            Button(
+                attrs = {
+                    onClick {
+                        onForget(username)
+                        isForget = false
+                    }
+                    toClasses("mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800")
+                }
+            ) {
+                Text("Submit")
+            }
+
+            Button(
+                attrs = {
+                    onClick {
+                        isForget = false
+                    }
+                    toClasses("mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800")
+                }
+            ) {
+                Text("Cancel")
+            }
         }
-        Input(type = InputType.Password) {
-            id("website-admin")
-            classes(
-                "rounded-none",
-                "rounded-r-lg",
-                "bg-gray-50",
-                "border",
-                "text-gray-900",
-                "focus:ring-blue-500",
-                "focus:border-blue-500",
-                "block",
-                "flex-1",
-                "min-w-0",
-                "w-full",
-                "text-sm",
-                "border-gray-300",
-                "p-2.5",
-                "dark:bg-gray-700",
-                "dark:border-gray-600",
-                "dark:placeholder-gray-400",
-                "dark:text-white",
-                "dark:focus:ring-blue-500",
-                "dark:focus:border-blue-500"
-            )
-            attr("placeholder", "password")
-            onInput {
-                password = it.value
+    } else {
+        Label(attrs = {
+            classes("block", "mb-2", "text-sm", "font-medium", "text-gray-900", "dark:text-white")
+        }, forId = "website-admin") {
+            Text("Password")
+        }
+        Div(attrs = {
+            classes("flex")
+        }) {
+            Span(attrs = {
+                classes(
+                    "inline-flex",
+                    "items-center",
+                    "px-3",
+                    "text-sm",
+                    "text-gray-900",
+                    "bg-gray-200",
+                    "border",
+                    "border-r-0",
+                    "border-gray-300",
+                    "rounded-l-md",
+                    "dark:bg-gray-600",
+                    "dark:text-gray-400",
+                    "dark:border-gray-600"
+                )
+            }) {
+                Text(" @ ")
+            }
+            Input(type = InputType.Password) {
+                id("website-admin")
+                classes(
+                    "rounded-none",
+                    "rounded-r-lg",
+                    "bg-gray-50",
+                    "border",
+                    "text-gray-900",
+                    "focus:ring-blue-500",
+                    "focus:border-blue-500",
+                    "block",
+                    "flex-1",
+                    "min-w-0",
+                    "w-full",
+                    "text-sm",
+                    "border-gray-300",
+                    "p-2.5",
+                    "dark:bg-gray-700",
+                    "dark:border-gray-600",
+                    "dark:placeholder-gray-400",
+                    "dark:text-white",
+                    "dark:focus:ring-blue-500",
+                    "dark:focus:border-blue-500"
+                )
+                attr("placeholder", "password")
+                onInput {
+                    password = it.value
+                }
+            }
+        }
+
+        Div {
+            Button(
+                attrs = {
+                    classes("mt-2")
+                    onClick {
+                        isForget = true
+                    }
+                }
+            ) {
+                P(attrs = {
+                    classes("text-blue-500")
+                }) {
+                    Text("Forget password ?")
+                }
+            }
+        }
+
+
+        Div(attrs = {
+        }) {
+            Button(
+                attrs = {
+                    onClick {
+                        onLogin(username, password)
+                    }
+                    toClasses("mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800")
+                }
+            ) {
+                Text("Login")
+            }
+
+            Button(attrs = {
+                onClick {
+                    onSignup()
+                }
+                classes(
+                    "relative",
+                    "inline-flex",
+                    "items-center",
+                    "justify-center",
+                    "p-0.5",
+                    "mb-2",
+                    "mr-2",
+                    "overflow-hidden",
+                    "text-sm",
+                    "font-medium",
+                    "text-gray-900",
+                    "rounded-lg",
+                    "group",
+                    "bg-gradient-to-br",
+                    "from-green-400",
+                    "to-blue-600",
+                    "group-hover:from-green-400",
+                    "group-hover:to-blue-600",
+                    "hover:text-white",
+                    "dark:text-white",
+                    "focus:ring-4",
+                    "focus:outline-none",
+                    "focus:ring-green-200",
+                    "dark:focus:ring-green-800"
+                )
+            }) {
+                Span(attrs = {
+                    classes(
+                        "relative",
+                        "px-5",
+                        "py-2.5",
+                        "transition-all",
+                        "ease-in",
+                        "duration-75",
+                        "bg-white",
+                        "dark:bg-gray-900",
+                        "rounded-md",
+                        "group-hover:bg-opacity-0"
+                    )
+                }) {
+                    Text(" Sign up  ")
+                }
             }
         }
     }
@@ -256,68 +375,6 @@ fun LoginForm(
         }
     }
 
-    Div(attrs = {
-    }) {
-        Button(
-            attrs = {
-                onClick {
-                    onLogin(username, password)
-                }
-                toClasses("mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800")
-            }
-        ) {
-            Text("Login")
-        }
-
-        Button(attrs = {
-            onClick {
-                onSignup()
-            }
-            classes(
-                "relative",
-                "inline-flex",
-                "items-center",
-                "justify-center",
-                "p-0.5",
-                "mb-2",
-                "mr-2",
-                "overflow-hidden",
-                "text-sm",
-                "font-medium",
-                "text-gray-900",
-                "rounded-lg",
-                "group",
-                "bg-gradient-to-br",
-                "from-green-400",
-                "to-blue-600",
-                "group-hover:from-green-400",
-                "group-hover:to-blue-600",
-                "hover:text-white",
-                "dark:text-white",
-                "focus:ring-4",
-                "focus:outline-none",
-                "focus:ring-green-200",
-                "dark:focus:ring-green-800"
-            )
-        }) {
-            Span(attrs = {
-                classes(
-                    "relative",
-                    "px-5",
-                    "py-2.5",
-                    "transition-all",
-                    "ease-in",
-                    "duration-75",
-                    "bg-white",
-                    "dark:bg-gray-900",
-                    "rounded-md",
-                    "group-hover:bg-opacity-0"
-                )
-            }) {
-                Text(" Sign up  ")
-            }
-        }
-    }
 }
 
 @OptIn(ExperimentalComposeWebSvgApi::class)
@@ -572,7 +629,9 @@ fun SignUpForm(
             }
         }
         is ResponseResource.Success -> {
-
+            LaunchedEffect(Unit) {
+                onLogin()
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import com.musafira2z.store.LoginCustomerMutation
 import com.musafira2z.store.RegisterCustomerMutation
 import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.utils.ResponseResource
+import com.musafira2z.store.web.ui.components.IcAccountCircle
 import com.musafira2z.store.web.ui.components.LoginModal
 import com.musafira2z.store.web.ui.components.OutlineHelp
 import com.musafira2z.store.web.ui.utils.toClasses
@@ -19,6 +20,8 @@ fun TopAppBar(
     isLoggedIn: Boolean,
     loginResponse: ResponseResource<LoginCustomerMutation.TokenCreate?>,
     signupResponse: ResponseResource<RegisterCustomerMutation.AccountRegister?>,
+    name: String? = null,
+    email: String? = null,
     searchBox: @Composable () -> Unit,
     postInput: (AppContract.Inputs) -> Unit
 ) {
@@ -114,7 +117,7 @@ fun TopAppBar(
                 }
                 Div {
                     if (isLoggedIn) {
-                        UserMenus(postInput = postInput)
+                        UserMenus(postInput = postInput, name = name ?: "", email = email ?: "")
                     } else {
                         LoginModal(
                             postInput = postInput,
@@ -131,6 +134,8 @@ fun TopAppBar(
 
 @Composable
 fun UserMenus(
+    name: String,
+    email: String,
     postInput: (AppContract.Inputs) -> Unit
 ) {
     Div(attrs = {
@@ -142,11 +147,8 @@ fun UserMenus(
                 classes(
                     "flex",
                     "text-sm",
-                    "bg-gray-800",
                     "rounded-full",
-                    "focus:ring-4",
-                    "focus:ring-gray-300",
-                    "dark:focus:ring-gray-600"
+                    "focus:ring-4"
                 )
                 attr("aria-expanded", "false")
                 attr("data-dropdown-toggle", "dropdown-user")
@@ -156,13 +158,8 @@ fun UserMenus(
                 }) {
                     Text("Open user menu")
                 }
-                Img(
-                    attrs = {
-                        classes("w-8", "h-8", "rounded-full")
-                    },
-                    src = "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
-                    alt = "user photo"
-                )
+
+                IcAccountCircle("w-8", "h-8", "rounded-full")
             }
         }
         Div(attrs = {
@@ -190,7 +187,7 @@ fun UserMenus(
                     classes("text-sm", "text-gray-900", "dark:text-white")
                     attr("role", "none")
                 }) {
-                    Text(" Neil Sims ")
+                    Text(" $name ")
                 }
                 P(attrs = {
                     classes(
@@ -202,7 +199,7 @@ fun UserMenus(
                     )
                     attr("role", "none")
                 }) {
-                    Text(" neil.sims@flowbite.com ")
+                    Text(" $email ")
 
                 }
 
@@ -226,7 +223,7 @@ fun UserMenus(
                         )
                         attr("role", "menuitem")
                     }, href = "#") {
-                        Text("Dashboard")
+                        Text("Profile")
                     }
                 }
                 Li {
@@ -244,7 +241,7 @@ fun UserMenus(
                         )
                         attr("role", "menuitem")
                     }, href = "#") {
-                        Text("Settings")
+                        Text("My Orders")
                     }
 
                 }
@@ -263,11 +260,10 @@ fun UserMenus(
                         )
                         attr("role", "menuitem")
                     }, href = "#") {
-                        Text("Earnings")
-
+                        Text("Term and Services")
                     }
-
                 }
+
                 Li {
                     A(attrs = {
                         onClick {
