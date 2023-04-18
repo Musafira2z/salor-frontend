@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import com.musafira2z.store.ProductCollectionQuery
 import com.musafira2z.store.fragment.MenuItemWithChildrenFragmentProducts
 import com.musafira2z.store.fragment.ProductDetailsFragment
+import com.musafira2z.store.web.ui.utils.toClasses
 import com.musafira2z.store.web.ui.utils.toFormatPrice
 import com.musafira2z.store.web.ui.utils.toUnDiscountFormatPrice
 import org.jetbrains.compose.web.dom.*
@@ -143,8 +144,14 @@ fun AddToCartButton(
             "hover:duration-500",
             "duration-500",
             "w-full",
-            "py-3",
-            "px-6"
+            "py-1",
+            "sm:py-1",
+            "md:py-2",
+            "lg:py-3",
+            "px-2",
+            "sm:px-2",
+            "md:px-3",
+            "lg:px-6",
         )
         onClick {
             it.stopImmediatePropagation()
@@ -172,6 +179,9 @@ fun Product(
             "lg:col-span-3",
             "border",
             "p-5",
+            "sm:p-3",
+            "md:p-4",
+            "lg:p-5",
             "rounded-lg",
             "hover:shadow-green-200",
             "relative",
@@ -217,7 +227,7 @@ fun Product(
 
         Div {
             Div(attrs = {
-                classes("flex", "justify-center", "w-full", "aspect-square")
+                classes("flex", "justify-center", "w-full", "h-36")
             }) {
                 val image = productNode.thumbnail?.imageFragment?.url?.replace(
                     "http://localhost:8000",
@@ -225,12 +235,20 @@ fun Product(
                 )
                 Img(
                     src = image
-                        ?: "",
+                        ?: "https://musafirtd.sgp1.cdn.digitaloceanspaces.com/static/images/placeholder256.png",
                     alt = "",
                 )
             }
             H1(attrs = {
-                classes("text-lg", "py-7", "truncate", "hover:text-clip")
+                classes(
+                    "text-base",
+                    "sm:text-base",
+                    "md:text-base",
+                    "lg:text-lg",
+                    "py-2",
+                    "truncate",
+                    "hover:text-clip"
+                )
             }) {
                 Text(productNode.name)
             }
@@ -243,7 +261,7 @@ fun Product(
                     classes("flex", "justify-end")
                 }) {
                     P(attrs = {
-                        classes("text-red-500", "font-bold", "line-through")
+                        classes("text-red-500", "font-normal", "line-through")
                     }) {
                         Text(it)
                     }
@@ -251,9 +269,13 @@ fun Product(
             }
 
             Div(attrs = {
-                classes("flex", "justify-between", "font-bold", "pb-4")
+                classes("flex", "justify-between", "pb-2")
             }) {
-                P {
+                P(
+                    attrs = {
+                        toClasses("text-xs sm:text-xs md:text-xs lg:text-lg truncate hover:text-clip pr-2")
+                    }
+                ) {
                     val attributes = variant.productVariantDetailsFragment.attributes.map {
                         it.selectedAttributeDetailsFragment.values.mapNotNull { it.name }
                     }.flatten().joinToString("| ")

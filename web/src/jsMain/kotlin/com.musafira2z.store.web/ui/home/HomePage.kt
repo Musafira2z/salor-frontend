@@ -126,7 +126,7 @@ fun HomePageContent(
     }
 
     Div(attrs = {
-        toClasses("md:ml-60 lg:ml-60 p-5")
+        toClasses("ml-0 sm:ml-0 md:ml-0 lg:ml-60 p-1 sm:p-1 md:p-3 lg:p-5")
     }) {
         uiState.banners.getCachedOrNull()?.let {
             Carousal(banners = it)
@@ -147,39 +147,61 @@ fun HomePageContent(
                 Spinner()
             }
 
+            Div(attrs = {
+                toClasses("text-start")
+            }) {
+                Div(attrs = {
+                    toClasses("lg:hidden pb-5")
+                }) {
+                    SearchBox { term, isSubmit ->
+
+                    }
+                }
+            }
+
             uiState.blocks.getCachedOrNull()?.let {
                 it.menu?.items?.forEachIndexed { index, item ->
-                    Div(attrs = {
-                        toClasses("text-start")
-                    }) {
-                        H1(attrs = {
-                            classes("font-bold", "pt-5", "text-xl")
-                        }) {
-                            Text(item.menuItemWithChildrenFragmentProducts.name)
-                        }
-                    }
-
-                    Div(attrs = {
-                        classes("py-10")
-                    }) {
+                    if (item.menuItemWithChildrenFragmentProducts.category?.products?.edges?.isNotEmpty() == true) {
                         Div(attrs = {
-                            toClasses("grid grid-cols-12 gap-5")
+                            toClasses("text-start")
                         }) {
-                            item.menuItemWithChildrenFragmentProducts.category?.products?.edges?.forEach { _product ->
-                                _product.node.productDetailsFragment.variants?.forEach {
-                                    Product(
-                                        product = _product,
-                                        variant = it,
-                                        onProductDetails = { productSlug, variantId ->
-                                            postInput(
-                                                HomeContract.Inputs.GoProductDetailsPage(
-                                                    slug = productSlug,
-                                                    variantId = variantId
+                            H1(attrs = {
+                                classes(
+                                    "font-bold",
+                                    "pt-2",
+                                    "lg:pt-5",
+                                    "text-base",
+                                    "sm:text-base",
+                                    "md:text-base",
+                                    "lg:text-xl"
+                                )
+                            }) {
+                                Text(item.menuItemWithChildrenFragmentProducts.name)
+                            }
+                        }
+
+                        Div(attrs = {
+                            toClasses("py-2 sm:py-2 md:py-5 lg:py-10")
+                        }) {
+                            Div(attrs = {
+                                toClasses("grid grid-cols-12 gap-1 sm:gap-1 md:gap-3 lg:gap-5")
+                            }) {
+                                item.menuItemWithChildrenFragmentProducts.category?.products?.edges?.forEach { _product ->
+                                    _product.node.productDetailsFragment.variants?.forEach {
+                                        Product(
+                                            product = _product,
+                                            variant = it,
+                                            onProductDetails = { productSlug, variantId ->
+                                                postInput(
+                                                    HomeContract.Inputs.GoProductDetailsPage(
+                                                        slug = productSlug,
+                                                        variantId = variantId
+                                                    )
                                                 )
-                                            )
+                                            }
+                                        ) {
+                                            postInput(HomeContract.Inputs.AddToCart(it))
                                         }
-                                    ) {
-                                        postInput(HomeContract.Inputs.AddToCart(it))
                                     }
                                 }
                             }
@@ -195,13 +217,6 @@ fun HomePageContent(
                     classes("font-bold", "pt-5", "text-xl")
                 }) {
                     Text("Popular Product")
-                }
-                Div(attrs = {
-                    classes("lg:hidden")
-                }) {
-                    SearchBox { term, isSubmit ->
-
-                    }
                 }
             }
 
