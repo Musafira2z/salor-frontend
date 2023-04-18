@@ -43,7 +43,7 @@ fun PriceFragment?.toFormatPrice(): String {
         return ""
     }
 
-    return "${this.currency} $amount"
+    return "${this.currency.replace("ZAR", "R")}$amount"
 }
 
 fun PriceFragment?.toUnDiscountFormatPrice(
@@ -57,6 +57,6 @@ fun PriceFragment?.toUnDiscountFormatPrice(
         return null
     }
 
-    return "${this.currency} ${this.amount}"
+    return "${this.currency.replace("ZAR", "R")}${this.amount}"
 }
 
