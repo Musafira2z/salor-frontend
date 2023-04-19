@@ -3,7 +3,6 @@ package com.musafira2z.store.web.ui.category
 import androidx.compose.runtime.*
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.musafira2z.store.ui.category.CategoryContract
-import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.web.ui.app.CartBar
 import com.musafira2z.store.web.ui.components.Products
 import com.musafira2z.store.web.ui.components.shared.SideBar

@@ -31,6 +31,7 @@ fun TopAppBar(
         Div(attrs = {
             classes("flex", "justify-between", "items-center", "gap-2")
         }) {
+            MobileMenuButton()
             Div(attrs = {
                 classes("flex", "justify-between", "items-center", "lg:w-2/4", "gap-2")
             }) {
