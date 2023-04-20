@@ -100,7 +100,7 @@ fun TopAppBar(
                             }) {
                                 OutlineHelp()
                                 P(attrs = {
-                                    classes("pl-2")
+                                    toClasses("pl-1 text-green-500")
                                 }) {
                                     Text("Need help")
                                 }
@@ -223,6 +223,10 @@ fun UserMenus(
                             "dark:hover:text-white"
                         )
                         attr("role", "menuitem")
+                        onClick {
+                            it.preventDefault()
+                            postInput(AppContract.Inputs.GoProfilePage)
+                        }
                     }, href = "#") {
                         Text("Profile")
                     }
@@ -241,6 +245,10 @@ fun UserMenus(
                             "dark:hover:text-white"
                         )
                         attr("role", "menuitem")
+                        onClick {
+                            it.preventDefault()
+                            postInput(AppContract.Inputs.GoOrderPage)
+                        }
                     }, href = "#") {
                         Text("My Orders")
                     }

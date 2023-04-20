@@ -155,5 +155,11 @@ class AppInputHandler(
         is AppContract.Inputs.ForgetPassword -> {
             authRepository.postInput(AuthRepositoryContract.Inputs.RequestPasswordReset(email = input.username))
         }
+        AppContract.Inputs.GoProfilePage -> {
+            postEvent(AppContract.Events.NavigateProfile)
+        }
+        AppContract.Inputs.GoOrderPage -> {
+            postEvent(AppContract.Events.NavigateOrder)
+        }
     }
 }

@@ -18,6 +18,7 @@ enum class WebPage(
     PasswordReset("/reset-password?email={?}&token={?}"),
     Profile("/dashboard/profile"),
     Orders("/dashboard/orders"),
+    OrderDetails("/dashboard/order/{order}"),
     ;
 
     override val matcher: RouteMatcher = RouteMatcher.create(routeFormat)

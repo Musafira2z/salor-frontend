@@ -28,10 +28,14 @@ import com.musafira2z.store.ui.checkout.CheckoutContract
 import com.musafira2z.store.ui.checkout.CheckoutInputHandler
 import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.ui.home.HomeInputHandler
+import com.musafira2z.store.ui.orders.OrdersContract
+import com.musafira2z.store.ui.orders.OrdersInputHandler
 import com.musafira2z.store.ui.page.PageContract
 import com.musafira2z.store.ui.page.PageInputHandler
 import com.musafira2z.store.ui.product_details.ProductDetailContract
 import com.musafira2z.store.ui.product_details.ProductDetailInputHandler
+import com.musafira2z.store.ui.profile.ProfileContract
+import com.musafira2z.store.ui.profile.ProfileInputHandler
 import com.musafira2z.store.ui.search.SearchContract
 import com.musafira2z.store.ui.search.SearchInputHandler
 import com.musafira2z.store.ui.success.OrderSuccessContract
@@ -42,6 +46,10 @@ import com.musafira2z.store.web.ui.category.CategoryEventHandler
 import com.musafira2z.store.web.ui.category.CategoryViewModel
 import com.musafira2z.store.web.ui.checkout.CheckoutEventHandler
 import com.musafira2z.store.web.ui.checkout.CheckoutViewModel
+import com.musafira2z.store.web.ui.dashboard.orders.OrdersEventHandler
+import com.musafira2z.store.web.ui.dashboard.orders.OrdersViewModel
+import com.musafira2z.store.web.ui.dashboard.proifle.ProfileEventHandler
+import com.musafira2z.store.web.ui.dashboard.proifle.ProfileViewModel
 import com.musafira2z.store.web.ui.home.HomeEventHandler
 import com.musafira2z.store.web.ui.home.HomeViewModel
 import com.musafira2z.store.web.ui.page.PageEventHandler
@@ -265,6 +273,32 @@ class ComposeWebInjector(
                     name = "OrderSuccess"
                 ),
             eventHandler = OrderSuccessEventHandler(router = router)
+        )
+    }
+
+    fun profileViewModel(coroutineScope: CoroutineScope): ProfileViewModel {
+        return ProfileViewModel(
+            coroutineScope = coroutineScope,
+            configBuilder = commonBuilder()
+                .withViewModel(
+                    initialState = ProfileContract.State(),
+                    inputHandler = ProfileInputHandler(authRepository = authRepository),
+                    name = "ProfilePage"
+                ),
+            eventHandler = ProfileEventHandler()
+        )
+    }
+
+    fun orderViewModel(coroutineScope: CoroutineScope): OrdersViewModel {
+        return OrdersViewModel(
+            coroutineScope = coroutineScope,
+            configBuilder = commonBuilder()
+                .withViewModel(
+                    initialState = OrdersContract.State(),
+                    inputHandler = OrdersInputHandler(authRepository = authRepository),
+                    name = "OrdersPage"
+                ),
+            eventHandler = OrdersEventHandler(router = router)
         )
     }
 

@@ -1,22 +1,37 @@
 package com.musafira2z.store.web.ui.dashboard.proifle
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import com.copperleaf.ballast.repository.cache.getCachedOrNull
+import com.musafira2z.store.ui.profile.ProfileContract
+import com.musafira2z.store.web.ui.checkout.AddressItem
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
+import com.musafira2z.store.web.ui.utils.toClasses
 import org.jetbrains.compose.web.attributes.InputType
-import org.jetbrains.compose.web.attributes.disabled
-import org.jetbrains.compose.web.attributes.name
-import org.jetbrains.compose.web.attributes.required
+import org.jetbrains.compose.web.attributes.onSubmit
 import org.jetbrains.compose.web.dom.*
 
 @Composable
 fun ProfileScreen(
     webInjector: ComposeWebInjector
 ) {
-    ProfileContent()
+    val viewModelScope = rememberCoroutineScope()
+    val vm: ProfileViewModel =
+        remember(viewModelScope) { webInjector.profileViewModel(viewModelScope) }
+    LaunchedEffect(vm) {
+        vm.trySend(ProfileContract.Inputs.Initialize)
+    }
+
+    val uiState by vm.observeStates().collectAsState()
+    ProfileContent(uiState = uiState) {
+        vm.trySend(it)
+    }
 }
 
 @Composable
-fun ProfileContent() {
+fun ProfileContent(
+    uiState: ProfileContract.State,
+    postInput: (ProfileContract.Inputs) -> Unit
+) {
     Div(attrs = {
         classes("container", "mx-auto")
     }) {
@@ -31,7 +46,7 @@ fun ProfileContent() {
                 "mt-5"
             )
         }) {
-            Profile()
+            Profile(uiState = uiState)
         }
     }
 }
@@ -145,10 +160,11 @@ fun DashboardSidebar() {
 }
 
 @Composable
-fun Profile() {
-
+fun Profile(
+    uiState: ProfileContract.State
+) {
     Div(attrs = {
-        classes("bg-slate-100", "w-full", "px-5", "py-5", "shadow-md", "shadow-gray-300")
+        toClasses("bg-slate-100 w-full px-5 py-5 shadow-md shadow-gray-300")
     }) {
         Div(attrs = {
             classes("font-bold", "pb-10")
@@ -156,121 +172,136 @@ fun Profile() {
             H1 {
                 Text("Your Profile")
             }
-
         }
-        Form(attrs = {
-            attr("onSubmit", "{handleProfileEdit}")
-        }, action = "") {
+
+        val me = uiState.me.getCachedOrNull()
+
+        Form(
+            attrs = {
+                onSubmit {
+                    it.preventDefault()
+                }
+                classes("w-full")
+            },
+            action = ""
+        ) {
+            val firstName = remember(me?.firstName) { mutableStateOf(me?.firstName ?: "") }
+            val lastName = remember(me?.lastName) { mutableStateOf(me?.lastName ?: "") }
+            val email = remember(me?.email) { mutableStateOf(me?.email ?: "") }
+            var isEdit by remember { mutableStateOf(false) }
+
             Div(attrs = {
-                classes("grid", "grid-cols-12", "grid-rows-2", "gap-3")
+                classes("grid", "grid-cols-12", "gap-2", "mt-2")
             }) {
                 Div(attrs = {
                     classes(
-                        "xl:col-span-5",
-                        "lg:col-span-5",
-                        "md:col-span-12",
                         "col-span-12",
+                        "md:col-span-4",
+                        "lg:col-span-4",
                         "w-full"
                     )
                 }) {
-                    Input(InputType.Text) {
-                        id("fName")
-                        name("firstName")
-                        attr("type", "fName")
-                        attr("label", "First Name")
-                        attr("placeholder", "First Name")
-                        attr("defaultValue", "Rukon")
-                        disabled()
-                        required()
+                    com.musafira2z.store.web.ui.components.TextInput(
+                        label = "First Name",
+                        type = InputType.Text,
+                        name = "firstName",
+                        placeHolder = firstName.value,
+                        disabled = isEdit,
+                        defaultValue = firstName
+                    ) {
+                        firstName.value = it
                     }
-
                 }
+
                 Div(attrs = {
                     classes(
-                        "xl:col-span-5",
-                        "lg:col-span-5",
-                        "md:col-span-12",
                         "col-span-12",
+                        "md:col-span-4",
+                        "lg:col-span-4",
                         "w-full"
                     )
                 }) {
-                    Input(InputType.Text) {
-                        id("lName")
-                        name("lastName")
-                        attr("type", "lName")
-                        attr("label", "Last Name")
-                        attr("placeholder", "Last Name")
-                        attr("defaultValue", "Uddin")
-                        disabled()
-                        required()
+                    com.musafira2z.store.web.ui.components.TextInput(
+                        label = "Last Name",
+                        type = InputType.Text,
+                        name = "lastName",
+                        placeHolder = lastName.value,
+                        disabled = isEdit,
+                        defaultValue = lastName
+                    ) {
+                        lastName.value = it
                     }
-
                 }
+
                 Div(attrs = {
-                    classes("xl:col-span-2", "lg:col-span-2", "md:col-span-12", "col-span-12")
+                    classes("col-span-4")
                 }) {
-                    Button(attrs = {
-
-                    }) {
-
-                    }
-                    Button(attrs = {
-
-                    }) {
-
+                    if (isEdit) {
+                        Button(attrs = {
+                            toClasses("bg-green-500 h-10 w-full text-slate-50 font-bold rounded-full")
+                            onClick {
+                                isEdit = false
+                            }
+                        }) {
+                            Text("Update")
+                        }
+                    } else {
+                        Button(attrs = {
+                            toClasses("bg-green-500 h-10 w-full text-slate-50 font-bold rounded-full")
+                            onClick {
+                                isEdit = true
+                            }
+                        }) {
+                            Text("Edit")
+                        }
                     }
                 }
+
                 Div(attrs = {
                     classes(
-                        "xl:col-span-5",
-                        "lg:col-span-5",
-                        "md:col-span-12",
                         "col-span-12",
                         "w-full",
                         "mt-5",
                     )
                 }) {
-                    Input(InputType.Email) {
-                        id("email")
-                        name("Email")
-                        attr("type", "email")
-                        attr("label", "Email")
-                        disabled()
-                        attr("defaultValue", "rukon.js@gmail.com")
-                        attr("placeholder", "Email")
-                        required()
+                    com.musafira2z.store.web.ui.components.TextInput(
+                        label = "Email",
+                        type = InputType.Text,
+                        name = "email",
+                        placeHolder = email.value,
+                        disabled = false,
+                        defaultValue = email
+                    ) {
+
                     }
-
                 }
-
             }
 
         }
+
         Div {
             H1(attrs = {
                 classes("font-bold", "mt-10", "mb-5")
             }) {
                 Text("Delivery Address")
-
             }
-            Div(attrs = {
-                classes("py-10")
-            }) {
-//                Modal(attrs = {
-//                    attr("showModal", "{showAddressModal}")
-//                    attr("setShowModal", "{setShowAddressModal}")
-//                    attr("modalOpenButton", "{")
-//                }) {
-//                    AddANewAddressModalOpenButton(attrs = {
-//                        attr("setShowAddressModal", "{setShowAddressModal}")
-//                    }) {}
-//                    Text(" } title='Add New Address'> ")
-//                    DeliveryAddressForm(attrs = {
-//                        attr("setShowModal", "{setShowAddressModal}")
-//                    }) {}
-//
-//                }
 
+            Div(attrs = {
+                classes("py-1")
+            }) {
+                // show all address
+                uiState.address.getCachedOrNull()?.addresses?.let {
+                    it.forEach { address ->
+                        val name =
+                            "${address.addressDetailsFragment.firstName} ${address.addressDetailsFragment.lastName}"
+                        val adds =
+                            "${address.addressDetailsFragment.streetAddress1}, ${address.addressDetailsFragment.city}, ${address.addressDetailsFragment.postalCode}"
+                        val phone = address.addressDetailsFragment.phone ?: ""
+                        AddressItem(name = name, address = adds, phone = phone, isChange = false) {
+
+                        }
+                    }
+                }
             }
         }
 

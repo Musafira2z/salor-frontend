@@ -48,6 +48,8 @@ object AppContract {
         data class RemoveLine(val lineId: String) : Inputs()
 
         data class GoSearchPage(val filter: String?) : Inputs()
+        object GoProfilePage : Inputs()
+        object GoOrderPage : Inputs()
 
 
         data class GetMe(val forceRefresh: Boolean) : Inputs()
@@ -57,6 +59,8 @@ object AppContract {
 
     sealed class Events {
         object NavigateUp : Events()
+        object NavigateProfile : Events()
+        object NavigateOrder : Events()
         data class GoSearchPage(val filter: String?) : Events()
     }
 }

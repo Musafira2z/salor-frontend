@@ -11,6 +11,7 @@ import com.musafira2z.store.web.ui.components.CartBody
 import com.musafira2z.store.web.ui.components.Drawer
 import com.musafira2z.store.web.ui.components.shared.SearchBox
 import com.musafira2z.store.web.ui.components.shared.TopAppBar
+import com.musafira2z.store.web.ui.dashboard.orders.OrdersPage
 import com.musafira2z.store.web.ui.dashboard.proifle.ProfileScreen
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.home.HomePage
@@ -133,11 +134,14 @@ fun AppScreen() {
                 ProfileScreen(webInjector = injector)
             }
             WebPage.Orders -> {
-
+                OrdersPage(webInjector = injector)
             }
             WebPage.OrderSuccess -> {
                 val slug by stringPath()
                 OrderSuccessPage(webInjector = injector, slug = slug)
+            }
+            WebPage.OrderDetails -> {
+
             }
         }
     },

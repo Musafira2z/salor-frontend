@@ -2,10 +2,16 @@ package com.musafira2z.store.web.ui.utils
 
 import androidx.compose.web.attributes.SelectAttrsScope
 import org.jetbrains.compose.web.attributes.AttrsScope
+import org.jetbrains.compose.web.attributes.builders.InputAttrsScope
 import org.w3c.dom.*
 import org.w3c.dom.svg.SVGElement
 
 fun AttrsScope<HTMLDivElement>.toClasses(clas: String) {
+    val args = clas.trim().replace("\\s+".toRegex(), " ").split(" ").toTypedArray()
+    classes(*args)
+}
+
+fun InputAttrsScope<String>.toClasses(clas: String) {
     val args = clas.trim().replace("\\s+".toRegex(), " ").split(" ").toTypedArray()
     classes(*args)
 }
