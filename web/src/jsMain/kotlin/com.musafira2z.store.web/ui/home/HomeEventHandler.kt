@@ -20,7 +20,7 @@ class HomeEventHandler(
         event: HomeContract.Events
     ) = when (event) {
         is HomeContract.Events.NavigateUp -> {
-
+            
         }
         HomeContract.Events.GoCheckoutPage -> {
             router.trySend(

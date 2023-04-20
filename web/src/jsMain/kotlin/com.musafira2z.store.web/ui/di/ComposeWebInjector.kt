@@ -34,6 +34,8 @@ import com.musafira2z.store.ui.product_details.ProductDetailContract
 import com.musafira2z.store.ui.product_details.ProductDetailInputHandler
 import com.musafira2z.store.ui.search.SearchContract
 import com.musafira2z.store.ui.search.SearchInputHandler
+import com.musafira2z.store.ui.success.OrderSuccessContract
+import com.musafira2z.store.ui.success.OrderSuccessInputHandler
 import com.musafira2z.store.web.ui.app.AppEventHandler
 import com.musafira2z.store.web.ui.app.AppViewModel
 import com.musafira2z.store.web.ui.category.CategoryEventHandler
@@ -50,6 +52,8 @@ import com.musafira2z.store.web.ui.router.WebPage
 import com.musafira2z.store.web.ui.router.WebPagerRouter
 import com.musafira2z.store.web.ui.search.SearchEventHandler
 import com.musafira2z.store.web.ui.search.SearchViewModel
+import com.musafira2z.store.web.ui.success.OrderSuccessEventHandler
+import com.musafira2z.store.web.ui.success.OrderSuccessViewModel
 import io.ktor.client.engine.js.*
 import kotlinx.coroutines.CoroutineScope
 import org.koin.core.component.KoinComponent
@@ -248,6 +252,19 @@ class ComposeWebInjector(
                     name = "SearchScreen"
                 ),
             eventHandler = SearchEventHandler(router = router)
+        )
+    }
+
+    fun orderSuccessViewModel(coroutineScope: CoroutineScope): OrderSuccessViewModel {
+        return OrderSuccessViewModel(
+            coroutineScope = coroutineScope,
+            configBuilder = commonBuilder()
+                .withViewModel(
+                    initialState = OrderSuccessContract.State(),
+                    inputHandler = OrderSuccessInputHandler(),
+                    name = "OrderSuccess"
+                ),
+            eventHandler = OrderSuccessEventHandler(router = router)
         )
     }
 

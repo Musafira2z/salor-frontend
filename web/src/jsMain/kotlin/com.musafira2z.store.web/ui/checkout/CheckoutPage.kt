@@ -10,6 +10,7 @@ import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.utils.toClasses
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.attributes.name
+import org.jetbrains.compose.web.attributes.onSubmit
 import org.jetbrains.compose.web.attributes.required
 import org.jetbrains.compose.web.dom.*
 
@@ -42,25 +43,6 @@ fun CheckoutPageContent(
             Div(attrs = {
                 classes("my-10", "w-full", "lg:space-x-10", "lg:mr-150")
             }) {
-                /*Div(attrs = {
-                    classes(
-                        "flex",
-                        "justify-around",
-                        "md:justify-start",
-                        "lg:justify-start",
-                        "lg:ml-9"
-                    )
-                }) {
-                    //checked
-                    Button(attrs = {
-                        toClasses("font-bold cursor-pointer py-5 px-12 md:px-28 lg:px-28 bg-green-500 duration-500 text-slate-50 rounded-lg border duration-500 select-none")
-                    }) {
-                        Text("Delivery")
-                    }
-                }*/
-                /* Hr(attrs = {
-                     classes("mt-7")
-                 })*/
                 Div(attrs = {
                     classes("duration-500")
                 }) {
@@ -200,6 +182,56 @@ fun CheckoutPageContent(
                         }
                     }
                 }
+
+
+                Div(attrs = {
+                    toClasses("bg-gray-50 rounded-lg md:hidden lg:hidden")
+                }) {
+                    uiState.carts.getCachedOrNull()?.let { _cart ->
+                        CartBody(
+                            cart = _cart,
+                            onClose = {
+
+                            },
+                            onDecrement = { variantId, qty ->
+//                                    postInput(CheckoutContract.Inputs.Decrement(variantId, qty))
+                            },
+                            onIncrement = {
+                                postInput(CheckoutContract.Inputs.Increment(lineId = it))
+                            },
+                            removeLine = {
+                                postInput(CheckoutContract.Inputs.RemoveLine(lineId = it))
+                            }
+                        ) {
+                            Div(attrs = {
+                                toClasses("w-full")
+                            }) {
+                                Div(attrs = {
+                                    toClasses("w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50")
+                                    onClick {
+                                        it.preventDefault()
+                                        _cart.availablePaymentGateways.firstOrNull()?.id?.let {
+                                            postInput(CheckoutContract.Inputs.PlaceOrder(it))
+                                        }
+                                    }
+                                }) {
+                                    Button(attrs = {
+                                        onClick {
+                                            it.preventDefault()
+                                            it.stopImmediatePropagation()
+                                            _cart.availablePaymentGateways.firstOrNull()?.id?.let {
+                                                postInput(CheckoutContract.Inputs.PlaceOrder(it))
+                                            }
+                                        }
+                                    }) {
+                                        Text("Place Order")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 Div(attrs = {
                     classes(
                         "w-128",
@@ -220,7 +252,9 @@ fun CheckoutPageContent(
                         uiState.carts.getCachedOrNull()?.let { _cart ->
                             CartBody(
                                 cart = _cart,
-                                onClose = {},
+                                onClose = {
+
+                                },
                                 onDecrement = { variantId, qty ->
 //                                    postInput(CheckoutContract.Inputs.Decrement(variantId, qty))
                                 },
@@ -260,7 +294,6 @@ fun CheckoutPageContent(
             }
 
         }
-
     }
 }
 
@@ -325,7 +358,34 @@ fun AddressForm(
     var phone by remember { mutableStateOf("") }
     var postcode by remember { mutableStateOf("") }
 
-    Form(action = "") {
+    Form(
+        attrs = {
+            onSubmit {
+                it.preventDefault()
+                //post all address and response
+                postInput(
+                    CheckoutContract.Inputs.SetBillingAddress(
+                        address = AddressInput(
+                            firstName = Optional.presentIfNotNull(
+                                firstName
+                            ),
+                            lastName = Optional.presentIfNotNull(
+                                lastName
+                            ),
+                            city = Optional.presentIfNotNull(
+                                city
+                            ),
+                            phone = Optional.presentIfNotNull(
+                                phone
+                            ),
+                            postalCode = Optional.presentIfNotNull(postcode),
+                            streetAddress1 = Optional.presentIfNotNull(street)
+                        )
+                    )
+                )
+            }
+        }
+    ) {
         Div(attrs = {
             classes("grid", "md:grid-cols-2", "md:gap-6")
         }) {
@@ -713,28 +773,6 @@ fun AddressForm(
                 "dark:hover:bg-blue-700",
                 "dark:focus:ring-blue-800"
             )
-            onClick {
-                postInput(
-                    CheckoutContract.Inputs.SetBillingAddress(
-                        address = AddressInput(
-                            firstName = Optional.presentIfNotNull(
-                                firstName
-                            ),
-                            lastName = Optional.presentIfNotNull(
-                                lastName
-                            ),
-                            city = Optional.presentIfNotNull(
-                                city
-                            ),
-                            phone = Optional.presentIfNotNull(
-                                phone
-                            ),
-                            postalCode = Optional.presentIfNotNull(postcode),
-                            streetAddress1 = Optional.presentIfNotNull(street)
-                        )
-                    )
-                )
-            }
         }) {
             Text("Save")
         }

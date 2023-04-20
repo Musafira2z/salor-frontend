@@ -1,12 +1,12 @@
 package com.musafira2z.store.ui.checkout
 
 import com.copperleaf.ballast.repository.cache.Cached
+import com.musafira2z.store.CheckoutCompleteMutation
 import com.musafira2z.store.CurrentUserAddressesQuery
 import com.musafira2z.store.CurrentUserDetailsQuery
 import com.musafira2z.store.OrdersQuery
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import com.musafira2z.store.type.AddressInput
-import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.utils.ResponseResource
 
 object CheckoutContract {
@@ -16,7 +16,8 @@ object CheckoutContract {
         val me: Cached<CurrentUserDetailsQuery.Me> = Cached.NotLoaded(),
         val address: Cached<CurrentUserAddressesQuery.Me> = Cached.NotLoaded(),
         val orders: Cached<OrdersQuery.Me> = Cached.NotLoaded(),
-        val setBillingResponse: ResponseResource<Boolean> = ResponseResource.Idle
+        val setBillingResponse: ResponseResource<Boolean> = ResponseResource.Idle,
+        val lastOrder: CheckoutCompleteMutation.CheckoutComplete? = null
     )
 
     sealed class Inputs {
@@ -30,6 +31,9 @@ object CheckoutContract {
         data class UpdateAddress(val address: Cached<CurrentUserAddressesQuery.Me>) : Inputs()
         data class FetchOrders(val forceRefresh: Boolean) : Inputs()
         data class UpdateOrders(val orders: Cached<OrdersQuery.Me>) : Inputs()
+        object FetchLastOrder : Inputs()
+        data class UpdateLastOrder(val lastOrder: CheckoutCompleteMutation.CheckoutComplete?) :
+            Inputs()
 
         data class SetBillingAddress(val address: AddressInput) : Inputs()
         data class SetShippingMethod(val methodId: String) : Inputs()
@@ -42,10 +46,11 @@ object CheckoutContract {
         data class RemoveLine(val lineId: String) : Inputs()
 
         object GoBack : Inputs()
-
+        data class GoOrderSuccess(val slug: String) : Inputs()
     }
 
     sealed class Events {
         object NavigateUp : Events()
+        data class NavigateSuccess(val slug: String) : Events()
     }
 }

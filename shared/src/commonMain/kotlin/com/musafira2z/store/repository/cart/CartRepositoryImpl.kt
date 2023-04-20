@@ -6,6 +6,7 @@ import com.copperleaf.ballast.repository.BallastRepository
 import com.copperleaf.ballast.repository.bus.EventBus
 import com.copperleaf.ballast.repository.cache.Cached
 import com.musafira2z.store.AvailableShippingMethodsQuery
+import com.musafira2z.store.CheckoutCompleteMutation
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -36,6 +37,10 @@ class CartRepositoryImpl(
     override fun getShippingMethods(refreshCache: Boolean): Flow<Cached<List<AvailableShippingMethodsQuery.AvailableShippingMethod>>> {
         trySend(CartRepositoryContract.Inputs.RefreshShippingMethod(refreshCache))
         return observeStates().map { it.shippingMethods }
+    }
+
+    override fun getLastOrder(): Flow<CheckoutCompleteMutation.CheckoutComplete?> {
+        return observeStates().map { it.lastOrder }
     }
 
     override fun postInput(input: CartRepositoryContract.Inputs) {

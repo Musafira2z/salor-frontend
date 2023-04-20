@@ -14,6 +14,7 @@ enum class WebPage(
     ProductDetails("/product/{slug}?variantId={?}"),
     Page("/page/{slug}"),
     Checkout("/checkout"),
+    OrderSuccess("/complete/{slug}"),
     PasswordReset("/reset-password?email={?}&token={?}"),
     Profile("/dashboard/profile"),
     Orders("/dashboard/orders"),

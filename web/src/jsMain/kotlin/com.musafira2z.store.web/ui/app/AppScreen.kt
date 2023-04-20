@@ -18,6 +18,7 @@ import com.musafira2z.store.web.ui.page.PageScreen
 import com.musafira2z.store.web.ui.product_details.ProductDetailsScreen
 import com.musafira2z.store.web.ui.router.WebPage
 import com.musafira2z.store.web.ui.search.SearchPage
+import com.musafira2z.store.web.ui.success.OrderSuccessPage
 import com.musafira2z.store.web.ui.utils.toClasses
 import com.musafira2z.store.web.ui.utils.toFormatPrice
 import org.jetbrains.compose.web.dom.*
@@ -133,6 +134,10 @@ fun AppScreen() {
             }
             WebPage.Orders -> {
 
+            }
+            WebPage.OrderSuccess -> {
+                val slug by stringPath()
+                OrderSuccessPage(webInjector = injector, slug = slug)
             }
         }
     },

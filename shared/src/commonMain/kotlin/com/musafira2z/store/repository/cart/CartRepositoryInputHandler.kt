@@ -164,11 +164,11 @@ class CartRepositoryInputHandler(
             sideJob("CheckoutComplete") {
                 if (settingsRepository.checkoutToken != null) {
                     try {
-                        val addPaymentToOrderMutation = CheckoutCompleteMutation(
+                        val checkoutCompleteMutation = CheckoutCompleteMutation(
                             checkoutToken = settingsRepository.checkoutToken!!,
                             paymentData = Optional.absent()
                         )
-                        apolloClient.mutation(addPaymentToOrderMutation).execute().let {
+                        apolloClient.mutation(checkoutCompleteMutation).execute().let {
                             if (it.data == null || it.hasErrors()) {
                                 throw Exception(it.errors?.first()?.message)
                             } else {
@@ -407,7 +407,7 @@ class CartRepositoryInputHandler(
                             checkoutToken = settingsRepository.checkoutToken!!,
                             paymentInput = PaymentInput(
                                 gateway = input.paymentMethodId,
-                                token = Optional.presentIfNotNull("ksdafjsdfkasdafj")
+                                token = Optional.presentIfNotNull("NaN")
                             )
                         )
 

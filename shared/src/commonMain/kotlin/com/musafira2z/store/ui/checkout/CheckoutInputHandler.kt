@@ -27,6 +27,7 @@ class CheckoutInputHandler(
         is CheckoutContract.Inputs.Initialize -> {
             postInput(CheckoutContract.Inputs.FetchCarts(true))
             postInput(CheckoutContract.Inputs.FetchAddress(true))
+            postInput(CheckoutContract.Inputs.FetchLastOrder)
         }
         is CheckoutContract.Inputs.GoBack -> {
             postEvent(CheckoutContract.Events.NavigateUp)
@@ -99,6 +100,26 @@ class CheckoutInputHandler(
         }
         is CheckoutContract.Inputs.RemoveLine -> {
             cartRepository.postInput(CartRepositoryContract.Inputs.RemoveCartItem(input.lineId))
+        }
+        is CheckoutContract.Inputs.GoOrderSuccess -> {
+            postEvent(CheckoutContract.Events.NavigateSuccess(input.slug))
+        }
+        CheckoutContract.Inputs.FetchLastOrder -> {
+            observeFlows("FetchLastOrder") {
+                listOf(
+                    cartRepository.getLastOrder()
+                        .map { CheckoutContract.Inputs.UpdateLastOrder(it) }
+                )
+            }
+        }
+        is CheckoutContract.Inputs.UpdateLastOrder -> {
+            updateState { it.copy(lastOrder = input.lastOrder) }
+            val orderId = input.lastOrder?.order?.number
+            if (orderId != null) {
+                postInput(CheckoutContract.Inputs.GoOrderSuccess(slug = orderId))
+            } else {
+                //show error msg
+            }
         }
     }
 }
