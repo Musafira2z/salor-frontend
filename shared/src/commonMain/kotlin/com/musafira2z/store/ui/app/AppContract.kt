@@ -6,6 +6,7 @@ import com.musafira2z.store.LoginCustomerMutation
 import com.musafira2z.store.MainMenuQuery
 import com.musafira2z.store.RegisterCustomerMutation
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
+import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.utils.ResponseResource
 
 object AppContract {
@@ -54,7 +55,7 @@ object AppContract {
 
         data class GetMe(val forceRefresh: Boolean) : Inputs()
         data class UpdateMe(val me: Cached<CurrentUserDetailsQuery.Me>) : Inputs()
-
+        data class GoCategoryPage(val slug: String) : Inputs()
     }
 
     sealed class Events {
@@ -62,5 +63,6 @@ object AppContract {
         object NavigateProfile : Events()
         object NavigateOrder : Events()
         data class GoSearchPage(val filter: String?) : Events()
+        data class GoCategoryPage(val slug: String) : Events()
     }
 }

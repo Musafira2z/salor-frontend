@@ -1,16 +1,24 @@
 package com.musafira2z.store.web.ui.category
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.musafira2z.store.ui.category.CategoryContract
 import com.musafira2z.store.web.ui.app.CartBar
 import com.musafira2z.store.web.ui.components.Products
-import com.musafira2z.store.web.ui.components.shared.SideBar
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.utils.toClasses
 import kotlinx.browser.document
 import kotlinx.browser.window
-import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.dom.H1
+import org.jetbrains.compose.web.dom.Img
+import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.events.EventListener
 import kotlin.math.floor
 
@@ -48,75 +56,6 @@ fun CategoryContent(
         if (scrollEnded) {
             println("load more...")
             postInput(CategoryContract.Inputs.GetProductByCategory(uiState.slug, true))
-        }
-    }
-
-    //sidebar
-    SideBar {
-        Div(attrs = {
-            toClasses("flex justify-center mb-5")
-        }) {
-            Button(attrs = {
-                toClasses("w-full h-10 text-slate-50  text-lg font-extrabold bg-gradient-to-r from-yellow-300 rounded-lg to-pink-700")
-            }) {
-                Text("Offer")
-            }
-        }
-        Hr()
-        Ul(attrs = {
-            classes("space-y-2")
-        }) {
-            uiState.categories.getCachedOrNull()?.menu?.items?.forEach {
-                val category = it.menuItemWithChildrenFragment.category
-                Li {
-                    A(
-                        attrs = {
-                            classes(
-                                "flex",
-                                "items-center",
-                                "p-2",
-                                "text-base",
-                                "font-normal",
-                                "text-gray-900",
-                                "rounded-lg",
-                                "dark:text-white",
-                                "hover:bg-gray-100",
-                                "dark:hover:bg-gray-700"
-                            )
-                            onClick {
-                                category?.slug?.let {
-                                    postInput(CategoryContract.Inputs.GoCategoryPage(slug = it))
-                                }
-                            }
-                        },
-                    ) {
-                        Img(
-                            attrs = {
-                                attr("aria-hidden", "true")
-                                classes(
-                                    "flex-shrink-0",
-                                    "w-6",
-                                    "h-6",
-                                    "text-gray-500",
-                                    "transition",
-                                    "duration-75",
-                                    "dark:text-gray-400",
-                                    "group-hover:text-gray-900",
-                                    "dark:group-hover:text-white"
-                                )
-                            },
-                            src = it.menuItemWithChildrenFragment.category?.backgroundImage?.url
-                                ?: ""
-                        )
-                        Span(attrs = {
-                            classes("flex-1", "ml-3")
-                        }) {
-                            Text(it.menuItemWithChildrenFragment.name)
-                        }
-                    }
-
-                }
-            }
         }
     }
 

@@ -5,6 +5,7 @@ import com.copperleaf.ballast.EventHandlerScope
 import com.copperleaf.ballast.navigation.routing.RouterContract
 import com.copperleaf.ballast.navigation.routing.build
 import com.copperleaf.ballast.navigation.routing.directions
+import com.copperleaf.ballast.navigation.routing.path
 import com.copperleaf.ballast.navigation.routing.queryParameter
 import com.copperleaf.ballast.navigation.vm.Router
 import com.musafira2z.store.ui.app.AppContract
@@ -36,6 +37,7 @@ class AppEventHandler(
             )
             Unit
         }
+
         AppContract.Events.NavigateProfile -> {
             router.trySend(
                 RouterContract.Inputs.GoToDestination(
@@ -45,11 +47,21 @@ class AppEventHandler(
             )
             Unit
         }
+
         AppContract.Events.NavigateOrder -> {
             router.trySend(
                 RouterContract.Inputs.GoToDestination(
                     WebPage.Orders.directions()
                         .build()
+                )
+            )
+            Unit
+        }
+
+        is AppContract.Events.GoCategoryPage -> {
+            router.trySend(
+                RouterContract.Inputs.GoToDestination(
+                    WebPage.Category.directions().path(event.slug).build()
                 )
             )
             Unit

@@ -18,6 +18,7 @@ import com.musafira2z.store.web.ui.utils.toClasses
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.jetbrains.compose.web.dom.*
+import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.events.EventListener
 import kotlin.math.floor
 
@@ -53,81 +54,6 @@ fun HomePageContent(
         if (scrollEnded) {
             println("load more...")
             postInput(HomeContract.Inputs.FetchHomeProducts(true))
-        }
-    }
-
-    //sidebar
-    SideBar {
-        Div(attrs = {
-            toClasses("flex justify-center mb-5")
-        }) {
-            Button(attrs = {
-                toClasses("w-full h-10 text-slate-50  text-lg font-extrabold bg-gradient-to-r from-yellow-300 rounded-lg to-pink-700")
-            }) {
-                Text("Offer")
-            }
-        }
-        Hr()
-        Ul(attrs = {
-            classes("space-y-2")
-        }) {
-            uiState.categories.getCachedOrNull()?.menu?.items?.forEach {
-                val category = it.menuItemWithChildrenFragment.category
-                Li {
-                    A(
-                        attrs = {
-                            classes(
-                                "flex",
-                                "items-center",
-                                "p-2",
-                                "text-base",
-                                "font-normal",
-                                "text-gray-900",
-                                "rounded-lg",
-                                "dark:text-white",
-                                "hover:bg-gray-100",
-                                "dark:hover:bg-gray-700"
-                            )
-                            onClick {
-                                //remove backdrop
-                                //remove overflow
-                                val backDrop = document.querySelector("div[drawer-backdrop]")
-                                backDrop?.remove()
-                                document.body?.classList?.remove("overflow-hidden")
-
-                                category?.slug?.let {
-                                    postInput(HomeContract.Inputs.GoCategoryPage(slug = it))
-                                }
-                            }
-                        },
-                    ) {
-                        Img(
-                            attrs = {
-                                attr("aria-hidden", "true")
-                                classes(
-                                    "flex-shrink-0",
-                                    "w-6",
-                                    "h-6",
-                                    "text-gray-500",
-                                    "transition",
-                                    "duration-75",
-                                    "dark:text-gray-400",
-                                    "group-hover:text-gray-900",
-                                    "dark:group-hover:text-white"
-                                )
-                            },
-                            src = it.menuItemWithChildrenFragment.category?.backgroundImage?.url
-                                ?: ""
-                        )
-                        Span(attrs = {
-                            classes("flex-1", "ml-3")
-                        }) {
-                            Text(it.menuItemWithChildrenFragment.name)
-                        }
-                    }
-
-                }
-            }
         }
     }
 

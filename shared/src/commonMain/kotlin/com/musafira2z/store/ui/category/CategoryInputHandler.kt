@@ -40,7 +40,7 @@ class CategoryInputHandler(
         CategoryContract.Inputs.FetchCategories -> {
             observeFlows("FetchCategories") {
                 listOf(
-                    menuRepository.getAllCategories(false)
+                    menuRepository.getAllCategories(true)
                         .map { CategoryContract.Inputs.UpdateCategories(it) }
                 )
             }

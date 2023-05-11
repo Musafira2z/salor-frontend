@@ -11,6 +11,7 @@ import org.jetbrains.compose.web.svg.Svg
 fun MobileMenuButton() {
     Button(
         attrs = {
+            id("mobile-menu")
             attr("data-drawer-target", "logo-sidebar")
             attr("data-drawer-toggle", "logo-sidebar")
             attr("aria-controls", "logo-sidebar")

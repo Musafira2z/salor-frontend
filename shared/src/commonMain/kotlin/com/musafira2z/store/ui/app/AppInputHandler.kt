@@ -34,9 +34,11 @@ class AppInputHandler(
             postInput(AppContract.Inputs.FetchCategories(true))
             postInput(AppContract.Inputs.FetchLoginStatus)
         }
+
         is AppContract.Inputs.GoBack -> {
             postEvent(AppContract.Events.NavigateUp)
         }
+
         is AppContract.Inputs.FetchCarts -> {
             observeFlows("FetchCarts") {
                 listOf(
@@ -45,9 +47,11 @@ class AppInputHandler(
                 )
             }
         }
+
         is AppContract.Inputs.UpdateCarts -> {
             updateState { it.copy(carts = input.carts) }
         }
+
         is AppContract.Inputs.FetchCategories -> {
             observeFlows("FetchCategories") {
                 listOf(
@@ -56,9 +60,11 @@ class AppInputHandler(
                 )
             }
         }
+
         is AppContract.Inputs.UpdateCategories -> {
             updateState { it.copy(categories = input.categories) }
         }
+
         is AppContract.Inputs.LoginUser -> {
             updateState { it.copy(loginResponse = ResponseResource.Loading) }
             observeFlows("LoginUser") {
@@ -68,18 +74,22 @@ class AppInputHandler(
                 )
             }
         }
+
         is AppContract.Inputs.UpdateLoginResponse -> {
             updateState { it.copy(loginResponse = input.loginResponse) }
             when (val data = input.loginResponse) {
                 is ResponseResource.Error -> {
 
                 }
+
                 ResponseResource.Idle -> {
 
                 }
+
                 ResponseResource.Loading -> {
 
                 }
+
                 is ResponseResource.Success -> {
                     val tokens = data.data
                     settingsRepository.saveAuthToken(tokens?.token)
@@ -90,6 +100,7 @@ class AppInputHandler(
                 }
             }
         }
+
         AppContract.Inputs.FetchLoginStatus -> {
             observeFlows("FetchLoginStatus") {
                 listOf(
@@ -97,9 +108,11 @@ class AppInputHandler(
                 )
             }
         }
+
         is AppContract.Inputs.UpdateLoginStatus -> {
             updateState { it.copy(isLoggedIn = input.isLoggedIn) }
         }
+
         is AppContract.Inputs.Decrement -> {
             cartRepository.postInput(
                 CartRepositoryContract.Inputs.Decrement(
@@ -108,9 +121,11 @@ class AppInputHandler(
                 )
             )
         }
+
         is AppContract.Inputs.Increment -> {
             cartRepository.postInput(CartRepositoryContract.Inputs.Increment(input.variantId))
         }
+
         is AppContract.Inputs.SignUpUser -> {
             updateState { it.copy(signupResponse = ResponseResource.Loading) }
             observeFlows("SignUpUser") {
@@ -123,10 +138,12 @@ class AppInputHandler(
                 )
             }
         }
+
         is AppContract.Inputs.UpdateSignupResponse -> {
             updateState { it.copy(signupResponse = input.signupResponse) }
             postInput(AppContract.Inputs.FetchLoginStatus)
         }
+
         AppContract.Inputs.SignOut -> {
             sideJob("SignOut") {
                 authRepository.postInput(AuthRepositoryContract.Inputs.SignOut)
@@ -138,9 +155,11 @@ class AppInputHandler(
         is AppContract.Inputs.GoSearchPage -> {
             postEvent(AppContract.Events.GoSearchPage(input.filter))
         }
+
         is AppContract.Inputs.RemoveLine -> {
             cartRepository.postInput(CartRepositoryContract.Inputs.RemoveCartItem(input.lineId))
         }
+
         is AppContract.Inputs.GetMe -> {
             observeFlows("FetchMe") {
                 listOf(
@@ -149,17 +168,25 @@ class AppInputHandler(
                 )
             }
         }
+
         is AppContract.Inputs.UpdateMe -> {
             updateState { it.copy(me = input.me) }
         }
+
         is AppContract.Inputs.ForgetPassword -> {
             authRepository.postInput(AuthRepositoryContract.Inputs.RequestPasswordReset(email = input.username))
         }
+
         AppContract.Inputs.GoProfilePage -> {
             postEvent(AppContract.Events.NavigateProfile)
         }
+
         AppContract.Inputs.GoOrderPage -> {
             postEvent(AppContract.Events.NavigateOrder)
+        }
+
+        is AppContract.Inputs.GoCategoryPage -> {
+            postEvent(AppContract.Events.GoCategoryPage(input.slug))
         }
     }
 }

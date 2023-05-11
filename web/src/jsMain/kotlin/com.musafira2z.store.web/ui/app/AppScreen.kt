@@ -5,11 +5,13 @@ import com.copperleaf.ballast.navigation.routing.*
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import com.musafira2z.store.ui.app.AppContract
+import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.web.ui.category.CategoryScreen
 import com.musafira2z.store.web.ui.checkout.CheckoutPage
 import com.musafira2z.store.web.ui.components.CartBody
 import com.musafira2z.store.web.ui.components.Drawer
 import com.musafira2z.store.web.ui.components.shared.SearchBox
+import com.musafira2z.store.web.ui.components.shared.SideBar
 import com.musafira2z.store.web.ui.components.shared.TopAppBar
 import com.musafira2z.store.web.ui.dashboard.orders.OrdersPage
 import com.musafira2z.store.web.ui.dashboard.proifle.ProfileScreen
@@ -22,7 +24,9 @@ import com.musafira2z.store.web.ui.search.SearchPage
 import com.musafira2z.store.web.ui.success.OrderSuccessPage
 import com.musafira2z.store.web.ui.utils.toClasses
 import com.musafira2z.store.web.ui.utils.toFormatPrice
+import kotlinx.browser.document
 import org.jetbrains.compose.web.dom.*
+import org.w3c.dom.HTMLButtonElement
 
 @Composable
 fun AppScreen() {
@@ -64,6 +68,87 @@ fun AppScreen() {
             email = me?.email
         ) {
             vm.trySend(it)
+        }
+    }
+
+    if (currentRoute == WebPage.HomePage || currentRoute == WebPage.Category) {
+        //sidebar
+        SideBar {
+            Div(attrs = {
+                toClasses("flex justify-center mb-5")
+            }) {
+                Button(attrs = {
+                    toClasses("w-full h-10 text-slate-50  text-lg font-extrabold bg-gradient-to-r from-yellow-300 rounded-lg to-pink-700")
+                }) {
+                    Text("Offer")
+                }
+            }
+            Hr()
+            Ul(attrs = {
+                classes("space-y-2")
+            }) {
+                uiState.categories.getCachedOrNull()?.menu?.items?.forEach {
+                    val category = it.menuItemWithChildrenFragment.category
+                    Li {
+                        A(
+                            attrs = {
+                                classes(
+                                    "flex",
+                                    "items-center",
+                                    "p-2",
+                                    "text-base",
+                                    "font-normal",
+                                    "text-gray-900",
+                                    "rounded-lg",
+                                    "dark:text-white",
+                                    "hover:bg-gray-100",
+                                    "dark:hover:bg-gray-700"
+                                )
+                                onClick {
+                                    //remove backdrop
+                                    //remove overflow
+//                                val backDrop = document.querySelector("div[drawer-backdrop]")
+//                                backDrop?.remove()
+//                                document.body?.classList?.remove("overflow-hidden")
+
+                                    val mobileMenu =
+                                        document.getElementById("mobile-menu") as HTMLButtonElement?
+                                    mobileMenu?.click()
+
+                                    category?.slug?.let {
+                                        vm.trySend(AppContract.Inputs.GoCategoryPage(slug = it))
+                                    }
+                                }
+                            },
+                        ) {
+                            Img(
+                                attrs = {
+                                    attr("aria-hidden", "true")
+                                    classes(
+                                        "flex-shrink-0",
+                                        "w-6",
+                                        "h-6",
+                                        "text-gray-500",
+                                        "transition",
+                                        "duration-75",
+                                        "dark:text-gray-400",
+                                        "group-hover:text-gray-900",
+                                        "dark:group-hover:text-white"
+                                    )
+                                },
+                                src = it.menuItemWithChildrenFragment.category?.backgroundImage?.url
+                                    ?: ""
+                            )
+                            Span(attrs = {
+                                classes("flex-1", "ml-3")
+                            }) {
+                                Text(it.menuItemWithChildrenFragment.name)
+                            }
+                        }
+
+                    }
+                }
+            }
         }
     }
 
@@ -120,26 +205,32 @@ fun AppScreen() {
                     search = search
                 )
             }
+
             WebPage.Page -> {
                 val slug by stringPath()
                 PageScreen(webInjector = injector, slug = slug)
             }
+
             WebPage.PasswordReset -> {
                 val email by optionalStringQuery()
                 val token by optionalStringQuery()
 
                 Text("$email \n $token")
             }
+
             WebPage.Profile -> {
                 ProfileScreen(webInjector = injector)
             }
+
             WebPage.Orders -> {
                 OrdersPage(webInjector = injector)
             }
+
             WebPage.OrderSuccess -> {
                 val slug by stringPath()
                 OrderSuccessPage(webInjector = injector, slug = slug)
             }
+
             WebPage.OrderDetails -> {
 
             }
