@@ -89,6 +89,12 @@ fun HomePageContent(
                                 "dark:hover:bg-gray-700"
                             )
                             onClick {
+                                //remove backdrop
+                                //remove overflow
+                                val backDrop = document.querySelector("div[drawer-backdrop]")
+                                backDrop?.remove()
+                                document.body?.classList?.remove("overflow-hidden")
+
                                 category?.slug?.let {
                                     postInput(HomeContract.Inputs.GoCategoryPage(slug = it))
                                 }
