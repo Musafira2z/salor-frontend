@@ -1,11 +1,21 @@
 package com.musafira2z.store.web.ui.app
 
-import androidx.compose.runtime.*
-import com.copperleaf.ballast.navigation.routing.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import com.copperleaf.ballast.navigation.routing.currentDestinationOrNull
+import com.copperleaf.ballast.navigation.routing.currentRouteOrNull
+import com.copperleaf.ballast.navigation.routing.optionalStringQuery
+import com.copperleaf.ballast.navigation.routing.renderCurrentDestination
+import com.copperleaf.ballast.navigation.routing.stringPath
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import com.musafira2z.store.ui.app.AppContract
-import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.web.ui.category.CategoryScreen
 import com.musafira2z.store.web.ui.checkout.CheckoutPage
 import com.musafira2z.store.web.ui.components.CartBody
@@ -25,7 +35,16 @@ import com.musafira2z.store.web.ui.success.OrderSuccessPage
 import com.musafira2z.store.web.ui.utils.toClasses
 import com.musafira2z.store.web.ui.utils.toFormatPrice
 import kotlinx.browser.document
-import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.dom.A
+import org.jetbrains.compose.web.dom.Button
+import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.dom.Hr
+import org.jetbrains.compose.web.dom.Img
+import org.jetbrains.compose.web.dom.Li
+import org.jetbrains.compose.web.dom.P
+import org.jetbrains.compose.web.dom.Span
+import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.dom.Ul
 import org.w3c.dom.HTMLButtonElement
 
 @Composable

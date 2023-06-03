@@ -1,6 +1,12 @@
 package com.musafira2z.store.web.ui.home
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import com.copperleaf.ballast.repository.cache.Cached
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.copperleaf.ballast.repository.cache.isLoading
@@ -12,13 +18,13 @@ import com.musafira2z.store.web.ui.components.Product
 import com.musafira2z.store.web.ui.components.Products
 import com.musafira2z.store.web.ui.components.Spinner
 import com.musafira2z.store.web.ui.components.shared.SearchBox
-import com.musafira2z.store.web.ui.components.shared.SideBar
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.utils.toClasses
 import kotlinx.browser.document
 import kotlinx.browser.window
-import org.jetbrains.compose.web.dom.*
-import org.w3c.dom.HTMLButtonElement
+import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.dom.H1
+import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.events.EventListener
 import kotlin.math.floor
 
