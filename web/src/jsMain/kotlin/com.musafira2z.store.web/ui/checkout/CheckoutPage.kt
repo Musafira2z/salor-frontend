@@ -204,28 +204,18 @@ fun CheckoutPageContent(
                             }
                         ) {
                             Div(attrs = {
-                                toClasses("w-full")
+                                toClasses("col-span-6 text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50")
+                                onClick {
+                                    it.preventDefault()
+                                    _cart.availablePaymentGateways.firstOrNull()?.id?.let {
+                                        postInput(CheckoutContract.Inputs.PlaceOrder(it))
+                                    }
+                                }
                             }) {
-                                Div(attrs = {
-                                    toClasses("w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50")
-                                    onClick {
-                                        it.preventDefault()
-                                        _cart.availablePaymentGateways.firstOrNull()?.id?.let {
-                                            postInput(CheckoutContract.Inputs.PlaceOrder(it))
-                                        }
-                                    }
+                                Button(attrs = {
+
                                 }) {
-                                    Button(attrs = {
-                                        onClick {
-                                            it.preventDefault()
-                                            it.stopImmediatePropagation()
-                                            _cart.availablePaymentGateways.firstOrNull()?.id?.let {
-                                                postInput(CheckoutContract.Inputs.PlaceOrder(it))
-                                            }
-                                        }
-                                    }) {
-                                        Text("Place Order")
-                                    }
+                                    Text("Place Order")
                                 }
                             }
                         }

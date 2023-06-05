@@ -6,6 +6,7 @@ import com.musafira2z.store.HomeMenuQuery
 import com.musafira2z.store.MainMenuQuery
 import com.musafira2z.store.ProductCollectionQuery
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
+import com.musafira2z.store.ui.app.AppContract
 
 object HomeContract {
     data class State(
@@ -15,7 +16,8 @@ object HomeContract {
         val allProducts: List<ProductCollectionQuery.Edge> = emptyList(),
         val categories: Cached<MainMenuQuery.Data> = Cached.NotLoaded(),
         val carts: Cached<CheckoutDetailsFragment> = Cached.NotLoaded(),
-        val banners: Cached<HomeBannerMenuQuery.Data> = Cached.NotLoaded()
+        val banners: Cached<HomeBannerMenuQuery.Data> = Cached.NotLoaded(),
+        val isLoggedIn: Boolean = false
     )
 
     sealed class Inputs {
@@ -39,13 +41,18 @@ object HomeContract {
 
         data class AddToCart(val variantId: String) : Inputs()
         object GoCheckoutPage : Inputs()
+        object GoLoginPage : Inputs()
         data class GoCategoryPage(val slug: String) : Inputs()
         data class GoProductDetailsPage(val slug: String, val variantId: String?) : Inputs()
+
+        data class UpdateLoginStatus(val isLoggedIn: Boolean) : Inputs()
+        object FetchLoginStatus : Inputs()
     }
 
     sealed class Events {
         object NavigateUp : Events()
         object GoCheckoutPage : Events()
+        object GoLoginPage : Events()
         data class GoCategoryPage(val slug: String) : Events()
         data class GoProductDetailsPage(val slug: String, val variantId: String?) : Events()
     }

@@ -74,6 +74,7 @@ fun AppScreen() {
         //TopAppBar
         TopAppBar(
             isLoggedIn = uiState.isLoggedIn,
+            showModal = uiState.showModal,
             loginResponse = uiState.loginResponse,
             signupResponse = uiState.signupResponse,
             searchBox = {
@@ -214,7 +215,8 @@ fun AppScreen() {
                         )
                     },
                     name = me?.firstName,
-                    email = me?.email
+                    email = me?.email,
+                    showModal = uiState.showModal
                 ) {
                     vm.trySend(it)
                 }

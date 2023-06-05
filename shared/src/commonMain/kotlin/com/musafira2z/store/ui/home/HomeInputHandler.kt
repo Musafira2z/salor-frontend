@@ -5,16 +5,19 @@ import com.copperleaf.ballast.InputHandlerScope
 import com.copperleaf.ballast.observeFlows
 import com.copperleaf.ballast.postInput
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
+import com.musafira2z.store.repository.auth.AuthRepository
 import com.musafira2z.store.repository.cart.CartRepository
 import com.musafira2z.store.repository.cart.CartRepositoryContract
 import com.musafira2z.store.repository.menu.MenuRepository
 import com.musafira2z.store.repository.product.ProductRepository
+import com.musafira2z.store.ui.app.AppContract
 import kotlinx.coroutines.flow.map
 
 class HomeInputHandler(
     private val menuRepository: MenuRepository,
     private val productRepository: ProductRepository,
-    private val cartRepository: CartRepository
+    private val cartRepository: CartRepository,
+    private val authRepository: AuthRepository,
 ) : InputHandler<HomeContract.Inputs, HomeContract.Events, HomeContract.State> {
     override suspend fun InputHandlerScope<HomeContract.Inputs, HomeContract.Events, HomeContract.State>.handleInput(
         input: HomeContract.Inputs
@@ -25,6 +28,7 @@ class HomeInputHandler(
             postInput(HomeContract.Inputs.FetchCarts(true))
             postInput(HomeContract.Inputs.FetchBanners(true))
             postInput(HomeContract.Inputs.FetchCategories)
+            postInput(HomeContract.Inputs.FetchLoginStatus)
         }
 
         is HomeContract.Inputs.GoBack -> {
@@ -33,7 +37,9 @@ class HomeInputHandler(
 
         is HomeContract.Inputs.FetchHomeBlocks -> {
             observeFlows("FetchHomeBlocks") {
-                listOf(menuRepository.getHomeBlock(input.forceRefresh).map { HomeContract.Inputs.UpdateHomeBlocks(it) })
+                listOf(
+                    menuRepository.getHomeBlock(input.forceRefresh)
+                        .map { HomeContract.Inputs.UpdateHomeBlocks(it) })
             }
         }
 
@@ -61,7 +67,9 @@ class HomeInputHandler(
 
         is HomeContract.Inputs.FetchCarts -> {
             observeFlows("FetchCarts") {
-                listOf(cartRepository.getCarts(input.forceRefresh).map { HomeContract.Inputs.UpdateCarts(it) })
+                listOf(
+                    cartRepository.getCarts(input.forceRefresh)
+                        .map { HomeContract.Inputs.UpdateCarts(it) })
             }
         }
 
@@ -71,7 +79,9 @@ class HomeInputHandler(
 
         is HomeContract.Inputs.FetchBanners -> {
             observeFlows("FetchBanners") {
-                listOf(menuRepository.getHomeBanner(input.forceRefresh).map { HomeContract.Inputs.UpdateBanners(it) })
+                listOf(
+                    menuRepository.getHomeBanner(input.forceRefresh)
+                        .map { HomeContract.Inputs.UpdateBanners(it) })
             }
         }
 
@@ -84,12 +94,20 @@ class HomeInputHandler(
         }
 
         HomeContract.Inputs.GoCheckoutPage -> {
-            postEvent(HomeContract.Events.GoCheckoutPage)
+            //if logged in then go checkout page else go login page
+            val currentState = getCurrentState()
+            if (currentState.isLoggedIn) {
+                postEvent(HomeContract.Events.GoCheckoutPage)
+            } else {
+                postEvent(HomeContract.Events.GoLoginPage)
+            }
         }
 
         HomeContract.Inputs.FetchCategories -> {
             observeFlows("FetchCategories") {
-                listOf(menuRepository.getAllCategories(false).map { HomeContract.Inputs.UpdateCategories(it) })
+                listOf(
+                    menuRepository.getAllCategories(false)
+                        .map { HomeContract.Inputs.UpdateCategories(it) })
             }
         }
 
@@ -115,6 +133,19 @@ class HomeInputHandler(
                     }
                 })
             }
+        }
+        HomeContract.Inputs.FetchLoginStatus -> {
+            observeFlows("FetchLoginStatus") {
+                listOf(
+                    authRepository.isLoggedIn().map { HomeContract.Inputs.UpdateLoginStatus(it) }
+                )
+            }
+        }
+        is HomeContract.Inputs.UpdateLoginStatus -> {
+            updateState { it.copy(isLoggedIn = input.isLoggedIn) }
+        }
+        HomeContract.Inputs.GoLoginPage -> {
+            postEvent(HomeContract.Events.GoLoginPage)
         }
     }
 }

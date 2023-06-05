@@ -6,7 +6,6 @@ import com.musafira2z.store.LoginCustomerMutation
 import com.musafira2z.store.MainMenuQuery
 import com.musafira2z.store.RegisterCustomerMutation
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
-import com.musafira2z.store.ui.home.HomeContract
 import com.musafira2z.store.utils.ResponseResource
 
 object AppContract {
@@ -15,6 +14,7 @@ object AppContract {
         val carts: Cached<CheckoutDetailsFragment> = Cached.NotLoaded(),
         val categories: Cached<MainMenuQuery.Data> = Cached.NotLoaded(),
         val isLoggedIn: Boolean = false,
+        val showModal: Boolean = false,
         val loginResponse: ResponseResource<LoginCustomerMutation.TokenCreate?> = ResponseResource.Idle,
         val signupResponse: ResponseResource<RegisterCustomerMutation.AccountRegister?> = ResponseResource.Idle,
         val me: Cached<CurrentUserDetailsQuery.Me> = Cached.NotLoaded(),
@@ -23,6 +23,7 @@ object AppContract {
     sealed class Inputs {
         object Initialize : Inputs()
         object GoBack : Inputs()
+        object ShowLoginModal: Inputs()
         data class FetchCarts(val forceRefresh: Boolean) : Inputs()
         data class UpdateCarts(val carts: Cached<CheckoutDetailsFragment>) : Inputs()
 

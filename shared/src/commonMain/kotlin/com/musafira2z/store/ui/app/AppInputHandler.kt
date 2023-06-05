@@ -188,5 +188,12 @@ class AppInputHandler(
         is AppContract.Inputs.GoCategoryPage -> {
             postEvent(AppContract.Events.GoCategoryPage(input.slug))
         }
+        AppContract.Inputs.ShowLoginModal -> {
+            val currentState = getCurrentState()
+            if (currentState.showModal) {
+                updateState { it.copy(showModal = false) }
+            }
+            updateState { it.copy(showModal = true) }
+        }
     }
 }

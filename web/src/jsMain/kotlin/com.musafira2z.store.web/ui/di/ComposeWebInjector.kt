@@ -189,7 +189,8 @@ class ComposeWebInjector(
                     inputHandler = HomeInputHandler(
                         menuRepository = menuRepository,
                         productRepository = productRepository,
-                        cartRepository = cartRepository
+                        cartRepository = cartRepository,
+                        authRepository = authRepository
                     ),
                     name = "HomeScreen"
                 ),

@@ -49,5 +49,9 @@ class HomeEventHandler(
             )
             Unit
         }
+        HomeContract.Events.GoLoginPage -> {
+
+            Unit
+        }
     }
 }

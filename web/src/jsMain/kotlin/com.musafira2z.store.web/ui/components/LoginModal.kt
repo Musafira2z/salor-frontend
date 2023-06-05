@@ -17,9 +17,10 @@ fun LoginModal(
     postInput: (AppContract.Inputs) -> Unit,
     loginResponse: ResponseResource<LoginCustomerMutation.TokenCreate?>,
     signUpResponse: ResponseResource<RegisterCustomerMutation.AccountRegister?>,
-    isLoggedIn: Boolean
+    isLoggedIn: Boolean,
+    showModal: Boolean
 ) {
-    var modalState by remember { mutableStateOf(false) }
+    var modalState by remember(showModal) { mutableStateOf(showModal) }
     var isSignUp by remember { mutableStateOf(false) }
 
 

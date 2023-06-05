@@ -16,7 +16,7 @@ fun CartBody(
     content: @Composable () -> Unit
 ) {
     Div(attrs = {
-        toClasses("flex flex-col justify-end h-full overflow-hidden px-3")
+        toClasses("flex flex-col justify-end h-[calc(100vh-74px)] overflow-auto px-3")
     }) {
         Div {
             Div(attrs = {
@@ -43,7 +43,7 @@ fun CartBody(
                 }
             }
 
-            Div(attrs = { classes("h-140", "overflow-auto") }) {
+            Div(attrs = { classes("overflow-auto") }) {
                 cart.lines.forEach { line ->
                     CartItem(
                         line = line,

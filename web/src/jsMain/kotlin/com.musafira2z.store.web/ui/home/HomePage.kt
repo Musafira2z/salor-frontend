@@ -12,6 +12,7 @@ import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.copperleaf.ballast.repository.cache.isLoading
 import com.musafira2z.store.ui.app.AppContract
 import com.musafira2z.store.ui.home.HomeContract
+import com.musafira2z.store.web.ui.app.AppScreen
 import com.musafira2z.store.web.ui.app.CartBar
 import com.musafira2z.store.web.ui.components.Carousal
 import com.musafira2z.store.web.ui.components.Product
@@ -180,7 +181,11 @@ fun HomePageContent(
             CartBar(
                 cart = cart,
                 onCheckout = {
-                    postInput(HomeContract.Inputs.GoCheckoutPage)
+                    if(uiState.isLoggedIn){
+                        postInput(HomeContract.Inputs.GoCheckoutPage)
+                    } else {
+                        postAppInput(AppContract.Inputs.ShowLoginModal)
+                    }
                 }
             ) {
                 postAppInput(it)

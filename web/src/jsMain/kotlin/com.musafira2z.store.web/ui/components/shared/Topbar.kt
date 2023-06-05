@@ -22,6 +22,7 @@ fun TopAppBar(
     signupResponse: ResponseResource<RegisterCustomerMutation.AccountRegister?>,
     name: String? = null,
     email: String? = null,
+    showModal: Boolean,
     searchBox: @Composable () -> Unit,
     postInput: (AppContract.Inputs) -> Unit
 ) {
@@ -118,13 +119,18 @@ fun TopAppBar(
                 }
                 Div {
                     if (isLoggedIn) {
-                        UserMenus(postInput = postInput, name = name ?: "", email = email ?: "")
+                        UserMenus(
+                            postInput = postInput,
+                            name = name ?: "",
+                            email = email ?: ""
+                        )
                     } else {
                         LoginModal(
                             postInput = postInput,
                             loginResponse = loginResponse,
                             isLoggedIn = isLoggedIn,
-                            signUpResponse = signupResponse
+                            signUpResponse = signupResponse,
+                            showModal = showModal
                         )
                     }
                 }
