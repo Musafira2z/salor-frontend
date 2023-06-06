@@ -4,6 +4,7 @@ import com.copperleaf.ballast.InputHandler
 import com.copperleaf.ballast.InputHandlerScope
 import com.copperleaf.ballast.observeFlows
 import com.copperleaf.ballast.postInput
+import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.musafira2z.store.repository.auth.AuthRepository
 import com.musafira2z.store.repository.auth.AuthRepositoryContract
 import com.musafira2z.store.repository.cart.CartRepository
@@ -11,6 +12,7 @@ import com.musafira2z.store.repository.cart.CartRepositoryContract
 import com.musafira2z.store.repository.menu.MenuRepository
 import com.musafira2z.store.repository.settings.SettingsRepository
 import com.musafira2z.store.utils.ResponseResource
+import com.musafira2z.store.utils.currentTimeSeconds
 import kotlinx.coroutines.flow.map
 
 class AppInputHandler(
@@ -93,10 +95,14 @@ class AppInputHandler(
                 is ResponseResource.Success -> {
                     val tokens = data.data
                     settingsRepository.saveAuthToken(tokens?.token)
+                    settingsRepository.saveAuthTokenExpire(currentTimeSeconds() + (1000 * 60 * 5))
                     settingsRepository.saveRefreshToken(tokens?.refreshToken)
                     settingsRepository.saveCsrfToken(tokens?.csrfToken)
                     settingsRepository.saveAuthChannel(tokens?.user?.metadata?.firstOrNull { it.key == "type" }?.value)
+                    //attach user email
+                    val email = tokens?.user?.email
                     postInput(AppContract.Inputs.FetchLoginStatus)
+                    postInput(AppContract.Inputs.GetMe(true))
                 }
             }
         }
@@ -170,6 +176,15 @@ class AppInputHandler(
         }
 
         is AppContract.Inputs.UpdateMe -> {
+            val currentState = getCurrentState()
+
+            currentState.carts.getCachedOrNull()?.let {
+                if (it.email == null) {
+                    val email = input.me.getCachedOrNull()?.email
+                    postInput(AppContract.Inputs.AttachCheckoutEmail(email))
+                }
+            }
+
             updateState { it.copy(me = input.me) }
         }
 
@@ -194,6 +209,16 @@ class AppInputHandler(
                 updateState { it.copy(showModal = false) }
             }
             updateState { it.copy(showModal = true) }
+        }
+        is AppContract.Inputs.AttachCheckoutEmail -> {
+            input.email?.let {
+                cartRepository.postInput(
+                    CartRepositoryContract.Inputs.UpdateCheckoutEmail(
+                        input.email
+                    )
+                )
+            }
+            Unit
         }
     }
 }

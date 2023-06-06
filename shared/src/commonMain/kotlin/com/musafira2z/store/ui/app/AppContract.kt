@@ -57,6 +57,7 @@ object AppContract {
         data class GetMe(val forceRefresh: Boolean) : Inputs()
         data class UpdateMe(val me: Cached<CurrentUserDetailsQuery.Me>) : Inputs()
         data class GoCategoryPage(val slug: String) : Inputs()
+        data class AttachCheckoutEmail(val email: String?) : Inputs()
     }
 
     sealed class Events {

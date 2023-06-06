@@ -72,5 +72,7 @@ object CartRepositoryContract {
             Inputs()
 
         data class HandleCartError(val errorCodes: List<CheckoutErrorCode>) : Inputs()
+        data class CheckoutCustomerAttach(val checkoutEmail: String) : Inputs()
+        data class UpdateCheckoutEmail(val checkoutEmail: String) : Inputs()
     }
 }

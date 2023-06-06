@@ -39,10 +39,11 @@ class AuthorizationInterceptor(
     ): HttpResponse {
         val tokenValue = mutex.withLock {
             if (tail == null) {
+                val savedExpire = settingsRepository.authTokenExpire
                 var token = settingsRepository.authToken?.let {
                     Token(
                         it,
-                        currentTimeSeconds()
+                        savedExpire ?: currentTimeSeconds()
                     )
                 }
 
@@ -156,9 +157,11 @@ class AuthorizationInterceptor(
             val token = response.data?.tokenRefresh?.token
                 ?: return Token("", currentTimeSeconds())
 
+            val expire = currentTimeSeconds() + (1000 * 60 * 5)
             settingsRepository.saveAuthToken(token)
+            settingsRepository.saveAuthTokenExpire(expire)
 
-            return Token(token, currentTimeSeconds() + (1000 * 60 * 5))
+            return Token(token, expire)
         } else {
             return Token("", currentTimeSeconds())
         }
@@ -182,4 +185,4 @@ class AuthorizationInterceptor(
     }
 }
 
-private fun currentTimeSeconds() = currentTimeMillis() / 1000
+fun currentTimeSeconds() = currentTimeMillis() / 1000

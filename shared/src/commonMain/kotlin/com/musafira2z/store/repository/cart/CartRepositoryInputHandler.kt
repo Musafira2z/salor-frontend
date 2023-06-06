@@ -220,7 +220,9 @@ class CartRepositoryInputHandler(
                         } else {
                             //fetch checkout by token
                             val token = it.data?.checkoutCreate?.checkout?.token as String?
+                            val id = it.data?.checkoutCreate?.checkout?.id
                             settingsRepository.saveCheckoutToken(token)
+                            settingsRepository.saveCheckoutId(id)
                             postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
                         }
                     }
@@ -357,6 +359,7 @@ class CartRepositoryInputHandler(
             sideJob("ClearCheckoutToken") {
                 input.lastOrder?.order?.id?.let {
                     settingsRepository.saveCheckoutToken(null)
+                    settingsRepository.saveCheckoutId(null)
                 }
             }
         }
@@ -432,9 +435,61 @@ class CartRepositoryInputHandler(
                 when (it) {
                     CheckoutErrorCode.NOT_FOUND -> {
                         settingsRepository.saveCheckoutToken(null)
+                        settingsRepository.saveCheckoutId(null)
                     }
                     else -> {
 
+                    }
+                }
+            }
+        }
+        is CartRepositoryContract.Inputs.CheckoutCustomerAttach -> {
+            sideJob("CheckoutCustomerAttach") {
+                if (settingsRepository.checkoutId != null) {
+                    try {
+                        val mutation = CheckoutCustomerAttachMutation(
+                            id = settingsRepository.checkoutId!!,
+                            locale = LanguageCodeEnum.EN
+                        )
+
+                        apolloClient.mutation(mutation).execute().let {
+                            if (it.data == null || it.hasErrors()) {
+                                throw Exception(it.errors?.first()?.message)
+                            } else {
+                                if (it.data?.checkoutCustomerAttach?.errors?.isNotEmpty() == true || it.data?.checkoutCustomerAttach?.checkout == null) {
+                                    throw Exception(it.data?.checkoutCustomerAttach?.errors?.first()?.message)
+                                }
+                                postInput(CartRepositoryContract.Inputs.RefreshCarts(true))
+                            }
+                        }
+                    } catch (connectionException: Exception) {
+                        throw connectionException
+                    }
+                }
+            }
+        }
+        is CartRepositoryContract.Inputs.UpdateCheckoutEmail -> {
+            sideJob("UpdateCheckoutEmail") {
+                if (settingsRepository.checkoutToken != null) {
+                    try {
+                        val mutation = CheckoutEmailUpdateMutation(
+                            token = settingsRepository.checkoutToken!!,
+                            locale = LanguageCodeEnum.EN,
+                            email = input.checkoutEmail
+                        )
+
+                        apolloClient.mutation(mutation).execute().let {
+                            if (it.data == null || it.hasErrors()) {
+                                throw Exception(it.errors?.first()?.message)
+                            } else {
+                                if (it.data?.checkoutEmailUpdate?.errors?.isNotEmpty() == true || it.data?.checkoutEmailUpdate?.checkout == null) {
+                                    throw Exception(it.data?.checkoutEmailUpdate?.errors?.first()?.message)
+                                }
+                                postInput(CartRepositoryContract.Inputs.CheckoutCustomerAttach(input.checkoutEmail))
+                            }
+                        }
+                    } catch (connectionException: Exception) {
+                        throw connectionException
                     }
                 }
             }

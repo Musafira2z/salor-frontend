@@ -142,6 +142,7 @@ class AuthRepositoryInputHandler(
                 settingsRepository.saveRefreshToken(null)
                 settingsRepository.saveAuthChannel(null)
                 settingsRepository.saveCheckoutToken(null)
+                settingsRepository.saveCheckoutId(null)
             }
         }
         is AuthRepositoryContract.Inputs.GetMe -> {

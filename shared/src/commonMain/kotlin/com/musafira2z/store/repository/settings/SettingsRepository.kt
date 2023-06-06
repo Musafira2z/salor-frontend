@@ -7,9 +7,13 @@ class SettingsRepository(
 ) {
     val checkoutToken: String?
         get() = settings.getStringOrNull("checkout_token")
+    val checkoutId: String?
+        get() = settings.getStringOrNull("checkout_id")
 
     val authToken: String?
         get() = settings.getStringOrNull("auth_token")
+    val authTokenExpire: Long?
+        get() = settings.getLongOrNull("auth_token_expire")
     val refreshToken: String?
         get() = settings.getStringOrNull("auth_token_refresh")
     val csrfToken: String?
@@ -26,12 +30,27 @@ class SettingsRepository(
         settings.remove("checkout_token")
     }
 
+    fun saveCheckoutId(token: String?) {
+        if (token != null) {
+            settings.putString("checkout_id", token)
+            return
+        }
+        settings.remove("checkout_id")
+    }
+
     fun saveAuthToken(token: String?) {
         if (token != null) {
             settings.putString("auth_token", token)
             return
         }
         settings.remove("auth_token")
+    }
+    fun saveAuthTokenExpire(token: Long?) {
+        if (token != null) {
+            settings.putLong("auth_token_expire", token)
+            return
+        }
+        settings.remove("auth_token_expire")
     }
 
     fun saveCsrfToken(token: String?) {
