@@ -117,14 +117,12 @@ fun TopAppBar(
                 Div {
 
                 }
-                Div {
-                    if (isLoggedIn) {
-                        UserMenus(
-                            postInput = postInput,
-                            name = name ?: "",
-                            email = email ?: ""
-                        )
-                    } else {
+                Div(
+                    attrs = {
+
+                    }
+                ) {
+                    if (!isLoggedIn) {
                         LoginModal(
                             postInput = postInput,
                             loginResponse = loginResponse,
@@ -133,6 +131,13 @@ fun TopAppBar(
                             showModal = showModal
                         )
                     }
+
+                    UserMenus(
+                        postInput = postInput,
+                        name = name ?: "",
+                        email = email ?: "",
+                        isLoggedIn = isLoggedIn
+                    )
                 }
             }
         }
@@ -143,10 +148,13 @@ fun TopAppBar(
 fun UserMenus(
     name: String,
     email: String,
-    postInput: (AppContract.Inputs) -> Unit
+    postInput: (AppContract.Inputs) -> Unit,
+    isLoggedIn: Boolean
 ) {
+    val displayHidden =
+        if (isLoggedIn) "flex items-center ml-3" else "hidden flex items-center ml-3"
     Div(attrs = {
-        classes("flex", "items-center", "ml-3")
+        toClasses(displayHidden)
     }) {
         Div {
             Button(attrs = {

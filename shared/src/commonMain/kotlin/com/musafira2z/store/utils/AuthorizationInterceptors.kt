@@ -37,91 +37,90 @@ class AuthorizationInterceptor(
         request: HttpRequest,
         chain: HttpInterceptorChain
     ): HttpResponse {
-        val tokenValue = mutex.withLock {
-            if (tail == null) {
-                val savedExpire = settingsRepository.authTokenExpire
-                var token = settingsRepository.authToken?.let {
-                    Token(
-                        it,
-                        savedExpire ?: currentTimeSeconds()
-                    )
-                }
+//        val tokenValue = mutex.withLock {
+//            if (tail == null) {
+//                val savedExpire = settingsRepository.authTokenExpire
+//                val token = settingsRepository.authToken?.let {
+//                    Token(
+//                        it,
+//                        savedExpire ?: currentTimeSeconds()
+//                    )
+//                }
+//
+//                tail = TokenLink(
+//                    oldValue = null,
+//                    newValue = token?.value ?: "",
+//                    expiresEpochSecond = token?.expiresEpochSecond ?: currentTimeSeconds(),
+//                    next = null
+//                )
+//                head = tail
+//                listSize++
+//            }
+//
+//            val link = tail!!
+//
+//            // Start refreshing tokens 2 seconds before they actually expire to account for
+//            // network time
+//            val margin = 2
+//            if (currentTimeMillis() / 1000 + margin - link.expiresEpochSecond >= 0) {
+//                // This token will soon expire, get a new one
+//                val token = refreshToken(link.newValue)
+//
+//                insert(
+//                    TokenLink(
+//                        oldValue = link.newValue,
+//                        newValue = token.value,
+//                        expiresEpochSecond = token.expiresEpochSecond,
+//                        next = null
+//                    )
+//                )
+//            }
+//
+//            tail!!.newValue
+//        }
 
-                if (token == null) {
-                    token = refreshToken(null)
-                }
-
-                tail = TokenLink(
-                    oldValue = null,
-                    newValue = token.value,
-                    expiresEpochSecond = token.expiresEpochSecond,
-                    next = null
-                )
-                head = tail
-                listSize++
-            }
-
-            val link = tail!!
-
-            // Start refreshing tokens 2 seconds before they actually expire to account for
-            // network time
-            val margin = 2
-            if (currentTimeMillis() / 1000 + margin - link.expiresEpochSecond >= 0) {
-                // This token will soon expire, get a new one
-                val token = refreshToken(link.newValue)
-
-                insert(
-                    TokenLink(
-                        oldValue = link.newValue,
-                        newValue = token.value,
-                        expiresEpochSecond = token.expiresEpochSecond,
-                        next = null
-                    )
-                )
-            }
-
-            tail!!.newValue
-        }
+        val token = settingsRepository.authToken
 
         val response = chain.proceed(
-            if (tokenValue.isNotBlank()) {
-                request.newBuilder().addHeader("Authorization", "JWT $tokenValue").build()
+            if (!token.isNullOrBlank()) {
+                request.newBuilder().addHeader("Authorization", "JWT $token").build()
             } else {
                 request.newBuilder().build()
             }
         )
 
         return if (response.statusCode == 401) {
-            val newTokenValue: String = mutex.withLock {
-                var cur = head
-                while (cur != null) {
-                    if (cur.oldValue == tokenValue) {
-                        // follow the chain up to the new token
-                        while (cur!!.next != null) {
-                            cur = cur.next
-                        }
-                        // we have found a valid new token for this old token
-                        return@withLock cur.newValue
-                    }
-                    cur = cur.next
-                }
-
-                // we haven't found a link for this old value, get a new token
-                val token = refreshToken(tokenValue)
-                insert(
-                    TokenLink(
-                        oldValue = tokenValue,
-                        newValue = token.value,
-                        expiresEpochSecond = token.expiresEpochSecond,
-                        next = null
-                    )
-                )
-
-                token.value
-            }
-            chain.proceed(
-                request.newBuilder().addHeader("Authorization", "JWT $newTokenValue").build()
-            )
+//            val newTokenValue: String = mutex.withLock {
+//                var cur = head
+//                while (cur != null) {
+//                    if (cur.oldValue == tokenValue) {
+//                        // follow the chain up to the new token
+//                        while (cur!!.next != null) {
+//                            cur = cur.next
+//                        }
+//                        // we have found a valid new token for this old token
+//                        return@withLock cur.newValue
+//                    }
+//                    cur = cur.next
+//                }
+//
+//                // we haven't found a link for this old value, get a new token
+//                val token = refreshToken(tokenValue)
+//                insert(
+//                    TokenLink(
+//                        oldValue = tokenValue,
+//                        newValue = token.value,
+//                        expiresEpochSecond = token.expiresEpochSecond,
+//                        next = null
+//                    )
+//                )
+//
+//                token.value
+//            }
+//            chain.proceed(
+//                request.newBuilder().addHeader("Authorization", "JWT $newTokenValue").build()
+//            )
+            response
         } else {
             response
         }
@@ -157,7 +156,7 @@ class AuthorizationInterceptor(
             val token = response.data?.tokenRefresh?.token
                 ?: return Token("", currentTimeSeconds())
 
-            val expire = currentTimeSeconds() + (1000 * 60 * 5)
+            val expire = currentTimeSeconds() + (60 * 60 * 24 * 7)
             settingsRepository.saveAuthToken(token)
             settingsRepository.saveAuthTokenExpire(expire)
 

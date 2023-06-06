@@ -13,6 +13,7 @@ import com.musafira2z.store.repository.menu.MenuRepository
 import com.musafira2z.store.repository.settings.SettingsRepository
 import com.musafira2z.store.utils.ResponseResource
 import com.musafira2z.store.utils.currentTimeSeconds
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.map
 
 class AppInputHandler(
@@ -93,16 +94,12 @@ class AppInputHandler(
                 }
 
                 is ResponseResource.Success -> {
-                    val tokens = data.data
-                    settingsRepository.saveAuthToken(tokens?.token)
-                    settingsRepository.saveAuthTokenExpire(currentTimeSeconds() + (1000 * 60 * 5))
-                    settingsRepository.saveRefreshToken(tokens?.refreshToken)
-                    settingsRepository.saveCsrfToken(tokens?.csrfToken)
-                    settingsRepository.saveAuthChannel(tokens?.user?.metadata?.firstOrNull { it.key == "type" }?.value)
-                    //attach user email
-                    val email = tokens?.user?.email
-                    postInput(AppContract.Inputs.FetchLoginStatus)
-                    postInput(AppContract.Inputs.GetMe(true))
+                    //update checkout email
+                    val email = data.data?.user?.email
+                    sideJob("UpdateCheckoutEmail") {
+                        delay(100)
+                        postInput(AppContract.Inputs.AttachCheckoutEmail(email))
+                    }
                 }
             }
         }

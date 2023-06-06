@@ -489,6 +489,7 @@ class CartRepositoryInputHandler(
                             }
                         }
                     } catch (connectionException: Exception) {
+                        connectionException.printStackTrace()
                         throw connectionException
                     }
                 }

@@ -11,6 +11,7 @@ import com.copperleaf.ballast.repository.cache.fetchWithCache
 import com.musafira2z.store.*
 import com.musafira2z.store.repository.settings.SettingsRepository
 import com.musafira2z.store.utils.ResponseResource
+import com.musafira2z.store.utils.currentTimeSeconds
 
 class AuthRepositoryInputHandler(
     private val eventBus: EventBus,
@@ -99,6 +100,13 @@ class AuthRepositoryInputHandler(
 
                 }
                 is ResponseResource.Success -> {
+                    val tokens = data.data
+                    settingsRepository.saveAuthToken(tokens?.token)
+                    settingsRepository.saveAuthTokenExpire(currentTimeSeconds() + (60 * 60 * 24 * 7))
+                    settingsRepository.saveRefreshToken(tokens?.refreshToken)
+                    settingsRepository.saveCsrfToken(tokens?.csrfToken)
+                    settingsRepository.saveAuthChannel(tokens?.user?.metadata?.firstOrNull { it.key == "type" }?.value)
+
                     postInput(AuthRepositoryContract.Inputs.FetchLoginStatus)
                 }
             }
@@ -195,7 +203,7 @@ class AuthRepositoryInputHandler(
                             RequestPasswordResetMutation(
                                 channel = settingsRepository.channel ?: normalChannel,
                                 email = input.email,
-                                redirectUrl = "http://localhost:8080/#/reset-password"
+                                redirectUrl = "https://musafira2z.com/#/reset-password"
                             )
                         ).execute()
                         println(response.data)
