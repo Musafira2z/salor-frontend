@@ -12,6 +12,7 @@ import com.copperleaf.ballast.repository.cache.fetchWithCache
 import com.musafira2z.store.*
 import com.musafira2z.store.repository.settings.SettingsRepository
 import com.musafira2z.store.type.*
+import com.musafira2z.store.utils.ResponseResource
 
 class CartRepositoryInputHandler(
     private val eventBus: EventBus,
@@ -175,10 +176,20 @@ class CartRepositoryInputHandler(
                                 if (it.data?.checkoutComplete?.errors?.isNotEmpty() == true || it.data?.checkoutComplete?.order == null) {
                                     throw Exception(it.data?.checkoutComplete?.errors?.first()?.message)
                                 }
-                                postInput(CartRepositoryContract.Inputs.UpdateLastOrder(it.data?.checkoutComplete))
+                                val dd = it.data?.checkoutComplete
+                                postInput(
+                                    CartRepositoryContract.Inputs.UpdateLastOrder(
+                                        ResponseResource.Success(dd!!)
+                                    )
+                                )
                             }
                         }
                     } catch (connectionException: Exception) {
+                        postInput(
+                            CartRepositoryContract.Inputs.UpdateLastOrder(
+                                ResponseResource.Error(connectionException)
+                            )
+                        )
                         throw connectionException
                     }
                 }
@@ -357,10 +368,24 @@ class CartRepositoryInputHandler(
         is CartRepositoryContract.Inputs.UpdateLastOrder -> {
             updateState { it.copy(lastOrder = input.lastOrder) }
             sideJob("ClearCheckoutToken") {
-                input.lastOrder?.order?.id?.let {
-                    settingsRepository.saveCheckoutToken(null)
-                    settingsRepository.saveCheckoutId(null)
+                when (val data = input.lastOrder) {
+                    is ResponseResource.Error -> {
+
+                    }
+                    ResponseResource.Idle -> {
+
+                    }
+                    ResponseResource.Loading -> {
+
+                    }
+                    is ResponseResource.Success -> {
+                        data.data.order?.id?.let {
+                            settingsRepository.saveCheckoutToken(null)
+                            settingsRepository.saveCheckoutId(null)
+                        }
+                    }
                 }
+
             }
         }
         is CartRepositoryContract.Inputs.Decrement -> {
@@ -403,6 +428,7 @@ class CartRepositoryInputHandler(
             updateState { it.copy(shippingMethods = input.shippingMethods) }
         }
         is CartRepositoryContract.Inputs.CreatePayment -> {
+            postInput(CartRepositoryContract.Inputs.UpdateLastOrder(ResponseResource.Loading))
             sideJob("CreatePayment") {
                 if (settingsRepository.checkoutToken != null) {
                     try {
@@ -425,6 +451,13 @@ class CartRepositoryInputHandler(
                             }
                         }
                     } catch (connectionException: Exception) {
+                        postInput(
+                            CartRepositoryContract.Inputs.UpdateLastOrder(
+                                ResponseResource.Error(
+                                    connectionException
+                                )
+                            )
+                        )
                         throw connectionException
                     }
                 }

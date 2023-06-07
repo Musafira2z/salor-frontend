@@ -17,7 +17,7 @@ object CheckoutContract {
         val address: Cached<CurrentUserAddressesQuery.Me> = Cached.NotLoaded(),
         val orders: Cached<OrdersQuery.Me> = Cached.NotLoaded(),
         val setBillingResponse: ResponseResource<Boolean> = ResponseResource.Idle,
-        val lastOrder: CheckoutCompleteMutation.CheckoutComplete? = null
+        val lastOrder: ResponseResource<CheckoutCompleteMutation.CheckoutComplete> = ResponseResource.Idle
     )
 
     sealed class Inputs {
@@ -32,7 +32,7 @@ object CheckoutContract {
         data class FetchOrders(val forceRefresh: Boolean) : Inputs()
         data class UpdateOrders(val orders: Cached<OrdersQuery.Me>) : Inputs()
         object FetchLastOrder : Inputs()
-        data class UpdateLastOrder(val lastOrder: CheckoutCompleteMutation.CheckoutComplete?) :
+        data class UpdateLastOrder(val lastOrder: ResponseResource<CheckoutCompleteMutation.CheckoutComplete>) :
             Inputs()
 
         data class SetBillingAddress(val address: AddressInput) : Inputs()

@@ -223,7 +223,8 @@ class ComposeWebInjector(
                     initialState = ProductDetailContract.State(),
                     inputHandler = ProductDetailInputHandler(
                         productRepository = productRepository,
-                        cartRepository = cartRepository
+                        cartRepository = cartRepository,
+                        authRepository = authRepository
                     ),
                     name = "CategoryScreen"
                 ),

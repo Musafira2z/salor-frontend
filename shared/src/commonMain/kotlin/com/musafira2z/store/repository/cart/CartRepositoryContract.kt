@@ -6,6 +6,7 @@ import com.musafira2z.store.CheckoutCompleteMutation
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
 import com.musafira2z.store.type.AddressInput
 import com.musafira2z.store.type.CheckoutErrorCode
+import com.musafira2z.store.utils.ResponseResource
 
 object CartRepositoryContract {
     data class State(
@@ -14,7 +15,7 @@ object CartRepositoryContract {
         val dataListInitialized: Boolean = false,
         val dataList: Cached<CheckoutDetailsFragment> = Cached.NotLoaded(),
         val shippingMethods: Cached<List<AvailableShippingMethodsQuery.AvailableShippingMethod>> = Cached.NotLoaded(),
-        val lastOrder: CheckoutCompleteMutation.CheckoutComplete? = null
+        val lastOrder: ResponseResource<CheckoutCompleteMutation.CheckoutComplete> = ResponseResource.Idle
     )
 
     sealed class Inputs {
@@ -68,7 +69,7 @@ object CartRepositoryContract {
         data class SetShippingMethod(val methodId: String) : Inputs()
         object Checkout : Inputs()
         data class CreatePayment(val paymentMethodId: String) : Inputs()
-        data class UpdateLastOrder(val lastOrder: CheckoutCompleteMutation.CheckoutComplete?) :
+        data class UpdateLastOrder(val lastOrder: ResponseResource<CheckoutCompleteMutation.CheckoutComplete>) :
             Inputs()
 
         data class HandleCartError(val errorCodes: List<CheckoutErrorCode>) : Inputs()

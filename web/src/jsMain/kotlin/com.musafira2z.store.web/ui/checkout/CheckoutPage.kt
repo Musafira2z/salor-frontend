@@ -5,7 +5,9 @@ import com.apollographql.apollo3.api.Optional
 import com.copperleaf.ballast.repository.cache.getCachedOrNull
 import com.musafira2z.store.type.AddressInput
 import com.musafira2z.store.ui.checkout.CheckoutContract
+import com.musafira2z.store.utils.ResponseResource
 import com.musafira2z.store.web.ui.components.CartBody
+import com.musafira2z.store.web.ui.components.Spinner
 import com.musafira2z.store.web.ui.di.ComposeWebInjector
 import com.musafira2z.store.web.ui.utils.toClasses
 import org.jetbrains.compose.web.attributes.InputType
@@ -187,6 +189,24 @@ fun CheckoutPageContent(
                 Div(attrs = {
                     toClasses("bg-gray-50 rounded-lg md:hidden lg:hidden")
                 }) {
+
+                    val buttonText = remember(uiState.lastOrder) {
+                        return@remember when (uiState.lastOrder) {
+                            is ResponseResource.Error -> {
+                                "Failed to place order"
+                            }
+                            ResponseResource.Idle -> {
+                                "Place Order"
+                            }
+                            ResponseResource.Loading -> {
+                                "Processing"
+                            }
+                            is ResponseResource.Success -> {
+                                "Succeed"
+                            }
+                        }
+                    }
+
                     uiState.carts.getCachedOrNull()?.let { _cart ->
                         CartBody(
                             cart = _cart,
@@ -207,8 +227,10 @@ fun CheckoutPageContent(
                                 toClasses("col-span-6 text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50")
                                 onClick {
                                     it.preventDefault()
-                                    _cart.availablePaymentGateways.firstOrNull()?.id?.let {
-                                        postInput(CheckoutContract.Inputs.PlaceOrder(it))
+                                    if (uiState.lastOrder !is ResponseResource.Loading) {
+                                        _cart.availablePaymentGateways.firstOrNull()?.id?.let {
+                                            postInput(CheckoutContract.Inputs.PlaceOrder(it))
+                                        }
                                     }
                                 }
                             }) {
@@ -255,21 +277,19 @@ fun CheckoutPageContent(
                                     postInput(CheckoutContract.Inputs.RemoveLine(lineId = it))
                                 }
                             ) {
-                                Div {
-                                    Div(attrs = {
-                                        toClasses("w-full col-span-6 text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50")
-                                        onClick {
-                                            it.preventDefault()
-                                            _cart.availablePaymentGateways.firstOrNull()?.id?.let {
-                                                postInput(CheckoutContract.Inputs.PlaceOrder(it))
-                                            }
+                                Div(attrs = {
+                                    toClasses("col-span-6 text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50")
+                                    onClick {
+                                        it.preventDefault()
+                                        _cart.availablePaymentGateways.firstOrNull()?.id?.let {
+                                            postInput(CheckoutContract.Inputs.PlaceOrder(it))
                                         }
-                                    }) {
-                                        Button(attrs = {
+                                    }
+                                }) {
+                                    Button(attrs = {
 
-                                        }) {
-                                            Text("Place Order")
-                                        }
+                                    }) {
+                                        Text("Place Order")
                                     }
                                 }
                             }

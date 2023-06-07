@@ -4,6 +4,7 @@ import com.copperleaf.ballast.repository.cache.Cached
 import com.musafira2z.store.ProductBySlugQuery
 import com.musafira2z.store.ProductCollectionQuery
 import com.musafira2z.store.fragment.CheckoutDetailsFragment
+import com.musafira2z.store.ui.home.HomeContract
 
 object ProductDetailContract {
     data class State(
@@ -12,7 +13,8 @@ object ProductDetailContract {
         val variantId: String? = null,
         val product: Cached<ProductBySlugQuery.Data> = Cached.NotLoaded(),
         val relatedProducts: Cached<ProductCollectionQuery.Data> = Cached.NotLoaded(),
-        val carts: Cached<CheckoutDetailsFragment> = Cached.NotLoaded()
+        val carts: Cached<CheckoutDetailsFragment> = Cached.NotLoaded(),
+        val isLoggedIn: Boolean = false
     )
 
     sealed class Inputs {
@@ -29,6 +31,8 @@ object ProductDetailContract {
         data class FetchCarts(val forceRefresh: Boolean) : Inputs()
         data class UpdateCarts(val carts: Cached<CheckoutDetailsFragment>) : Inputs()
         object GoCheckoutPage : Inputs()
+        data class UpdateLoginStatus(val isLoggedIn: Boolean) : Inputs()
+        object FetchLoginStatus : Inputs()
     }
 
     sealed class Events {

@@ -9,6 +9,7 @@ import com.musafira2z.store.repository.auth.AuthRepository
 import com.musafira2z.store.repository.cart.CartRepository
 import com.musafira2z.store.repository.cart.CartRepositoryContract
 import com.musafira2z.store.type.CountryCode
+import com.musafira2z.store.utils.ResponseResource
 import kotlinx.coroutines.flow.map
 
 class CheckoutInputHandler(
@@ -114,11 +115,24 @@ class CheckoutInputHandler(
         }
         is CheckoutContract.Inputs.UpdateLastOrder -> {
             updateState { it.copy(lastOrder = input.lastOrder) }
-            val orderId = input.lastOrder?.order?.number
-            if (orderId != null) {
-                postInput(CheckoutContract.Inputs.GoOrderSuccess(slug = orderId))
-            } else {
-                //show error msg
+            when (val order = input.lastOrder) {
+                is ResponseResource.Error -> {
+
+                }
+                ResponseResource.Idle -> {
+
+                }
+                ResponseResource.Loading -> {
+
+                }
+                is ResponseResource.Success -> {
+                    val orderId = order.data.order?.number
+                    if (orderId != null) {
+                        postInput(CheckoutContract.Inputs.GoOrderSuccess(slug = orderId))
+                    } else {
+                        //show error msg
+                    }
+                }
             }
         }
     }
