@@ -1,0 +1,1 @@
+export const GRAPH_URL = "https://api.musafira2z.com/graphql/";
