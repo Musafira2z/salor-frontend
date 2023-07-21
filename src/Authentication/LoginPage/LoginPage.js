@@ -31,7 +31,7 @@ const LoginPage = () => {
         if (email && token) {
             setShowLoginModal(true);
         }
-    }, [email, token])
+    }, [email, token, setShowLoginModal])
     return (
 
         <Modal
@@ -63,7 +63,7 @@ const LoginPage = () => {
 
                                             <div>
                                                 {isLogin ?
-                                                    <Register />
+                                                    <Register setIsLogin={setIsLogin} isLogin={isLogin} />
                                                     :
                                                     <Login
                                                         setShowLoginModal={setShowLoginModal}

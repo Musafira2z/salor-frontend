@@ -1,18 +1,18 @@
-import React, {useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import Cart from '../../Components/Cart/Cart';
 import NavigationBar from '../../Components/Sheard/NavigationBar/NavigationBar';
 import SidebarMenu from '../../Components/SidebarMenu/SidebarMenu';
 import { useLocalStorage } from 'react-use';
 import { LanguageCodeEnum, useCheckoutByTokenQuery } from '../../api';
-import {Context} from "../../App";
+import { Context } from "../../App";
 
 
 
 
 const HomeMainLayout = () => {
     const [checkoutToken] = useLocalStorage("checkoutToken");
-    const { setIsOpenCart, isOpenCart } = useContext(Context);
+    const { setIsOpenCart } = useContext(Context);
 
     const { data } = useCheckoutByTokenQuery({
         variables: {
@@ -23,11 +23,11 @@ const HomeMainLayout = () => {
     const checkoutData = data?.checkout;
 
 
-    useEffect(()=>{
-        if(!checkoutData?.lines?.length){
+    useEffect(() => {
+        if (!checkoutData?.lines?.length) {
             setIsOpenCart(false)
         }
-    },[checkoutData])
+    }, [checkoutData, setIsOpenCart])
     return (
 
         <div className=' ' >
@@ -42,7 +42,7 @@ const HomeMainLayout = () => {
                     <Outlet />
 
                 </div >
-                {checkoutData?.lines?.length ? <Cart />:""}
+                {checkoutData?.lines?.length ? <Cart /> : ""}
             </div >
 
         </div >

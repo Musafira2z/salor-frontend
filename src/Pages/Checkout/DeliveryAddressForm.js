@@ -58,8 +58,8 @@ const DeliveryAddressForm = ({ checkoutData }) => {
         CheckoutBillingAddressLoading,
         CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.errors,
         CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.errors,
-        CheckoutShippingAddressData,
-        CheckoutBillingAddressData
+        CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.checkout?.shippingAddress,
+        CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.checkout?.shippingAddress
     ]);
 
     return (

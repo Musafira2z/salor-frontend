@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import NavigationBar from '../../Components/Sheard/NavigationBar/NavigationBar';
 
 import PlaceOrderSideBer from '../../Components/PlaceOrderSideBer/PlaceOrderSideBer';
@@ -10,8 +10,8 @@ import {
     useCurrentUserAddressesQuery
 } from '../../api';
 import DeliveryAddressForm from './DeliveryAddressForm';
-import Modal from "../../Components/Modal/Modal";
-import { AddANewAddressModalOpenButton } from "../../Utility/Button/ModalOpenAnsCloseButton";
+// import Modal from "../../Components/Modal/Modal";
+// import { AddANewAddressModalOpenButton } from "../../Utility/Button/ModalOpenAnsCloseButton";
 import AddressCard from "../../Components/AddressCard/AddressCard";
 import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
@@ -36,15 +36,15 @@ const Checkout = () => {
 
 
 
-    const { data: addresses, loading, error } = useCurrentUserAddressesQuery({
+    const { data: addresses} = useCurrentUserAddressesQuery({
         variables: {
             local: LanguageCodeEnum.En
         }
     })
 
 
-    const [checkoutShippingAddressUpdate, { data: CheckoutShippingAddressData, error: CheckoutShippingAddressError ,loading:CheckoutShippingAddressLoading}] = useCheckoutShippingAddressUpdateMutation();
-    const [checkoutBillingAddressUpdate, { data: CheckoutBillingAddressData, error: CheckoutBillingAddressError,loading:CheckoutBillingAddressLoading }] = useCheckoutBillingAddressUpdateMutation();
+    const [checkoutShippingAddressUpdate, { data: CheckoutShippingAddressData, loading:CheckoutShippingAddressLoading}] = useCheckoutShippingAddressUpdateMutation();
+    const [checkoutBillingAddressUpdate, { data: CheckoutBillingAddressData,loading:CheckoutBillingAddressLoading }] = useCheckoutBillingAddressUpdateMutation();
 
 
 

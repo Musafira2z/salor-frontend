@@ -1,36 +1,43 @@
 import React, { useEffect } from 'react';
 import { useForm } from "react-hook-form"
 import { useRegisterCustomerMutation } from '../../api';
+import toast from "react-hot-toast";
 
-const Register = () => {
+const Register = ({ setIsLogin, isLogin }) => {
 
 
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm();
 
 
 
-    const [customerRegister, { data}] = useRegisterCustomerMutation();
+    const [customerRegister, { data, loading }] = useRegisterCustomerMutation();
 
     // console.log(data?.tokenCreate?.token);
 
 
     useEffect(() => {
+        if (loading) {
+            toast.loading("Loading...", { id: "register" })
+        }
         if (data?.accountRegister?.user?.email) {
-            alert("Register Successfully")
+            toast.success("Register Successfully", { id: "register" });
+            reset();
+            setIsLogin(!isLogin)
         }
-        if(data?.accountRegister?.errors[0]){
-            alert(data?.accountRegister?.errors[0]?.message)
+        if (data?.accountRegister?.errors[0]) {
+            toast.error(data?.accountRegister?.errors[0]?.message, { id: 'register' })
         }
-    }, [data?.accountRegister?.user?.email,data?.accountRegister?.errors])
+    }, [data?.accountRegister?.user?.email, data?.accountRegister?.errors, loading, reset, setIsLogin, isLogin])
 
 
 
-    const onSubmit = ({ email, name, password }) => {
-        customerRegister(
+    const onSubmit = async ({ email, name, password }) => {
+        const res = await customerRegister(
             {
                 variables: {
                     email: email,
@@ -42,6 +49,9 @@ const Register = () => {
             }
 
         )
+        if (res?.data?.accountRegister?.user?.email) {
+
+        }
     }
     return (
         <div className=''>

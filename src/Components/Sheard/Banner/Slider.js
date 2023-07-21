@@ -6,7 +6,7 @@ import { BannerSkeleton } from '../Skeletons/BannarSkeleton';
 
 const Slider = () => {
 
-    const { data, error, loading } = useHomeBannerMenuQuery({
+    const { data, loading } = useHomeBannerMenuQuery({
      
         variables: {
             locale: "EN",
@@ -16,7 +16,7 @@ const Slider = () => {
 
 
     return (
-        <div className="slide-container">
+        <div className="slide-container pb-3">
 
             {
                 loading ? BannerSkeleton :

@@ -36,8 +36,9 @@ const Login = ({ setShowLoginModal, isResetPass, setIsResetPass }) => {
         }
         if (signInData?.tokenCreate?.token) {
             setShowLoginModal(false);
-            setIsOpenCart(true);
-            navigate(location?.state?.from || '/');
+
+            navigate(
+                location?.state?.from?location?.state?.from && setIsOpenCart(true) : '/')
         }
     }
 
@@ -68,7 +69,7 @@ const Login = ({ setShowLoginModal, isResetPass, setIsResetPass }) => {
 
                     <div className='flex justify-between items-center'>
                         <div>
-                            <Checkbox id="remember" required /> <label className="text-xs md:text-sm" htmlFor="remember">Remember me</label>
+                            <Checkbox id="remember"  /> <label className="text-xs md:text-sm" htmlFor="remember">Remember me</label>
                         </div>
 
                         {!isResetPass && <div>

@@ -90,7 +90,7 @@ const Product = ({ data }) => {
                     <div className='col-span-1 bg-slate-50 p-5'>
                         <div className=' grid md:grid-cols-7 '>
 
-                            <div className=' col-span-7 md:col-span-6'>
+                            <div className=' col-span-7 md:col-span-5'>
                                 <div className=' md:flex  gap-5'>
                                     <h1 className=' text-base md:text-lg font-bold'>{data?.product?.name}</h1>
 
@@ -111,16 +111,16 @@ const Product = ({ data }) => {
                             </div>
 
 
-                            <div className=' col-span-7  md:col-span-1 font-bold  text-lg  text-end'>
+                            <div className=' col-span-7  md:col-span-2 font-bold  text-lg  text-end'>
 
-                                <div className=' flex text-red-500  justify-end items-center'>
+                                <div className='  text-red-500  pt-5 md:pt-0'>
 
 
 
 
                                     <div className=' '>
-                                        <button onClick={handleAddToCart} className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-28 hover:bg-gradient-to-r
-                          from-yellow-400 to-red-600' >Cart</button >
+                                        <button onClick={handleAddToCart} className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full  hover:bg-gradient-to-r
+                          from-yellow-400 to-red-600' >Add to cart</button >
                                     </div>
                                 </div>
 

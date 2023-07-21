@@ -2,7 +2,7 @@ import React from 'react';
 
 const AddressCard = ({ data,checkoutAddress }) => {
 
-    console?.log(checkoutAddress?.id)
+ 
     return (
         <div
 

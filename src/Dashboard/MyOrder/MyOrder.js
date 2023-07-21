@@ -6,7 +6,7 @@ const MyOrder = () => {
 
 
 
-    const { data, error, loading } = useOrdersQuery({
+    const { data, loading } = useOrdersQuery({
         variables: {
             before: '',
             after: 20,
@@ -22,25 +22,27 @@ const MyOrder = () => {
             <div className=' font-bold '>
                 <h1>My Order</h1>
             </div>
+            <div>
 
+                {
+                    !orders?.length && <div className=' text-2xl font-bold font-serif' >
+                        <h1>Order Coming Soon</h1>
+                    </div >
+                }
 
-            {orders ? <div>
-
-                {/* <OrderStep /> */}
 
                 {loading ? <h1>Loading...</h1> :
-                    <OrderItems orders={orders} />}
 
-            </div > :
+                    orders?.length ? <OrderItems orders={orders} /> : ''
 
+                }
 
-                <div className=' text-2xl font-bold font-serif' >
-                    <h1>Order Coming Soon</h1>
-                </div >
+            </div >
 
 
 
-            }
+
+
 
 
 

@@ -1,21 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Drawer from '../Sheard/Drawer/Drawer';
 import CartBody from './CartBody';
-import { CurrentUserDetailsDocument } from '../../api';
-import { useQuery } from '@apollo/client';
-import { Context } from '../../App';
+
+
 
 const ShowAddToCartProduct = ({ setIsOpenCart, isOpenCart, checkoutData }) => {
-    const { data: userData } = useQuery(CurrentUserDetailsDocument);
-    const user = userData?.me;
+ 
 
-    const { showLoginModal, setShowLoginModal } = useContext(Context);
+ 
 
-    const handleLoginModalOpen = () => {
-        setShowLoginModal(true);
-        setIsOpenCart(false)
-    }
+  
 
     return (
 

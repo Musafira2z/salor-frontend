@@ -52,7 +52,8 @@ const Profile = () => {
 
     },[
         loading,
-        data?.accountUpdate?.user?.email
+        data?.accountUpdate?.user?.email,
+        data?.accountUpdate?.errors
     ]);
 
 

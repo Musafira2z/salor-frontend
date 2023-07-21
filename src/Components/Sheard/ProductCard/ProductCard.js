@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { LanguageCodeEnum, useCheckoutAddProductLineMutation, /* useCheckoutByTokenQuery */ } from '../../../api';
 import { useLocalStorage } from 'react-use';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const ProductCard = ({ data }) => {
 
     const [checkoutToken] = useLocalStorage("checkoutToken");
     const { thumbnail, name, slug, variants } = data?.node;
 
-    const [checkoutAddProductLine, { data: checkoutAddProduct, loading, error }] = useCheckoutAddProductLineMutation();
+    const [checkoutAddProductLine, { data: checkoutAddProduct, loading }] = useCheckoutAddProductLineMutation();
 
 
 

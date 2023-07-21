@@ -1,23 +1,22 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Products from '../../Components/Products/Products';
 import SearchBox from '../../Components/Sheard/SearchBox/SearchBox';
-import {LanguageCodeEnum, useMainMenuQuery, useProductCollectionQuery} from '../../api';
-import {useParams} from 'react-router-dom';
-import {Context} from '../../App';
+import { LanguageCodeEnum, useMainMenuQuery, useProductCollectionQuery } from '../../api';
+import { useParams } from 'react-router-dom';
+import { Context } from '../../App';
 import CategoryItems from "./CategoryItems";
-import CategoryProducts from "./CategoryProducts";
 
 
 const Category = () => {
-    const {searchValue} = useContext(Context);
+    const { searchValue } = useContext(Context);
     const [cursor, setCursor] = useState('')
     const [categoryId, setCategoryId] = useState("")
 
-    const {slug} = useParams();
+    const { slug } = useParams();
 
 
 
-    const {loading, data} = useMainMenuQuery({
+    const { data } = useMainMenuQuery({
         errorPolicy: "all",
         variables: {
             locale: "EN",
@@ -33,7 +32,7 @@ const Category = () => {
 
 
 
-    const {loading: loadingProduct, data: productsData, fetchMore, networkStatus} = useProductCollectionQuery({
+    const { loading: loadingProduct, data: productsData, fetchMore, networkStatus } = useProductCollectionQuery({
         variables: {
             after: '',
             first: 20,
@@ -60,7 +59,7 @@ const Category = () => {
                 <div className='container mx-auto'>
                     <div className=' text-start'>
                         <div className=' lg:hidden'>
-                            <SearchBox/>
+                            <SearchBox />
                         </div>
                         <h1 className=' text-xl font-bold py-5
                         '> {category?.name}</h1>
@@ -68,11 +67,11 @@ const Category = () => {
 
 
                     {category?.children?.length ? <div className='grid grid-cols-12 gap:3 md:gap-5 pb-10'>
-                            {category?.children && category?.children?.map((item, i) => {
-                                return <CategoryItems key={i} categoryItems={item}/>
-                            })
-                            }
-                        </div>
+                        {category?.children && category?.children?.map((item, i) => {
+                            return <CategoryItems key={i} categoryItems={item} />
+                        })
+                        }
+                    </div>
                         :
 
                         <div className="pt-10">

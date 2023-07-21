@@ -1,5 +1,4 @@
 import React from 'react';
-import {LanguageCodeEnum, useProductCollectionQuery} from "../../api";
 import ProductCard from "../../Components/Sheard/ProductCard/ProductCard";
 
 const CategoryProducts = ({data}) => {
