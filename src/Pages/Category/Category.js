@@ -47,6 +47,7 @@ const Category = () => {
 
 
 
+
     useEffect(() => {
         if (category?.children) {
             setCategoryId(category?.category?.id)
@@ -66,12 +67,17 @@ const Category = () => {
                     </div>
 
 
-                    {category?.children?.length ? <div className='grid grid-cols-12 gap:3 md:gap-5 pb-10'>
-                        {category?.children && category?.children?.map((item, i) => {
-                            return <CategoryItems key={i} categoryItems={item} />
-                        })
-                        }
-                    </div>
+                    {category?.children?.length ?
+
+                        <div className='grid grid-cols-12 gap:3 md:gap-5 pb-10'>
+
+                            {
+                                category?.children?.map((item, i) => {
+                                    return <CategoryItems key={i} categoryItems={item} />
+                                })
+                            }
+
+                        </div>
                         :
 
                         <div className="pt-10">
