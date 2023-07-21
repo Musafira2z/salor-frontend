@@ -14,7 +14,7 @@ const ProductCard = ({ data }) => {
 
 
     const handleAddToCart = async (variantId) => {
-       await checkoutAddProductLine({
+        await checkoutAddProductLine({
             variables: {
                 checkoutToken: checkoutToken,
                 variantId: variantId,
@@ -25,7 +25,7 @@ const ProductCard = ({ data }) => {
     }
 
 
-
+    
 
     // error handling -------------------
 
@@ -66,7 +66,8 @@ const ProductCard = ({ data }) => {
                         <div className=' flex justify-center h-36' >
                             <img src={thumbnail?.url} alt="" />
                         </div >
-                        <h1 className=' text-mdgi py-7  truncate hover:text-clip' >{name}</h1 >
+                        <h1 className=' text-mdgi pt-7  truncate hover:text-clip' >{name}</h1 >
+                        <p>Available Quantity: {data?.node?.variants?.[0]?.quantityAvailable}</p>
                     </div >
 
                     <div className='' >
@@ -79,9 +80,16 @@ const ProductCard = ({ data }) => {
                     </div >
                 </Link>
                 <div>
-                    <button
-                        onClick={() => handleAddToCart(variants?.[0]?.id)}
-                        className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full    hover:bg-gradient-to-r from-yellow-400 to-red-600' > Add to Cart</button >
+                    {data?.node?.variants?.[0]?.quantityAvailable === 0 ?
+                        <button
+
+                            className='  border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full    hover:bg-gradient-to-r from-yellow-400 to-red-600' >Out Off Stock</button > :
+
+                        <button
+
+                            onClick={() => handleAddToCart(variants?.[0]?.id)}
+                            className='  border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full    hover:bg-gradient-to-r from-yellow-400 to-red-600' > Add to Cart</button >
+                    }
                 </div>
             </ div>
         </React.Fragment>

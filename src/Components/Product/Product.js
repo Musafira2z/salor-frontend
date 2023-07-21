@@ -1,19 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import NavigationBar from '../Sheard/NavigationBar/NavigationBar';
 import BackButton from '../../Utility/Button/BackButton';
 import Cart from '../Cart/Cart';
 import { useLocalStorage } from 'react-use';
-import {LanguageCodeEnum, useCheckoutAddProductLineMutation, useCheckoutByTokenQuery} from '../../api';
+import { LanguageCodeEnum, useCheckoutAddProductLineMutation, useCheckoutByTokenQuery } from '../../api';
 import toast from "react-hot-toast";
 
 const Product = ({ data }) => {
     const [media, setMedia] = useState('')
     const [checkoutToken] = useLocalStorage("checkoutToken");
-    const [checkoutAddProductLine,{data:checkoutAddProduct,loading}] = useCheckoutAddProductLineMutation();
+    const [checkoutAddProductLine, { data: checkoutAddProduct, loading }] = useCheckoutAddProductLineMutation();
     const description = JSON.parse(data?.product?.description);
 
 
-    const { data:checkoutData } = useCheckoutByTokenQuery({
+    const { data: checkoutData } = useCheckoutByTokenQuery({
         variables: {
             checkoutToken: checkoutToken,
             locale: LanguageCodeEnum.En,
@@ -21,7 +21,7 @@ const Product = ({ data }) => {
     })
 
     const handleAddToCart = async () => {
-      await  checkoutAddProductLine({
+        await checkoutAddProductLine({
             variables: {
                 checkoutToken: checkoutToken,
                 variantId: data?.product?.variants[0]?.id,
@@ -34,27 +34,27 @@ const Product = ({ data }) => {
     // error handling -------------------
 
 
-    useEffect(()=>{
+    useEffect(() => {
         if (loading) {
             toast.loading('Loading...', {
                 id: 'addToCart'
-                    })
-                }
+            })
+        }
         if (checkoutAddProduct?.checkoutLinesAdd?.checkout?.id) {
-                    toast.success("Add to Cart success", {
-                        id: 'addToCart'
-                    })
+            toast.success("Add to Cart success", {
+                id: 'addToCart'
+            })
 
-                }
+        }
         if (checkoutAddProduct?.checkoutLinesAdd?.errors?.[0]?.message) {
-                    toast.error(checkoutAddProduct?.checkoutLinesAdd?.errors?.[0]?.message, {
-                        id: 'addToCart'
-                    })
-                }
+            toast.error(checkoutAddProduct?.checkoutLinesAdd?.errors?.[0]?.message, {
+                id: 'addToCart'
+            })
+        }
 
-    },[
+    }, [
         checkoutAddProduct?.checkoutLinesAdd?.checkout?.id,
-            loading, checkoutAddProduct?.checkoutLinesAdd?.errors
+        loading, checkoutAddProduct?.checkoutLinesAdd?.errors
     ])
 
 
@@ -97,6 +97,7 @@ const Product = ({ data }) => {
                                 </div>
 
                                 <p>{description?.blocks?.[0]?.data?.text}</p>
+                                <p>Available Quantity: {data?.product?.variants[0]?.quantityAvailable} </p>
                                 <div className=' flex items-center'>
                                     <p className='text-green-500 font-bold  text-base '>R {data?.product?.variants[0]?.pricing?.price?.gross?.amount}</p>
 
@@ -119,8 +120,13 @@ const Product = ({ data }) => {
 
 
                                     <div className=' '>
-                                        <button onClick={handleAddToCart} className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full  hover:bg-gradient-to-r
+                                        {data?.product?.variants[0]?.quantityAvailable === 0 ?
+                                            <button  className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full  hover:bg-gradient-to-r
+                          from-yellow-400 to-red-600' >Out Of Stock</button > :
+
+                                            <button onClick={handleAddToCart} className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full  hover:bg-gradient-to-r
                           from-yellow-400 to-red-600' >Add to cart</button >
+                                        }
                                     </div>
                                 </div>
 
@@ -132,7 +138,7 @@ const Product = ({ data }) => {
 
 
 
-                       {/*  <div className=' border p-5 mt-5 bg-white'>
+                        {/*  <div className=' border p-5 mt-5 bg-white'>
 
                             <div className=' flex justify-between '>
                                 <p className=' text-lg'> Review (0)</p>
@@ -162,7 +168,7 @@ const Product = ({ data }) => {
                     </div>
                 </div>
 
-                {checkoutData?.checkout?.lines?.length ?<Cart/>:''}
+                {checkoutData?.checkout?.lines?.length ? <Cart /> : ''}
             </div>
         </div>
     );
