@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from "react-hook-form"
 import { LanguageCodeEnum, useCheckoutBillingAddressUpdateMutation, useCheckoutShippingAddressUpdateMutation } from '../../api';
 import toast from "react-hot-toast";
@@ -12,16 +12,16 @@ const DeliveryAddressForm = ({ checkoutData }) => {
         formState: { errors },
     } = useForm();
 
-    const [checkoutShippingAddressUpdate, {data: CheckoutShippingAddressData,loading:CheckoutShippingAddressLoading }] = useCheckoutShippingAddressUpdateMutation();
-
-    
-    const [checkoutBillingAddressUpdate, { data: CheckoutBillingAddressData,loading:CheckoutBillingAddressLoading }] = useCheckoutBillingAddressUpdateMutation();
+    const [checkoutShippingAddressUpdate, { data: CheckoutShippingAddressData, loading: CheckoutShippingAddressLoading }] = useCheckoutShippingAddressUpdateMutation();
 
 
+    const [checkoutBillingAddressUpdate, { data: CheckoutBillingAddressData, loading: CheckoutBillingAddressLoading }] = useCheckoutBillingAddressUpdateMutation();
 
 
-    const onSubmit =async (data) => {
-       await checkoutShippingAddressUpdate({
+
+
+    const onSubmit = async (data) => {
+        await checkoutShippingAddressUpdate({
             variables: {
                 token: checkoutData?.token,
                 address: { ...data, country: "ZA" },
@@ -36,24 +36,24 @@ const DeliveryAddressForm = ({ checkoutData }) => {
                 locale: LanguageCodeEnum.En
             }
         })
-        
+
     }
 
 
 
     // error handling --------------
 
-    useEffect(()=>{
-        if(CheckoutShippingAddressLoading||CheckoutBillingAddressLoading){
-            toast.loading("Loading...",{id:'address'})
+    useEffect(() => {
+        if (CheckoutShippingAddressLoading || CheckoutBillingAddressLoading) {
+            toast.loading("Loading...", { id: 'address' })
         }
-        if(CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.errors?.[0]?.message||CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.errors?.[0]?.message){
-            toast.error(CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.errors?.[0]?.message||CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.errors?.[0]?.message,{id:'address'})
+        if (CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.errors?.[0]?.message || CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.errors?.[0]?.message) {
+            toast.error(CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.errors?.[0]?.message || CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.errors?.[0]?.message, { id: 'address' })
         }
-        if(CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.checkout?.shippingAddress||CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.checkout?.shippingAddress){
-            toast.success("Address Update success",{id:'address'})
+        if (CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.checkout?.shippingAddress || CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.checkout?.shippingAddress) {
+            toast.success("Address Update success", { id: 'address' })
         }
-    },[
+    }, [
         CheckoutShippingAddressLoading,
         CheckoutBillingAddressLoading,
         CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.errors,
@@ -64,7 +64,7 @@ const DeliveryAddressForm = ({ checkoutData }) => {
 
     return (
         <div>
-         
+
             <form onSubmit={handleSubmit(onSubmit)} className="w-full">
                 <h1>Checkout Shipping Address Update</h1>
                 <div className="grid md:grid-cols-2  gap-3">
@@ -79,6 +79,7 @@ const DeliveryAddressForm = ({ checkoutData }) => {
                             placeholder="First Name"
                             required={true}
                         />
+                        {errors.firstName && <span className='text-red-500 text-xs'>First Name field is required</span>}
                     </div>
                     <div className=' w-full md:col-span-1 col-span-2' >
                         <input
@@ -92,6 +93,7 @@ const DeliveryAddressForm = ({ checkoutData }) => {
                             required={true}
 
                         />
+                        {errors.lastName && <span className='text-red-500 text-xs'>Last Name field is required</span>}
                     </div >
 
                     <div className=' w-full md:col-span-1 col-span-2' >
@@ -102,9 +104,8 @@ const DeliveryAddressForm = ({ checkoutData }) => {
 
                             label="Phone number (123-456-7890)"
                             placeholder="Contact number"
-
-
                         />
+                        {errors.phone && <span className='text-red-500 text-xs'>Phone Number field is required</span>}
                     </div>
 
 
@@ -129,6 +130,7 @@ const DeliveryAddressForm = ({ checkoutData }) => {
                             placeholder="Street"
 
                         />
+                        {errors.streetAddress1 && <span className='text-red-500 text-xs'>Street Address field is required</span>}
                     </div>
                     <div className=' w-full md:col-span-1 col-span-2' >
                         <input
@@ -140,9 +142,9 @@ const DeliveryAddressForm = ({ checkoutData }) => {
                             label="City"
                             placeholder="City"
                             {...register("city", { required: true })}
-
-
                         />
+
+                        {errors.city && <span className='text-red-500 text-xs'>City Name field is required</span>}
                     </div>
                     <div className=' w-full md:col-span-1 col-span-2' >
                         <input
@@ -154,6 +156,7 @@ const DeliveryAddressForm = ({ checkoutData }) => {
 
                             {...register("postalCode", { required: true })}
                         />
+                        {errors.postalCode && <span className='text-red-500 text-xs'>Postal Code field is required</span>}
                     </div>
 
                     <div className=" col-span-2" >

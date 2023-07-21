@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = ({ setShowLoginModal, isResetPass, setIsResetPass }) => {
     const [loginErrors, setLoginErrors] = useState([]);
-    const { setIsOpenCart, isOpenCart } = useContext(Context);
+    const { setIsOpenCart } = useContext(Context);
 
     const navigate = useNavigate();
     const location = useLocation();

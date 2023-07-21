@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { BiPlusMedical } from 'react-icons/bi';
 import { ImMinus } from 'react-icons/im';
 import { RxCross2 } from 'react-icons/rx';
@@ -8,16 +8,16 @@ import toast from "react-hot-toast";
 
 const AddToCartCard = ({ data }) => {
     const [checkoutToken] = useLocalStorage("checkoutToken");
-    const [checkoutAddProductLine,{data:checkoutAddProductLineData,loading:incrementLoading}] = useCheckoutAddProductLineMutation();
-    const [decrement,{data:decrementData,loading:decrementLoading}]=useCheckoutLineUpdateMutation();
+    const [checkoutAddProductLine, { data: checkoutAddProductLineData, loading: incrementLoading }] = useCheckoutAddProductLineMutation();
+    const [decrement, { data: decrementData, loading: decrementLoading }] = useCheckoutLineUpdateMutation();
     const [RemoveProductFromCheckout] = useRemoveProductFromCheckoutMutation();
 
 
 
 
 
-    const handleRemoveToCart =async () => {
-        await  RemoveProductFromCheckout({
+    const handleRemoveToCart = async () => {
+        await RemoveProductFromCheckout({
             variables: {
                 checkoutToken: checkoutToken,
                 lineId: data?.id,
@@ -27,7 +27,7 @@ const AddToCartCard = ({ data }) => {
     }
 
     const handleIncrementToCart = async () => {
-       await checkoutAddProductLine({
+        await checkoutAddProductLine({
             variables: {
                 checkoutToken: checkoutToken,
                 variantId: data?.variant?.id,
@@ -38,20 +38,21 @@ const AddToCartCard = ({ data }) => {
 
     const handleDecrementToCart = async () => {
 
-    if(data.quantity>1){
-        await decrement({
-            variables:{
-                token:checkoutToken,
-                locale: LanguageCodeEnum.En,
-                lines:[{
-                    quantity:data?.quantity-1,
-                    variantId:data?.variant.id
-                }]
-            }
-        })
-    }else {
-      await  handleRemoveToCart();
-    }}
+        if (data.quantity > 1) {
+            await decrement({
+                variables: {
+                    token: checkoutToken,
+                    locale: LanguageCodeEnum.En,
+                    lines: [{
+                        quantity: data?.quantity - 1,
+                        variantId: data?.variant.id
+                    }]
+                }
+            })
+        } else {
+            await handleRemoveToCart();
+        }
+    }
 
 
 
@@ -59,40 +60,41 @@ const AddToCartCard = ({ data }) => {
 
     // error handling ...........................
 
-    useEffect(()=>{
-        if(incrementLoading||decrementLoading){
-            toast.loading('Loading...',{id:'checkout'})
+    useEffect(() => {
+        if (incrementLoading) {
+            toast.loading('Loading...', { id: 'checkout' })
         }
-        if(checkoutAddProductLineData?.checkoutLinesAdd?.errors?.[0]?.message){
-            toast.error(checkoutAddProductLineData?.checkoutLinesAdd?.errors?.[0]?.message,{id:'checkout'})
+        if (checkoutAddProductLineData?.checkoutLinesAdd?.errors?.[0]?.message) {
+            toast.error(checkoutAddProductLineData?.checkoutLinesAdd?.errors?.[0]?.message, { id: 'checkout' })
         }
-        if(checkoutAddProductLineData?.checkoutLinesAdd?.checkout?.id){
-            toast.success( `Quantity: ${data?.quantity}`,{id:'checkout'})
+        if (checkoutAddProductLineData?.checkoutLinesAdd?.checkout?.id) {
+            toast.success(`Quantity: ${data?.quantity}`, { id: 'checkout' })
         }
 
-    },[
+    }, [
         data?.quantity,
         checkoutAddProductLineData?.checkoutLinesAdd?.errors,
-        decrementData?.checkoutLinesUpdate?.errors,
-        checkoutAddProductLineData?.checkoutLinesAdd?.checkout?.id
+        checkoutAddProductLineData?.checkoutLinesAdd?.checkout?.id,
+        incrementLoading
     ]);
 
 
-    useEffect(()=>{
-        if(decrementLoading){
-            toast.loading('Loading...',{id:'checkout'})
+    useEffect(() => {
+        if (decrementLoading) {
+            toast.loading('Loading...', { id: 'checkout' })
         }
-        if(decrementData?.checkoutLinesUpdate?.errors?.[0]?.message){
-            toast.error(decrementData?.checkoutLinesUpdate?.errors?.[0]?.message,{id:'checkout'})
+        if (decrementData?.checkoutLinesUpdate?.errors?.[0]?.message) {
+            toast.error(decrementData?.checkoutLinesUpdate?.errors?.[0]?.message, { id: 'checkout' })
         }
-        if(decrementData?.checkoutLinesUpdate?.checkout?.id){
-            toast.success( `Quantity: ${data?.quantity}`,{id:'checkout'})
+        if (decrementData?.checkoutLinesUpdate?.checkout?.id) {
+            toast.success(`Quantity: ${data?.quantity}`, { id: 'checkout' })
         }
 
-    },[
+    }, [
         data?.quantity,
         decrementData?.checkoutLinesUpdate?.errors,
-        decrementData?.checkoutLinesUpdate?.checkout?.id
+        decrementData?.checkoutLinesUpdate?.checkout?.id,
+        decrementLoading
     ]);
     return (
         <div className='py-1'>
