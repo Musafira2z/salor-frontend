@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { LanguageCodeEnum, useCheckoutAddProductLineMutation, useCheckoutByTokenQuery, useCheckoutLineUpdateMutation, useRemoveProductFromCheckoutMutation, /* useCheckoutByTokenQuery */ } from '../../../api';
+import { LanguageCodeEnum, useCheckoutAddProductLineMutation, useCheckoutByTokenQuery, useCheckoutLineUpdateMutation, useRemoveProductFromCheckoutMutation } from '../../../api';
 import { useLocalStorage } from 'react-use';
 import toast from 'react-hot-toast';
 import { BiPlusMedical } from 'react-icons/bi';
@@ -90,7 +90,7 @@ const ProductCard = ({ data }) => {
             toast.error(decrementData?.checkoutLinesUpdate?.errors?.[0]?.message, { id: 'checkout' })
         }
         if (decrementData?.checkoutLinesUpdate?.checkout?.id) {
-            toast.success(`Quantity: ${items?.quantity}`, { id: 'checkout' })
+            toast.success(`Quantity: ${items?.quantity || "00"}`, { id: 'checkout' })
         }
 
     }, [

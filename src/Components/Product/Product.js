@@ -3,13 +3,17 @@ import NavigationBar from '../Sheard/NavigationBar/NavigationBar';
 import BackButton from '../../Utility/Button/BackButton';
 import Cart from '../Cart/Cart';
 import { useLocalStorage } from 'react-use';
-import { LanguageCodeEnum, useCheckoutAddProductLineMutation, useCheckoutByTokenQuery } from '../../api';
+import { LanguageCodeEnum, useCheckoutAddProductLineMutation, useCheckoutByTokenQuery, useCheckoutLineUpdateMutation, useRemoveProductFromCheckoutMutation } from '../../api';
 import toast from "react-hot-toast";
+import { BiPlusMedical } from 'react-icons/bi';
+import { ImMinus } from 'react-icons/im';
 
 const Product = ({ data }) => {
     const [media, setMedia] = useState('')
     const [checkoutToken] = useLocalStorage("checkoutToken");
     const [checkoutAddProductLine, { data: checkoutAddProduct, loading }] = useCheckoutAddProductLineMutation();
+    const [decrement, { data: decrementData, loading: decrementLoading }] = useCheckoutLineUpdateMutation();
+    const [RemoveProductFromCheckout] = useRemoveProductFromCheckoutMutation();
     const description = JSON.parse(data?.product?.description);
 
 
@@ -18,7 +22,15 @@ const Product = ({ data }) => {
             checkoutToken: checkoutToken,
             locale: LanguageCodeEnum.En,
         }
-    })
+    });
+
+
+
+    const items = checkoutData?.checkout?.lines?.find(item => item?.variant?.id === data?.product?.variants[0]?.id);
+
+
+
+
 
     const handleAddToCart = async () => {
         await checkoutAddProductLine({
@@ -30,25 +42,51 @@ const Product = ({ data }) => {
         })
     }
 
+    const handleRemoveToCart = async () => {
+        await RemoveProductFromCheckout({
+            variables: {
+                checkoutToken: checkoutToken,
+                lineId: items?.id,
+                locale: LanguageCodeEnum.En,
+            }
+        })
+    }
 
+    const handleDecrementToCart = async () => {
+
+        if (items?.quantity > 1) {
+            await decrement({
+                variables: {
+                    token: checkoutToken,
+                    locale: LanguageCodeEnum.En,
+                    lines: [{
+                        quantity: items?.quantity - 1,
+                        variantId: items?.variant.id
+                    }]
+                }
+            })
+        } else {
+            await handleRemoveToCart();
+        }
+    }
     // error handling -------------------
 
 
     useEffect(() => {
         if (loading) {
             toast.loading('Loading...', {
-                id: 'addToCart'
+                id: 'checkout'
             })
         }
         if (checkoutAddProduct?.checkoutLinesAdd?.checkout?.id) {
             toast.success("Add to Cart success", {
-                id: 'addToCart'
+                id: 'checkout'
             })
 
         }
         if (checkoutAddProduct?.checkoutLinesAdd?.errors?.[0]?.message) {
             toast.error(checkoutAddProduct?.checkoutLinesAdd?.errors?.[0]?.message, {
-                id: 'addToCart'
+                id: 'checkout'
             })
         }
 
@@ -57,7 +95,23 @@ const Product = ({ data }) => {
         loading, checkoutAddProduct?.checkoutLinesAdd?.errors
     ])
 
+    useEffect(() => {
+        if (decrementLoading) {
+            toast.loading('Loading...', { id: 'checkout' })
+        }
+        if (decrementData?.checkoutLinesUpdate?.errors?.[0]?.message) {
+            toast.error(decrementData?.checkoutLinesUpdate?.errors?.[0]?.message, { id: 'checkout' })
+        }
+        if (decrementData?.checkoutLinesUpdate?.checkout?.id) {
+            toast.success(`Quantity: ${items?.quantity||"00"}`, { id: 'checkout' })
+        }
 
+    }, [
+        items?.quantity,
+        decrementData?.checkoutLinesUpdate?.errors,
+        decrementData?.checkoutLinesUpdate?.checkout?.id,
+        decrementLoading
+    ]);
 
     return (
         <div>
@@ -120,15 +174,47 @@ const Product = ({ data }) => {
 
 
                                     <div className=' '>
-                                        {data?.product?.variants[0]?.quantityAvailable === 0 ?
-                                            <button
-                                            disabled
-                                            className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full  hover:bg-gradient-to-r
+
+
+                                        {
+                                            items ?
+
+                                                <div className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-200 duration-200   md:px-6 w-full    hover:bg-gradient-to-r from-yellow-400 to-red-600 '>
+                                                    <div className=" flex justify-between items-center   rounded-md" >
+                                                        <div
+                                                            onClick={handleAddToCart}
+
+                                                            className=" cursor-pointer py-3 px-1">
+                                                            <BiPlusMedical size={10} />
+                                                        </div>
+                                                        <div className="py-3 px-1 ">
+
+                                                            {items?.quantity}
+                                                        </div>
+                                                        <div
+                                                            onClick={handleDecrementToCart}
+                                                            className="cursor-pointer py-3 px-1 ">
+                                                            <ImMinus size={10} />
+                                                        </div>
+                                                    </div>
+                                                </div> :
+
+
+                                                <div>
+                                                    {data?.product?.variants[0]?.quantityAvailable === 0 ?
+                                                        <button
+                                                            disabled
+                                                            className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full  hover:bg-gradient-to-r
                           from-yellow-400 to-red-600' >Out Of Stock</button > :
 
-                                            <button onClick={handleAddToCart} className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full  hover:bg-gradient-to-r
+                                                        <button onClick={handleAddToCart} className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full  hover:bg-gradient-to-r
                           from-yellow-400 to-red-600' >Add to cart</button >
+                                                    }
+                                                </div>
                                         }
+
+
+
                                     </div>
                                 </div>
 
