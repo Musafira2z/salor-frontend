@@ -5,7 +5,9 @@ const Success = () => {
 
     useEffect(()=>{
         toast.success("Order success",{id:'completeOrder'})
-    },[])
+    },[]);
+
+    
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-3">
             <div className="bg-white p-8 rounded-lg shadow-lg">

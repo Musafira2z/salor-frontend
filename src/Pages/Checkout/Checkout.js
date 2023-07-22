@@ -88,17 +88,17 @@ const Checkout = () => {
 
     useEffect(()=>{
         if(CheckoutBillingAddressLoading||CheckoutShippingAddressLoading){
-            toast.loading("Loading...",{id:'setAddress'});
+            toast.loading("Loading...",{id:'completeOrder'});
         }
         if(CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.errors?.[0]?.message||
             CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.errors?.[0]?.message){
             toast.error(CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.errors?.[0]?.message||
                 CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.errors?.[0]?.message,
-                {id:'setAddress'});
+                {id:'completeOrder'});
         }
         if(CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.checkout?.id||
             CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.checkout?.id){
-            toast.success('Set Address success',{id:'setAddress'})
+            toast.success('Set Address success',{id:'completeOrder'})
         }
     },[
         CheckoutBillingAddressLoading,
