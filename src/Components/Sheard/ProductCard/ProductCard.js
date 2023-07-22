@@ -79,6 +79,7 @@ const ProductCard = ({ data }) => {
 
                     </div >
                 </Link>
+                
                 <div>
                     {data?.node?.variants?.[0]?.quantityAvailable === 0 ?
                         <button
