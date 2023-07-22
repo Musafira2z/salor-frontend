@@ -15,8 +15,6 @@ const Product = ({ data }) => {
     const [decrement, { data: decrementData, loading: decrementLoading }] = useCheckoutLineUpdateMutation();
     const [RemoveProductFromCheckout] = useRemoveProductFromCheckoutMutation();
     const description = JSON.parse(data?.product?.description);
-
-
     const { data: checkoutData } = useCheckoutByTokenQuery({
         variables: {
             checkoutToken: checkoutToken,
@@ -79,7 +77,7 @@ const Product = ({ data }) => {
             })
         }
         if (checkoutAddProduct?.checkoutLinesAdd?.checkout?.id) {
-            toast.success("Add to Cart success", {
+            toast.success(`Quantity: ${items?.quantity || "00"}`, {
                 id: 'checkout'
             })
 
@@ -92,7 +90,9 @@ const Product = ({ data }) => {
 
     }, [
         checkoutAddProduct?.checkoutLinesAdd?.checkout?.id,
-        loading, checkoutAddProduct?.checkoutLinesAdd?.errors
+        checkoutAddProduct?.checkoutLinesAdd?.errors,
+        items?.quantity,
+        loading
     ])
 
     useEffect(() => {
@@ -103,7 +103,7 @@ const Product = ({ data }) => {
             toast.error(decrementData?.checkoutLinesUpdate?.errors?.[0]?.message, { id: 'checkout' })
         }
         if (decrementData?.checkoutLinesUpdate?.checkout?.id) {
-            toast.success(`Quantity: ${items?.quantity||"00"}`, { id: 'checkout' })
+            toast.success(`Quantity: ${items?.quantity || "00"}`, { id: 'checkout' })
         }
 
     }, [
