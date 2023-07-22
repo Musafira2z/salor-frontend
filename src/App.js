@@ -6,7 +6,7 @@ import { useAuthenticatedApolloClient } from "@saleor/auth-sdk/react/apollo";
 import { ApolloProvider } from "@apollo/client";
 import { GRAPH_URL } from './api/GRAPH_URL/GRAPH_URL';
 import { Toaster } from 'react-hot-toast';
-
+import './App.css'
 export const Context = React.createContext({});
 function App() {
     const [searchValue, setSearchValue] = useState('');
@@ -47,7 +47,7 @@ function App() {
 
     
     return (
-        <div>
+        <div className='font-thin'>
             <Context.Provider value={state}>
                 <SaleorAuthProvider {...saleorAuth}>
                     <ApolloProvider client={apolloClient}>
