@@ -25,7 +25,7 @@ const ProductCard = ({ data }) => {
     }
 
 
-    
+
 
     // error handling -------------------
 
@@ -82,7 +82,7 @@ const ProductCard = ({ data }) => {
                 <div>
                     {data?.node?.variants?.[0]?.quantityAvailable === 0 ?
                         <button
-
+                            disabled
                             className='  border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full    hover:bg-gradient-to-r from-yellow-400 to-red-600' >Out Off Stock</button > :
 
                         <button
