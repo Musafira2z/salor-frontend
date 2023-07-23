@@ -8,7 +8,7 @@ const CartBody = ({ children, isOpen, setIsOpen, hidden, checkoutData }) => {
 
     
     return (
-        <div className=' flex flex-col  justify-between max-h-screen overflow-y-hidden px-3'>
+        <div className={`flex flex-col  justify-between max-h-screen  overflow-y-hidden px-3`}>
 
             
                 <div className='bg-slate-100 p-2 flex justify-between '>

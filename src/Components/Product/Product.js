@@ -180,7 +180,7 @@ const Product = ({ data }) => {
                                             items ?
 
                                                 <div className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-200 duration-200   md:px-6 w-full    hover:bg-gradient-to-r from-yellow-400 to-red-600 '>
-                                                    <div className=" flex justify-between items-center   rounded-md" >
+                                                    <div className=" flex justify-between flex-row-reverse items-center   rounded-md" >
                                                         <div
                                                             onClick={handleAddToCart}
 

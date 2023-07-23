@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import NavigationBar from '../../Components/Sheard/NavigationBar/NavigationBar';
 
 import PlaceOrderSideBer from '../../Components/PlaceOrderSideBer/PlaceOrderSideBer';
@@ -14,16 +14,18 @@ import DeliveryAddressForm from './DeliveryAddressForm';
 // import { AddANewAddressModalOpenButton } from "../../Utility/Button/ModalOpenAnsCloseButton";
 import AddressCard from "../../Components/AddressCard/AddressCard";
 import toast from "react-hot-toast";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
 
 
     const [checkoutToken] = useLocalStorage("checkoutToken");
 
-    const navigate=useNavigate();
+    const [toggle, setToggle] = useState(false);
 
-    const { data,loading:CheckoutByLoading } = useCheckoutByTokenQuery({
+    const navigate = useNavigate();
+
+    const { data, loading: CheckoutByLoading } = useCheckoutByTokenQuery({
         variables: {
             checkoutToken: checkoutToken,
             locale: LanguageCodeEnum.En,
@@ -36,15 +38,15 @@ const Checkout = () => {
 
 
 
-    const { data: addresses} = useCurrentUserAddressesQuery({
+    const { data: addresses } = useCurrentUserAddressesQuery({
         variables: {
             local: LanguageCodeEnum.En
         }
     })
 
 
-    const [checkoutShippingAddressUpdate, { data: CheckoutShippingAddressData, loading:CheckoutShippingAddressLoading}] = useCheckoutShippingAddressUpdateMutation();
-    const [checkoutBillingAddressUpdate, { data: CheckoutBillingAddressData,loading:CheckoutBillingAddressLoading }] = useCheckoutBillingAddressUpdateMutation();
+    const [checkoutShippingAddressUpdate, { data: CheckoutShippingAddressData, loading: CheckoutShippingAddressLoading }] = useCheckoutShippingAddressUpdateMutation();
+    const [checkoutBillingAddressUpdate, { data: CheckoutBillingAddressData, loading: CheckoutBillingAddressLoading }] = useCheckoutBillingAddressUpdateMutation();
 
 
 
@@ -86,21 +88,21 @@ const Checkout = () => {
 
     //Error handling..........................
 
-    useEffect(()=>{
-        if(CheckoutBillingAddressLoading||CheckoutShippingAddressLoading){
-            toast.loading("Loading...",{id:'completeOrder'});
+    useEffect(() => {
+        if (CheckoutBillingAddressLoading || CheckoutShippingAddressLoading) {
+            toast.loading("Loading...", { id: 'completeOrder' });
         }
-        if(CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.errors?.[0]?.message||
-            CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.errors?.[0]?.message){
-            toast.error(CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.errors?.[0]?.message||
+        if (CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.errors?.[0]?.message ||
+            CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.errors?.[0]?.message) {
+            toast.error(CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.errors?.[0]?.message ||
                 CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.errors?.[0]?.message,
-                {id:'completeOrder'});
+                { id: 'completeOrder' });
         }
-        if(CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.checkout?.id||
-            CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.checkout?.id){
-            toast.success('Set Address success',{id:'completeOrder'})
+        if (CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.checkout?.id ||
+            CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.checkout?.id) {
+            toast.success('Set Address success', { id: 'completeOrder' })
         }
-    },[
+    }, [
         CheckoutBillingAddressLoading,
         CheckoutShippingAddressLoading,
         CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.errors,
@@ -112,11 +114,11 @@ const Checkout = () => {
 
 
 
-    if(CheckoutByLoading){
-        return   null;
+    if (CheckoutByLoading) {
+        return null;
     }
 
-    if(!checkoutToken||!checkoutData?.lines?.length){
+    if (!checkoutToken || !checkoutData?.lines?.length) {
         navigate("/")
     }
     return (
@@ -133,7 +135,7 @@ const Checkout = () => {
                                 <div
                                     onClick={() => checkoutShippingAddressUpdateHandler(checkoutAddress)}
                                 >
-                                    <AddressCard data={checkoutAddress}checkoutAddress={checkoutAddress} />
+                                    <AddressCard data={checkoutAddress} checkoutAddress={checkoutAddress} />
                                 </div>
 
 
@@ -142,7 +144,7 @@ const Checkout = () => {
                                 <div className='grid md:grid-cols-2 gap-3 col-span-2'>
                                     {
                                         addresses?.me?.addresses?.length ?
-                                            addresses?.me?.addresses?.map((data,index) => (
+                                            addresses?.me?.addresses?.map((data, index) => (
                                                 <div
                                                     key={index}
                                                     onClick={() => checkoutShippingAddressUpdateHandler(data)}
@@ -159,6 +161,21 @@ const Checkout = () => {
                                                 <DeliveryAddressForm checkoutData={checkoutData} />
                                             </div>
                                     }
+                                    {
+                                        toggle ?
+                                            <div className='col-span-1 '>
+
+                                                <DeliveryAddressForm checkoutData={checkoutData} toggle={toggle} setToggle={setToggle} />
+
+                                            </div> :
+                                            <div className='flex justify-center'>
+                                                <button onClick={() => setToggle(!toggle)}
+
+                                                    className='text-white  bg-gradient-to-r from-yellow-400 to-pink-600 active:bg-opacity-95  font-bold uppercase  text-xs px-6 py-1  rounded shadow hover:shadow-lg outline-none focus:outline-none  mb-1'
+                                                >Add New Address</button>
+                                            </div>
+                                    }
+
                                 </div>}
                     </div>
 
@@ -166,7 +183,7 @@ const Checkout = () => {
 
 
                 <div className=' md:col-span-4 col-span-12 w-full   lg:right-0 md:right-0   inset-y-0 ' >
-                    <PlaceOrderSideBer checkoutData={checkoutData} />
+                    <PlaceOrderSideBer checkoutData={checkoutData}  />
                 </div >
 
             </div >

@@ -47,7 +47,7 @@ function App() {
 
     
     return (
-        <div className='font-thin'>
+        <div className=''>
             <Context.Provider value={state}>
                 <SaleorAuthProvider {...saleorAuth}>
                     <ApolloProvider client={apolloClient}>

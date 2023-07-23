@@ -14,7 +14,7 @@ import { useLocalStorage } from 'react-use';
 import { WarningToast } from "../../Utility/Toasts/Toasts";
 
 
-const PlaceOrderSideBer = ({ checkoutData }) => {
+const PlaceOrderSideBer = ({ checkoutData,h }) => {
     const { data: userData } = useQuery(CurrentUserDetailsDocument);
     const user = userData?.me;
     const [createPayment] = useCheckoutPaymentCreateMutation();
@@ -119,7 +119,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
 
 
         <div className=' mt-4 bg-slate-50 '>
-            <CartBody hidden='hidden' checkoutData={checkoutData}>
+            <CartBody hidden='hidden' checkoutData={checkoutData} >
 
                 <div className='col-span-6 '>
                     <div className='pb-2'>

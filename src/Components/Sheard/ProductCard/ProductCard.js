@@ -152,7 +152,7 @@ const ProductCard = ({ data }) => {
                     <div className='' >
 
                         <div className=' flex justify-between font-bold md:text-sm  text-xs pb-4' >
-                            <p>{data?.node?.variants?.[0]?.attributes?.[0]?.values?.[0]?.name}</p>
+                            <p className='text-xs font-normal'>{data?.node?.variants?.[0]?.attributes?.[0]?.values?.[0]?.name}</p>
                             <p className=' text-transparent  bg-clip-text bg-gradient-to-r from-yellow-400 to-pink-600 font-extrabold text-lg' >R {variants?.[0]?.pricing?.price?.gross?.amount}</p >
                         </div >
 
@@ -170,11 +170,11 @@ const ProductCard = ({ data }) => {
                                 items ?
 
                                     <div className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-200 duration-200   md:px-6 w-full    hover:bg-gradient-to-r from-yellow-400 to-red-600 '>
-                                        <div className=" flex justify-between items-center   rounded-md" >
+                                        <div className=" flex justify-between flex-row-reverse items-center   rounded-md" >
                                             <div
                                                 onClick={() => handleAddToCart(variants?.[0]?.id)}
 
-                                                className=" cursor-pointer py-3 px-1">
+                                                className=" cursor-pointer py-3 px-3">
                                                 <BiPlusMedical size={10} />
                                             </div>
                                             <div className="py-3 px-1 ">
@@ -183,7 +183,7 @@ const ProductCard = ({ data }) => {
                                             </div>
                                             <div
                                                 onClick={handleDecrementToCart}
-                                                className="cursor-pointer py-3 px-1 ">
+                                                className="cursor-pointer py-3 px-3 ">
                                                 <ImMinus size={10} />
                                             </div>
                                         </div>
