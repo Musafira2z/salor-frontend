@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ProductCard from "../../Components/Sheard/ProductCard/ProductCard";
+import { Context } from '../../App';
 // import { LanguageCodeEnum } from '../../api';
 // import { Waypoint } from 'react-waypoint';
 
-const CategoryProducts = ({ data, checkoutToken, fetchMore, setCursor, cursor, networkStatus, searchValue }) => {
+const CategoryProducts = ({ data, checkoutToken, fetchMore, setCursor, cursor, networkStatus }) => {
 
-
+    const { searchValue } = useContext(Context);
 
     const [newData, setNewData] = useState([]);
     const [searchingProduct, setSearchingProduct] = useState([]);
