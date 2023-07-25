@@ -77,7 +77,6 @@ const Home = () => {
                     data={data}
                     checkoutToken={checkoutToken}
                     loading={loading}
-                    searchValue={searchValue}
                     fetchMore={fetchMore}
                     setCursor={setCursor}
                     cursor={cursor}

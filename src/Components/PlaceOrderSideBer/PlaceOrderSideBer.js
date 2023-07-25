@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import CartBody from '../Cart/CartBody';
+
 import {
     CurrentUserDetailsDocument,
     LanguageCodeEnum, useCheckoutCompleteMutation,
@@ -12,9 +12,12 @@ import {
 import { useQuery } from '@apollo/client';
 import { useLocalStorage } from 'react-use';
 import { WarningToast } from "../../Utility/Toasts/Toasts";
+import ProductCalculation from '../Cart/ProductCalculation';
+import AddToCartCard from '../Cart/AddToCartCard';
+import { FaShopify } from 'react-icons/fa';
 
 
-const PlaceOrderSideBer = ({ checkoutData, h }) => {
+const PlaceOrderSideBer = ({ checkoutData }) => {
     const { data: userData } = useQuery(CurrentUserDetailsDocument);
     const user = userData?.me;
     const [createPayment] = useCheckoutPaymentCreateMutation();
@@ -118,20 +121,44 @@ const PlaceOrderSideBer = ({ checkoutData, h }) => {
     return (
 
 
-        <div className=' mt-4 bg-slate-50 '>
-            <CartBody hidden='hidden' checkoutData={checkoutData} >
+        <div className='  xl:px-3  xl:-mt-[6.6rem]  xl:h-screen   xl:overflow-hidden xl:overflow-y-auto  xl:flex xl:flex-col xl:justify-between lg:px-3  lg:-mt-[6.6rem]  lg:h-screen   lg:overflow-hidden lg:overflow-y-auto  lg:flex lg:flex-col lg:justify-between '>
 
-                <div className='col-span-6 '>
+
+            <div>
+                <div className=' p-2 flex justify-between xl:pt-28  '>
+                    <div className='flex  items-center '>
+                        <FaShopify size={24} /><h4 className=' ml-2 font-bold'>  {checkoutData?.lines.length || "00"} Items</h4>
+                    </div>
+                </div>
+
+                <div className='xl:max-h-150 xl:overflow-hidden xl:overflow-y-auto '>
+                    {
+                        checkoutData?.lines?.map((data, i) => (
+                            <AddToCartCard key={i} data={data} />
+                        ))
+                    }
+                </div>
+            </div>
+
+
+            <div className='bg-white pb-4 px-3'>
+                <div className=' pb-6'>
+                    <ProductCalculation checkoutData={checkoutData} />
+
+                </div>
+
+                <div className='col-span-6 mb-2 '>
                     <div className='pb-2'>
                         {warning && <WarningToast warning={warning} />}
                     </div>
                     <button
                         onClick={orderHandler}
-                        className='bg-gradient-to-br from-amber-500 to-pink-600 rounded-lg w-full justify-end'>Place Order
+                        className=' col-span-6 w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-gradient-to-r from-amber-500 to-pink-600 border border-amber-500'>Place Order
                     </button>
                 </div>
+            </div>
 
-            </CartBody>
+
         </div>
 
 

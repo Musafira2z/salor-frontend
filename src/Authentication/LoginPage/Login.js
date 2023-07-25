@@ -52,7 +52,7 @@ const Login = ({ setShowLoginModal, isResetPass, setIsResetPass }) => {
                         placeholder="Email"
                         type="email"
                         register  {...register("email", { required: true })}
-                        className="mt-1 block w-full px-3 bg-white border border-amber-500 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none
+                        className="mt-1 block w-full px-3 py-2 bg-white border border-amber-500 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none
                         focus:border-amber-500 focus:ring-1 focus:ring-amber-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 
                          invalid:green-pink-500 invalid:text-pink-600 focus:invalid:border-amber-500 focus:invalid:ring-amber-500"
                     />
@@ -61,7 +61,7 @@ const Login = ({ setShowLoginModal, isResetPass, setIsResetPass }) => {
                         placeholder="Password"
                         type='password'
                         {...register("password", { required: true })}
-                        className="mt-1 block w-full px-3 bg-white border border-amber-500 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none
+                        className="mt-1 block w-full px-3 py-2 bg-white border border-amber-500 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none
                         focus:border-amber-500 focus:ring-1 focus:ring-amber-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 
                          invalid:green-pink-500 invalid:text-pink-600 focus:invalid:border-amber-500 focus:invalid:ring-amber-500"
                     />
@@ -79,7 +79,7 @@ const Login = ({ setShowLoginModal, isResetPass, setIsResetPass }) => {
                         </div>}
                     </div>
                     <div className=' text-end'>
-                        <button type='submit' className=' border-2 mt-4  bg-gradient-to-bl from-amber-500 to-pink-600 p-0 rounded-lg   text-slate-50 text-xs font-bold hover:duration-500 duration-100 focus:bg-gradient-to-tl  py-1 px-1 md:px-6 w-full'>Login</button>
+                        <button type='submit' className=' border-2 mt-4 py-2  bg-gradient-to-bl from-amber-500 to-pink-600 p-0 rounded-lg   text-slate-50 text-xs font-bold hover:duration-500 duration-100 focus:bg-gradient-to-tl   px-1 md:px-6 w-full'>Login</button>
                     </div>
                 </div>
 

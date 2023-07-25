@@ -97,8 +97,8 @@ const AddToCartCard = ({ data }) => {
         decrementLoading
     ]);
     return (
-        <div className='py-1'>
-            <div className=' grid grid-cols-12 gap-4  border p-5  h-auto w-auto content-center items-center rounded-lg shadow-sm-light' >
+        <div className='py-1 '>
+            <div className=' grid grid-cols-12 gap-4  border p-5  h-auto w-auto content-center items-center rounded-lg shadow-sm-light bg-white' >
 
                 <div className="col-span-2 inline-flex flex-col rounded-md shadow-sm" role="group">
                     <button
@@ -124,7 +124,7 @@ const AddToCartCard = ({ data }) => {
                 </div>
 
                 <div className=' col-span-5'>
-                    <p className=' text-xs  font-bold'>{data?.variant?.name} </p>
+                    <p className=' text-xs  font-bold truncate'>{data?.variant?.name} </p>
                     <p className=' text-red-500 font-bold '>Price: R {data?.variant?.pricing?.price?.gross?.amount}</p>
                     <p className='  font-bold '>Total: R {data?.totalPrice?.gross?.amount}</p>
 

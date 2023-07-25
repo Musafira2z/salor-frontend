@@ -6,7 +6,7 @@ const AddressCard = ({ data,checkoutAddress }) => {
     return (
         <div
 
-            className=' shadow-lg rounded-md p-5 cursor-pointer w-full'>
+            className=' shadow-lg rounded-md p-5 cursor-pointer w-full bg-white'>
             <div className='grid grid-cols-12'>
                 <div className='col-span-4'>
                     <p>First Name</p>

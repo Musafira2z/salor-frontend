@@ -1,15 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ProductCard from '../Sheard/ProductCard/ProductCard';
 import { Waypoint, } from "react-waypoint";
 import { LanguageCodeEnum } from '../../api';
+import { useLocalStorage } from 'react-use';
+import { Context } from '../../App';
 
 
-const Products = ({ data, checkoutToken, fetchMore, setCursor, cursor, networkStatus, searchValue }) => {
+const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
     const [newData, setNewData] = useState([]);
     const [searchingProduct, setSearchingProduct] = useState([]);
-
-
+    // eslint-disable-next-line no-unused-vars
+    const [checkoutToken, setCheckoutToken] = useLocalStorage("checkoutToken");
+    const { searchValue } = useContext(Context);
 
 
     useEffect(() => {
@@ -59,7 +62,7 @@ const Products = ({ data, checkoutToken, fetchMore, setCursor, cursor, networkSt
                     searchValue ?
 
 
-                       (searchingProduct.length? searchingProduct?.map((data, index) => {
+                        (searchingProduct.length ? searchingProduct?.map((data, index) => {
 
                             return <ProductCard
 
@@ -70,19 +73,19 @@ const Products = ({ data, checkoutToken, fetchMore, setCursor, cursor, networkSt
 
                         })
 
-                       :  <h1>Product Not found!</h1> ) :
-                       
+                            : <h1>Product Not found!</h1>) :
 
-                            newData?.map((data, index) => (
 
-                                <ProductCard
+                        newData?.map((data, index) => (
 
-                                    data={data}
-                                    checkoutToken={checkoutToken}
-                                    key={index}
-                                />
+                            <ProductCard
 
-                            )) 
+                                data={data}
+                                checkoutToken={checkoutToken}
+                                key={index}
+                            />
+
+                        ))
                 }
 
 

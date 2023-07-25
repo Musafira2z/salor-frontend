@@ -2,8 +2,8 @@ import React from 'react';
 
 export const WarningToast = ({warning}) => {
     return (
-        <div id="toast-warning"
-             className="flex items-center w-full  p-1 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+        <div 
+             className="flex items-center w-full  p-1 text-gray-500 bg-white rounded-lg shadow"
              role="alert">
             <div
                 className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">

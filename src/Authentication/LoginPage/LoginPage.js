@@ -43,7 +43,7 @@ const LoginPage = () => {
             }
             title='Welcome to Musafir!'>
 
-            <div className=' flex justify-center  '>
+            <div className=' flex justify-center xl:my-10 lg:my-10 md:my-7 sm:my-5 my-5 '>
                 <LoginSvgFile />
             </div>
             <div className=' pb-5 md:w-96 mx-auto'>

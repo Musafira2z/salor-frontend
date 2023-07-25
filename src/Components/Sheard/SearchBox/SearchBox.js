@@ -12,13 +12,15 @@ const SearchBox = () => {
         if (e.target.value === '') {
             setSearchValue('');
         } else {
+
             setValue(e.target.value);
-            setSearchValue(value)
+            setSearchValue(e.target.value);
+
         }
     };
 
     const handleSearch = () => {
-        setSearchValue(value)
+        setSearchValue(value);
     }
 
     return (
@@ -31,6 +33,13 @@ const SearchBox = () => {
                 <input
 
                     onChange={handleOnchange}
+                    onKeyDown={e => {
+                        if (e.keyCode === 13) {
+                            handleSearch();
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+                    }}
                     className="placeholder:italic placeholder:text-slate-400  placeholder:text-base block bg-white w-full border border-slate-300 rounded-md rounded-r-none py-3 pl-24 pr-3 shadow-sm focus:outline-none focus:border-amber-500 focus:ring-amber-500 focus:ring-1 text-base " placeholder="Search your Product from hear" type="text" name="search" />
 
 

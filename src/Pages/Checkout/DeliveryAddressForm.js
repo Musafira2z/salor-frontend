@@ -66,7 +66,7 @@ const DeliveryAddressForm = ({ checkoutData, toggle, setToggle }) => {
     ]);
 
     return (
-        <div className='shadow-lg rounded-md p-5'>
+        <div className='shadow-lg rounded-md p-5 bg-white'>
 
             <form onSubmit={handleSubmit(onSubmit)} className="w-full">
 

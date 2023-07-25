@@ -30,7 +30,7 @@ const Success = () => {
                 <p className="text-lg text-center mb-4">
                     Thank you for your purchase. Your order has been placed successfully.
                 </p>
-                <div className='grid grid-cols-2 gap-2'>
+                <div className='grid xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2  gap-2'>
                     <Link to='/'>
                         <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded w-full">
                             Continue Shopping

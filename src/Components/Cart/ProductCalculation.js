@@ -3,8 +3,8 @@ const ProductCalculation = ({children,checkoutData}) => {
 
     
     return (
-        <div className=''>
-            <div className=' select-none   cursor-pointer '>
+        <div >
+            <div className=' select-none   cursor-pointer  bg-white'>
                 <div className=' grid grid-cols-6 text-green-500 hover:bg-yellow-100 p-1 rounded-md'>
                     <p className=' col-span-4 text-left'>Sub total</p>
                     <span className='col-span-1 text-left'>:</span>

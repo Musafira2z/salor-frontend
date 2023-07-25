@@ -122,7 +122,7 @@ const Checkout = () => {
         navigate("/")
     }
     return (
-        <div className='' >
+        <div >
             <NavigationBar />
             <div className='grid grid-cols-12 gap-5   ' >
 
@@ -182,7 +182,7 @@ const Checkout = () => {
                 </ div >
 
 
-                <div className=' md:col-span-4 col-span-12 w-full   lg:right-0 md:right-0   inset-y-0 ' >
+                <div className=' md:col-span-4 col-span-12 w-full   lg:right-0 md:right-0   inset-y-0 px-3 mt-2' >
                     <PlaceOrderSideBer checkoutData={checkoutData} />
                 </div >
 
