@@ -53,7 +53,7 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
     }
 
     return (
-        <div >
+        <div className='pb-14'>
 
             <div
 

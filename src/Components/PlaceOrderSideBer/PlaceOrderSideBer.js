@@ -121,17 +121,17 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
     return (
 
 
-        <div className='  xl:px-3  xl:-mt-[6.6rem]  xl:h-screen   xl:overflow-hidden xl:overflow-y-auto  xl:flex xl:flex-col xl:justify-between lg:px-3  lg:-mt-[6.6rem]  lg:h-screen   lg:overflow-hidden lg:overflow-y-auto  lg:flex lg:flex-col lg:justify-between '>
+        <div className='  xl:px-3  xl:-mt-[6.6rem]  xl:h-screen   xl:overflow-hidden xl:overflow-y-auto  xl:flex xl:flex-col xl:justify-between lg:px-3  lg:-mt-[6.6rem]  lg:h-screen   lg:overflow-hidden lg:overflow-y-auto  lg:flex lg:flex-col lg:justify-between xl:border'>
 
 
-            <div>
+            <div className=''>
                 <div className=' p-2 flex justify-between xl:pt-28  '>
                     <div className='flex  items-center '>
                         <FaShopify size={24} /><h4 className=' ml-2 font-bold'>  {checkoutData?.lines.length || "00"} Items</h4>
                     </div>
                 </div>
 
-                <div className='xl:max-h-150 xl:overflow-hidden xl:overflow-y-auto '>
+                <div className='xl:max-h-150 xl:overflow-hidden xl:overflow-y-auto  '>
                     {
                         checkoutData?.lines?.map((data, i) => (
                             <AddToCartCard key={i} data={data} />
