@@ -104,7 +104,7 @@ const AddToCartCard = ({ data }) => {
                     <button
                         onClick={handleIncrementToCart}
                         type="button"
-                        className=" flex justify-center py-2 text-sm  font-medium text-yellow-400 bg-transparent border border-gray-900 rounded-t-lg hover:bg-yellow-400 hover:text-white">
+                        className=" flex justify-center py-2 text-sm  font-medium text-amber-500 bg-transparent border border-gray-900 rounded-t-lg hover:bg-amber-500 hover:text-white">
                         <BiPlusMedical size={10} />
                     </button>
                     <button type="button" className=" py-2 flex justify-center text-sm  text-gray-900 bg-transparent border border-t-0 border-b-0 font-bold  border-gray-900 ">

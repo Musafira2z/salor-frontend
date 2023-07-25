@@ -81,7 +81,6 @@ const ProductCard = ({ data }) => {
 
 
 
-
     useEffect(() => {
         if (decrementLoading) {
             toast.loading('Loading...', { id: 'checkout' })
@@ -132,73 +131,73 @@ const ProductCard = ({ data }) => {
 
 
     return (
-        <React.Fragment>
-            <div className="col-span-6 sm:col-span-6 md:col-span-6 lg:col-span-3  border p-2 rounded-lg  hover:shadow-pink-100  relative  shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 h-fit">
 
-                <Link to={`/product-details/${slug}`}
-                    className='hover:no-underline focus:no-underline hover:text-slate-700 focus:text-slate-700'
-                >
-                    {/*  <div className='   absolute right-0 pr-1'>
-                        <button className='bg-gradient-to-r from-yellow-300 via-red-400 to-red-500 rounded-md py-1 px-2  text-slate-50 font-bold text-xs'>5% Offer</button>
-                    </div > */}
-                    <div className='  ' >
-                        <div className=' flex justify-center h-36' >
-                            <img src={thumbnail?.url} alt="" />
-                        </div >
-                        <p className=' text-mdgi  font-bold pt-7  truncate hover:text-clip' >{name}</ p>
-                        <p>Available Quantity: {data?.node?.variants?.[0]?.quantityAvailable}</p>
+        <div className=" lg:rounded-lg md:rounded-lg sm:rounded-sm rounded-none  xl:border-none lg:border-none md:border-none sm:border-none border bg-white flex flex-col justify-between ">
+
+            <Link to={`/product-details/${slug}`}
+                className='hover:no-underline focus:no-underline hover:text-slate-700 focus:text-slate-700'
+            >
+
+
+                <div className=' flex justify-center h-36   p-2' >
+                    <img src={thumbnail?.url} alt="" />
+                </div >
+
+
+
+                <div className='xl:pt-7 lg:pt-7 md:pt-6 sm:pt-3 pt-3 xl:px-5 lg:px-5 md:px-4 sm:px-3 px-3' >
+                    <p className='truncate hover:text-clip' style={{ fontSize: '15px', color: 'rgb(13, 17, 54)', margin: '0px 0px 20px', width: '100%', whiteSpace: 'nowrap', fontWeight: 'bold' }}>{name}</ p>
+
+                    {/* <p className='text-md text-gray-500 font-bold'>Available Quantity: {data?.node?.variants?.[0]?.quantityAvailable}</p> */}
+
+                    <div className=' flex justify-between items-center  pb-4' >
+                        <p style={{ color: "rgb(119, 121, 140)", fontWeight: "bold", fontSize: '13px' }}>{data?.node?.variants?.[0]?.attributes?.[0]?.values?.[0]?.name}</p>
+                        <p className=' text-transparent  bg-clip-text bg-gradient-to-r from-amber-500 to-pink-600 font-extrabold ' style={{ fontSize: '15px', fontWeight: '700' }}>R {variants?.[0]?.pricing?.price?.gross?.amount}</p >
                     </div >
 
-                    <div className='' >
+                </div >
+            </Link>
 
-                        <div className=' flex justify-between font-bold md:text-sm  text-xs pb-4' >
-                            <p className='text-xs font-normal'>{data?.node?.variants?.[0]?.attributes?.[0]?.values?.[0]?.name}</p>
-                            <p className=' text-transparent  bg-clip-text bg-gradient-to-r from-yellow-400 to-pink-600 font-extrabold text-lg' >R {variants?.[0]?.pricing?.price?.gross?.amount}</p >
-                        </div >
+            <div className='xl:px-6 lg:px-6 md:px-6 sm:px-3 px-3  xl:pt-5 xl:pb-8 lg:pt-5 lg:pb-8 md:pt-5 md:pb-8 sm:pt-3 sm:pb-5 pt-3 pb-5'>
+                {data?.node?.variants?.[0]?.quantityAvailable === 0 ?
+                    <button
+                        disabled
+                        className='  border-2 border-red-500 rounded-lg text-white bg-red-500   text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full    ' >Out Of Stock</button > :
 
-                    </div >
-                </Link>
+                    <div>
+                        {
+                            items ?
 
-                <div>
-                    {data?.node?.variants?.[0]?.quantityAvailable === 0 ?
-                        <button
-                            disabled
-                            className='  border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full    hover:bg-gradient-to-r from-yellow-400 to-red-600' >Out Off Stock</button > :
+                                <div className={`border-2 ${data?.node?.variants?.[0]?.quantityAvailable === items?.quantity?"border-red-400 bg-red-400 text-white":"border-amber-500 bg-amber-500 text-white"}  rounded-lg   text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full    `}>
+                                    <div className=" flex justify-between flex-row-reverse items-center   rounded-md" >
+                                        <button
+                                            disabled={data?.node?.variants?.[0]?.quantityAvailable === items?.quantity ? true : false}
+                                            onClick={() => handleAddToCart(variants?.[0]?.id)}
+                                            className=" cursor-pointer">
+                                            <BiPlusMedical size={15} />
+                                        </button>
+                                        <div >
 
-                        <div>
-                            {
-                                items ?
-
-                                    <div className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-200 duration-200   md:px-6 w-full    hover:bg-gradient-to-r from-yellow-400 to-red-600 '>
-                                        <div className=" flex justify-between flex-row-reverse items-center   rounded-md" >
-                                            <div
-                                                onClick={() => handleAddToCart(variants?.[0]?.id)}
-
-                                                className=" cursor-pointer py-3 px-3">
-                                                <BiPlusMedical size={10} />
-                                            </div>
-                                            <div className="py-3 px-1 ">
-
-                                                {items?.quantity}
-                                            </div>
-                                            <div
-                                                onClick={handleDecrementToCart}
-                                                className="cursor-pointer py-3 px-3 ">
-                                                <ImMinus size={10} />
-                                            </div>
+                                            {items?.quantity}
                                         </div>
+                                        <button
+                                            onClick={handleDecrementToCart}
+                                            className="cursor-pointer">
+                                            <ImMinus size={15} />
+                                        </button>
                                     </div>
-                                    :
-                                    <button
+                                </div>
+                                :
+                                <button
 
-                                        onClick={() => handleAddToCart(variants?.[0]?.id)}
-                                        className='  border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-200 duration-200  py-3 px-1 md:px-6 w-full    hover:bg-gradient-to-r from-yellow-400 to-red-600' > Add to Cart</button >
-                            }
-                        </div>
-                    }
-                </div>
-            </ div>
-        </React.Fragment>
+                                    onClick={() => handleAddToCart(variants?.[0]?.id)}
+                                    className='border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full   ' > Add to Cart</button >
+                        }
+                    </div>
+                }
+            </div>
+        </ div>
+
     );
 };
 

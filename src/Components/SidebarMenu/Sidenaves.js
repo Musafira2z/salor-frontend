@@ -1,8 +1,6 @@
 import React from 'react';
-import { Nav, Sidenav } from 'rsuite';
-import NavItem from 'rsuite/esm/Nav/NavItem';
 import { useMainMenuQuery } from "../../api";
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { SidebarSkeleton } from '../Sheard/Skeletons/SidebarSkeleton';
 
 
@@ -26,42 +24,56 @@ const SideNavar = () => {
 
     const menuItems = data?.menu?.items;
 
+
+
     return (
-        <div>
-            <Sidenav className=" h-screen px-5 pt-3 bg-slate-50 ">
-                <Sidenav.Body>
 
-                    <Nav>
-                        <div className=" flex justify-center mb-5">
-                            <button
-                                className=" w-full h-10 text-slate-50  text-lg font-extrabold    bg-gradient-to-r from-yellow-300 rounded-lg to-pink-700"> Offer
-                            </button>
-                        </div>
-                        {menuItems?.map((item, i) => {
-                            return (
+        <nav className="px-5 pt-2 ">
+            {/* <Sidenav.Body> */}
 
-
-                                <NavItem as={Link} to={`/category/${item?.category?.slug}`} key={i} style={{ marginTop: 5 }}>
-
-                                    <div className='flex'>
-                                        <img className='w-7 h-7 object-cover pr-1'
-                                            src={item?.category?.backgroundImage?.url} alt="" />
-
-                                        <p className="text-xs">{item?.name}</p>
-                                    </div>
-                                </NavItem>
+            <ul>
+                <li className=" flex justify-center mt-2 mb-2">
+                    <button
+                        className=" w-full h-10 text-slate-50  text-lg font-extrabold    bg-gradient-to-r from-yellow-300 rounded-lg to-pink-700"> Offer
+                    </button>
+                </li>
+                <hr className='mb-5' />
+                {menuItems?.map((item, i) => {
+                    return (
 
 
+                        <li key={i}
+                            style={{ fontSize: '15px', fontWeight: '500px', padding: '5px 0' }}
+                        >
+                            <NavLink to={`/category/${item?.category?.slug}`}
 
-                            )
-                        })}
+                                className="hover:no-underline focus:no-underline"
+
+                            >
+
+                                <div className='flex items-center gap-4'>
+                                    <img className='w-5 h-5 object-cover '
+                                        src={item?.category?.backgroundImage?.url} alt="" />
+
+                                    <p className="text-black cursor-pointer "
 
 
-                    </Nav>
-                </Sidenav.Body>
+                                    >{item?.name}</p>
+                                </div>
+                            </NavLink>
+                        </li>
 
-            </Sidenav>
-        </div>
+
+
+                    )
+                })}
+
+
+            </ul>
+            {/* </Sidenav.Body> */}
+
+        </nav>
+
     );
 };
 

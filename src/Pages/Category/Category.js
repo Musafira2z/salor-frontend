@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Products from '../../Components/Products/Products';
+// import Products from '../../Components/Products/Products';
 import SearchBox from '../../Components/Sheard/SearchBox/SearchBox';
 import { LanguageCodeEnum, useMainMenuQuery, useProductCollectionQuery } from '../../api';
 import { useParams } from 'react-router-dom';
 import { Context } from '../../App';
 import CategoryItems from "./CategoryItems";
+import CategoryProducts from './CategoryProducts';
 
 
 const Category = () => {
@@ -35,7 +36,7 @@ const Category = () => {
     const { loading: loadingProduct, data: productsData, fetchMore, networkStatus } = useProductCollectionQuery({
         variables: {
             after: '',
-            first: 20,
+            first: 100,
             channel: "default",
             locale: LanguageCodeEnum.En,
             filter: {
@@ -56,32 +57,32 @@ const Category = () => {
 
     return (
         <div>
-            <div className='md:ml-60  lg:ml-60 p-1 '>
-                <div className='container mx-auto'>
-                    <div className=' text-start'>
-                        <div className=' lg:hidden'>
-                            <SearchBox />
-                        </div>
-                        <h1 className=' text-xl font-bold py-5
-                        '> {category?.name}</h1>
+            <div className=''>
+                <div className=' text-start'>
+                    <div className='  xl:hidden lg:hidden md:block sm:block block px-4'>
+                        <SearchBox />
                     </div>
+                    <h1 className=' text-xl font-bold py-5
+                        '> {category?.name}</h1>
+                </div>
 
 
-                    {category?.children?.length ?
+                {category?.children?.length ?
 
-                        <div className='grid grid-cols-12 gap:3 md:gap-5 pb-10'>
+                    <div className=' grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 lg:gap-7 md:gap-5 sm:gap-3 gap-0'>
 
-                            {
-                                category?.children?.map((item, i) => {
-                                    return <CategoryItems key={i} categoryItems={item} />
-                                })
-                            }
+                        {
+                            category?.children?.map((item, i) => {
+                                return <CategoryItems key={i} categoryItems={item} />
+                            })
+                        }
 
-                        </div>
-                        :
+                    </div>
+                    :
 
-                        <div className="pt-10">
-                            {productsData && <Products
+                    <div >
+                        {productsData &&
+                            <CategoryProducts
                                 data={productsData}
                                 loading={loadingProduct}
                                 fetchMore={fetchMore}
@@ -89,14 +90,14 @@ const Category = () => {
                                 cursor={cursor}
                                 networkStatus={networkStatus}
                             />}
-                        </div>
+                    </div>
 
-                    }
+                }
 
 
-                </div>
             </div>
         </div>
+
     );
 };
 

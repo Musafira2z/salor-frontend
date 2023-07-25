@@ -171,7 +171,7 @@ const Checkout = () => {
                                             <div className='flex justify-center'>
                                                 <button onClick={() => setToggle(!toggle)}
 
-                                                    className='text-white  bg-gradient-to-r from-yellow-400 to-pink-600 active:bg-opacity-95  font-bold uppercase  text-xs px-6 py-1  rounded shadow hover:shadow-lg outline-none focus:outline-none  mb-1'
+                                                    className='text-white  bg-gradient-to-r from-amber-500 to-pink-600 active:bg-opacity-95  font-bold uppercase  text-xs px-6 py-1  rounded shadow hover:shadow-lg outline-none focus:outline-none  mb-1'
                                                 >Add New Address</button>
                                             </div>
                                     }
@@ -183,7 +183,7 @@ const Checkout = () => {
 
 
                 <div className=' md:col-span-4 col-span-12 w-full   lg:right-0 md:right-0   inset-y-0 ' >
-                    <PlaceOrderSideBer checkoutData={checkoutData}  />
+                    <PlaceOrderSideBer checkoutData={checkoutData} />
                 </div >
 
             </div >

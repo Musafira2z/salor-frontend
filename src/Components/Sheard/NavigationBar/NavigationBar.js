@@ -6,7 +6,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { MdOutlineLiveHelp } from 'react-icons/md';
 
 import AvatarDropdownMenu from '../AvatarMenu/AvatarDropdownMenu';
-import { activeClass } from '../../../Utility/ActiveClass/NavLinkActiveClass';
+// import { activeClass } from '../../../Utility/ActiveClass/NavLinkActiveClass';
 import SidebarDrawer from '../../SidebarDrawer/SidebarDrawer';
 import { CurrentUserDetailsDocument } from '../../../api';
 import { useQuery } from '@apollo/client';
@@ -18,14 +18,14 @@ const NavigationBar = () => {
     const user = data?.me;
 
     return (
-        <div className='bg-slate-100 p-6 sticky top-0 z-50' >
+        <div className='bg-white py-6 px-10 sticky top-0 z-50' >
             <div className=' flex justify-between items-center gap-2' >
-                <div className='md:hidden'>
+                <div className='block sm:block  md:hidden lg:hidden xl:hidden'>
                     <SidebarDrawer />
                 </div>
                 <div className=' flex justify-between items-center md:w-2/4 gap-2' >
 
-                    <div className=" " >
+                    <div  >
                         <Link to='/'>
                             <img
                                 className=' w-32'
@@ -43,21 +43,25 @@ const NavigationBar = () => {
                     <div className=' flex justify-end items-center  gap-2  ' >
                         <div className="flex items-center" >
 
-                            <img
-                                className=' w-auto h-8'
-                                src="/img/playstore.webp" alt="" />
+                            <a href="https://play.google.com/store/apps/details?id=com.musafira2z.store" target="_blank" rel="noopener noreferrer">
+                                <img
+                                    className=' w-auto h-8'
+                                    src="/img/playstore.webp" alt="" />
+                            </a>
                         </div >
                         <div className=" flex items-center" >
-                            <img
-                                className='w-auto h-8'
-                                src="/img/ios-store.png" alt="" />
+                            <a href="about:blank" target="_blank" rel="noopener noreferrer">
+                                <img
+                                    className='w-auto h-8'
+                                    src="/img/ios-store.png" alt="" />
+                            </a>
                         </div >
 
 
                         <div className=" flex items-center justify-center" >
-                            <NavLink to='/help' className={activeClass} >
+                            <NavLink to='/help' className="text-amber-500 text-base font-bold hover:no-underline hover:text-amber-500 active:text-amber-500 focus:text-amber-500 focus:no-underline" >
 
-                                <div className=' w-32 flex items-center text-transparent  bg-clip-text bg-gradient-to-r from-yellow-400 to-pink-600' >
+                                <div className=' w-32 flex items-center ' >
                                     <MdOutlineLiveHelp size={24} />
                                     <span className=' pl-2' > Need help</span >
                                 </div >

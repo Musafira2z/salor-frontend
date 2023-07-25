@@ -30,14 +30,14 @@ const HomeMainLayout = () => {
     }, [checkoutData, setIsOpenCart])
     return (
 
-        <div className=' ' >
+        <div  >
             <NavigationBar />
 
             <div className='flex ' >
-                <div className=' ' >
+                <div className=' fixed w-72 hidden sm:hidden  md:block lg:block xl:block ' >
                     <SidebarMenu />
                 </div >
-                <div className=" w-full " >
+                <div className=" w-full md:ml-72 lg:ml-72 lg:px-7 md:px-7 " >
 
                     <Outlet />
 

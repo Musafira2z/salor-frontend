@@ -62,20 +62,17 @@ const Home = () => {
 
 
     return (
-        <div className='md:ml-60  lg:ml-60 p-2 '>
+        <div >
             <Slider />
             {/* <Banner/> */}
-            <div className='container mx-auto'>
-                <div className=' text-start'>
-
-
-                    <div className=' lg:hidden'>
-                        <SearchBox />
-                    </div>
+            <div >
+                <div className=' xl:hidden lg:hidden md:block sm:block block px-4'>
+                    <SearchBox />
                 </div>
 
+
                 {/*loop all categories here with 5 products*/}
-                <h1 className=' text-xl font-bold py-5'>Products</h1>
+                <h1 className=' text-2xl font-bold text-black  my-5'>Popular Product</h1>
                 <Products
                     data={data}
                     checkoutToken={checkoutToken}

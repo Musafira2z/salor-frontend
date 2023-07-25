@@ -24,7 +24,7 @@ const Products = ({ data, checkoutToken, fetchMore, setCursor, cursor, networkSt
         }
     }, [data?.products?.edges]);
 
-    
+
 
     const handleFetchMoreData = () => {
         fetchMore({
@@ -40,44 +40,49 @@ const Products = ({ data, checkoutToken, fetchMore, setCursor, cursor, networkSt
                 if (!fetchMoreResult) {
                     return pv;
                 }
-            if(fetchMoreResult?.products?.pageInfo?.endCursor){
-              setCursor(fetchMoreResult?.products?.pageInfo?.endCursor);
-               return fetchMoreResult
-            }
+                if (fetchMoreResult?.products?.pageInfo?.endCursor) {
+                    setCursor(fetchMoreResult?.products?.pageInfo?.endCursor);
+                    return fetchMoreResult
+                }
 
             }
         })
     }
 
     return (
-        <div className=' '>
+        <div >
 
             <div
 
-                className=' grid grid-cols-12 gap-2'>
+                className=' grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 lg:gap-7 md:gap-5 sm:gap-3 gap-0'>
                 {
-                    searchValue ? searchingProduct?.map((data, index) => {
-                    return     searchingProduct.length?<ProductCard
+                    searchValue ?
 
-                            data={data}
-                            checkoutToken={checkoutToken}
-                            key={index}
-                        />:
-                        <h1>Product Note found!</h1>
 
-                        }
+                       (searchingProduct.length? searchingProduct?.map((data, index) => {
 
-                    ) :
-                        newData?.map((data, index) => (
-
-                            <ProductCard
+                            return <ProductCard
 
                                 data={data}
                                 checkoutToken={checkoutToken}
                                 key={index}
                             />
 
-                        ))
+                        })
+
+                       :  <h1>Product Not found!</h1> ) :
+                       
+
+                            newData?.map((data, index) => (
+
+                                <ProductCard
+
+                                    data={data}
+                                    checkoutToken={checkoutToken}
+                                    key={index}
+                                />
+
+                            )) 
                 }
 
 

@@ -11,19 +11,19 @@ const DashboardSidebarMenu = () => {
 
     const user = data?.me;
     return (
-        <React.Fragment>
+        <nav>
             <ul>
                 <li className=' list-none pb-1 '>
-                    <p className='p-0 m-0 font-bold hover:text-black  text-black'> {user?.firstName}
+                    <span className='p-0 m-0 font-bold hover:text-black  text-black block text-base'> {user?.firstName}
                         {' '}
-                        {user?.lastName}</p>
-                    <p className='p-0 m-0 hover:text-black  text-black'>{user?.email}</p>
+                        {user?.lastName}</span>
+                    <span className='p-0 m-0 hover:text-black  text-black block text-md'>{user?.email}</span>
                 </li >
                 <hr />
                 <li className=' list-none '>
                     <NavLink to='/dashboard/profile'
                         className={activeClass}>
-                        Profile
+                          Profile
                     </NavLink>
                 </li >
             </ul >
@@ -39,16 +39,16 @@ const DashboardSidebarMenu = () => {
 
 
 
-              {/*   <li className=' list-none' >
+                {/*   <li className=' list-none' >
                     <NavLink to='/dashboard/my-review'
                         className={activeClass} >
                         <span>My Review</span>
                     </NavLink >
                 </li > */}
-                
 
 
-               {/*  <li className=' list-none' >
+
+                {/*  <li className=' list-none' >
                     <NavLink to='/dashboard/refer'
                         className={activeClass}
                     >
@@ -66,7 +66,7 @@ const DashboardSidebarMenu = () => {
                     <LogoutButton />
                 </li >
             </ul >
-        </React.Fragment>
+        </nav>
     );
 };
 

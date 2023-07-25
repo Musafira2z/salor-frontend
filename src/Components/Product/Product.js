@@ -116,12 +116,12 @@ const Product = ({ data }) => {
     return (
         <div>
             <NavigationBar />
-            <div className=' container mx-auto mt-5'>
+            <div className='xl:mx-5 lg:mx-5 md:mx-5'>
                 <div className='relative top-4'>
                     <BackButton />
                 </div>
-                <div className=' grid xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-cols-1 gap-5 '>
-                    <div className=' col-span-1  border '>
+                <div className=' grid xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-cols-1 gap-1 '>
+                    <div className=' bg-white '>
                         <div className=' flex justify-center py-2'>
                             <img className=' h-96' src={media || data?.product?.media?.[0]?.url} alt="" />
                         </div>
@@ -132,7 +132,7 @@ const Product = ({ data }) => {
                                 <div
                                     onClick={() => setMedia(data?.url)}
                                     className=' border-green-500 w-24  border-2 rounded-lg p-2 cursor-pointer'>
-                                    <img className=' ' src={data?.url} alt="" />
+                                    <img src={data?.url} alt="" />
                                 </div>
 
                             )}
@@ -146,14 +146,14 @@ const Product = ({ data }) => {
 
                             <div className=' col-span-7 md:col-span-5'>
                                 <div className=' md:flex  gap-5'>
-                                    <h1 className=' text-base md:text-lg font-bold'>{data?.product?.name}</h1>
+                                    <h1 className=' text-black font-bold' style={{fontSize:'21px'}}>{data?.product?.name}</h1>
 
                                 </div>
 
-                                <p>{description?.blocks?.[0]?.data?.text}</p>
-                                <p>Available Quantity: {data?.product?.variants[0]?.quantityAvailable} </p>
+                                <p className='text-lg'>{description?.blocks?.[0]?.data?.text}</p>
+                                <p className='text-base'>Available Quantity: {data?.product?.variants[0]?.quantityAvailable} </p>
                                 <div className=' flex items-center'>
-                                    <p className='text-green-500 font-bold  text-base '>R {data?.product?.variants[0]?.pricing?.price?.gross?.amount}</p>
+                                    <p className='text-green-500 font-bold  text-base ' style={{fontSize:'calc(16px)'}}>R {data?.product?.variants[0]?.pricing?.price?.gross?.amount}</p>
 
                                 </div>
                                 {/*   <div className=' text-base'>
@@ -173,42 +173,42 @@ const Product = ({ data }) => {
 
 
 
-                                    <div className=' '>
+                                    <div >
 
 
                                         {
                                             items ?
 
-                                                <div className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-200 duration-200   md:px-6 w-full    hover:bg-gradient-to-r from-yellow-400 to-red-600 '>
-                                                    <div className=" flex justify-between flex-row-reverse items-center   rounded-md" >
-                                                        <div
-                                                            onClick={handleAddToCart}
-
-                                                            className=" cursor-pointer py-3 px-1">
-                                                            <BiPlusMedical size={10} />
-                                                        </div>
-                                                        <div className="py-3 px-1 ">
-
-                                                            {items?.quantity}
-                                                        </div>
-                                                        <div
-                                                            onClick={handleDecrementToCart}
-                                                            className="cursor-pointer py-3 px-1 ">
-                                                            <ImMinus size={10} />
-                                                        </div>
-                                                    </div>
-                                                </div> :
+                                            <div className={`border-2 ${data?.product?.variants[0]?.quantityAvailable === items?.quantity?"border-red-400 bg-red-400 text-white":"border-amber-500 bg-amber-500 text-white"}  rounded-lg   text-base font-semibold   py-1 px-4 md:px-6 w-full    `}>
+                                            <div className=" flex justify-between flex-row-reverse items-center   rounded-md" >
+                                                <button
+                                                    disabled={data?.product?.variants[0]?.quantityAvailable === items?.quantity ? true : false}
+                                                    onClick={handleAddToCart}
+                                                    className=" cursor-pointer">
+                                                    <BiPlusMedical size={15} />
+                                                </button>
+                                                <div >
+        
+                                                    {items?.quantity}
+                                                </div>
+                                                <button
+                                                    onClick={handleDecrementToCart}
+                                                    className="cursor-pointer">
+                                                    <ImMinus size={15} />
+                                                </button>
+                                            </div>
+                                        </div>
+                                                
+                                                :
 
 
                                                 <div>
                                                     {data?.product?.variants[0]?.quantityAvailable === 0 ?
                                                         <button
                                                             disabled
-                                                            className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full  hover:bg-gradient-to-r
-                          from-yellow-400 to-red-600' >Out Of Stock</button > :
+                                                            className='  border-2 border-red-500 rounded-lg text-white bg-red-500   text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full    '>Out Of Stock</button > :
 
-                                                        <button onClick={handleAddToCart} className=' border-2 border-yellow-400 rounded-lg text-red-500  hover:text-slate-50 text-xs font-bold hover:duration-500 duration-500  py-3 px-1 md:px-6 w-full  hover:bg-gradient-to-r
-                          from-yellow-400 to-red-600' >Add to cart</button >
+                                                        <button onClick={handleAddToCart} className='border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full   ' >Add to cart</button >
                                                     }
                                                 </div>
                                         }
@@ -216,6 +216,8 @@ const Product = ({ data }) => {
 
 
                                     </div>
+
+
                                 </div>
 
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 // import Modal from '../../Components/Modal/Modal';
 // import PaymentOption from '../../Components/PaymentOption/PaymentOption';
 // import DeliveryAddressForm from '../../Pages/Checkout/DeliveryAddressForm';
@@ -6,12 +6,12 @@ import React, {useEffect, useState} from 'react';
 import Input from '../../Utility/Textfield/Input';
 import { useQuery } from '@apollo/client';
 import { CurrentUserDetailsDocument, useUserInformationChangeMutation } from '../../api';
-import Modal from '../../Components/Modal/Modal';
-import { AddANewAddressModalOpenButton } from '../../Utility/Button/ModalOpenAnsCloseButton';
-import BillingAddressForm from '../../Pages/Checkout/BillingAddressForm';
+// import Modal from '../../Components/Modal/Modal';
+// import { AddANewAddressModalOpenButton } from '../../Utility/Button/ModalOpenAnsCloseButton';
+// import BillingAddressForm from '../../Pages/Checkout/BillingAddressForm';
 import toast from "react-hot-toast";
 const Profile = () => {
-    const [showAddressModal, setShowAddressModal] = useState(false);
+    // const [showAddressModal, setShowAddressModal] = useState(false);
     const [editOption, setEditOption] = useState(true);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -22,7 +22,7 @@ const Profile = () => {
 
 
 
-    const [userInformationChange,{data,loading}] = useUserInformationChangeMutation();
+    const [userInformationChange, { data, loading }] = useUserInformationChangeMutation();
 
 
 
@@ -39,18 +39,18 @@ const Profile = () => {
     }
 
 
-    useEffect(()=>{
-        if(loading){
-            toast.loading("Updating...",{id:'address'});
+    useEffect(() => {
+        if (loading) {
+            toast.loading("Updating...", { id: 'address' });
         }
-        if(data?.accountUpdate?.user?.email){
-            toast.success('Update success',{id:"address"})
+        if (data?.accountUpdate?.user?.email) {
+            toast.success('Update success', { id: "address" })
         }
-       if(data?.accountUpdate?.errors?.[0]?.message){
-           toast.error(data?.accountUpdate?.errors?.[0]?.message,{id:"address"})
-       }
+        if (data?.accountUpdate?.errors?.[0]?.message) {
+            toast.error(data?.accountUpdate?.errors?.[0]?.message, { id: "address" })
+        }
 
-    },[
+    }, [
         loading,
         data?.accountUpdate?.user?.email,
         data?.accountUpdate?.errors
@@ -60,7 +60,7 @@ const Profile = () => {
     return (
         <div className=' bg-slate-100 w-full px-5 py-5  shadow-md shadow-gray-300' >
             <div className=' font-bold pb-10' >
-                <h1>Your Profile</h1>
+                <h1 className='text-lg'>Your Profile</h1>
             </div >
 
             <form onSubmit={handleProfileEdit}>
@@ -98,12 +98,12 @@ const Profile = () => {
                                 <button
                                     onClick={() => setEditOption(false)}
                                     type='submit'
-                                    className=' bg-gradient-to-br from-yellow-400 to-pink-600 h-10 mt-5  w-full text-slate-50 font-bold rounded-full' > Edit</button > :
+                                    className=' bg-gradient-to-br from-amber-500 to-pink-600 h-10 mt-5  w-full text-slate-50 font-bold rounded-full' > Edit</button > :
                                 <button
                                     onClick={() => setEditOption(true)}
 
                                     type='button'
-                                    className=' bg-gradient-to-br from-yellow-400 to-pink-600 h-10 mt-5  w-full text-slate-50 font-bold rounded-full' > save</button >
+                                    className=' bg-gradient-to-br from-amber-500 to-pink-600 h-10 mt-5  w-full text-slate-50 font-bold rounded-full' > save</button >
                         }
                     </div >
                     <div className=' xl:col-span-5 lg:col-span-5 md:col-span-5 col-span-12 w-full ' >
@@ -128,7 +128,7 @@ const Profile = () => {
 
 
 
-            <div>
+          {/*   <div>
                 <h1 className=' font-bold mt-10 mb-5'>Billing Address</h1>
 
 
@@ -145,7 +145,7 @@ const Profile = () => {
                     </Modal>
                 </div >
 
-            </div >
+            </div > */}
 
         </div >
     );

@@ -20,13 +20,13 @@ const MyOrder = () => {
         <div className=' bg-slate-50 w-full p-3 shadow-md shadow-gray-300' >
 
             <div className=' font-bold '>
-                <h1>My Order</h1>
+                <h1 className='text-lg mb-2'>My Order</h1>
             </div>
             <div>
 
                 {
                     !orders?.length && <div className=' text-2xl font-bold font-serif' >
-                        <h1>Order Coming Soon</h1>
+                        <h1 className='text-lg'>Order Coming Soon</h1>
                     </div >
                 }
 

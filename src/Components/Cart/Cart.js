@@ -6,7 +6,7 @@ import { Context } from '../../App';
 
 
 const Cart = () => {
-   
+
 
     const { setIsOpenCart, isOpenCart } = useContext(Context);
     const [checkoutToken] = useLocalStorage("checkoutToken");
@@ -19,17 +19,17 @@ const Cart = () => {
     })
     const checkoutData = data?.checkout;
 
-  //className={`${checkoutData?.lines?.length ? "hidden" : "block"}`}
+  
     return (
-        <div >
-            <div onClick={() => setIsOpenCart(!isOpenCart)} className='  bg-gradient-to-br from-yellow-400 to-pink-600 h-[7rem] w-[8rem] rounded-lg rounded-r-none z-30  fixed top-1/2  right-0 flex flex-col justify-between p-2 cursor-pointer select-none'>
-                <p className=' text-slate-50 text-sm  text-center font-bold'>
-                    {checkoutData?.lines?.length || '00'} Items</p>
+        <button >
+            <div onClick={() => setIsOpenCart(!isOpenCart)} className='  bg-gradient-to-br from-amber-500 to-pink-600  w-auto h-auto rounded-lg rounded-r-none z-30  fixed top-1/2  right-0 flex flex-col justify-between cursor-pointer select-none min-w-[7rem]'>
+                <span className=' text-slate-50 text-sm px-3 py-4  text-center font-bold'>
+                    {checkoutData?.lines?.length || '00'} Items</span>
 
-                <button
-                    className=' bg-slate-50 text-slate-800 text-xs py-2 px-6 rounded-lg font-bold '>
+                <span
+                    className=' bg-slate-50 text-slate-800 text-xs mx-3 mb-3 px-4 py-2 rounded-lg font-bold '>
                     R {checkoutData?.totalPrice?.gross?.amount}
-                </button>
+                </span>
             </div>
 
 
@@ -37,7 +37,7 @@ const Cart = () => {
                 isOpenCart={isOpenCart}
                 setIsOpenCart={setIsOpenCart}
                 checkoutData={checkoutData} />
-        </div>
+        </button>
     );
 };
 

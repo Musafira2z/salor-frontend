@@ -14,7 +14,7 @@ import { useLocalStorage } from 'react-use';
 import { WarningToast } from "../../Utility/Toasts/Toasts";
 
 
-const PlaceOrderSideBer = ({ checkoutData,h }) => {
+const PlaceOrderSideBer = ({ checkoutData, h }) => {
     const { data: userData } = useQuery(CurrentUserDetailsDocument);
     const user = userData?.me;
     const [createPayment] = useCheckoutPaymentCreateMutation();
@@ -31,7 +31,7 @@ const PlaceOrderSideBer = ({ checkoutData,h }) => {
 
 
 
- 
+
     useEffect(() => {
         if (checkoutData?.billingAddress && checkoutData?.shippingAddress) {
             setWarning('');
@@ -127,7 +127,7 @@ const PlaceOrderSideBer = ({ checkoutData,h }) => {
                     </div>
                     <button
                         onClick={orderHandler}
-                        className='bg-gradient-to-br from-yellow-400 to-pink-600 rounded-lg w-full justify-end'>Place Order
+                        className='bg-gradient-to-br from-amber-500 to-pink-600 rounded-lg w-full justify-end'>Place Order
                     </button>
                 </div>
 

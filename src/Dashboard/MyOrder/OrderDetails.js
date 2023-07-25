@@ -12,7 +12,7 @@ const OrderDetails = () => {
     const orderItems = data?.orderByToken?.lines;
    
     return (
-        <div className=' h-screen overflow-y-auto'>
+        <section className=' h-screen overflow-y-auto'>
             {/* <!-- component --> */}
 
             <div className='flex justify-end'>
@@ -27,11 +27,13 @@ const OrderDetails = () => {
 
 
                 {
-                 loading?<h1>Loading..</h1> :  orderItems?.map((item, index) => (
+                 loading?<h1>Loading..</h1> :  
+                 
+                 orderItems?.map((item, index) => (
 
                         <div
                             key={index}
-                            className="grid grid-cols-12 gap-5 gap-y-3 py-2  border-b bg-white px-2" >
+                            className="grid grid-cols-12 xl:gap-5 lg:gap-5 md:gap-3 sm:gap-0 gap-0 py-2  border-b bg-white px-2" >
 
 
 
@@ -61,7 +63,7 @@ const OrderDetails = () => {
 
 
             </div>
-        </div>
+        </section>
     );
 };
 

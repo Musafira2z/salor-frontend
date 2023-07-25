@@ -6,11 +6,11 @@ import CartBody from './CartBody';
 
 
 const ShowAddToCartProduct = ({ setIsOpenCart, isOpenCart, checkoutData }) => {
- 
 
- 
 
-  
+
+
+
 
     return (
 
@@ -24,17 +24,17 @@ const ShowAddToCartProduct = ({ setIsOpenCart, isOpenCart, checkoutData }) => {
 
 
                 {
-                   /*  !user?.email ? <button
-                        onClick={handleLoginModalOpen}
-                        className=' col-span-6 w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-gradient-to-r from-yellow-400 to-pink-600 border border-yellow-400'>Checkout</button> : */
+                    /*  !user?.email ? <button
+                         onClick={handleLoginModalOpen}
+                         className=' col-span-6 w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-gradient-to-r from-amber-500 to-pink-600 border border-amber-500'>Checkout</button> : */
 
 
-                        <NavLink to='/checkout'
+                    <NavLink to='/checkout'
 
-                            className=' col-span-6 w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-gradient-to-r from-yellow-400 to-pink-600 border border-yellow-400'>
-                            <button>Checkout</button>
+                        className=' col-span-6 w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-gradient-to-r from-amber-500 to-pink-600 border border-amber-500'>
+                        <button>Checkout</button>
 
-                        </NavLink>}
+                    </NavLink>}
 
 
             </CartBody>

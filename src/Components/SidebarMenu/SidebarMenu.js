@@ -7,11 +7,10 @@ const SidebarMenu = () => {
 
     return (
 
-        <div className=" hidden   w-60  md:block lg:block duration-700  fixed overflow-auto" >
-
-            <hr />
+        <div className="h-screen overflow-y-auto bg-white">
             <SideNavar />
-        </div >
+        </div>
+
 
     );
 }

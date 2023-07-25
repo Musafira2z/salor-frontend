@@ -22,12 +22,12 @@ const SidebarDrawer = () => {
 
             </ButtonToolbar>
 
-            <Drawer  className='!w-60'   placement='left' open={open} onClose={() => setOpen(false)}>
+            <Drawer  className='!w-72 !block !sm:block  !md:hidden !lg:hidden !xl:hidden'   placement='left' open={open} onClose={() => setOpen(false)}>
                 <Drawer.Header>
                     <Drawer.Title>Musafir</Drawer.Title>
                 </Drawer.Header>
 
-                <Drawer.Body className='p-0' onClick={() => setOpen(false)} >
+                <Drawer.Body className='p-0 h-screen overflow-hidden overflow-y-auto' onClick={() => setOpen(false)} >
                     <Sidenaves />
                 </Drawer.Body>
             </Drawer>

@@ -27,7 +27,7 @@ const Input = ({ ...props }) => {
                         disabled={disabled}
                         className=" mt-1 block  w-full px-3 py-2
                         bg-white border border-green-500 
-                        rounded-md text-sm shadow-sm
+                        rounded-md text-md font-bold shadow-sm
                         placeholder-slate-400 focus:outline-none
                         focus:border-green-500 focus:ring-1
                         focus:ring-green-500 disabled:bg-slate-50

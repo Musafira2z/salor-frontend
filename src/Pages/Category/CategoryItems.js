@@ -1,28 +1,30 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const CategoryItems = ({categoryItems}) => {
+const CategoryItems = ({ categoryItems }) => {
 
     return (
 
-        <React.Fragment>
-            <div className="col-span-6 sm:col-span-6 md:col-span-6 lg:col-span-3  border p-2 rounded-lg  hover:shadow-pink-100  relative  shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 h-fit">
+
+            <div className=" xl:rounded-lg lg:rounded-lg md:rounded-lg sm:rounded-none rounded-none  bg-white xl:border-none lg:border-none md:border-none sm:border-none border">
 
                 <Link to={`/category/${categoryItems?.category?.slug}`}
-                      className='hover:no-underline focus:no-underline hover:text-slate-700 focus:text-slate-700'
+                    className='hover:no-underline focus:no-underline hover:text-slate-700 focus:text-slate-700'
                 >
-                <div className='  ' >
-                    <div className=' flex justify-center h-36' >
-                        <img src={categoryItems?.category?.backgroundImage?.url} alt="" />
+                    <div className='  ' >
+                        <div className=' flex justify-center h-60 p-1' >
+                            <img src={categoryItems?.category?.backgroundImage?.url} alt="" />
+                        </div >
+                        <h1 className=' px-6 pt-5 pb-6 m-0 font-bold   truncate '
+                            style={{ textShadow: "rgba(0, 0, 0, 0.004) 1px 1px 1px" }}
+                        >{categoryItems?.name}</h1 >
                     </div >
-                    <h1 className=' text-mdgi py-7  truncate hover:text-clip' >{categoryItems?.name}</h1 >
-                </div >
 
 
                 </Link>
 
             </ div>
-        </React.Fragment>
+  
     );
 };
 
