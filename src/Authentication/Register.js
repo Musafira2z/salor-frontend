@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForm } from "react-hook-form"
-import { useRegisterCustomerMutation } from '../../api';
+import { useRegisterCustomerMutation } from '../api';
 import toast from "react-hot-toast";
 
 const Register = ({ setIsLogin, isLogin }) => {

@@ -34,7 +34,7 @@ const SideNavar = () => {
             <ul>
                 <li className=" flex justify-center mt-2 mb-2">
                     <button
-                        className=" w-full h-10 text-slate-50  text-lg font-extrabold    bg-gradient-to-r from-yellow-300 rounded-lg to-pink-700"> Offer
+                        className=" w-full h-10 text-slate-50  text-lg font-extrabold    bg-gradient-to-r from-amber-500 rounded-lg to-pink-700"> Offer
                     </button>
                 </li>
                 <hr className='mb-5' />

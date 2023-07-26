@@ -1,9 +1,9 @@
-import React, { useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import Cart from '../../Components/Cart/Cart';
 import NavigationBar from '../../Components/Sheard/NavigationBar/NavigationBar';
 import SidebarMenu from '../../Components/SidebarMenu/SidebarMenu';
-import { useLocalStorage } from 'react-use';
+
 import {
     CurrentUserDetailsDocument,
     LanguageCodeEnum,
@@ -11,7 +11,7 @@ import {
     useCreateCheckoutMutation
 } from '../../api';
 import { Context } from "../../App";
-import {useQuery} from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
 
 
@@ -19,7 +19,7 @@ import {useQuery} from "@apollo/client";
 const HomeMainLayout = () => {
     const { setIsOpenCart } = useContext(Context);
     const [checkoutCreate] = useCreateCheckoutMutation();
-    const checkoutToken=JSON.parse(localStorage.getItem('checkoutToken'));
+    const checkoutToken = JSON.parse(localStorage.getItem('checkoutToken'));
 
 
 
@@ -45,25 +45,29 @@ const HomeMainLayout = () => {
     const user = userData?.me;
 
 
-    async function doCheckout() {
-        const { data } = await checkoutCreate({
-            variables: {
-                channel: "default",
-                email: user?.email,
-                lines: []
-            }
-        });
-        const token = data?.checkoutCreate?.checkout?.token;
 
-        localStorage.setItem('checkoutToken',JSON.stringify(token));
-    }
+
+
 
 
     useEffect(() => {
+        async function doCheckout() {
+            const { data } = await checkoutCreate({
+                variables: {
+                    channel: "default",
+                    email: user?.email,
+                    lines: []
+                }
+            });
+            const token = data?.checkoutCreate?.checkout?.token;
+
+            localStorage.setItem('checkoutToken', JSON.stringify(token));
+        }
+
         if (!checkoutToken) {
             doCheckout()
         }
-        }, [doCheckout,checkoutToken]);
+    }, [user?.email, checkoutToken, checkoutCreate]);
 
 
     return (

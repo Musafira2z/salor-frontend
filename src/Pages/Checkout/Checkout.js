@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NavigationBar from '../../Components/Sheard/NavigationBar/NavigationBar';
-
 import PlaceOrderSideBer from '../../Components/PlaceOrderSideBer/PlaceOrderSideBer';
-import { useLocalStorage } from 'react-use';
+
 import {
     LanguageCodeEnum, useCheckoutBillingAddressUpdateMutation,
     useCheckoutByTokenQuery,
@@ -17,13 +16,12 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
-
-
-    const [checkoutToken] = useLocalStorage("checkoutToken");
-
     const [toggle, setToggle] = useState(false);
-
+    const checkoutToken=JSON.parse(localStorage.getItem('checkoutToken'));
     const navigate = useNavigate();
+
+
+
 
     const { data, loading: CheckoutByLoading } = useCheckoutByTokenQuery({
         variables: {

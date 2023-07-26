@@ -1,6 +1,6 @@
 import { useSaleorAuthContext } from '@saleor/auth-sdk/react';
 import React from 'react';
-import { useLocalStorage } from 'react-use';
+
 
 const LogoutButton = () => {
     const { signOut } = useSaleorAuthContext();

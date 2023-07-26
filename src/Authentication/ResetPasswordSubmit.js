@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from "react-hook-form"
-import { useSubmitPasswordResetMutation } from '../../api';
+import { useSubmitPasswordResetMutation } from '../api';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 

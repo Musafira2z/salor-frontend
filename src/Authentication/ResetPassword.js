@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form"
-import { useRequestPasswordResetMutation } from '../../api';
+import { useRequestPasswordResetMutation } from '../api';
 
 
 const ResetPassword = ({ setIsResetPass }) => {

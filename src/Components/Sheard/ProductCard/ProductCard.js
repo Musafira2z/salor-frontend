@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { LanguageCodeEnum, useCheckoutAddProductLineMutation, useCheckoutByTokenQuery, useCheckoutLineUpdateMutation, useRemoveProductFromCheckoutMutation } from '../../../api';
-import { useLocalStorage } from 'react-use';
+
 import toast from 'react-hot-toast';
 import { BiPlusMedical } from 'react-icons/bi';
 import { ImMinus } from 'react-icons/im';
@@ -193,7 +193,7 @@ const ProductCard = ({ data }) => {
                                 <button
 
                                     onClick={() => handleAddToCart(variants?.[0]?.id)}
-                                    className='border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full  flex items-center justify-center gap-x-1 ' > <FaCartPlus/> Add to cart</button >
+                                    className='border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full  flex items-center justify-center gap-x-1 hover:border-amber-500 hover:bg-amber-500 hover:text-white' > <FaCartPlus/> Add to cart</button >
                         }
                     </div>
                 }

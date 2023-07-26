@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form"
 import { useSaleorAuthContext } from '@saleor/auth-sdk/react';
 import { Checkbox } from 'rsuite';
-import { Context } from '../../App';
+import { Context } from '../App';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 

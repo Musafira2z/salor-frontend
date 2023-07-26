@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Modal from '../../Components/Modal/Modal';
+import Modal from '../Components/Modal/Modal';
 
-import { LoginModalOpenButton } from '../../Utility/Button/ModalOpenAnsCloseButton';
+import { LoginModalOpenButton } from '../Utility/Button/ModalOpenAnsCloseButton';
 
 // import LoginWithGoogle from './LoginWithGoogle';
 
@@ -12,7 +12,7 @@ import Register from './Register';
 import ResetPassword from './ResetPassword';
 import { useSearchParams } from 'react-router-dom';
 import ResetPasswordSubmit from './ResetPasswordSubmit';
-import { Context } from '../../App';
+import { Context } from '../App';
 
 const LoginPage = () => {
 
