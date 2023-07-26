@@ -79,7 +79,7 @@ const Login = ({ setShowLoginModal, isResetPass, setIsResetPass }) => {
                         </div>}
                     </div>
                     <div className=' text-end'>
-                        <button type='submit' className=' border-2 mt-4 py-2  bg-gradient-to-bl from-amber-500 to-pink-600 p-0 rounded-lg   text-slate-50 text-xs font-bold hover:duration-500 duration-100 focus:bg-gradient-to-tl   px-1 md:px-6 w-full'>Login</button>
+                        <button type='submit' className=' border-2 mt-4 py-2 text-base  bg-gradient-to-bl from-amber-500 to-pink-600 p-0 rounded-lg   text-slate-50  font-bold hover:duration-500 duration-100 focus:bg-gradient-to-tl   px-1 md:px-6 w-full'>Login</button>
                     </div>
                 </div>
 

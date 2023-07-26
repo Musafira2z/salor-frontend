@@ -17,7 +17,7 @@ const Slider = () => {
 
 
     return (
-        <div className=" mt-5 pb-3">
+        <div className=" xl:mt-5 lg:mt-5 pb-3">
             {/*   {
                     loading ? BannerSkeleton :
 
@@ -34,7 +34,7 @@ const Slider = () => {
             {/* </Carousel> */}
 
 
-            <Carousel autoplay className='w-full h-full xl:rounded-xl' >
+            <Carousel autoplay className='w-full h-full xl:rounded-xl lg:rounded-xl' >
                 <img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-neem_7CCP0DP.webp" alt=""  />
                 <img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-wholesale_1_Jc3OQqw.webp" alt=""  />
                 <img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-pre-order_INI3nSJ.webp" alt=""  />

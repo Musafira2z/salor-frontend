@@ -10,7 +10,6 @@ import {
     useCheckoutShippingMethodUpdateMutation
 } from '../../api';
 import { useQuery } from '@apollo/client';
-import { useLocalStorage } from 'react-use';
 import { WarningToast } from "../../Utility/Toasts/Toasts";
 import ProductCalculation from '../Cart/ProductCalculation';
 import AddToCartCard from '../Cart/AddToCartCard';
@@ -23,8 +22,6 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
     const [createPayment] = useCheckoutPaymentCreateMutation();
     const [shippingMethodUpdate, { loading: shippingMethodLoading }] = useCheckoutShippingMethodUpdateMutation();
     const [completeOrder, { data: order, loading: completeOrderLoading }] = useCheckoutCompleteMutation();
-    // eslint-disable-next-line no-unused-vars
-    const [value, setValue, remove] = useLocalStorage('checkoutToken');
 
     const [CheckoutEmailUpdate] = useCheckoutEmailUpdateMutation();
 
@@ -91,8 +88,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
                 .then(res => {
 
                     if (res?.data?.checkoutComplete?.order?.id) {
-
-                        remove()
+                        localStorage.removeItem('checkoutToken')
                         navigate('/success')
                         setWarning('')
                     }

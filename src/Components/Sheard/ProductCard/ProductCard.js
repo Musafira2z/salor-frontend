@@ -5,16 +5,18 @@ import { useLocalStorage } from 'react-use';
 import toast from 'react-hot-toast';
 import { BiPlusMedical } from 'react-icons/bi';
 import { ImMinus } from 'react-icons/im';
+import { FaCartPlus } from 'react-icons/fa';
+
 
 const ProductCard = ({ data }) => {
 
-    const [checkoutToken] = useLocalStorage("checkoutToken");
     const { thumbnail, name, slug, variants } = data?.node;
 
     const [checkoutAddProductLine, { data: checkoutAddProduct, loading }] = useCheckoutAddProductLineMutation();
     const [decrement, { data: decrementData, loading: decrementLoading }] = useCheckoutLineUpdateMutation();
     const [RemoveProductFromCheckout] = useRemoveProductFromCheckoutMutation();
 
+    const checkoutToken=JSON.parse(localStorage.getItem('checkoutToken'));
 
 
     const { data: checkoutProducts } = useCheckoutByTokenQuery({
@@ -107,7 +109,7 @@ const ProductCard = ({ data }) => {
 
     useEffect(() => {
         if (checkoutAddProduct?.checkoutLinesAdd?.checkout?.id) {
-            toast.success(`Quantity: ${items?.quantity}`, {
+            toast.success(`Quantity: ${items?.quantity||"00"}`, {
                 id: 'checkout'
             })
 
@@ -162,7 +164,7 @@ const ProductCard = ({ data }) => {
                 {data?.node?.variants?.[0]?.quantityAvailable === 0 ?
                     <button
                         disabled
-                        className='  border-2 border-red-500 rounded-lg text-white bg-red-500   text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full    ' >Out Of Stock</button > :
+                        className='  border-2 border-red-500 rounded-lg text-white bg-red-500   text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-3 w-full    ' >Out of stock</button > :
 
                     <div>
                         {
@@ -191,7 +193,7 @@ const ProductCard = ({ data }) => {
                                 <button
 
                                     onClick={() => handleAddToCart(variants?.[0]?.id)}
-                                    className='border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full   ' > Add to Cart</button >
+                                    className='border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full  flex items-center justify-center gap-x-1 ' > <FaCartPlus/> Add to cart</button >
                         }
                     </div>
                 }

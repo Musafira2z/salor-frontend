@@ -3,15 +3,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import ProductCard from '../Sheard/ProductCard/ProductCard';
 import { Waypoint, } from "react-waypoint";
 import { LanguageCodeEnum } from '../../api';
-import { useLocalStorage } from 'react-use';
 import { Context } from '../../App';
 
 
 const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
     const [newData, setNewData] = useState([]);
     const [searchingProduct, setSearchingProduct] = useState([]);
-    // eslint-disable-next-line no-unused-vars
-    const [checkoutToken, setCheckoutToken] = useLocalStorage("checkoutToken");
     const { searchValue } = useContext(Context);
 
 
@@ -57,7 +54,7 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
 
             <div
 
-                className=' grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 lg:gap-7 md:gap-5 sm:gap-3 gap-0'>
+                className=' grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 lg:gap-7 md:gap-5 sm:gap-3 gap-0'>
                 {
                     searchValue ?
 
@@ -67,7 +64,6 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
                             return <ProductCard
 
                                 data={data}
-                                checkoutToken={checkoutToken}
                                 key={index}
                             />
 
@@ -81,7 +77,6 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
                             <ProductCard
 
                                 data={data}
-                                checkoutToken={checkoutToken}
                                 key={index}
                             />
 

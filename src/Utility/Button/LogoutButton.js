@@ -3,15 +3,12 @@ import React from 'react';
 import { useLocalStorage } from 'react-use';
 
 const LogoutButton = () => {
-    // eslint-disable-next-line no-unused-vars
-    const [value, setValue, remove] = useLocalStorage('checkoutToken');
     const { signOut } = useSaleorAuthContext();
 
 
     const handleLogout = () => {
         signOut();
-        remove()
-    }
+        localStorage.removeItem('checkoutToken')    }
 
     return (
         <button

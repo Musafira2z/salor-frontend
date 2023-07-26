@@ -3,11 +3,10 @@ import { BiPlusMedical } from 'react-icons/bi';
 import { ImMinus } from 'react-icons/im';
 import { RxCross2 } from 'react-icons/rx';
 import { LanguageCodeEnum, useCheckoutAddProductLineMutation, useCheckoutLineUpdateMutation, useRemoveProductFromCheckoutMutation } from '../../api';
-import { useLocalStorage } from 'react-use';
 import toast from "react-hot-toast";
 
 const AddToCartCard = ({ data }) => {
-    const [checkoutToken] = useLocalStorage("checkoutToken");
+    const checkoutToken=JSON.parse(localStorage.getItem('checkoutToken'));
     const [checkoutAddProductLine, { data: checkoutAddProductLineData, loading: incrementLoading }] = useCheckoutAddProductLineMutation();
     const [decrement, { data: decrementData, loading: decrementLoading }] = useCheckoutLineUpdateMutation();
     const [RemoveProductFromCheckout] = useRemoveProductFromCheckoutMutation();
@@ -104,16 +103,16 @@ const AddToCartCard = ({ data }) => {
                     <button
                         onClick={handleIncrementToCart}
                         type="button"
-                        className=" flex justify-center py-2 text-sm  font-medium text-amber-500 bg-transparent border border-gray-900 rounded-t-lg hover:bg-amber-500 hover:text-white">
+                        className=" flex justify-center py-2 text-base  font-medium text-amber-500 bg-transparent border border-gray-900 rounded-t-lg hover:bg-amber-500 hover:text-white">
                         <BiPlusMedical size={10} />
                     </button>
-                    <button type="button" className=" py-2 flex justify-center text-sm  text-gray-900 bg-transparent border border-t-0 border-b-0 font-bold  border-gray-900 ">
+                    <button type="button" className=" py-2 flex justify-center text-base  text-gray-900 bg-transparent border border-t-0 border-b-0 font-bold  border-gray-900 ">
 
                         {data?.quantity}
                     </button>
                     <button
                         onClick={handleDecrementToCart}
-                        type="button" className=" py-2 text-sm flex justify-center font-medium text-red-500 bg-transparent border border-gray-900 rounded-b-lg hover:bg-red-500 hover:text-white">
+                        type="button" className=" py-2 text-base flex justify-center font-medium text-red-500 bg-transparent border border-gray-900 rounded-b-lg hover:bg-red-500 hover:text-white">
                         <ImMinus size={10} />
                     </button>
                 </div>
@@ -124,16 +123,16 @@ const AddToCartCard = ({ data }) => {
                 </div>
 
                 <div className=' col-span-5'>
-                    <p className=' text-xs  font-bold truncate'>{data?.variant?.name} </p>
-                    <p className=' text-red-500 font-bold '>Price: R {data?.variant?.pricing?.price?.gross?.amount}</p>
-                    <p className='  font-bold '>Total: R {data?.totalPrice?.gross?.amount}</p>
+                    <p className=' text-base  font-bold truncate'>{data?.variant?.name} </p>
+                    <p className=' text-base text-red-500 font-bold '>Price: R {data?.variant?.pricing?.price?.gross?.amount}</p>
+                    <p className='text-base  font-bold '>Total: R {data?.totalPrice?.gross?.amount}</p>
 
                 </div>
 
                 <div className=' col-span-2 flex justify-end'>
                     <button
                         onClick={handleRemoveToCart}
-                        className=' bg-red-500 p-2  rounded-md'><RxCross2 className=' text-slate-50' /></button>
+                        className=' text-base bg-red-500 p-2  rounded-md'><RxCross2 className=' text-slate-50' /></button>
                 </div>
 
             </div>

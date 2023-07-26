@@ -46,7 +46,7 @@ const LoginPage = () => {
             <div className=' flex justify-center xl:my-10 lg:my-10 md:my-7 sm:my-5 my-5 '>
                 <LoginSvgFile />
             </div>
-            <div className=' pb-5 md:w-96 mx-auto'>
+            <div className=' pb-5 md:w-96 mx-auto text-base'>
                 <div className=''>
                     <div>
 
@@ -82,7 +82,7 @@ const LoginPage = () => {
 
                     </div>
                 </div>
-                <div className=' text-center pt-4'>
+                <div className=' text-center pt-4 text-base'>
                     {
                         isLogin ?
                             <span>Are you already registered? {" "}
@@ -91,7 +91,7 @@ const LoginPage = () => {
                                         setIsLogin(!isLogin);
                                         setIsResetPass(false);
                                     }}
-                                    className='text-blue-500'>
+                                    className='text-blue-500 text-base'>
                                     Please login
                                 </button>
 
@@ -99,13 +99,13 @@ const LoginPage = () => {
                             </span> :
 
                             <div>
-                                <span>Are you new user? {" "}
+                                <span className='text-base'>Are you new user? {" "}
                                     <button
                                         onClick={() => {
                                             setIsLogin(!isLogin);
                                             setIsResetPass(false)
                                         }}
-                                        className='text-blue-500'> Please Registered.</button>
+                                        className='text-blue-500 text-base'> Please Registered.</button>
                                 </span>
                                 {/* {!isResetPass && <div>
                                     <span onClick={() => setIsResetPass(true)}

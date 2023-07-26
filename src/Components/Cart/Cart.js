@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import ShowAddToCartProduct from './ShowAddToCartProduct';
 import { LanguageCodeEnum, useCheckoutByTokenQuery } from '../../api';
-import { useLocalStorage } from 'react-use';
 import { Context } from '../../App';
 
 
@@ -9,7 +8,7 @@ const Cart = () => {
 
 
     const { setIsOpenCart, isOpenCart } = useContext(Context);
-    const [checkoutToken] = useLocalStorage("checkoutToken");
+    const checkoutToken=JSON.parse(localStorage.getItem('checkoutToken'));
 
     const { data } = useCheckoutByTokenQuery({
         variables: {

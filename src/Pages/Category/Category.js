@@ -29,7 +29,11 @@ const Category = () => {
         return item?.category?.slug === slug;
     })
 
-
+    useEffect(() => {
+        if (category?.children) {
+            setCategoryId(category?.category?.id)
+        }
+    }, [category]);
 
 
 
@@ -49,17 +53,13 @@ const Category = () => {
 
 
 
-    useEffect(() => {
-        if (category?.children) {
-            setCategoryId(category?.category?.id)
-        }
-    }, [category]);
+
 
     return (
         <div>
             <div className=''>
                 <div className=' text-start'>
-                    <div className='  xl:hidden lg:hidden md:block sm:block block px-4'>
+                    <div className='  lg:hidden md:block mt-3 px-4'>
                         <SearchBox />
                     </div>
                     <h1 className=' text-xl font-bold py-5

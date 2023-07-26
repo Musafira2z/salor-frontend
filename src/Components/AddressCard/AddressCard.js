@@ -9,75 +9,75 @@ const AddressCard = ({ data,checkoutAddress }) => {
             className=' shadow-lg rounded-md p-5 cursor-pointer w-full bg-white'>
             <div className='grid grid-cols-12'>
                 <div className='col-span-4'>
-                    <p>First Name</p>
+                    <p className="text-base">First Name</p>
                 </div>
                 <div className='col-span-1'>:</div>
                 <div className='col-span-6'>
-                    <p>{data?.firstName}</p>
+                    <p className="text-base">{data?.firstName}</p>
                 </div>
             </div>
 
             <div className='grid grid-cols-12'>
                 <div className='col-span-4'>
-                    <p>Last Name</p>
+                    <p className="text-base">Last Name</p>
                 </div>
                 <div className='col-span-1'>:</div>
                 <div className='col-span-6'>
-                    <p>{data?.lastName}</p>
+                    <p className="text-base">{data?.lastName}</p>
                 </div>
             </div>
 
             <div className='grid grid-cols-12'>
                 <div className='col-span-4'>
-                    <p>Phone Number</p>
+                    <p className="text-base">Phone Number</p>
                 </div>
                 <div className='col-span-1'>:</div>
                 <div className='col-span-6'>
-                    <p>{data?.phone}</p>
+                    <p className="text-base">{data?.phone}</p>
                 </div>
             </div>
             <div className='grid grid-cols-12'>
                 <div className='col-span-4'>
-                    <p>Street Address1</p>
+                    <p className="text-base">Street Address1</p>
                 </div>
                 <div className='col-span-1'>:</div>
                 <div className='col-span-6'>
-                    <p>{data?.streetAddress1}</p>
-                </div>
-            </div>
-
-            <div className='grid grid-cols-12'>
-                <div className='col-span-4'>
-                    <p>Postal code</p>
-                </div>
-                <div className='col-span-1'>:</div>
-                <div className='col-span-6'>
-                    <p>{data?.postalCode}</p>
+                    <p className="text-base">{data?.streetAddress1}</p>
                 </div>
             </div>
 
             <div className='grid grid-cols-12'>
                 <div className='col-span-4'>
-                    <p> City</p>
+                    <p className="text-base">Postal code</p>
                 </div>
                 <div className='col-span-1'>:</div>
                 <div className='col-span-6'>
-                    <p>{data?.city}</p>
+                    <p className="text-base">{data?.postalCode}</p>
+                </div>
+            </div>
+
+            <div className='grid grid-cols-12'>
+                <div className='col-span-4'>
+                    <p className="text-base"> City</p>
+                </div>
+                <div className='col-span-1'>:</div>
+                <div className='col-span-6'>
+                    <p className="text-base">{data?.city}</p>
                 </div>
             </div>
             <div className='grid grid-cols-12'>
                 <div className='col-span-4'>
-                    <p> country</p>
+                    <p className="text-base"> country</p>
                 </div>
                 <div className='col-span-1'>:</div>
                 <div className='col-span-6'>
-                    <p>{data?.country?.country}</p>
+                    <p className="text-base">{data?.country?.country}</p>
                 </div>
             </div>
             {
                 !checkoutAddress?.id?
                     <div className='flex justify-end'>
-                        <button className='bg-gradient-to-r from-amber-500 to-pink-600 px-3 py-1 rounded-full text-white'>Select your Address</button>
+                        <button className='text-base font-bold bg-gradient-to-r from-amber-500 to-pink-600 px-3 py-1 rounded-full text-white'>Select your Address</button>
                     </div>:''
             }
 

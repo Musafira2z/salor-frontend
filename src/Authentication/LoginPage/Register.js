@@ -85,7 +85,7 @@ const Register = ({ setIsLogin, isLogin }) => {
                     />
                     {errors.password && <span className='text-red-500 text-xs'>This field is required</span>}
                     <div className=' text-end'>
-                        <button type='submit' className=' bg-gradient-to-tr from-amber-500 to-pink-600 p-0 border-2 mt-4 border-amber-500 rounded-lg  text-slate-50 text-xs font-bold hover:duration-500 duration-100 focus:bg-gradient-to-tl  py-2 px-1 md:px-6 w-full'>Register</button>
+                        <button type='submit' className=' bg-gradient-to-tr from-amber-500 to-pink-600 p-0 border-2 mt-4 border-amber-500 rounded-lg  text-slate-50 text-base font-bold hover:duration-500 duration-100 focus:bg-gradient-to-tl  py-2 px-1 md:px-6 w-full'>Register</button>
                     </div>
                 </div>
             </form>

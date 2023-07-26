@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Products from '../../Components/Products/Products';
 import Slider from '../../Components/Sheard/Banner/Slider';
 import SearchBox from '../../Components/Sheard/SearchBox/SearchBox';
-import { CurrentUserDetailsDocument, LanguageCodeEnum, useCreateCheckoutMutation, useProductCollectionQuery } from '../../api';
-import { useLocalStorage } from 'react-use';
-import { useQuery } from '@apollo/client';
+import { LanguageCodeEnum, useProductCollectionQuery } from '../../api';
+
 import { Context } from '../../App';
 
 
@@ -12,15 +11,9 @@ import { Context } from '../../App';
 
 const Home = () => {
     const { searchValue } = useContext(Context);
-    const [checkoutToken, setCheckoutToken] = useLocalStorage("checkoutToken");
-    const [checkoutCreate] = useCreateCheckoutMutation();
-
-
-
     const [cursor, setCursor] = useState('')
 
-    const { data: userData } = useQuery(CurrentUserDetailsDocument);
-    const user = userData?.me;
+
 
 
     const { loading, data, fetchMore, networkStatus } = useProductCollectionQuery({
@@ -39,25 +32,6 @@ const Home = () => {
 
 
 
-    useEffect(() => {
-        async function doCheckout() {
-            const { data } = await checkoutCreate({
-                variables: {
-                    channel: "default",
-                    email: user?.email,
-                    lines: []
-                }
-            });
-            const token = data?.checkoutCreate?.checkout?.token;
-
-            setCheckoutToken(token);
-        }
-        if (!checkoutToken) {
-            doCheckout();
-
-        }
-    }, [checkoutCreate, setCheckoutToken, checkoutToken, user?.email]);
-
 
 
 
@@ -66,7 +40,7 @@ const Home = () => {
             <Slider />
             {/* <Banner/> */}
             <div >
-                <div className=' xl:hidden lg:hidden md:block sm:block block px-4'>
+                <div className=' lg:hidden md:block px-4'>
                     <SearchBox />
                 </div>
 
@@ -75,7 +49,6 @@ const Home = () => {
                 <h1 className=' text-2xl font-bold text-black  my-5'>Popular Product</h1>
                 <Products
                     data={data}
-                    checkoutToken={checkoutToken}
                     loading={loading}
                     fetchMore={fetchMore}
                     setCursor={setCursor}

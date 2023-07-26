@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import NavigationBar from '../Sheard/NavigationBar/NavigationBar';
 import BackButton from '../../Utility/Button/BackButton';
 import Cart from '../Cart/Cart';
-import { useLocalStorage } from 'react-use';
 import { LanguageCodeEnum, useCheckoutAddProductLineMutation, useCheckoutByTokenQuery, useCheckoutLineUpdateMutation, useRemoveProductFromCheckoutMutation } from '../../api';
 import toast from "react-hot-toast";
 import { BiPlusMedical } from 'react-icons/bi';
@@ -10,7 +9,7 @@ import { ImMinus } from 'react-icons/im';
 
 const Product = ({ data }) => {
     const [media, setMedia] = useState('')
-    const [checkoutToken] = useLocalStorage("checkoutToken");
+    const checkoutToken=JSON.parse(localStorage.getItem('checkoutToken'));
     const [checkoutAddProductLine, { data: checkoutAddProduct, loading }] = useCheckoutAddProductLineMutation();
     const [decrement, { data: decrementData, loading: decrementLoading }] = useCheckoutLineUpdateMutation();
     const [RemoveProductFromCheckout] = useRemoveProductFromCheckoutMutation();
