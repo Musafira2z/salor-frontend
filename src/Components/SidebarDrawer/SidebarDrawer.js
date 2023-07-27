@@ -14,7 +14,7 @@ const SidebarDrawer = () => {
     return (
         <div>
             <ButtonToolbar>
-                <IconButton icon={<RiMenu3Line size={20} />}
+                <IconButton className='!m-0' icon={<RiMenu3Line size={20} />}
 
                     onClick={() => handleOpen('left')}>
 

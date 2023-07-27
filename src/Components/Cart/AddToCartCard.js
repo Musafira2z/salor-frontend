@@ -96,24 +96,24 @@ const AddToCartCard = ({ data }) => {
         decrementLoading
     ]);
     return (
-        <div className='py-1 '>
-            <div className=' grid grid-cols-12 gap-4  border p-5  h-auto w-auto content-center items-center rounded-lg shadow-sm-light bg-white' >
+        <div className='border-b'>
+            <div className=' grid grid-cols-12   p-5  h-auto w-auto content-center items-center bg-white' >
 
-                <div className="col-span-2 inline-flex flex-col rounded-md shadow-sm" role="group">
+                <div className="col-span-2 inline-flex flex-col gap-2 rounded-md bg-gray-100 py-2 w-10 " role="group">
                     <button
                         onClick={handleIncrementToCart}
                         type="button"
-                        className=" flex justify-center py-2 text-base  font-medium text-amber-500 bg-transparent border border-gray-900 rounded-t-lg hover:bg-amber-500 hover:text-white">
-                        <BiPlusMedical size={10} />
+                        className=" flex justify-center  text-base  font-medium text-gray-500   rounded-t-lg ">
+                        <BiPlusMedical size={12} />
                     </button>
-                    <button type="button" className=" py-2 flex justify-center text-base  text-gray-900 bg-transparent border border-t-0 border-b-0 font-bold  border-gray-900 ">
+                    <button type="button" className="flex justify-center  text-base  font-medium text-gray-500   rounded-t-lg">
 
                         {data?.quantity}
                     </button>
                     <button
                         onClick={handleDecrementToCart}
-                        type="button" className=" py-2 text-base flex justify-center font-medium text-red-500 bg-transparent border border-gray-900 rounded-b-lg hover:bg-red-500 hover:text-white">
-                        <ImMinus size={10} />
+                        type="button" className="flex justify-center  text-base  font-medium text-gray-500   rounded-t-lg">
+                        <ImMinus size={12} />
                     </button>
                 </div>
 
@@ -123,16 +123,16 @@ const AddToCartCard = ({ data }) => {
                 </div>
 
                 <div className=' col-span-5'>
-                    <p className=' text-base  font-bold truncate'>{data?.variant?.name} </p>
-                    <p className=' text-base text-red-500 font-bold '>Price: R {data?.variant?.pricing?.price?.gross?.amount}</p>
-                    <p className='text-base  font-bold '>Total: R {data?.totalPrice?.gross?.amount}</p>
+                    <p className=' text-base  font-semibold truncate'>{data?.variant?.name} </p>
+                    <p className=' text-base text-amber-500 font-semibold mt-0 '>Price: R {data?.variant?.pricing?.price?.gross?.amount}</p>
+                    <p className='text-base  font-semibold  mt-0'>Total: R {data?.totalPrice?.gross?.amount}</p>
 
                 </div>
 
                 <div className=' col-span-2 flex justify-end'>
                     <button
                         onClick={handleRemoveToCart}
-                        className=' text-base bg-red-500 p-2  rounded-md'><RxCross2 className=' text-slate-50' /></button>
+                        className=' text-base  p-2  text-gray-500  hover:text-red-500 rounded-md'><RxCross2 className='!font-extrabold text-lg' /></button>
                 </div>
 
             </div>

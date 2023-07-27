@@ -17,9 +17,9 @@ const MyOrder = () => {
     /*  console.log(data?.me?.orders); */
 
     return (
-        <div className=' bg-slate-50 w-full p-3 shadow-md shadow-gray-300' >
+        <div className=' bg-white w-full p-3 ' >
 
-            <div className=' font-bold '>
+            <div className=' font-bold border-b'>
                 <h1 className='text-lg mb-2'>My Order</h1>
             </div>
             <div>

@@ -1,0 +1,18 @@
+
+.cartAnimation {
+    display: none;
+    left: auto;
+    position: fixed;
+    z-index: 100;
+}
+
+.addToCart:focus  .cartAnimation{
+    animation-name: addToCartAnimation;
+    animation-duration: 1s;
+    display: block;
+}
+
+@keyframes  addToCartAnimation {
+    0%   { left:0%; top:0%;}
+    100% { left:100%; top:50%;}
+}

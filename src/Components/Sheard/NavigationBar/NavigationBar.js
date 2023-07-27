@@ -11,7 +11,6 @@ import SidebarDrawer from '../../SidebarDrawer/SidebarDrawer';
 import { CurrentUserDetailsDocument } from '../../../api';
 import { useQuery } from '@apollo/client';
 import PlayStore from './imgs/playstore.webp';
-import IosStore from './imgs/ios-store.png';
 const NavigationBar = () => {
 
 
@@ -24,14 +23,14 @@ const NavigationBar = () => {
             <div  >
                 <div className='grid grid-cols-12 '>
 
-                    <div className='  lg:col-span-8 md:col-span-6 sm:col-span-7 col-span-7 flex justify-between items-center  ' >
+                    <div className='2xl:col-span-6 xl:col-span-8 lg:col-span-8 md:col-span-6 sm:col-span-4 col-span-8 flex justify-between items-center  ' >
                         <div className='block sm:block  md:hidden lg:hidden xl:hidden'>
                             <SidebarDrawer />
                         </div>
                         <div  >
                             <Link to='/'>
                                 <img
-                                    className=' w-32'
+                                    className=' w-32 '
                                     src={Logo} alt="" />
                             </Link>
                         </div >
@@ -43,28 +42,28 @@ const NavigationBar = () => {
                     </div >
 
 
-                    <div className='lg:col-span-4 md:col-span-6 sm:col-span-5 col-span-5 flex justify-end items-center  gap-2  ' >
+                    <div className='2xl:col-span-6 xl:col-span-4  lg:col-span-4 md:col-span-6 sm:col-span-8 col-span-4 flex justify-end items-center  gap-2  ' >
 
-                        <div className='xl:block lg:block md:block hidden '>
+                        <div className='xl:block lg:block md:block sm:block hidden '>
                             <div className='flex gap-2'>
-                                <div className="flex items-center" >
+                                <div className="flex items-center " >
 
                                     <a href="https://play.google.com/store/apps/details?id=com.musafira2z.store" target="_blank" rel="noopener noreferrer">
                                         <img
-                                            className=' w-28 h-8'
+                                            className=' w-28 h-8 '
                                             src={PlayStore} alt="" />
                                     </a>
                                 </div >
 
 
 
-                                <div className=" flex items-center" >
-                                    <a href="about:blank" target="_blank" rel="noopener noreferrer">
-                                        <img
-                                            className='w-28 h-8'
-                                            src={IosStore} alt="" />
-                                    </a>
-                                </div >
+                                {/*<div className=" flex items-center" >*/}
+                                {/*    <a href="about:blank" target="_blank" rel="noopener noreferrer">*/}
+                                {/*        <img*/}
+                                {/*            className='w-28 h-8'*/}
+                                {/*            src={IosStore} alt="" />*/}
+                                {/*    </a>*/}
+                                {/*</div >*/}
 
 
                                 <div className=" flex items-center justify-center" >

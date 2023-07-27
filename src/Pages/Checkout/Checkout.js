@@ -120,11 +120,11 @@ const Checkout = () => {
         navigate("/")
     }
     return (
-        <div >
+        <div  className='h-screen overflow-hidden'>
             <NavigationBar />
             <div className='grid grid-cols-12 gap-5   ' >
 
-                <div className='md:col-span-8 col-span-12 my-10  lg:space-x-10  ' >
+                <div className='md:col-span-8 col-span-12 my-10  lg:space-x-10 h-screen overflow-x-auto  ' >
 
                     <div className='grid grid-cols-1 md:grid-cols-1 gap-3 px-3'>
                         {
@@ -166,7 +166,7 @@ const Checkout = () => {
                                                 <DeliveryAddressForm checkoutData={checkoutData} toggle={toggle} setToggle={setToggle} />
 
                                             </div> :
-                                            <div className='flex justify-center'>
+                                            <div className='flex justify-center items-center'>
                                                 <button onClick={() => setToggle(!toggle)}
 
                                                     className='text-white  bg-gradient-to-r from-amber-500 to-pink-600 active:bg-opacity-95  font-bold uppercase  text-base px-6 py-1  rounded shadow hover:shadow-lg outline-none focus:outline-none  mb-1'
@@ -180,7 +180,7 @@ const Checkout = () => {
                 </ div >
 
 
-                <div className=' md:col-span-4 col-span-12 w-full   lg:right-0 md:right-0   inset-y-0 px-3 mt-2' >
+                <div className=' md:col-span-4 col-span-12 w-full   lg:right-0 md:right-0   inset-y-0 px-3 ' >
                     <PlaceOrderSideBer checkoutData={checkoutData} />
                 </div >
 

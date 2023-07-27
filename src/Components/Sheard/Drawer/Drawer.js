@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Drawer = ({ children, isOpen, setIsOpen }) => {
+const Drawer = ({ children, isOpen }) => {
 
 
 
     return (
         <div
             className={
-                " fixed   overflow-auto z-50 bg-gray-900 bg-opacity-25 inset-0 transform ease-in-out "
+                " fixed   overflow-auto z-50 bg-gray-900 bg-opacity-25 inset-0 transform ease-in-out cursor-auto "
                 +
                 (isOpen
                     ? " transition-opacity opacity-100 duration-500 translate-x-0  "
@@ -22,7 +22,7 @@ const Drawer = ({ children, isOpen, setIsOpen }) => {
                 }
             >
 
-                <div className="   " >
+                <div  className='bg-white '>
                     {children}
                 </div >
             </div >

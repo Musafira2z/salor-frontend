@@ -11,14 +11,14 @@ const CartBody = ({ children, isOpen, setIsOpen, checkoutData }) => {
         <div className={`flex flex-col  justify-between max-h-screen  overflow-y-hidden px-3`}>
 
 
-            <div className='bg-slate-100 p-2 flex justify-between '>
-                <div className='flex  items-center '>
+            <div className=' py-4 px-6 flex justify-between  border-b'>
+                <div className='flex  items-center text-black'>
                     <FaShopify size={24} /><h4 className=' ml-2 font-bold'>  {checkoutData?.lines.length || "00"} Items</h4>
                 </div>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className={`bg-red-500  text-slate-50 rounded-lg text-6xl`}>
-                    <RxCross2 size={40} />
+                    className={`text-gray-800 flex justify-center items-center border px-3 border-dashed border-gray-800 border-1 rounded-lg `}>
+                   Close <RxCross2 size={15} />
                 </button>
 
             </div>

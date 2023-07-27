@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import './productCard.css';
 import { Link } from 'react-router-dom';
 import { LanguageCodeEnum, useCheckoutAddProductLineMutation, useCheckoutByTokenQuery, useCheckoutLineUpdateMutation, useRemoveProductFromCheckoutMutation } from '../../../api';
 
@@ -134,7 +135,9 @@ const ProductCard = ({ data }) => {
 
     return (
 
-        <div className=" lg:rounded-lg md:rounded-lg sm:rounded-sm rounded-none  xl:border-none lg:border-none md:border-none sm:border-none border bg-white flex flex-col justify-between ">
+        <div className="  lg:rounded-lg md:rounded-lg sm:rounded-sm rounded-none  xl:border-none lg:border-none md:border-none sm:border-none border bg-white flex flex-col justify-between ">
+
+
 
             <Link to={`/product-details/${slug}`}
                 className='hover:no-underline focus:no-underline hover:text-slate-700 focus:text-slate-700'
@@ -142,7 +145,7 @@ const ProductCard = ({ data }) => {
 
 
                 <div className=' flex justify-center h-36   p-2' >
-                    <img src={thumbnail?.url} alt="" />
+                    <img  src={thumbnail?.url} alt="" />
                 </div >
 
 
@@ -191,9 +194,14 @@ const ProductCard = ({ data }) => {
                                 </div>
                                 :
                                 <button
-
                                     onClick={() => handleAddToCart(variants?.[0]?.id)}
-                                    className='border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full  flex items-center justify-center gap-x-1 hover:border-amber-500 hover:bg-amber-500 hover:text-white' > <FaCartPlus/> Add to cart</button >
+                                    className=' relative addToCart border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full  flex items-center justify-center gap-x-1 hover:border-amber-500 hover:bg-amber-500 hover:text-white' > <FaCartPlus/> Add to cart
+
+
+                                    <div className='cartAnimation h-16 w-16 '>
+                                        <img  src={thumbnail?.url} alt="" />
+                                    </div>
+                                </button >
                         }
                     </div>
                 }

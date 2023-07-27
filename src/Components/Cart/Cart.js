@@ -21,7 +21,7 @@ const Cart = () => {
   
     return (
         <button >
-            <div onClick={() => setIsOpenCart(!isOpenCart)} className='  bg-gradient-to-br from-amber-500 to-pink-600  w-auto h-auto rounded-lg rounded-r-none z-30  fixed top-1/2  right-0 flex flex-col justify-between cursor-pointer select-none min-w-[7rem]'>
+            <div onClick={() => setIsOpenCart(!isOpenCart)} className='  bg-amber-500 to-pink-600  w-auto h-auto rounded-lg rounded-r-none z-30  fixed top-1/2  right-0 flex flex-col justify-between cursor-pointer select-none min-w-[7rem]'>
                 <span className=' text-slate-50 text-sm px-3 py-4  text-center font-bold'>
                     {checkoutData?.lines?.length || '00'} Items</span>
 
