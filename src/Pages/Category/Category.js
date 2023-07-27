@@ -7,7 +7,6 @@ import { Context } from '../../App';
 import CategoryItems from "./CategoryItems";
 import CategoryProducts from './CategoryProducts';
 
-
 const Category = () => {
     const { searchValue } = useContext(Context);
     const [cursor, setCursor] = useState('')
@@ -25,9 +24,10 @@ const Category = () => {
         }
     })
 
-    const category = data?.menu?.items?.find(item => {
-        return item?.category?.slug === slug;
+    const category = data?.menu?.items?.find( item => {
+        return  item?.category?.slug === slug;
     })
+
 
     useEffect(() => {
         if (category?.children) {
