@@ -98,12 +98,12 @@ const Profile = () => {
                                 <button
                                     onClick={() => setEditOption(false)}
                                     type='submit'
-                                    className=' bg-gradient-to-br from-amber-500 to-pink-600 h-10 mt-5  w-full text-slate-50 font-bold rounded-full' > Edit</button > :
+                                    className=' bg-amber-500 h-10 mt-7  w-full text-slate-50 font-bold rounded-full' > Edit</button > :
                                 <button
                                     onClick={() => setEditOption(true)}
 
                                     type='button'
-                                    className=' bg-gradient-to-br from-amber-500 to-pink-600 h-10 mt-5  w-full text-slate-50 font-bold rounded-full' > save</button >
+                                    className=' bg-amber-500 h-10 mt-7  w-full text-slate-50 font-bold rounded-full' > save</button >
                         }
                     </div >
                     <div className=' xl:col-span-5 lg:col-span-5 md:col-span-5 col-span-12 w-full ' >

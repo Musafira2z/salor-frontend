@@ -4,8 +4,9 @@ import { activeClass } from '../../Utility/ActiveClass/NavLinkActiveClass';
 import LogoutButton from '../../Utility/Button/LogoutButton';
 import { CurrentUserDetailsDocument } from '../../api';
 import { useQuery } from '@apollo/client';
-
-
+import  {LiaUserCircleSolid} from 'react-icons/lia';
+import {BsFillCartCheckFill} from 'react-icons/bs';
+import  {BiHelpCircle} from 'react-icons/bi';
 const DashboardSidebarMenu = () => {
     const { data } = useQuery(CurrentUserDetailsDocument);
 
@@ -23,7 +24,7 @@ const DashboardSidebarMenu = () => {
                 <li className=' list-none '>
                     <NavLink to='/dashboard/profile'
                         className={activeClass}>
-                          Profile
+                       <LiaUserCircleSolid   className="text-2xl"/>   Profile
                     </NavLink>
                 </li >
             </ul >
@@ -33,7 +34,7 @@ const DashboardSidebarMenu = () => {
                 <li className=' list-none' >
                     <NavLink to='/dashboard/my-order'
                         className={activeClass} >
-                        My Order
+                      <BsFillCartCheckFill className="text-2xl"/>  My Order
                     </NavLink >
                 </li >
 
@@ -58,12 +59,14 @@ const DashboardSidebarMenu = () => {
                 <li className=' list-none' >
                     <NavLink to='/dashboard/help'
                         className={activeClass} >
-                        Need Help
+                      <BiHelpCircle className="text-2xl"/>  Need Help
                     </NavLink >
                 </li >
 
-                <li className=' list-none' >
-                    <LogoutButton />
+                <li className=' list-none'  >
+                  <div className="">
+                        <LogoutButton />
+                  </div>
                 </li >
             </ul >
         </nav>

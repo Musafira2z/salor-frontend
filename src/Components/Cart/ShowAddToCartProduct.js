@@ -31,7 +31,7 @@ const ShowAddToCartProduct = ({ setIsOpenCart, isOpenCart, checkoutData }) => {
 
                     <NavLink to='/checkout'
 
-                        className=' col-span-6 w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-gradient-to-r from-amber-500 to-pink-600 border border-amber-500'>
+                        className=' col-span-6 w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-amber-500  border border-amber-500'>
                         <button>Checkout</button>
 
                     </NavLink>}

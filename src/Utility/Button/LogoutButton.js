@@ -1,5 +1,6 @@
 import { useSaleorAuthContext } from '@saleor/auth-sdk/react';
 import React from 'react';
+import {RiLogoutCircleLine} from "react-icons/ri";
 
 
 const LogoutButton = () => {
@@ -13,7 +14,7 @@ const LogoutButton = () => {
     return (
         <button
             onClick={handleLogout}
-            className='text-transparent text-base  bg-clip-text bg-gradient-to-r from-amber-500 to-pink-600  flex justify-start items-center w-full px-1  py-2 rounded-lg hover:no-underline  hover:text-amber-500 focus:no-underline font-semibold my-2' > Logout</button >
+            className=' text-base   flex justify-start gap-2 items-center w-full px-1  hover:text-amber-500 py-2 rounded-lg hover:no-underline   focus:no-underline font-bold my-2' ><RiLogoutCircleLine className="text-2xl"/>  Logout</button >
     );
 };
 

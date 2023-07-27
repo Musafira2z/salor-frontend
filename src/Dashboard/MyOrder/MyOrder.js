@@ -26,7 +26,7 @@ const MyOrder = () => {
 
                 {
                     !orders?.length && <div className=' text-2xl font-bold font-serif' >
-                        <h1 className='text-lg'>Order Coming Soon</h1>
+                        <h1 className='text-xl'>Order Coming Soon</h1>
                     </div >
                 }
 

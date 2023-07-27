@@ -28,7 +28,7 @@ export const LoginModalOpenButton = ({ setShowLoginModal }) => {
 
     return (
         <button onClick={() => setShowLoginModal(true)}
-            className='   bg-gradient-to-bl from-amber-500 to-pink-600 p-0  active:translate-x-1 font-bold flex items-center gap-1  text-slate-50 rounded-full px-2 py-1' >
+            className='  bg-amber-500 p-0  active:translate-x-1 font-bold flex items-center gap-1  text-slate-50 rounded-full px-2 py-1' >
             <AiOutlineLogin size={20} /> Login
         </button >
     );

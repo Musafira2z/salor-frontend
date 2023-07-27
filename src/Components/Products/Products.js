@@ -69,7 +69,7 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
 
                         })
 
-                            : <h1>Product Not found!</h1>) :
+                            : <h1 className="text-2xl font-bold text-center col-span-5">Sorry, No result found!</h1>) :
 
 
                         newData?.map((data, index) => (
@@ -89,7 +89,7 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
                 onEnter={handleFetchMoreData}
             />}
             {
-                networkStatus === 3 && <h1 className='text-center'>Load more...</h1>
+                networkStatus === 3 && <h1 className='text-center text-base'>Load more...</h1>
             }
         </div>
     );

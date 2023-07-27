@@ -10,7 +10,7 @@ const AvatarDropdownMenu = () => {
     return (
         <ButtonToolbar>
             <Whisper size="lg" placement="bottomEnd" trigger="click" speaker={renderMenu}>
-                <IconButton className=' bg-gradient-to-bl from-amber-500 to-pink-600 p-0' appearance="primary" icon={<FaRegUserCircle size={20} />} circle />
+                <IconButton className='bg-amber-500 hover:bg-amber-500 active:bg-amber-500 focus:bg-amber-500 p-0' appearance="primary" icon={<FaRegUserCircle size={20} />} circle />
             </Whisper>
         </ButtonToolbar>
     );
@@ -26,7 +26,7 @@ const renderMenu = ({ onClose, left, top, className }, ref) => {
         <Popover ref={ref} className={className} style={{ left, top }} full>
             <Dropdown.Menu onSelect={handleSelect} className='xl:w-60 lg:w-60 '>
 
-                <Dropdown.Item index={3} className='p-0 px-1 hover:bg-transparent'>
+                <Dropdown.Item index={3} className='p-0 px-1 hover:bg-transparent hover:text-zinc-700'>
                     <DashboardSidebarMenu />
                 </Dropdown.Item>
 
