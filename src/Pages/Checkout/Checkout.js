@@ -120,13 +120,13 @@ const Checkout = () => {
         navigate("/")
     }
     return (
-        <div  className='h-screen overflow-hidden'>
+        <div>
             <NavigationBar />
             <div className='grid grid-cols-12 gap-5   ' >
 
-                <div className='md:col-span-8 col-span-12 my-10  lg:space-x-10 h-screen overflow-x-auto  ' >
+                <div className='md:col-span-8 col-span-12 my-5  lg:space-x-10 ' >
 
-                    <div className='grid grid-cols-1 md:grid-cols-1 gap-3 px-3'>
+                    <div className='grid grid-cols-1 md:grid-cols-1 gap-3 md:px-3'>
                         {
                             checkoutAddress ?
 
@@ -139,7 +139,7 @@ const Checkout = () => {
 
                                 :
 
-                                <div className='grid md:grid-cols-2 gap-3 col-span-2'>
+                                <div className='grid md:grid-cols-2 md:gap-3 col-span-2 '>
                                     {
                                         addresses?.me?.addresses?.length ?
                                             addresses?.me?.addresses?.map((data, index) => (
@@ -166,10 +166,10 @@ const Checkout = () => {
                                                 <DeliveryAddressForm checkoutData={checkoutData} toggle={toggle} setToggle={setToggle} />
 
                                             </div> :
-                                            <div className='flex justify-center items-center'>
+                                            <div className='flex justify-center items-center md:mt-0 mt-5'>
                                                 <button onClick={() => setToggle(!toggle)}
 
-                                                    className='text-white  bg-gradient-to-r from-amber-500 to-pink-600 active:bg-opacity-95  font-bold uppercase  text-base px-6 py-1  rounded shadow hover:shadow-lg outline-none focus:outline-none  mb-1'
+                                                    className='text-white bg-amber-500    font-bold   text-base px-6 py-1  rounded   mb-1'
                                                 >Add New Address</button>
                                             </div>
                                     }

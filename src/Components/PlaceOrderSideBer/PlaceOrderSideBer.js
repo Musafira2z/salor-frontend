@@ -117,7 +117,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
     return (
 
 
-        <div  className='bg-white'>
+        <div  className='bg-white md:mt-[-3rem]'>
             <div >
                 <div className=' p-2 flex justify-between '>
                     <div className='flex  items-center '>
@@ -125,7 +125,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
                     </div>
                 </div>
 
-                <div className='h-96 overflow-x-scroll'>
+                <div className='md:h-96 md:overflow-x-scroll'>
                     {
                         checkoutData?.lines?.map((data, i) => (
                             <AddToCartCard key={i} data={data} />
@@ -135,19 +135,19 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
             </div>
 
 
-            <div className='bg-white pb-4 px-3'>
+            <div className='bg-white  px-3 pb-8'>
                 <div className=' pb-6'>
                     <ProductCalculation checkoutData={checkoutData} />
 
                 </div>
 
-                <div className='col-span-6 mb-2 '>
-                    <div className='pb-2'>
-                        {warning && <WarningToast warning={warning} />}
+                <div className='col-span-6  '>
+                    <div className={`  ${warning?"visible":"invisible"}`}>
+                        { <WarningToast warning={warning} />}
                     </div>
                     <button
                         onClick={orderHandler}
-                        className=' col-span-6 w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-gradient-to-r from-amber-500 to-pink-600 border border-amber-500'>Place Order
+                        className=' col-span-6 w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-amber-500 border border-amber-500'>Place Order
                     </button>
                 </div>
             </div>

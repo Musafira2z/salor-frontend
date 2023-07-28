@@ -2,8 +2,13 @@ import React, { useEffect } from 'react';
 import { BiPlusMedical } from 'react-icons/bi';
 import { ImMinus } from 'react-icons/im';
 import { RxCross2 } from 'react-icons/rx';
-import { LanguageCodeEnum, useCheckoutAddProductLineMutation, useCheckoutLineUpdateMutation, useRemoveProductFromCheckoutMutation } from '../../api';
 import toast from "react-hot-toast";
+import {
+    LanguageCodeEnum,
+    useCheckoutAddProductLineMutation,
+    useCheckoutLineUpdateMutation,
+    useRemoveProductFromCheckoutMutation
+} from '../../api';
 
 const AddToCartCard = ({ data }) => {
     const checkoutToken=JSON.parse(localStorage.getItem('checkoutToken'));
@@ -132,7 +137,9 @@ const AddToCartCard = ({ data }) => {
                 <div className=' col-span-2 flex justify-end'>
                     <button
                         onClick={handleRemoveToCart}
-                        className=' text-base  p-2  text-gray-500  hover:text-red-500 rounded-md'><RxCross2 className='!font-extrabold text-lg' /></button>
+                        className=' text-base  p-2  text-gray-500  hover:text-red-500 rounded-md'>
+                        <RxCross2 className='!font-extrabold text-lg' />
+                    </button>
                 </div>
 
             </div>
