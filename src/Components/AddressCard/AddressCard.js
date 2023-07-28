@@ -5,7 +5,7 @@ const AddressCard = ({ data,checkoutAddress }) => {
  
     return (
         <div
-            className=' shadow-lg md:rounded-md p-5 cursor-pointer w-full bg-white md:border-b-0 border-b'>
+            className=' md:rounded-md p-5 cursor-pointer w-full  md:border-b-0 border-b'>
             <div className='grid grid-cols-12'>
                 <div className='col-span-4'>
                     <p className="text-base">First Name</p>

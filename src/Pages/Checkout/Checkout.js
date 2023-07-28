@@ -126,12 +126,12 @@ const Checkout = () => {
 
                 <div className='md:col-span-8 col-span-12 my-5  lg:space-x-10 ' >
 
-                    <div className='grid grid-cols-1 md:grid-cols-1 gap-3 md:px-3'>
+                    <div className='grid grid-cols-1 md:grid-cols-1 gap-3 md:px-3 '>
                         {
                             checkoutAddress ?
-
                                 <div
-                                    onClick={() => checkoutShippingAddressUpdateHandler(checkoutAddress)}
+                                    // onClick={() => checkoutShippingAddressUpdateHandler(checkoutAddress)}
+                                    className='bg-white'
                                 >
                                     <AddressCard data={checkoutAddress} checkoutAddress={checkoutAddress} />
                                 </div>
@@ -144,6 +144,7 @@ const Checkout = () => {
                                         addresses?.me?.addresses?.length ?
                                             addresses?.me?.addresses?.map((data, index) => (
                                                 <div
+                                                    className="bg-white"
                                                     key={index}
                                                     onClick={() => checkoutShippingAddressUpdateHandler(data)}
                                                 >
@@ -154,7 +155,7 @@ const Checkout = () => {
                                                 </div>
                                             )
                                             ) :
-                                            <div className='col-span-2'>
+                                            <div className='col-span-2 '>
 
                                                 <DeliveryAddressForm checkoutData={checkoutData} />
                                             </div>
@@ -163,7 +164,9 @@ const Checkout = () => {
                                         toggle ?
                                             <div className='col-span-1 '>
 
-                                                <DeliveryAddressForm checkoutData={checkoutData} toggle={toggle} setToggle={setToggle} />
+                                                <div className="bg-white">
+                                                    <DeliveryAddressForm checkoutData={checkoutData} toggle={toggle} setToggle={setToggle} />
+                                                </div>
 
                                             </div> :
                                             <div className='flex justify-center items-center md:mt-0 mt-5'>

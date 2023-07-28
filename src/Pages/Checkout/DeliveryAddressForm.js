@@ -66,7 +66,7 @@ const DeliveryAddressForm = ({ checkoutData, toggle, setToggle }) => {
     ]);
 
     return (
-        <div className='shadow-lg rounded-md p-5 bg-white'>
+        <div className=' rounded-md p-5'>
 
             <form onSubmit={handleSubmit(onSubmit)} className="w-full">
 
@@ -168,13 +168,13 @@ const DeliveryAddressForm = ({ checkoutData, toggle, setToggle }) => {
 
                         <div className=' flex justify-center gap-2'>
                             <button
-                                className="text-white   bg-gradient-to-r from-amber-500 to-pink-600 active:bg-opacity-95  font-bold uppercase text-base px-6 py-1 md:w-28 w-full  rounded shadow hover:shadow-lg outline-none focus:outline-none  mb-1"
+                                className="text-white font-bold bg-amber-500 text-base px-6 py-1 md:w-28 w-full  rounded outline-none focus:outline-none  mb-1"
                                 type="submit"
                             >
                                 Submit
                             </button >
                             <button onClick={() => setToggle(!toggle)}
-                                className='text-white  bg-gradient-to-r from-amber-500 to-pink-600 active:bg-opacity-95  font-bold uppercase  md:w-28 w-full text-xs px-6 py-1  rounded shadow hover:shadow-lg outline-none focus:outline-none  mb-1'
+                                className='text-white    font-bold bg-amber-500   md:w-28 w-full text-xs px-6 py-1  rounded   outline-none focus:outline-none  mb-1'
                             >Cancel</button>
                         </div>
                     </div >
