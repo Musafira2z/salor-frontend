@@ -116,7 +116,6 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
         shippingMethodLoading])
     return (
 
-
         <div  className='bg-white md:mt-[-3rem]'>
             <div >
                 <div className=' p-2 flex justify-between '>
