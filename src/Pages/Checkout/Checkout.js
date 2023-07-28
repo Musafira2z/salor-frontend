@@ -183,7 +183,7 @@ const Checkout = () => {
                 </ div >
 
 
-                <div className=' md:col-span-4 col-span-12 w-full   lg:right-0 md:right-0   inset-y-0 px-3 ' >
+                <div className=' md:col-span-4 col-span-12 w-full   lg:right-0 md:right-0   inset-y-0 md:px-3 -mt-24 pt-3' >
                     <PlaceOrderSideBer checkoutData={checkoutData} />
                 </div >
 

@@ -116,7 +116,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
         shippingMethodLoading])
     return (
 
-        <div  className='bg-white md:mt-[-3rem]'>
+        <div  className='bg-white  h-screen flex justify-between flex-col md:pt-20 '>
             <div >
                 <div className=' p-2 flex justify-between '>
                     <div className='flex  items-center '>
@@ -124,7 +124,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
                     </div>
                 </div>
 
-                <div className='md:h-96 md:overflow-x-scroll'>
+                <div className='md:h-140 md:overflow-y-scroll'>
                     {
                         checkoutData?.lines?.map((data, i) => (
                             <AddToCartCard key={i} data={data} />
