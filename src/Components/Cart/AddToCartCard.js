@@ -11,7 +11,7 @@ import {
 } from '../../api';
 
 const AddToCartCard = ({ data }) => {
-    const checkoutToken=JSON.parse(localStorage.getItem('checkoutToken'));
+    const checkoutToken = JSON.parse(localStorage.getItem('checkoutToken'));
     const [checkoutAddProductLine, { data: checkoutAddProductLineData, loading: incrementLoading }] = useCheckoutAddProductLineMutation();
     const [decrement, { data: decrementData, loading: decrementLoading }] = useCheckoutLineUpdateMutation();
     const [RemoveProductFromCheckout] = useRemoveProductFromCheckoutMutation();
@@ -100,44 +100,50 @@ const AddToCartCard = ({ data }) => {
         decrementData?.checkoutLinesUpdate?.checkout?.id,
         decrementLoading
     ]);
+
+
+    
     return (
         <div className='border-b'>
-            <div className=' grid grid-cols-12   p-5  h-auto w-auto content-center items-center bg-white' >
+            <div className=' grid grid-cols-12 py-4 px-6  h-auto w-auto content-center items-center bg-white' >
 
-                <div className="col-span-2 inline-flex flex-col gap-2 rounded-md bg-gray-100 py-2 w-10 " role="group">
+                <div className="col-span-1 inline-flex flex-col gap-2 rounded-md bg-gray-100 py-2 w-8 " role="group">
                     <button
                         onClick={handleIncrementToCart}
                         type="button"
-                        className=" flex justify-center  text-base  font-medium text-gray-500   rounded-t-lg ">
+                        className=" flex justify-center py-1  text-base  font-medium text-gray-500   rounded-t-lg ">
                         <BiPlusMedical size={12} />
                     </button>
-                    <button type="button" className="flex justify-center  text-base  font-medium text-gray-500   rounded-t-lg">
+                    <button type="button" className="flex justify-center   text-base  font-medium text-gray-500   rounded-t-lg">
 
                         {data?.quantity}
                     </button>
                     <button
                         onClick={handleDecrementToCart}
-                        type="button" className="flex justify-center  text-base  font-medium text-gray-500   rounded-t-lg">
+                        type="button" className="flex justify-center py-1  text-base  font-medium text-gray-500   rounded-t-lg">
                         <ImMinus size={12} />
                     </button>
                 </div>
 
 
-                <div className='col-span-3  flex justify-center'>
-                    <img className=' w-auto object-cover h-24' src={data?.variant?.product?.thumbnail?.url} alt="" />
+                <div className='col-span-2  flex justify-center'>
+                    <img className=' w-auto object-cover h-9' src={data?.variant?.product?.thumbnail?.url} alt="" />
                 </div>
 
-                <div className=' col-span-5'>
-                    <p className=' text-base  font-semibold truncate'>{data?.variant?.name} </p>
-                    <p className=' text-base text-amber-500 font-semibold mt-0 '>Price: R {data?.variant?.pricing?.price?.gross?.amount}</p>
-                    <p className='text-base  font-semibold  mt-0'>Total: R {data?.totalPrice?.gross?.amount}</p>
+                <div className=' col-span-5 text-left'>
+                    <span className=' text-base  font-semibold  line-clamp-4 '>{data?.variant?.name} </span>
+                    <p className=' text-base text-amber-500 font-semibold mt-0 '> R {data?.variant?.pricing?.price?.gross?.amount}</p>
+                  
 
                 </div>
 
                 <div className=' col-span-2 flex justify-end'>
+                    <p className='text-base  font-semibold  mt-0'>R {data?.totalPrice?.gross?.amount}</p>
+                </div>
+                <div className=' col-span-2 flex justify-end'>
                     <button
                         onClick={handleRemoveToCart}
-                        className=' text-base  p-2  text-gray-500  hover:text-red-500 rounded-md'>
+                        className=' text-base   p-2  text-gray-500  hover:text-red-500 rounded-md'>
                         <RxCross2 className='!font-extrabold text-lg' />
                     </button>
                 </div>

@@ -77,7 +77,7 @@ const HomeMainLayout = () => {
 
             <div className='flex ' >
                 <div className=' fixed w-72 hidden sm:hidden  md:block lg:block  ' >
-                    <SidebarMenu />
+                    <SidebarMenu /> 
                 </div >
                 <div className=" w-full md:ml-72 lg:ml-72 xl:ml72 lg:px-7 md:px-7 " >
 

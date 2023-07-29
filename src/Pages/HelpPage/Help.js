@@ -49,7 +49,7 @@ const Help = () => {
                                     <summary className="flex justify-between py-5 items-center font-medium cursor-pointer list-none " >
                                         <h1 className=' text-bold'>{d.title}</h1>
                                         <p className="transition group-open:rotate-180 " >
-                                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path>
+                                            <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path>
                                             </svg>
                                         </ p>
                                     </summary >

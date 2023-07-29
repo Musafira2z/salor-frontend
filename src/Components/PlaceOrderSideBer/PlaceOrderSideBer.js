@@ -135,7 +135,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
 
 
             <div className='bg-white  px-3 pb-8'>
-                <div className=' pb-6'>
+                <div >
                     <ProductCalculation checkoutData={checkoutData} />
 
                 </div>

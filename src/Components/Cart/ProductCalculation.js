@@ -4,8 +4,8 @@ const ProductCalculation = ({ children, checkoutData }) => {
 
     return (
 
-            <div className=' select-none   bg-white'>
-                <div className=' grid grid-cols-6 text-green-500  p-1 rounded-md'>
+            <div className=' select-none   bg-white border-t'>
+                <div className=' grid grid-cols-6 text-green-500  p-1 rounded-md pt-5 mb-5'>
                     <p className=' col-span-4 text-base  text-left'>Sub total</p>
                     <span className='col-span-1 text-base  text-left'>:</span>
                     <span className=' col-span-1 text-base  flex gap-1  items-center '>
@@ -13,14 +13,14 @@ const ProductCalculation = ({ children, checkoutData }) => {
                     </span>
                 </div>
 
-                <div className='  grid grid-cols-6 text-green-500  p-1 rounded-md'>
+                <div className='  grid grid-cols-6 text-green-500  p-1 rounded-md mb-5'>
                     <p className=' col-span-4 text-base  text-left'>Shipping</p>
                     <span className='col-span-1text-base text-left'>:</span>
                     <span className=' flex gap-1 text-base  items-center  '>
                         R   <p>{checkoutData?.shippingPrice?.gross?.amount||"00"}</p>
                     </span>
                 </div>
-                <div className='  grid grid-cols-6 text-green-500  p-1 rounded-md'>
+                <div className='  grid grid-cols-6 text-green-500  p-1 rounded-md mb-5'>
                     <p className=' col-span-4 text-base  text-left'>Total</p>
                     <span className='col-span-1 text-base  text-left'>:</span>
                     <span className=' flex gap-1 text-base items-center  '>
