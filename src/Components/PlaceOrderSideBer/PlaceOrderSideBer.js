@@ -13,7 +13,7 @@ import { useQuery } from '@apollo/client';
 import { WarningToast } from "../../Utility/Toasts/Toasts";
 import ProductCalculation from '../Cart/ProductCalculation';
 import AddToCartCard from '../Cart/AddToCartCard';
-import { FaShopify } from 'react-icons/fa';
+
 
 
 const PlaceOrderSideBer = ({ checkoutData }) => {
@@ -120,7 +120,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
             <div >
                 <div className=' p-2 flex justify-between '>
                     <div className='flex  items-center '>
-                        <FaShopify size={24} /><h4 className=' ml-2 font-bold'>  {checkoutData?.lines.length || "00"} Items</h4>
+                    <img src="/favicon.ico" alt="" className='h-5'/><h4 className=' ml-2 font-bold'>  {checkoutData?.lines.length || "00"} Items</h4>
                     </div>
                 </div>
 
