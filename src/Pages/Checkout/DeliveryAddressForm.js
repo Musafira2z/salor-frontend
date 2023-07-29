@@ -4,7 +4,7 @@ import { LanguageCodeEnum, useCheckoutBillingAddressUpdateMutation, useCheckoutS
 import toast from "react-hot-toast";
 
 
-const DeliveryAddressForm = ({ checkoutData, toggle, setToggle }) => {
+const DeliveryAddressForm = ({ checkoutData, showAddressModal, setShowAddressModal }) => {
     const {
         register,
         handleSubmit,
@@ -52,7 +52,7 @@ const DeliveryAddressForm = ({ checkoutData, toggle, setToggle }) => {
         if (CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.checkout?.shippingAddress && CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.checkout?.shippingAddress) {
             toast.success("Address Update success", { id: 'address' });
             reset();
-            setToggle(false)
+            setShowAddressModal(!showAddressModal)
         }
     }, [
         CheckoutShippingAddressLoading,
@@ -62,7 +62,8 @@ const DeliveryAddressForm = ({ checkoutData, toggle, setToggle }) => {
         CheckoutShippingAddressData?.checkoutShippingAddressUpdate?.checkout?.shippingAddress,
         CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.checkout?.shippingAddress,
         reset,
-        setToggle
+        setShowAddressModal,
+        showAddressModal
     ]);
 
     return (
@@ -173,7 +174,7 @@ const DeliveryAddressForm = ({ checkoutData, toggle, setToggle }) => {
                             >
                                 Submit
                             </button >
-                            <button onClick={() => setToggle(!toggle)}
+                            <button onClick={() => setShowAddressModal(!showAddressModal)}
                                 className='text-white    font-bold bg-amber-500   md:w-28 w-full text-xs px-6 py-1  rounded   outline-none focus:outline-none  mb-1'
                             >Cancel</button>
                         </div>
