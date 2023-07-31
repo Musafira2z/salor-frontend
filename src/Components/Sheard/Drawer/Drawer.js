@@ -1,11 +1,12 @@
 import React from 'react';
 
-const Drawer = ({ children, isOpen }) => {
+const Drawer = ({ children, isOpen, setIsOpen }) => {
 
 
 
     return (
         <div
+          
             className={
                 " fixed   overflow-auto z-50 bg-gray-900 bg-opacity-25 inset-0 transform ease-in-out cursor-auto "
                 +
@@ -15,6 +16,7 @@ const Drawer = ({ children, isOpen }) => {
             }
         >
             <div
+
                 className={
                     " w-screen max-w-lg right-0 absolute bg-slate-50 h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform  "
                     +
@@ -22,7 +24,7 @@ const Drawer = ({ children, isOpen }) => {
                 }
             >
 
-                <div  className='bg-white '>
+                <div className='bg-white '>
                     {children}
                 </div >
             </div >

@@ -19,11 +19,11 @@ const NavigationBar = () => {
     const user = data?.me;
 
     return (
-        <header className='bg-white py-4 px-10 sticky top-0 z-50' >
+        <header className='bg-white py-5 md:px-10 px-2 sticky top-0 z-50' >
             <div  >
                 <div className='grid grid-cols-12 '>
 
-                    <div className='2xl:col-span-6 xl:col-span-8 lg:col-span-8 md:col-span-6 sm:col-span-4 col-span-8 flex justify-between items-center  ' >
+                    <div className='2xl:col-span-6 xl:col-span-8 lg:col-span-8 md:col-span-6 sm:col-span-4 col-span-6 flex justify-between items-center  ' >
                         <div className='block sm:block  md:hidden lg:hidden xl:hidden'>
                             <SidebarDrawer />
                         </div>
@@ -42,9 +42,9 @@ const NavigationBar = () => {
                     </div >
 
 
-                    <div className='2xl:col-span-6 xl:col-span-4  lg:col-span-4 md:col-span-6 sm:col-span-8 col-span-4 flex justify-end items-center  gap-2  ' >
+                    <div className='2xl:col-span-6 xl:col-span-4  lg:col-span-4 md:col-span-6 sm:col-span-8 col-span-6 flex justify-end items-center  gap-2  ' >
 
-                        <div className='xl:block lg:block md:block sm:block hidden '>
+                        <div className=' md:block sm:block block '>
                             <div className='flex gap-2'>
                                 <div className="flex items-center " >
 
@@ -57,16 +57,8 @@ const NavigationBar = () => {
 
 
 
-                                {/*<div className=" flex items-center" >*/}
-                                {/*    <a href="about:blank" target="_blank" rel="noopener noreferrer">*/}
-                                {/*        <img*/}
-                                {/*            className='w-28 h-8'*/}
-                                {/*            src={IosStore} alt="" />*/}
-                                {/*    </a>*/}
-                                {/*</div >*/}
 
-
-                                <div className=" flex items-center justify-center" >
+                                <div className="  items-center justify-center sm:block hidden" >
                                     <NavLink to='/help' className="text-amber-500 text-base font-bold hover:no-underline hover:text-amber-500 active:text-amber-500 focus:text-amber-500 focus:no-underline" >
 
                                         <div className=' w-32 flex items-center ' >

@@ -1,10 +1,11 @@
 import React from 'react';
 import { useMainMenuQuery } from "../../api";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { SidebarSkeleton } from '../Sheard/Skeletons/SidebarSkeleton';
-
+import { Sidenav, Nav } from 'rsuite';
 
 const SideNavar = () => {
+    const navigate = useNavigate()
 
     const { loading, data } = useMainMenuQuery({
         errorPolicy: "all",
@@ -26,12 +27,18 @@ const SideNavar = () => {
 
 
 
+
+    const handleNavigate = (slug) => {
+        console.log(slug)
+        navigate(`/category/${slug}`)
+    }
+
     return (
 
         <nav className="px-5 pt-2 ">
-            {/* <Sidenav.Body> */}
 
-            <ul>
+
+               <ul>
                 <li className=" flex justify-center mt-2 mb-2">
                     <button
                         className=" w-full h-10 text-slate-50  text-lg font-extrabold    bg-gradient-to-r from-amber-500 rounded-lg to-pink-700"> Offer
@@ -70,8 +77,148 @@ const SideNavar = () => {
 
 
             </ul>
-            {/* </Sidenav.Body> */}
 
+
+
+
+
+
+         {/*    <Sidenav >
+                <Sidenav.Body >
+                    <Nav activeKey="1" style={{ paddingLeft: '0px' }} >
+
+                        {
+                            menuItems?.map((item, i) =>
+                                item?.children?.length ?
+
+
+                                    <Nav.Menu
+                                        eventKey={i}
+                                        onClick={() => handleNavigate(item?.category?.slug)}
+                                        style={{ padding: '0px !impotent' }}
+                                        title={item?.name}
+                                        icon={
+
+                                            <img
+                                                style={{ display: 'inline', height: "20px", width: '20px', marginRight: "10px" }}
+                                                src={item?.category?.backgroundImage?.url} alt="" />
+
+                                        }>
+                                        
+
+                                        {
+                                            item?.children?.map((item, i) =>
+
+                                                item?.children?.length ?
+
+                                                    <Nav.Menu
+                                                        onClick={() => handleNavigate(item?.category?.slug)}
+                                                        eventKey={i}
+                                                        icon={
+
+                                                            <img
+                                                                style={{ display: 'inline', height: "20px", width: '20px', marginRight: "10px" }}
+                                                                src={item?.category?.backgroundImage?.url} alt="" />
+
+                                                        }
+                                                        title={item?.name}>
+
+                                                        {
+                                                            item?.children?.map((item, i) =>
+
+                                                                item?.children?.length ?
+
+                                                                    <Nav.Menu
+                                                                        onClick={() => handleNavigate(item?.category?.slug)}
+                                                                        eventKey={i}
+                                                                        icon={
+
+                                                                            <img
+                                                                                style={{ display: 'inline', height: "20px", width: '20px', marginRight: "10px" }}
+                                                                                src={item?.category?.backgroundImage?.url} alt="" />
+
+                                                                        }
+                                                                        title={item?.name}>
+
+
+                                                                        <Nav.Item
+                                                                            onClick={() => handleNavigate(item?.category?.slug)}
+                                                                            eventKey={i}
+                                                                            icon={
+
+                                                                                <img
+                                                                                    style={{ display: 'inline', height: "20px", width: '20px', marginRight: "10px" }}
+                                                                                    src={item?.category?.backgroundImage?.url} alt="" />
+
+                                                                            }
+                                                                        >{item?.name}
+                                                                        </Nav.Item>
+
+                                                                    </Nav.Menu> :
+
+                                                                    <Nav.Item
+                                                                        onClick={() => handleNavigate(item?.category?.slug)}
+                                                                        eventKey={i}
+                                                                        icon={
+
+                                                                            <img
+                                                                                style={{ display: 'inline', height: "20px", width: '20px', marginRight: "10px" }}
+                                                                                src={item?.category?.backgroundImage?.url} alt="" />
+
+                                                                        }
+                                                                    >
+                                                                        {item?.name}
+                                                                    </Nav.Item>
+                                                            )
+                                                        }
+
+
+
+
+
+                                                    </Nav.Menu> :
+                                                    <Nav.Item
+                                                        onClick={() => handleNavigate(item?.category?.slug)}
+                                                        eventKey={i}
+                                                        icon={
+
+                                                            <img
+                                                                style={{ display: 'inline', height: "20px", width: '20px', marginRight: "10px" }}
+                                                                src={item?.category?.backgroundImage?.url} alt="" />
+
+                                                        }
+                                                    >
+                                                        {item?.name}
+                                                    </Nav.Item>
+                                            )
+                                        }
+
+                                    </Nav.Menu>
+
+                                    :
+                                    <Nav.Item
+                                        onClick={() => handleNavigate(item?.category?.slug)}
+                                        eventKey={i}
+                                        icon={
+
+                                            <img
+                                                style={{ display: 'inline', height: "20px", width: '20px', marginRight: "10px" }}
+                                                src={item?.category?.backgroundImage?.url} alt="" />
+
+                                        }
+                                    >
+                                        {item?.name}
+                                    </Nav.Item>
+                            )}
+
+
+
+
+
+
+                    </Nav>
+                </Sidenav.Body>
+            </Sidenav> */}
         </nav>
 
     );

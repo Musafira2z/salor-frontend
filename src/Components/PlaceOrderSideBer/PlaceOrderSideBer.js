@@ -34,13 +34,14 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
 
     useEffect(() => {
         if (checkoutData?.billingAddress && checkoutData?.shippingAddress) {
-            setWarning('');
+            setWarning(false);
         }
+
     }, [checkoutData?.billingAddress, checkoutData?.shippingAddress])
     const orderHandler = async () => {
 
         if (!checkoutData?.billingAddress || !checkoutData?.shippingAddress) {
-            setWarning('Please select your address');
+            return setWarning('Please select your address');
         }
 
 
@@ -116,15 +117,15 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
         shippingMethodLoading])
     return (
 
-        <div  className='bg-white  h-screen flex justify-between flex-col md:pt-20 '>
+        <div className='bg-white  h-screen -mt-2 flex justify-between flex-col md:pt-20 '>
             <div >
                 <div className=' p-2 flex justify-between '>
                     <div className='flex  items-center '>
-                    <img src="/favicon.ico" alt="" className='h-5'/><h4 className=' ml-2 font-bold'>  {checkoutData?.lines.length || "00"} Items</h4>
+                        <img src="/favicon.ico" alt="" className='h-5' /><h4 className=' ml-2 font-bold'>  {checkoutData?.lines.length || "00"} Items</h4>
                     </div>
                 </div>
 
-                <div className='md:h-140 md:overflow-y-scroll'>
+                <div className='md:h-[63vh] md:overflow-y-scroll'>
                     {
                         checkoutData?.lines?.map((data, i) => (
                             <AddToCartCard key={i} data={data} />
@@ -134,20 +135,22 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
             </div>
 
 
-            <div className='bg-white  px-3 pb-8'>
-                <div >
+            <div className='bg-white border-t  pb-6'>
+                <div className='px-3 '>
                     <ProductCalculation checkoutData={checkoutData} />
 
                 </div>
 
                 <div className='col-span-6  '>
-                    <div className={`  ${warning?"visible":"invisible"}`}>
-                        { <WarningToast warning={warning} />}
+                    <div className={`  ${warning ? "visible" : "invisible"}`}>
+                        {<WarningToast warning={warning} />}
                     </div>
-                    <button
-                        onClick={orderHandler}
-                        className=' col-span-6 w-full text-center text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-amber-500 border border-amber-500'>Place Order
-                    </button>
+                    <div className='col-span-6 flex justify-center'>
+                        <button
+                            onClick={orderHandler}
+                            className='   w-52 py-1 text-xl text-center rounded text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-amber-500 border border-amber-500'>Place Order
+                        </button>
+                    </div>
                 </div>
             </div>
 

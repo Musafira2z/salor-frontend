@@ -12,7 +12,7 @@ const CartBody = ({ children, isOpen, setIsOpen, checkoutData }) => {
 
             <div className=' py-4 px-6 flex justify-between  border-b'>
                 <div className='flex  items-center text-black'>
-                 <img src="/favicon.ico" alt="" className='h-5'/>  <h4 className='ml-2 font-bold'>  {checkoutData?.lines.length || "00"} Items</h4>
+                    <img src="/favicon.ico" alt="" className='h-5' />  <h4 className='ml-2 font-bold'>  {checkoutData?.lines.length || "00"} Items</h4>
                 </div>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
@@ -35,11 +35,12 @@ const CartBody = ({ children, isOpen, setIsOpen, checkoutData }) => {
 
 
 
-            
-                <div className=' pb-6 px-3 '>
+
+            <div className=' pb-6 border-t '>
+                <div className='px-3'>
                     <ProductCalculation checkoutData={checkoutData}>
 
-                        <div className='  grid grid-cols-6 text-slate-50 font-bold mt-2  p-1 rounded-md'>
+                        <div className='   text-slate-50 font-bold mt-2  p-1 rounded-md'>
 
                             {children}
 
@@ -47,6 +48,7 @@ const CartBody = ({ children, isOpen, setIsOpen, checkoutData }) => {
 
                     </ProductCalculation>
                 </div>
+            </div>
         </div>
     );
 };

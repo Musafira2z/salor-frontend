@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import 'react-slideshow-image/dist/styles.css'
-import 'rsuite/styles/index.less';
+
 
 
 window.Buffer = window.Buffer || require("buffer").Buffer;

@@ -104,7 +104,7 @@ const AddToCartCard = ({ data }) => {
 
     
     return (
-        <div className='border-b'>
+        <div className='border-t'>
             <div className=' grid grid-cols-12 py-4 px-6  h-auto w-auto content-center items-center bg-white' >
 
                 <div className="col-span-1 inline-flex flex-col gap-2 rounded-md bg-gray-100 py-2 w-8 " role="group">
@@ -126,11 +126,11 @@ const AddToCartCard = ({ data }) => {
                 </div>
 
 
-                <div className='col-span-2  flex justify-center'>
-                    <img className=' w-auto object-cover h-9' src={data?.variant?.product?.thumbnail?.url} alt="" />
+                <div className='col-span-2  flex justify-center '>
+                    <img className=' object-cover h-9 w-9 px-2' src={data?.variant?.product?.thumbnail?.url} alt="" />
                 </div>
 
-                <div className=' col-span-5 text-left'>
+                <div className=' col-span-6 pl-3 text-left'>
                     <span className=' text-base  font-semibold  line-clamp-4 '>{data?.variant?.name} </span>
                     <p className=' text-base text-amber-500 font-semibold mt-0 '> R {data?.variant?.pricing?.price?.gross?.amount}</p>
                     <p className='  text-base text-gray-500  mt-0 '> {data?.quantity} x {data?.variant?.pricing?.price?.gross?.amount}</p>
@@ -141,7 +141,7 @@ const AddToCartCard = ({ data }) => {
                 <div className=' col-span-2 flex justify-end'>
                     <p className='text-base  font-semibold  mt-0'>R {data?.totalPrice?.gross?.amount}</p>
                 </div>
-                <div className=' col-span-2 flex justify-end'>
+                <div className=' col-span-1 flex justify-end'>
                     <button
                         onClick={handleRemoveToCart}
                         className=' text-base   p-2  text-gray-500  hover:text-red-500 rounded-md'>

@@ -4,26 +4,26 @@ const ProductCalculation = ({ children, checkoutData }) => {
 
     return (
 
-            <div className=' select-none   bg-white border-t'>
-                <div className=' grid grid-cols-6 text-green-500  p-1 rounded-md pt-5 mb-5'>
-                    <p className=' col-span-4 text-base  text-left'>Sub total</p>
+            <div className=' select-none   bg-white '>
+                <div className=' grid grid-cols-6 text-black   p-1 rounded-md pt-5 mb-1'>
+                    <p className=' sm:col-span-4 col-span-3 text-base  text-left'>Sub total</p>
                     <span className='col-span-1 text-base  text-left'>:</span>
-                    <span className=' col-span-1 text-base  flex gap-1  items-center '>
+                    <span className='col-span-1 text-base  flex gap-1  items-center '>
                         R  <p> {checkoutData?.subtotalPrice?.net?.amount}</p>
                     </span>
                 </div>
 
-                <div className='  grid grid-cols-6 text-green-500  p-1 rounded-md mb-5'>
-                    <p className=' col-span-4 text-base  text-left'>Shipping</p>
+                <div className='  grid grid-cols-6 text-black   p-1 rounded-md mb-1'>
+                    <p className=' sm:col-span-4 col-span-3 text-base  text-left'>Shipping</p>
                     <span className='col-span-1text-base text-left'>:</span>
-                    <span className=' flex gap-1 text-base  items-center  '>
+                    <span className='col-span-1 flex gap-1 text-base  items-center  '>
                         R   <p>{checkoutData?.shippingPrice?.gross?.amount||"00"}</p>
                     </span>
                 </div>
-                <div className='  grid grid-cols-6 text-green-500  p-1 rounded-md mb-5'>
-                    <p className=' col-span-4 text-base  text-left'>Total</p>
+                <div className='  grid grid-cols-6 text-black  p-1 rounded-md mb-1'>
+                    <p className=' sm:col-span-4 col-span-3 text-base  text-left'>Total</p>
                     <span className='col-span-1 text-base  text-left'>:</span>
-                    <span className=' flex gap-1 text-base items-center  '>
+                    <span className=' col-span-1 flex gap-1 text-base items-center  '>
                         R   <p>{checkoutData?.totalPrice?.gross?.amount}</p>
                     </span>
                 </div>

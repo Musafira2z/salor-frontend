@@ -27,7 +27,7 @@ const SidebarDrawer = () => {
                     <Drawer.Title>Musafir</Drawer.Title>
                 </Drawer.Header>
 
-                <Drawer.Body className='p-0 h-screen overflow-hidden overflow-y-auto' onClick={() => setOpen(false)} >
+                <Drawer.Body className='p-0 h-screen overflow-hidden overflow-y-auto'  >
                     <Sidenaves />
                 </Drawer.Body>
             </Drawer>
