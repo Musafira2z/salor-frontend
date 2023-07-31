@@ -3,7 +3,7 @@ import React from 'react';
 export const WarningToast = ({warning}) => {
     return (
         <div 
-             className="flex items-center bg-amber-100 mb-1 w-full  p-1 text-gray-500 bg-white rounded-lg "
+             className="flex items-center !bg-amber-100 mb-1 w-full   p-1 text-gray-500 bg-white rounded-lg "
              role="alert">
             <div
                 className="inline-flex items-center justify-center flex-shrink-0 w-6 h-6 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">

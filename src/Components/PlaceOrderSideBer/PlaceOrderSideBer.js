@@ -34,7 +34,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
 
     useEffect(() => {
         if (checkoutData?.billingAddress && checkoutData?.shippingAddress) {
-            setWarning(false);
+            setWarning('');
         }
 
     }, [checkoutData?.billingAddress, checkoutData?.shippingAddress])
@@ -142,7 +142,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
                 </div>
 
                 <div className='col-span-6  '>
-                    <div className={`  ${warning ? "visible" : "invisible"}`}>
+                    <div className={`  ${warning ? "visible" : "invisible"} px-3`}>
                         {<WarningToast warning={warning} />}
                     </div>
                     <div className='col-span-6 flex justify-center'>

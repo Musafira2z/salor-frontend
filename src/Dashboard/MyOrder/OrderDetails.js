@@ -10,6 +10,8 @@ const OrderDetails = () => {
         }
     })
     const orderItems = data?.orderByToken?.lines;
+
+    // console.log(orderItems)
    
     return (
         <section className=' h-screen overflow-y-auto'>
@@ -18,8 +20,8 @@ const OrderDetails = () => {
             <div className='flex justify-end'>
                 <button
                     onClick={() => window.history.back()}
-                    className='font-bold bg-green-200 px-2 rounded-full text-red-500'>
-                    ↩Go Back
+                    className='font-bold  bg-amber-500 text-white px-2 rounded-full '>
+                    Go Back
                 </button>
             </div>
             <div className=" rounded-lg  m-5">
@@ -27,7 +29,7 @@ const OrderDetails = () => {
 
 
                 {
-                 loading?<h1>Loading..</h1> :  
+                 loading?<h1 className='text-lg text-center'>Loading..</h1> :
                  
                  orderItems?.map((item, index) => (
 
@@ -49,13 +51,7 @@ const OrderDetails = () => {
 
                             </div>
 
-                            {/*<div className=' col-span-1 flex justify-end items-center'>*/}
 
-                            {/*    <button*/}
-                            {/*        className=' bg-red-500 p-2  rounded-md'><RiDeleteBin2Fill className=' text-slate-50' />*/}
-                            {/*    </button>*/}
-
-                            {/*</div>*/}
 
                         </div>
                     ))

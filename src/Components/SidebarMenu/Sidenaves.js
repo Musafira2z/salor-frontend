@@ -1,11 +1,10 @@
 import React from 'react';
 import { useMainMenuQuery } from "../../api";
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { SidebarSkeleton } from '../Sheard/Skeletons/SidebarSkeleton';
-import { Sidenav, Nav } from 'rsuite';
 
 const SideNavar = () => {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const { loading, data } = useMainMenuQuery({
         errorPolicy: "all",
@@ -28,10 +27,10 @@ const SideNavar = () => {
 
 
 
-    const handleNavigate = (slug) => {
-        console.log(slug)
-        navigate(`/category/${slug}`)
-    }
+    // const handleNavigate = (slug) => {
+    //     console.log(slug)
+    //     navigate(`/category/${slug}`)
+    // }
 
     return (
 

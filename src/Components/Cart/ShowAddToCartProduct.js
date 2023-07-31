@@ -1,22 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Drawer from '../Sheard/Drawer/Drawer';
 import CartBody from './CartBody';
+import CartDrawer from "../Sheard/Drawer/CartDrawer";
 
 
 
 
 const ShowAddToCartProduct = ({ setIsOpenCart, isOpenCart, checkoutData }) => {
-
-
-
-
-
-
     return (
-
-       <Drawer isOpen={isOpenCart} setIsOpen={setIsOpenCart} className='z-11  '>
-     {/* //     <RsuiteDrawer open={isOpenCart} setOpen={setIsOpenCart}> */}
+        <CartDrawer open={isOpenCart} setOpen={setIsOpenCart}>
             <CartBody
                 isOpen={isOpenCart}
                 setIsOpen={setIsOpenCart}
@@ -36,12 +28,7 @@ const ShowAddToCartProduct = ({ setIsOpenCart, isOpenCart, checkoutData }) => {
 
             </CartBody>
 
-        {/* </RsuiteDrawer> */}
-
-
-           
-
-        </Drawer>
+   < /CartDrawer>
 
     );
 };
