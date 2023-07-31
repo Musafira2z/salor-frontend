@@ -15,14 +15,13 @@ const Slider = () => {
         }
     })
 
-
     return (
         <div className=" xl:mt-5 lg:mt-5 pb-3">
             <Carousel autoplay className='w-full h-full xl:rounded-xl lg:rounded-xl' >
                 {loading&& BannerSkeleton }
                 {
                     data?.menu?.items?.map((slideImage, index) => (
-                        <img key={index}  className=" w-full" src={slideImage?.collection?.backgroundImage?.url} alt=""  />
+                        <img key={index}  className=" w-full" src={slideImage?.collection?.backgroundImage?.url} alt="Banner"  />
                     ))
                 }
             </Carousel>
