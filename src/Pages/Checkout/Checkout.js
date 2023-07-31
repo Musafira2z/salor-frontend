@@ -268,7 +268,7 @@ const Checkout = () => {
                                                next
                                                first
                                                size="md"
-                                               total={searchAddress.length}
+                                               total={searchAddress?.length}
                                                limit={itemsPerPage}
                                                activePage={currentPage}
                                                onChangePage={setCurrentPage}
