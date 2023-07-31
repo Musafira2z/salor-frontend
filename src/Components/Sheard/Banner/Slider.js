@@ -18,29 +18,11 @@ const Slider = () => {
 
     return (
         <div className=" xl:mt-5 lg:mt-5 pb-3">
-            {/*   {
-                    loading ? BannerSkeleton :
-
-                        data?.menu?.items.map((slideImage, index) => (
-                            <div className="each-slide" key={index}>
-
-
-                                <img className=' w-full md:h-96 h-56 object-center'
-                                    src={slideImage?.collection?.backgroundImage?.url} alt="" />
-
-                            </div>
-                        ))}
-
-                        */}
-
-            {/* </Carousel> */}
-
-
             <Carousel autoplay className='w-full h-full xl:rounded-xl lg:rounded-xl' >
-
+                {loading&& BannerSkeleton }
                 {
-                    data?.menu?.items.map((slideImage, index) => (
-                        <img  className=" w-full" src={slideImage?.collection?.backgroundImage?.url} alt=""  />
+                    data?.menu?.items?.map((slideImage, index) => (
+                        <img key={index}  className=" w-full" src={slideImage?.collection?.backgroundImage?.url} alt=""  />
                     ))
                 }
             </Carousel>

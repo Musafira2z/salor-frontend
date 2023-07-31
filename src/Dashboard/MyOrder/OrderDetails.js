@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useOrderDetailsByTokenQuery } from '../../api';
+import {useOrderDetailsByTokenQuery} from '../../api';
 
 const OrderDetails = () => {
     const { token } = useParams();
@@ -9,9 +9,11 @@ const OrderDetails = () => {
             token: token
         }
     })
+
     const orderItems = data?.orderByToken?.lines;
 
-    // console.log(orderItems)
+
+
    
     return (
         <section className=' h-screen overflow-y-auto'>

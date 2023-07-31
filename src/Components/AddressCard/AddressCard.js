@@ -5,7 +5,7 @@ const AddressCard = ({ data,checkoutAddress }) => {
  
     return (
         <div
-            className=' md:rounded-md p-5 cursor-pointer w-full  md:border-b-0 border-b'>
+            className=' md:rounded-md  cursor-pointer w-full  md:border-b-0 border-b'>
             <div className='grid grid-cols-12'>
                 <div className='col-span-4'>
                     <p className="text-base">First Name</p>
@@ -75,8 +75,8 @@ const AddressCard = ({ data,checkoutAddress }) => {
             </div>
             {
                 !checkoutAddress?.id?
-                    <div className='flex justify-end'>
-                        <button className='text-base font-bold bg-amber-500 px-3 py-1 rounded-full text-white'>Select your Address</button>
+                    <div className="mt-5">
+                        <button className='text-base font-bold bg-amber-500 px-3 py-1 rounded-md text-white'>Select your Address</button>
                     </div>:''
             }
 

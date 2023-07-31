@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Pagination } from 'rsuite';
 import NavigationBar from '../../Components/Sheard/NavigationBar/NavigationBar';
 import PlaceOrderSideBer from '../../Components/PlaceOrderSideBer/PlaceOrderSideBer';
-
 import {
     LanguageCodeEnum, useCheckoutBillingAddressUpdateMutation,
     useCheckoutByTokenQuery,
@@ -20,6 +20,7 @@ const Checkout = () => {
 
     const [showAddressModal, setShowAddressModal] = useState(false);
     const [searchValue, setSearchValue] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
 
 
 
@@ -146,7 +147,12 @@ const Checkout = () => {
 
     };
 
-
+// pagination --------------------
+    const itemsPerPage = 4;
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    // const count = Math?.ceil(searchAddress?.length / itemsPerPage);
+    const paginateItem = searchAddress?.slice(startIndex, endIndex);
 
     return (
         <div>
@@ -238,9 +244,9 @@ const Checkout = () => {
                                         {
 
                                             addresses?.me?.addresses?.length ?
-                                                searchAddress?.map((data, index) => (
+                                                paginateItem?.map((data, index) => (
                                                     <div
-                                                        className="bg-white"
+                                                        className=' md:rounded-md p-5 cursor-pointer w-full  md:border-b-0 border-b bg-white'
                                                         key={index}
                                                         onClick={() => checkoutShippingAddressUpdateHandler(data)}
                                                     >
@@ -254,6 +260,20 @@ const Checkout = () => {
                                                
                                         }
 
+
+                                       <div className="flex justify-center col-span-2">
+                                           <Pagination
+                                               prev
+                                               last
+                                               next
+                                               first
+                                               size="md"
+                                               total={searchAddress.length}
+                                               limit={itemsPerPage}
+                                               activePage={currentPage}
+                                               onChangePage={setCurrentPage}
+                                           />
+                                       </div>
 
                                     </div>
                                 </div>

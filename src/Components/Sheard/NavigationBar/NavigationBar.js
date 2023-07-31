@@ -4,9 +4,7 @@ import Logo from '../../../Utility/Logo/saleor.svg'
 import LoginPage from '../../../Authentication/LoginLayout';
 import { Link, NavLink } from 'react-router-dom';
 import { MdOutlineLiveHelp } from 'react-icons/md';
-
 import AvatarDropdownMenu from '../AvatarMenu/AvatarDropdownMenu';
-// import { activeClass } from '../../../Utility/ActiveClass/NavLinkActiveClass';
 import SidebarDrawer from '../../SidebarDrawer/SidebarDrawer';
 import { CurrentUserDetailsDocument } from '../../../api';
 import { useQuery } from '@apollo/client';
