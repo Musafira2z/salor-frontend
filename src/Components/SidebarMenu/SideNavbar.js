@@ -1,12 +1,12 @@
-import React from 'react';
-import { useMainMenuQuery } from "../../api";
-import { NavLink } from 'react-router-dom';
-import { SidebarSkeleton } from '../Sheard/Skeletons/SidebarSkeleton';
+import {useMainMenuQuery} from "../../api";
+import {SidebarSkeleton} from "../Sheard/Skeletons/SidebarSkeleton";
+import {NavLink} from "react-router-dom";
+import React from "react";
 
-const SideNavar = () => {
+const SideNavbar = () => {
     // const navigate = useNavigate()
 
-    const { loading, data } = useMainMenuQuery({
+    const {loading, data} = useMainMenuQuery({
         errorPolicy: "all",
         variables: {
             locale: "EN",
@@ -15,16 +15,12 @@ const SideNavar = () => {
     })
 
 
-
     if (loading) {
         return SidebarSkeleton;
     }
 
 
-
     const menuItems = data?.menu?.items;
-
-
 
 
     // const handleNavigate = (slug) => {
@@ -37,29 +33,30 @@ const SideNavar = () => {
         <nav className="px-5 pt-2 ">
 
 
-               <ul>
+            <ul>
                 <li className=" flex justify-center mt-2 mb-2">
                     <button
                         className=" w-full h-10 text-slate-50  text-lg font-extrabold    bg-gradient-to-r from-amber-500 rounded-lg to-pink-700"> Offer
                     </button>
                 </li>
-                <hr className='mb-5' />
+                <hr className='mb-5'/>
                 {menuItems?.map((item, i) => {
                     return (
 
 
                         <li key={i}
-                            style={{ fontSize: '15px', fontWeight: '500px', padding: '5px 0' }}
+                            className='hover:bg-amber-200 rounded-md !hover:text-white px-2'
+                            style={{fontSize: '15px', fontWeight: '500px', padding: '5px 5px',}}
                         >
                             <NavLink to={`/category/${item?.category?.slug}`}
 
-                                className="hover:no-underline focus:no-underline"
+                                     className="hover:no-underline  focus:no-underline"
 
                             >
 
                                 <div className='flex items-center gap-4'>
                                     <img className='w-5 h-5 object-cover '
-                                        src={item?.category?.backgroundImage?.url} alt="" />
+                                         src={item?.category?.backgroundImage?.url} alt=""/>
 
                                     <p className="text-black cursor-pointer "
 
@@ -70,7 +67,6 @@ const SideNavar = () => {
                         </li>
 
 
-
                     )
                 })}
 
@@ -78,11 +74,7 @@ const SideNavar = () => {
             </ul>
 
 
-
-
-
-
-         {/*    <Sidenav >
+            {/*    <Sidenav >
                 <Sidenav.Body >
                     <Nav activeKey="1" style={{ paddingLeft: '0px' }} >
 
@@ -103,7 +95,7 @@ const SideNavar = () => {
                                                 src={item?.category?.backgroundImage?.url} alt="" />
 
                                         }>
-                                        
+
 
                                         {
                                             item?.children?.map((item, i) =>
@@ -222,5 +214,4 @@ const SideNavar = () => {
 
     );
 };
-
-export default SideNavar;
+export default SideNavbar;

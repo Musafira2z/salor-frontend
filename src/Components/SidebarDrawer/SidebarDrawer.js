@@ -2,7 +2,7 @@ import React from 'react';
 import { Drawer, ButtonToolbar,  IconButton } from 'rsuite';
 
 import { RiMenu3Line } from 'react-icons/ri';
-import Sidenaves from '../SidebarMenu/Sidenaves';
+import Sidenaves from "../SidebarMenu/SideNavbar";
 
 const SidebarDrawer = () => {
     const [open, setOpen] = React.useState(false);

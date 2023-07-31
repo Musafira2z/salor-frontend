@@ -207,7 +207,11 @@ const Product = ({ data }) => {
                                                             disabled
                                                             className='  border-2 border-red-500 rounded-lg text-white bg-red-500   text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full    '>Out Of Stock</button > :
 
-                                                        <button onClick={handleAddToCart} className='border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full   hover:border-amber-500 hover:bg-amber-500 hover:text-white' >Add to cart</button >
+                                                        <button onClick={handleAddToCart} className='addToCart border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full   hover:border-amber-500 hover:bg-amber-500 hover:text-white' >
+                                                            <div className='cartAnimation h-16 w-16 '>
+                                                                <img  src={data?.product?.media?.[0]?.url} alt="" />
+                                                            </div>
+                                                            Add to cart</button >
                                                     }
                                                 </div>
                                         }

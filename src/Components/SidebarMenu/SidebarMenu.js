@@ -1,5 +1,5 @@
 import React from "react";
-import SideNavar from "./Sidenaves";
+import SideNavar from "./SideNavbar";
 
 
 const SidebarMenu = () => {
