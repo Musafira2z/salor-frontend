@@ -20,7 +20,7 @@ const ShowAddToCartProduct = ({ setIsOpenCart, isOpenCart, checkoutData }) => {
 
                     <NavLink to='/checkout'
 
-                        className=' w-52   py-1 text-xl text-center rounded text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-amber-500  border border-amber-500'>
+                        className=' w-52   py-1 text-sm text-center rounded text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-amber-500  border border-amber-500'>
                         <button>Checkout</button>
 
                     </NavLink>
