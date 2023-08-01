@@ -7,7 +7,12 @@ import { useQuery } from '@apollo/client';
 import { LiaUserCircleSolid } from 'react-icons/lia';
 import { BsFillCartCheckFill } from 'react-icons/bs';
 import { BiHelpCircle } from 'react-icons/bi';
+
 const DashboardSidebarMenu = () => {
+   
+
+
+
     const { data } = useQuery(CurrentUserDetailsDocument);
 
     const user = data?.me;
@@ -38,24 +43,6 @@ const DashboardSidebarMenu = () => {
                     </NavLink >
                 </li >
 
-
-
-                {/*   <li className=' list-none' >
-                    <NavLink to='/dashboard/my-review'
-                        className={activeClass} >
-                        <span>My Review</span>
-                    </NavLink >
-                </li > */}
-
-
-
-                {/*  <li className=' list-none' >
-                    <NavLink to='/dashboard/refer'
-                        className={activeClass}
-                    >
-                        Refer
-                    </NavLink >
-                </li > */}
                 <li className=' list-none' >
                     <NavLink to='/dashboard/help'
                         className={activeClass} >
@@ -69,6 +56,9 @@ const DashboardSidebarMenu = () => {
                     </div>
                 </li >
             </ul >
+
+
+           
         </nav>
     );
 };

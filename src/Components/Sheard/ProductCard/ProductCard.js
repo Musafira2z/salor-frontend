@@ -135,7 +135,7 @@ const ProductCard = ({ data }) => {
 
     return (
 
-        <div className="  lg:rounded-lg md:rounded-lg sm:rounded-sm rounded-none  xl:border-none lg:border-none md:border-none sm:border-none border bg-white flex flex-col justify-between ">
+        <div className="  lg:rounded-lg md:rounded-lg sm:rounded-sm rounded-none  xl:border-none lg:border-none md:border-none sm:border-none border bg-white flex flex-col justify-between p-3">
 
 
 
@@ -144,14 +144,14 @@ const ProductCard = ({ data }) => {
             >
 
 
-                <div className=' flex justify-center h-36   p-2' >
+                <div className=' flex justify-center h-36 ' >
                     <img  src={thumbnail?.url} alt="" />
                 </div >
 
 
 
-                <div className='xl:pt-7 lg:pt-7 md:pt-6 sm:pt-3 pt-3 xl:px-5 lg:px-5 md:px-4 sm:px-3 px-3' >
-                    <p className='truncate hover:text-clip' style={{ fontSize: '15px', color: 'rgb(13, 17, 54)', margin: '0px 0px 20px', width: '100%', whiteSpace: 'nowrap', fontWeight: 'bold' }}>{name}</ p>
+                <div className='xl:pt-7 lg:pt-7 md:pt-6 sm:pt-3 pt-3 xl:px-5 lg:px-5 md:px-4 sm:px-3 ' >
+                    <p className='truncate hover:text-clip' style={{ fontSize: '15px', color: 'rgb(13, 17, 54)', width: '100%', whiteSpace: 'nowrap', fontWeight: 'bold' }}>{name}</ p>
 
                     {/* <p className='text-md text-gray-500 font-bold'>Available Quantity: {data?.node?.variants?.[0]?.quantityAvailable}</p> */}
 
@@ -163,11 +163,12 @@ const ProductCard = ({ data }) => {
                 </div >
             </Link>
 
-            <div className='xl:px-6 lg:px-6 md:px-6 sm:px-3 px-3  xl:pt-5 xl:pb-8 lg:pt-5 lg:pb-8 md:pt-5 md:pb-8 sm:pt-3 sm:pb-5 pt-3 pb-5'>
+            <div className=' lg:pt-5 md:pt-5  sm:pt-3  pt-3 '>
                 {data?.node?.variants?.[0]?.quantityAvailable === 0 ?
                     <button
                         disabled
-                        className='  border-2 border-red-500 rounded-lg text-white bg-red-500   text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-3 w-full    ' >Out of stock</button > :
+                        className='  border-2 border-red-500 rounded-lg text-white bg-red-500   text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-3 w-full    ' >
+                            Out of stock</button > :
 
                     <div>
                         {

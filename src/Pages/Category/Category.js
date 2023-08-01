@@ -39,6 +39,7 @@ const Category = () => {
                     return setCategory(item1);
 
                 }
+                
                 item1.children?.forEach(item2 => {
                     if(item2?.category?.slug === slug) {
                         return  setCategory(item2);
