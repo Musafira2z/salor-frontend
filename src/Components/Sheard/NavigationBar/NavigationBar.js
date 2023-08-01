@@ -21,14 +21,14 @@ const NavigationBar = () => {
             <div  >
                 <div className='grid grid-cols-12 '>
 
-                    <div className='2xl:col-span-6 xl:col-span-8 lg:col-span-8 md:col-span-6 sm:col-span-4 col-span-6 flex justify-between items-center  ' >
+                    <div className='2xl:col-span-6 xl:col-span-8 lg:col-span-8 md:col-span-6 sm:col-span-4 col-span-6 flex  items-center  ' >
                         <div className='block sm:block  md:hidden lg:hidden xl:hidden'>
                             <SidebarDrawer />
                         </div>
                         <div  >
                             <Link to='/'>
                                 <img
-                                    className=' w-32 '
+                                    className=' w-28 '
                                     src={Logo} alt="" />
                             </Link>
                         </div >

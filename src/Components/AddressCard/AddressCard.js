@@ -78,7 +78,7 @@ const AddressCard = ({ data,checkoutAddress,checkoutShippingAddressUpdateHandler
             {
                 !checkoutAddress?.id?
                     <div className="mt-5">
-                        <button className='text-base font-bold bg-amber-500 px-3 py-1 rounded-md text-white'>Select your Address</button>
+                        <button className='text-base font-bold bg-amber-500 px-3 py-1 rounded-md text-white'>Select your address</button>
                     </div>:''
             }
 

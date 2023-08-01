@@ -117,9 +117,6 @@ const Checkout = () => {
         CheckoutBillingAddressData?.checkoutBillingAddressUpdate?.checkout?.id
     ])
 
-
-
-
     if (CheckoutByLoading) {
         return null;
     }
@@ -129,10 +126,9 @@ const Checkout = () => {
     }
 
 
-
+    {/**************Old Address filtering for search *************/}
 
     const searchAddress = addresses?.me?.addresses.filter((address =>
-
         address?.streetAddress1?.toUpperCase()?.includes(searchValue.toUpperCase()) ||
         address?.city?.toUpperCase()?.includes(searchValue.toUpperCase()) ||
         address?.postalCode?.toUpperCase()?.includes(searchValue.toUpperCase()) ||
@@ -141,13 +137,14 @@ const Checkout = () => {
     ));
 
 
-
+    /************** Address search handler *************/
     const handleOnchange = (e) => {
         setSearchValue(e.target.value);
 
     };
 
-// pagination --------------------
+    /************** Address cart pagination *************/
+
     const itemsPerPage = 4;
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -162,38 +159,35 @@ const Checkout = () => {
                 <div className='md:col-span-8 col-span-12 my-5  lg:space-x-10 ' >
 
                     <div className='grid grid-cols-1 md:grid-cols-1 gap-3 md:px-3 '>
+
+
+                        {/************** Selected Address for place order *************/}
+
                         {
                             checkoutAddress ?
-
-                                    <AddressCard data={checkoutAddress} checkoutAddress={checkoutAddress} />
-
-
+                                    <AddressCard
+                                        data={checkoutAddress}
+                                        checkoutAddress={checkoutAddress}
+                                    />
                                 :
 
                                 <div>
 
                                     <div className='grid lg:grid-cols-2 gap-3  mb-5 md:mx-0 mx-3'>
 
+                                        {/************** Delivery Address Form modal *************/}
 
                                         <Modal
                                             showModal={showAddressModal}
                                             setShowModal={setShowAddressModal}
                                             modalOpenButton={
-
-
                                                 <button
                                                     onClick={() => setShowAddressModal(!showAddressModal)}
                                                     className='text-white bg-amber-500    font-bold   text-base px-6 py-2  rounded w-full '
-                                                >Add New Address</button>
-
-
-
+                                                >Add your new address</button>
                                             }
-
-
                                             title='Add New Address'>
-
-                                           
+                                            {/************** Delivery Address Form *************/}
 
                                                 <div className="bg-white">
                                                     <DeliveryAddressForm
@@ -206,6 +200,9 @@ const Checkout = () => {
                                         </Modal>
 
 
+
+                                        {/************** Address search input field *************/}
+
                                         <div className='flex   w-full   ' >
                                             <input
 
@@ -214,8 +211,6 @@ const Checkout = () => {
                                                 placeholder="Search your address"
                                                 type="text"
                                                 name="search" />
-
-
 
                                             <button
                                                 className=' bg-amber-400  flex gap-1 justify-center items-center  w-16 text-slate-50 rounded-lg rounded-l-none text-base font-bold' >
@@ -226,15 +221,18 @@ const Checkout = () => {
 
 
 
+
                                     {addresses?.me?.addresses?.length && !searchAddress?.length ?
                                         <div className=' flex justify-center items-center lg:h-80 text-2xl mx-5'>
 
-                                            <span>Not found your address , Please add a your new address.</span>
+                                            <span>Not found your address!</span>
 
                                         </div> : null
                                     }
 
 
+
+                                    {/************** Address cards *************/}
 
 
                                     <div className='grid md:grid-cols-2 grid-cols-1 md:gap-3  '>
@@ -253,29 +251,32 @@ const Checkout = () => {
                                         }
 
 
-                                       <div className="flex justify-center ">
-                                           <Pagination
-                                               prev
-                                               last
-                                               next
-                                               first
-                                               size="md"
-                                               total={searchAddress?.length}
-                                               limit={itemsPerPage}
-                                               activePage={currentPage}
-                                               onChangePage={setCurrentPage}
-                                           />
-                                       </div>
+                                    </div>
+                                    {/************** Address card pagination *************/}
 
+                                    <div className="  flex justify-center mt-5 ">
+                                        <Pagination
+                                            prev
+                                            last
+                                            next
+                                            first
+                                            size="md"
+                                            total={searchAddress?.length}
+                                            limit={itemsPerPage}
+                                            activePage={currentPage}
+                                            onChangePage={setCurrentPage}
+                                        />
                                     </div>
                                 </div>
 
                         }
+
                     </div>
 
                 </ div >
 
 
+                {/************** Place order sidebar *************/}
                 <div className=' md:col-span-4 col-span-12 w-full   md:px-3 lg:-mt-24 pt-3' >
                     <PlaceOrderSideBer checkoutData={checkoutData} />
                 </div >

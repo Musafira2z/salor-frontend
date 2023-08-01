@@ -134,19 +134,19 @@ const AddToCartCard = ({ data }) => {
                     <span className=' text-base  font-semibold  line-clamp-4 '>{data?.variant?.name} </span>
                     <p className=' text-base text-amber-500 font-semibold mt-0 '> R {data?.variant?.pricing?.price?.gross?.amount}</p>
                     <p className='  text-base text-gray-500  mt-0 '> {data?.quantity} x {data?.variant?.pricing?.price?.gross?.amount}</p>
-                  
 
                 </div>
 
-                <div className=' col-span-2 flex justify-end'>
-                    <p className='text-base  font-semibold  mt-0'>R {data?.totalPrice?.gross?.amount}</p>
-                </div>
-                <div className=' col-span-1 flex justify-end'>
+
+                <div className=' col-span-3 flex flex-col justify-between items-center gap-5'>
                     <button
                         onClick={handleRemoveToCart}
                         className=' text-base   p-2  text-gray-500  hover:text-red-500 rounded-md'>
                         <RxCross2 className='!font-extrabold text-lg' />
                     </button>
+
+                    <p className='text-base  font-semibold  mt-0'>R {data?.totalPrice?.gross?.amount}</p>
+
                 </div>
 
             </div>

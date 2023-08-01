@@ -34,7 +34,7 @@ const SideNavbar = () => {
             <ul>
                 <li className=" flex justify-center mt-2 mb-2">
                     <button
-                        className=" w-full h-10 text-slate-50  text-lg font-extrabold    bg-amber-500 rounded-md"> Offer
+                        className=" w-full h-10 text-slate-50  text-lg tracking-[.10em] font-bold   bg-amber-500 rounded-md"> Offer
                     </button>
                 </li>
                 <hr className='mb-5' />

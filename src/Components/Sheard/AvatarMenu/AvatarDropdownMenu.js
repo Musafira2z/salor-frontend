@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown, ButtonToolbar, Popover, IconButton, Whisper } from 'rsuite';
 
-import { FaRegUserCircle } from 'react-icons/fa';
+import { FaUserAlt } from 'react-icons/fa';
 import DashboardSidebarMenu from '../../../Dashboard/Dashboard/DashboardSidebarMenu';
 
 
@@ -10,7 +10,7 @@ const AvatarDropdownMenu = () => {
     return (
         <ButtonToolbar>
             <Whisper size="lg" placement="bottomEnd" trigger="click" speaker={renderMenu}>
-                <IconButton className='bg-amber-500 hover:bg-amber-500 active:bg-amber-500 focus:bg-amber-500 p-0' appearance="primary" icon={<FaRegUserCircle size={20} />} circle />
+                <IconButton className='bg-amber-500 hover:bg-amber-500 active:bg-amber-500 focus:bg-amber-500 p-0' appearance="primary" icon={<FaUserAlt size={20} />} circle />
             </Whisper>
         </ButtonToolbar>
     );

@@ -148,7 +148,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
                     <div className='col-span-6 flex justify-center'>
                         <button
                             onClick={orderHandler}
-                            className='   w-52 py-1 text-xl text-center rounded text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-amber-500 border border-amber-500'>Place Order
+                            className=' w-52   py-1 text-sm text-center rounded text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-amber-500  border border-amber-500'>Place order
                         </button>
                     </div>
                 </div>
