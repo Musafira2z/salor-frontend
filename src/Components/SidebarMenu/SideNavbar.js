@@ -2,7 +2,7 @@ import {useMainMenuQuery} from "../../api";
 import {SidebarSkeleton} from "../Sheard/Skeletons/SidebarSkeleton";
 import {NavLink, useParams} from "react-router-dom";
 import React from "react";
-
+import { Sidenav, Nav } from 'rsuite';
 const SideNavbar = () => {
     // const navigate = useNavigate()
 const {slug}=useParams();
@@ -71,144 +71,17 @@ const {slug}=useParams();
 
 
             </ul>
-
-
-            {/*    <Sidenav >
-                <Sidenav.Body >
-                    <Nav activeKey="1" style={{ paddingLeft: '0px' }} >
-
-                        {
-                            menuItems?.map((item, i) =>
-                                item?.children?.length ?
-
-
-                                    <Nav.Menu
-                                        eventKey={i}
-                                        onClick={() => handleNavigate(item?.category?.slug)}
-                                        style={{ padding: '0px !impotent' }}
-                                        title={item?.name}
-                                        icon={
-
-                                            <img
-                                                style={{ display: 'inline', height: "20px", width: '20px', marginRight: "10px" }}
-                                                src={item?.category?.backgroundImage?.url} alt="" />
-
-                                        }>
-
-
-                                        {
-                                            item?.children?.map((item, i) =>
-
-                                                item?.children?.length ?
-
-                                                    <Nav.Menu
-                                                        onClick={() => handleNavigate(item?.category?.slug)}
-                                                        eventKey={i}
-                                                        icon={
-
-                                                            <img
-                                                                style={{ display: 'inline', height: "20px", width: '20px', marginRight: "10px" }}
-                                                                src={item?.category?.backgroundImage?.url} alt="" />
-
-                                                        }
-                                                        title={item?.name}>
-
-                                                        {
-                                                            item?.children?.map((item, i) =>
-
-                                                                item?.children?.length ?
-
-                                                                    <Nav.Menu
-                                                                        onClick={() => handleNavigate(item?.category?.slug)}
-                                                                        eventKey={i}
-                                                                        icon={
-
-                                                                            <img
-                                                                                style={{ display: 'inline', height: "20px", width: '20px', marginRight: "10px" }}
-                                                                                src={item?.category?.backgroundImage?.url} alt="" />
-
-                                                                        }
-                                                                        title={item?.name}>
-
-
-                                                                        <Nav.Item
-                                                                            onClick={() => handleNavigate(item?.category?.slug)}
-                                                                            eventKey={i}
-                                                                            icon={
-
-                                                                                <img
-                                                                                    style={{ display: 'inline', height: "20px", width: '20px', marginRight: "10px" }}
-                                                                                    src={item?.category?.backgroundImage?.url} alt="" />
-
-                                                                            }
-                                                                        >{item?.name}
-                                                                        </Nav.Item>
-
-                                                                    </Nav.Menu> :
-
-                                                                    <Nav.Item
-                                                                        onClick={() => handleNavigate(item?.category?.slug)}
-                                                                        eventKey={i}
-                                                                        icon={
-
-                                                                            <img
-                                                                                style={{ display: 'inline', height: "20px", width: '20px', marginRight: "10px" }}
-                                                                                src={item?.category?.backgroundImage?.url} alt="" />
-
-                                                                        }
-                                                                    >
-                                                                        {item?.name}
-                                                                    </Nav.Item>
-                                                            )
-                                                        }
-
-
-
-
-
-                                                    </Nav.Menu> :
-                                                    <Nav.Item
-                                                        onClick={() => handleNavigate(item?.category?.slug)}
-                                                        eventKey={i}
-                                                        icon={
-
-                                                            <img
-                                                                style={{ display: 'inline', height: "20px", width: '20px', marginRight: "10px" }}
-                                                                src={item?.category?.backgroundImage?.url} alt="" />
-
-                                                        }
-                                                    >
-                                                        {item?.name}
-                                                    </Nav.Item>
-                                            )
-                                        }
-
-                                    </Nav.Menu>
-
-                                    :
-                                    <Nav.Item
-                                        onClick={() => handleNavigate(item?.category?.slug)}
-                                        eventKey={i}
-                                        icon={
-
-                                            <img
-                                                style={{ display: 'inline', height: "20px", width: '20px', marginRight: "10px" }}
-                                                src={item?.category?.backgroundImage?.url} alt="" />
-
-                                        }
-                                    >
-                                        {item?.name}
-                                    </Nav.Item>
-                            )}
-
-
-
-
-
-
-                    </Nav>
-                </Sidenav.Body>
-            </Sidenav> */}
+<Nav>
+            <Nav.Menu eventKey="4" title="Settings" >
+                <Nav.Item eventKey="4-1">Applications</Nav.Item>
+                <Nav.Item eventKey="4-2">Channels</Nav.Item>
+                <Nav.Item eventKey="4-3">Versions</Nav.Item>
+                <Nav.Menu eventKey="4-5" title="Custom Action">
+                    <Nav.Item eventKey="4-5-1">Action Name</Nav.Item>
+                    <Nav.Item eventKey="4-5-2">Action Params</Nav.Item>
+                </Nav.Menu>
+            </Nav.Menu>
+</Nav>
         </nav>
 
     );
