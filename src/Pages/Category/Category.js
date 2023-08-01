@@ -11,6 +11,7 @@ const Category = () => {
     const { searchValue } = useContext(Context);
     const [cursor, setCursor] = useState('')
     const [categoryId, setCategoryId] = useState("")
+    const [category, setCategory] = useState('')
 
     const { slug } = useParams();
 
@@ -24,13 +25,35 @@ const Category = () => {
         }
     })
 
-    const category = data?.menu?.items?.find( item => {
-        return  item?.category?.slug === slug;
-    })
+
+    useEffect(() => {
+        data?.menu?.items?.forEach( item => {
+
+            if(item?.category?.slug === slug){
+                return setCategory(item);
+
+            }
+
+            item.children?.forEach(item1 => {
+                if(item1?.category?.slug === slug) {
+                    return setCategory(item1);
+
+                }
+                item1.children?.forEach(item2 => {
+                    if(item2?.category?.slug === slug) {
+                        return  setCategory(item2);
+
+                    }
+                })
+            })
+
+
+        })
+    }, [data?.menu?.items, slug]);
 
 
     useEffect(() => {
-        if (category?.children) {
+        if (!category?.children?.length) {
             setCategoryId(category?.category?.id)
         }
     }, [category]);
@@ -57,7 +80,7 @@ const Category = () => {
 
     return (
         <div>
-            <div className=''>
+            <div >
                 <div className=' text-start'>
                     <div className='  lg:hidden md:block mt-3 px-4'>
                         <SearchBox />
@@ -81,7 +104,12 @@ const Category = () => {
                     :
 
                     <div >
-                        {productsData &&
+                        {
+                            loadingProduct?
+
+                                <h1 className="text-lg text-center">Loading...</h1>:
+
+                            productsData &&
                             <CategoryProducts
                                 data={productsData}
                                 loading={loadingProduct}

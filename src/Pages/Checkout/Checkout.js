@@ -155,7 +155,7 @@ const Checkout = () => {
     const paginateItem = searchAddress?.slice(startIndex, endIndex);
 
     return (
-        <div>
+        <div >
             <NavigationBar />
             <div className='grid grid-cols-12 gap-5   ' >
 
@@ -164,12 +164,8 @@ const Checkout = () => {
                     <div className='grid grid-cols-1 md:grid-cols-1 gap-3 md:px-3 '>
                         {
                             checkoutAddress ?
-                                <div
-                                    // onClick={() => checkoutShippingAddressUpdateHandler(checkoutAddress)}
-                                    className='bg-white'
-                                >
+
                                     <AddressCard data={checkoutAddress} checkoutAddress={checkoutAddress} />
-                                </div>
 
 
                                 :
@@ -185,8 +181,8 @@ const Checkout = () => {
                                             modalOpenButton={
 
 
-                                                <button onClick={() => setShowAddressModal(!showAddressModal)}
-
+                                                <button
+                                                    onClick={() => setShowAddressModal(!showAddressModal)}
                                                     className='text-white bg-amber-500    font-bold   text-base px-6 py-2  rounded w-full '
                                                 >Add New Address</button>
 
@@ -214,8 +210,10 @@ const Checkout = () => {
                                             <input
 
                                                 onChange={handleOnchange}
-
-                                                className=" placeholder:text-slate-400  placeholder:text-base block bg-white w-full border border-slate-300 rounded-md rounded-r-none py-2 px-2  shadow-sm focus:outline-none focus:border-amber-500 focus:ring-amber-500 focus:ring-1 text-base " placeholder="Search your address" type="text" name="search" />
+                                                className=" placeholder:text-slate-400  placeholder:text-base block bg-white w-full border border-slate-300 rounded-md rounded-r-none py-2 px-2  shadow-sm focus:outline-none focus:border-amber-500 focus:ring-amber-500 focus:ring-1 text-base "
+                                                placeholder="Search your address"
+                                                type="text"
+                                                name="search" />
 
 
 
@@ -236,32 +234,26 @@ const Checkout = () => {
                                         </div> : null
                                     }
 
-                                    <div className='grid md:grid-cols-2 md:gap-3 col-span-2 '>
 
 
 
+                                    <div className='grid md:grid-cols-2 grid-cols-1 md:gap-3  '>
 
                                         {
-
                                             addresses?.me?.addresses?.length ?
-                                                paginateItem?.map((data, index) => (
-                                                    <div
-                                                        className=' md:rounded-md p-5 cursor-pointer w-full  md:border-b-0 border-b bg-white'
-                                                        key={index}
-                                                        onClick={() => checkoutShippingAddressUpdateHandler(data)}
-                                                    >
-                                                        <div>
-                                                            <AddressCard data={data} />
-                                                        </div>
 
-                                                    </div>
+                                                paginateItem?.map((data, index) => (
+                                                            <AddressCard
+                                                                key={index}
+                                                                data={data}
+                                                                checkoutShippingAddressUpdateHandler={checkoutShippingAddressUpdateHandler}/>
                                                 )
                                                 ) :null
                                                
                                         }
 
 
-                                       <div className="flex justify-center col-span-2">
+                                       <div className="flex justify-center ">
                                            <Pagination
                                                prev
                                                last
@@ -284,7 +276,7 @@ const Checkout = () => {
                 </ div >
 
 
-                <div className=' md:col-span-4 col-span-12 w-full   lg:right-0 md:right-0   inset-y-0 md:px-3 lg:-mt-24 pt-3' >
+                <div className=' md:col-span-4 col-span-12 w-full   md:px-3 lg:-mt-24 pt-3' >
                     <PlaceOrderSideBer checkoutData={checkoutData} />
                 </div >
 

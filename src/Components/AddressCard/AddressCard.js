@@ -1,11 +1,13 @@
 import React from 'react';
 
-const AddressCard = ({ data,checkoutAddress }) => {
+const AddressCard = ({ data,checkoutAddress,checkoutShippingAddressUpdateHandler }) => {
 
  
     return (
         <div
-            className=' md:rounded-md  cursor-pointer w-full  md:border-b-0 border-b'>
+            onClick={() => checkoutShippingAddressUpdateHandler(data)}
+            className=' md:rounded-md p-5 cursor-pointer w-full  md:border-b-0 border-b bg-white'
+        >
             <div className='grid grid-cols-12'>
                 <div className='col-span-4'>
                     <p className="text-base">First Name</p>

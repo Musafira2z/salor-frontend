@@ -1,11 +1,11 @@
 import {useMainMenuQuery} from "../../api";
 import {SidebarSkeleton} from "../Sheard/Skeletons/SidebarSkeleton";
-import {NavLink} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import React from "react";
 
 const SideNavbar = () => {
     // const navigate = useNavigate()
-
+const {slug}=useParams();
     const {loading, data} = useMainMenuQuery({
         errorPolicy: "all",
         variables: {
@@ -21,7 +21,6 @@ const SideNavbar = () => {
 
 
     const menuItems = data?.menu?.items;
-
 
     // const handleNavigate = (slug) => {
     //     console.log(slug)
@@ -45,7 +44,7 @@ const SideNavbar = () => {
 
 
                         <li key={i}
-                            className='hover:bg-amber-200 rounded-md !hover:text-white px-2'
+                            className={` rounded-md !hover:text-white px-2 ${slug===item?.category?.slug&&"bg-amber-500"}`}
                             style={{fontSize: '15px', fontWeight: '500px', padding: '5px 5px',}}
                         >
                             <NavLink to={`/category/${item?.category?.slug}`}
@@ -58,7 +57,7 @@ const SideNavbar = () => {
                                     <img className='w-5 h-5 object-cover '
                                          src={item?.category?.backgroundImage?.url} alt=""/>
 
-                                    <p className="text-black cursor-pointer "
+                                    <p className= {`${slug===item?.category?.slug?"text-white":"text-black"}  cursor-pointer`}
 
 
                                     >{item?.name}</p>

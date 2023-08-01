@@ -4,7 +4,7 @@ import { Context } from '../../App';
 // import { LanguageCodeEnum } from '../../api';
 // import { Waypoint } from 'react-waypoint';
 
-const CategoryProducts = ({ data, checkoutToken, /*fetchMore, setCursor, cursor, networkStatus*/ }) => {
+const CategoryProducts = ({ data, checkoutToken /*fetchMore, setCursor, cursor, networkStatus*/ }) => {
 
     const { searchValue } = useContext(Context);
 
@@ -57,6 +57,8 @@ const CategoryProducts = ({ data, checkoutToken, /*fetchMore, setCursor, cursor,
 
     return (
         <div className='  grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 lg:gap-7 md:gap-5 sm:gap-3 gap-0'>
+
+
             {
                 searchValue ?
 

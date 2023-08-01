@@ -117,7 +117,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
         shippingMethodLoading])
     return (
 
-        <div className='bg-white  h-screen -mt-2 flex justify-between flex-col md:pt-20 '>
+        <div className='bg-white  md:h-screen -mt-2 flex justify-between flex-col md:pt-20 '>
             <div >
                 <div className=' p-2 flex justify-between '>
                     <div className='flex  items-center '>

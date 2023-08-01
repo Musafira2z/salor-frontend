@@ -21,7 +21,7 @@ const Slider = () => {
                 {loading&& BannerSkeleton }
                 {
                     data?.menu?.items?.map((slideImage, index) => (
-                        <img key={index}  className=" w-full" src={slideImage?.collection?.backgroundImage?.url} alt="Banner"  />
+                        <img key={index}  className="  w-full" src={slideImage?.collection?.backgroundImage?.url} alt="Banner"  />
                     ))
                 }
             </Carousel>
