@@ -2,7 +2,7 @@ import React from 'react';
 import { FaCheck } from 'react-icons/fa'
 const OrderStep = () => {
     return (
-        <div className=''>
+        <div >
             <div className=' flex  gap-5 items-center pb-24'>
                 <h3 className=' text-xl font-bold'>Order Details</h3>
                 <h5 className=' text-slate-50 bg-green-500 px-5 py-1 rounded-full'>Delivered</h5>

@@ -43,7 +43,7 @@ const ResetPassword = ({ setIsResetPass }) => {
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className=''>
+                <div >
                     <input
                         placeholder="Email"
                         type="email"

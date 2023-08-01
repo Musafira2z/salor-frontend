@@ -54,9 +54,9 @@ const Register = ({ setIsLogin, isLogin }) => {
         }
     }
     return (
-        <div className=''>
+        <div >
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className=''>
+                <div >
                     <input
                         placeholder="Full Name"
                         type='text'

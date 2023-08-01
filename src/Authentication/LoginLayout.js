@@ -47,7 +47,7 @@ const LoginPage = () => {
                 <LoginSvgFile />
             </div>
             <div className=' pb-5 md:w-96 mx-auto text-base'>
-                <div className=''>
+                <div >
                     <div>
 
                         {

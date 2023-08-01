@@ -5,10 +5,10 @@ import LoginPage from '../../../Authentication/LoginLayout';
 import { Link, NavLink } from 'react-router-dom';
 import { MdOutlineLiveHelp } from 'react-icons/md';
 import AvatarDropdownMenu from '../AvatarMenu/AvatarDropdownMenu';
-import SidebarDrawer from '../../SidebarDrawer/SidebarDrawer';
 import { CurrentUserDetailsDocument } from '../../../api';
 import { useQuery } from '@apollo/client';
 import PlayStore from './imgs/playstore.webp';
+import SidebarDrawer from '../Drawer/SidebarDrawer';
 const NavigationBar = () => {
 
 

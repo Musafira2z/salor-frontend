@@ -32,10 +32,10 @@ const Slider = () => {
 export default Slider;
 
 
-{/*<img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-neem_7CCP0DP.webp" alt=""  />*/}
-{/*<img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-wholesale_1_Jc3OQqw.webp" alt=""  />*/}
-{/*<img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-pre-order_INI3nSJ.webp" alt=""  />*/}
-{/*<img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-noodles_i8cSXTy.webp" alt=""  />*/}
-{/*<img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-feminine-products_vSQ8q39.webp" alt=""  />*/}
-{/*<img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-powder_9KpPlSK.webp" alt=""  />*/}
+// {/*<img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-neem_7CCP0DP.webp" alt=""  />*/}
+// {/*<img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-wholesale_1_Jc3OQqw.webp" alt=""  />*/}
+// {/*<img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-pre-order_INI3nSJ.webp" alt=""  />*/}
+// {/*<img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-noodles_i8cSXTy.webp" alt=""  />*/}
+// {/*<img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-feminine-products_vSQ8q39.webp" alt=""  />*/}
+// {/*<img src="https://shatkora.sgp1.cdn.digitaloceanspaces.com/media/discount/banner_offers/website-banner-powder_9KpPlSK.webp" alt=""  />*/}
 

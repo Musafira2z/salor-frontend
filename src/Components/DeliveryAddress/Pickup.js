@@ -83,7 +83,7 @@ const Pickup = () => {
                                 <p>3</p>
                             </div>
 
-                            <div className=''>
+                            <div >
                                 <div>
                                     <h3 className='font-bold'>Delivery Schedule</h3>
                                 </div>

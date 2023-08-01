@@ -8,6 +8,7 @@ import CartDrawer from "../Sheard/Drawer/CartDrawer";
 
 const ShowAddToCartProduct = ({ setIsOpenCart, isOpenCart, checkoutData }) => {
     return (
+
         <CartDrawer open={isOpenCart} setOpen={setIsOpenCart}>
             <CartBody
                 isOpen={isOpenCart}
@@ -27,8 +28,7 @@ const ShowAddToCartProduct = ({ setIsOpenCart, isOpenCart, checkoutData }) => {
                 </div>
 
             </CartBody>
-
-   < /CartDrawer>
+        </CartDrawer>
 
     );
 };

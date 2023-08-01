@@ -99,7 +99,7 @@ const Delivery = (props) => {
                                 <p>3</p>
                             </div>
 
-                            <div className=''>
+                            <div >
                                 <div>
                                     <h3 className='font-bold'>Delivery Schedule</h3>
                                 </div>
@@ -298,9 +298,9 @@ const Delivery = (props) => {
                         </div>
 
                     </div>
-                 
 
-                <PaymentOption deliveryScheduleValue={deliveryScheduleValue} />
+
+                    <PaymentOption deliveryScheduleValue={deliveryScheduleValue} />
                 </div>
 
 
