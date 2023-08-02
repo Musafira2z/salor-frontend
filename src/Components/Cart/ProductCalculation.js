@@ -5,7 +5,7 @@ const ProductCalculation = ({ children, checkoutData }) => {
     return (
 
             <div className=' select-none   bg-white '>
-                <div className=' grid grid-cols-6 text-black   p-1 rounded-md pt-5 mb-1'>
+                <div className=' grid grid-cols-6 text-black   p-1 rounded-md  mb-1'>
                     <p className=' sm:col-span-4 col-span-3 text-base  text-left'>Sub total</p>
                     <span className='col-span-1 text-base  text-left'>:</span>
                     <span className='col-span-1 text-base  flex gap-1  items-center '>

@@ -17,6 +17,7 @@ import AddToCartCard from '../Cart/AddToCartCard';
 
 
 const PlaceOrderSideBer = ({ checkoutData }) => {
+    const [selectPromoCode, setSelectPromoCode] = useState(false);
     const { data: userData } = useQuery(CurrentUserDetailsDocument);
     const user = userData?.me;
     const [createPayment] = useCheckoutPaymentCreateMutation();
@@ -137,8 +138,30 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
 
             <div className='bg-white border-t  pb-6'>
                 <div className='px-3 '>
-                    <ProductCalculation checkoutData={checkoutData} />
+                    <div className='grid grid-cols-12'>
+                        {!selectPromoCode ? <p
+                            onClick={() => setSelectPromoCode(true)}
+                            className='col-span-5 text-base cursor-pointer select-none text-blue-600'
+                        >Apply promo code</p> :
+                            <p
+                                onClick={() => setSelectPromoCode(false)}
+                                className='col-span-5 text-base cursor-pointer select-none text-blue-600'
+                            >Cancel</p>}
 
+                        {
+                            selectPromoCode &&
+                            <div className='col-span-7 grid grid-cols-6 mt-5'>
+                                <input
+                                    type="text"
+                                    name="" id=""
+                                    placeholder='Promo code'
+                                    className=" col-span-4 mt-1 block px-3 w-full bg-white border border-amber-500 rounded-md text-base shadow-sm placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 invalid:green-pink-500 invalid:text-pink-600 focus:invalid:border-amber-500 focus:invalid:ring-amber-500 rounded-r-none"
+                                />
+                                <button className='col-span-2  mt-1 block px-1 bg-white border border-amber-500 rounded-md text-base shadow-sm placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 invalid:green-pink-500 invalid:text-pink-600 focus:invalid:border-amber-500 focus:invalid:ring-amber-500 rounded-l-none'>Apply</button>
+                            </div>}
+
+                    </div>
+                    <ProductCalculation checkoutData={checkoutData} />
                 </div>
 
                 <div className='col-span-6  '>

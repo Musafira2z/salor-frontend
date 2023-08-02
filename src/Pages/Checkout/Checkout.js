@@ -126,7 +126,7 @@ const Checkout = () => {
     }
 
 
-    {/**************Old Address filtering for search *************/}
+    /**************Old Address filtering for search *************/
 
     const searchAddress = addresses?.me?.addresses.filter((address =>
         address?.streetAddress1?.toUpperCase()?.includes(searchValue.toUpperCase()) ||

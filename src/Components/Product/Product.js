@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import NavigationBar from '../Sheard/NavigationBar/NavigationBar';
 import BackButton from '../../Utility/Button/BackButton';
 import Cart from '../Cart/Cart';
 import { LanguageCodeEnum, useCheckoutAddProductLineMutation, useCheckoutByTokenQuery, useCheckoutLineUpdateMutation, useRemoveProductFromCheckoutMutation } from '../../api';
@@ -115,7 +114,7 @@ const Product = ({ data }) => {
 
     useEffect(()=>{
         setMedia(data?.product?.media?.[0]?.url)
-    },[data?.product?.media?.[0]?.url]);
+    },[data?.product?.media]);
     return (
             <div>
                 <div className='relative top-4'>
