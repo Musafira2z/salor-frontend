@@ -152,136 +152,138 @@ const Checkout = () => {
     const paginateItem = searchAddress?.slice(startIndex, endIndex);
 
     return (
-        <div >
+        <div className='h-screen overflow-hidden overflow-y-auto'>
             <NavigationBar />
-            <div className='grid grid-cols-12 gap-5   ' >
+           <div className="container mx-auto">
+               <div className='grid grid-cols-12 gap-5 ' >
 
-                <div className='md:col-span-8 col-span-12 my-5  lg:space-x-10 ' >
+                   <div className='md:col-span-8 col-span-12 my-5  lg:space-x-10 ' >
 
-                    <div className='grid grid-cols-1 md:grid-cols-1 gap-3 md:px-3 '>
-
-
-                        {/************** Selected Address for place order *************/}
-
-                        {
-                            checkoutAddress ?
-                                    <AddressCard
-                                        data={checkoutAddress}
-                                        checkoutAddress={checkoutAddress}
-                                    />
-                                :
-
-                                <div>
-
-                                    <div className='grid lg:grid-cols-2 gap-3  mb-5 md:mx-0 mx-3'>
-
-                                        {/************** Delivery Address Form modal *************/}
-
-                                        <Modal
-                                            showModal={showAddressModal}
-                                            setShowModal={setShowAddressModal}
-                                            modalOpenButton={
-                                                <button
-                                                    onClick={() => setShowAddressModal(!showAddressModal)}
-                                                    className='text-white bg-amber-500    font-bold   text-base px-6 py-2  rounded w-full '
-                                                >Add your new address</button>
-                                            }
-                                            title='Add New Address'>
-                                            {/************** Delivery Address Form *************/}
-
-                                                <div className="bg-white">
-                                                    <DeliveryAddressForm
-                                                        checkoutData={checkoutData}
-                                                        showAddressModal={showAddressModal}
-                                                        setShowAddressModal={setShowAddressModal} />
-                                                </div>
-
-                                           
-                                        </Modal>
+                       <div className='grid grid-cols-1 md:grid-cols-1 gap-3 '>
 
 
+                           {/************** Selected Address for place order *************/}
 
-                                        {/************** Address search input field *************/}
+                           {
+                               checkoutAddress ?
+                                   <AddressCard
+                                       data={checkoutAddress}
+                                       checkoutAddress={checkoutAddress}
+                                   />
+                                   :
 
-                                        <div className='flex   w-full   ' >
-                                            <input
+                                   <div>
 
-                                                onChange={handleOnchange}
-                                                className=" placeholder:text-slate-400  placeholder:text-base block bg-white w-full border border-slate-300 rounded-md rounded-r-none py-2 px-2  shadow-sm focus:outline-none focus:border-amber-500 focus:ring-amber-500 focus:ring-1 text-base "
-                                                placeholder="Search your address"
-                                                type="text"
-                                                name="search" />
+                                       <div className='grid lg:grid-cols-2 gap-3  mb-5 md:mx-0 mx-3'>
 
-                                            <button
-                                                className=' bg-amber-400  flex gap-1 justify-center items-center  w-16 text-slate-50 rounded-lg rounded-l-none text-base font-bold' >
-                                                <BiSearch size={17} />
-                                            </button >
-                                        </div >
-                                    </div>
+                                           {/************** Delivery Address Form modal *************/}
+
+                                           <Modal
+                                               showModal={showAddressModal}
+                                               setShowModal={setShowAddressModal}
+                                               modalOpenButton={
+                                                   <button
+                                                       onClick={() => setShowAddressModal(!showAddressModal)}
+                                                       className='text-white bg-amber-500    font-bold   text-base px-6 py-2  rounded w-full '
+                                                   >Add your new address</button>
+                                               }
+                                               title='Add New Address'>
+                                               {/************** Delivery Address Form *************/}
+
+                                               <div className="bg-white">
+                                                   <DeliveryAddressForm
+                                                       checkoutData={checkoutData}
+                                                       showAddressModal={showAddressModal}
+                                                       setShowAddressModal={setShowAddressModal} />
+                                               </div>
+
+
+                                           </Modal>
 
 
 
+                                           {/************** Address search input field *************/}
 
-                                    {addresses?.me?.addresses?.length && !searchAddress?.length ?
-                                        <div className=' flex justify-center items-center lg:h-80 text-2xl mx-5'>
+                                           <div className='flex   w-full   ' >
+                                               <input
 
-                                            <span>Not found your address!</span>
+                                                   onChange={handleOnchange}
+                                                   className=" placeholder:text-slate-400  placeholder:text-base block bg-white w-full border border-slate-300 rounded-md rounded-r-none py-2 px-2  shadow-sm focus:outline-none focus:border-amber-500 focus:ring-amber-500 focus:ring-1 text-base "
+                                                   placeholder="Search your address"
+                                                   type="text"
+                                                   name="search" />
 
-                                        </div> : null
-                                    }
-
-
-
-                                    {/************** Address cards *************/}
-
-
-                                    <div className='grid md:grid-cols-2 grid-cols-1 md:gap-3  '>
-
-                                        {
-                                            addresses?.me?.addresses?.length ?
-
-                                                paginateItem?.map((data, index) => (
-                                                            <AddressCard
-                                                                key={index}
-                                                                data={data}
-                                                                checkoutShippingAddressUpdateHandler={checkoutShippingAddressUpdateHandler}/>
-                                                )
-                                                ) :null
-                                               
-                                        }
+                                               <button
+                                                   className=' bg-amber-400  flex gap-1 justify-center items-center  w-16 text-slate-50 rounded-lg rounded-l-none text-base font-bold' >
+                                                   <BiSearch size={17} />
+                                               </button >
+                                           </div >
+                                       </div>
 
 
-                                    </div>
-                                    {/************** Address card pagination *************/}
-
-                                    <div className="  flex justify-center mt-5 ">
-                                        <Pagination
-                                            prev
-                                            last
-                                            next
-                                            first
-                                            size="md"
-                                            total={searchAddress?.length}
-                                            limit={itemsPerPage}
-                                            activePage={currentPage}
-                                            onChangePage={setCurrentPage}
-                                        />
-                                    </div>
-                                </div>
-
-                        }
-
-                    </div>
-
-                </ div >
 
 
-                {/************** Place order sidebar *************/}
-                <div className=' md:col-span-4 col-span-12 w-full   md:px-3 lg:-mt-24 pt-3' >
-                    <PlaceOrderSideBer checkoutData={checkoutData} />
-                </div >
+                                       {addresses?.me?.addresses?.length && !searchAddress?.length ?
+                                           <div className=' flex justify-center items-center lg:h-80 text-2xl mx-5'>
 
-            </div >
+                                               <span>Not found your address!</span>
+
+                                           </div> : null
+                                       }
+
+
+
+                                       {/************** Address cards *************/}
+
+
+                                       <div className='grid md:grid-cols-2 grid-cols-1 md:gap-3  '>
+
+                                           {
+                                               addresses?.me?.addresses?.length ?
+
+                                                   paginateItem?.map((data, index) => (
+                                                           <AddressCard
+                                                               key={index}
+                                                               data={data}
+                                                               checkoutShippingAddressUpdateHandler={checkoutShippingAddressUpdateHandler}/>
+                                                       )
+                                                   ) :null
+
+                                           }
+
+
+                                       </div>
+                                       {/************** Address card pagination *************/}
+
+                                       <div className="  flex justify-center mt-5 ">
+                                           <Pagination
+                                               prev
+                                               last
+                                               next
+                                               first
+                                               size="md"
+                                               total={searchAddress?.length}
+                                               limit={itemsPerPage}
+                                               activePage={currentPage}
+                                               onChangePage={setCurrentPage}
+                                           />
+                                       </div>
+                                   </div>
+
+                           }
+
+                       </div>
+
+                   </ div >
+
+
+                   {/************** Place order sidebar *************/}
+                   <div className=' md:col-span-4 col-span-12  lg:-mt-24 pt-3' >
+                       <PlaceOrderSideBer checkoutData={checkoutData} />
+                   </div >
+
+               </div >
+           </div>
         </div >
     );
 };

@@ -105,7 +105,7 @@ const AddToCartCard = ({ data }) => {
     
     return (
         <div className='border-t'>
-            <div className=' grid grid-cols-12 py-4 md:px-6 px-2  h-auto w-auto content-center items-center bg-white' >
+            <div className=' grid grid-cols-12 py-4 md:px-3 px-2  h-auto w-auto content-center items-center bg-white' >
 
                 <div className="col-span-1 inline-flex flex-col gap-2 rounded-md bg-gray-100 py-2 w-8 " role="group">
                     <button
