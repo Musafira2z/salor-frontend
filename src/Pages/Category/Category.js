@@ -28,6 +28,7 @@ const Category = () => {
     useEffect(() => {
         data?.menu?.items?.forEach( item => {
 
+
             if(item?.category?.slug === slug){
                 return setCategory(item);
 
@@ -85,7 +86,7 @@ const Category = () => {
                     <div className='  lg:hidden md:block mt-3 px-4'>
                         <SearchBox />
                     </div>
-                    <h1 className=' text-xl font-bold py-5
+                    <h1 className=' md:ml-0 ml-5 text-xl font-bold py-5
                         '> {category?.name}</h1>
                 </div>
 

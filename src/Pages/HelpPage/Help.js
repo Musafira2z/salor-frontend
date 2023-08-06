@@ -39,14 +39,14 @@ const Help = () => {
             <div className="flex flex-col items-center" >
                 <h1 className=' text-center py-2  w-full text-xl font-bold bg-amber-500 text-slate-50 my-2' > F.A.Q</h1 >
             </div >
-            <div className="grid divide-y divide-neutral-200 w-full mx-auto mt-8" >
+            <div className="grid divide-y divide-neutral-200 w-full mx-auto " >
 
                 {
                     FAQ.map((d, i) => {
                         return (
                             <div key={i}>
                                 <details className="group " >
-                                    <summary className="flex justify-between py-5 items-center font-medium cursor-pointer list-none " >
+                                    <summary className="flex justify-between items-center font-medium cursor-pointer list-none " >
                                         <h1 className=' text-bold'>{d.title}</h1>
                                         <p className="transition group-open:rotate-180 " >
                                             <svg fill="none" height="24" shapeRendering="geometricPrecision" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path>
