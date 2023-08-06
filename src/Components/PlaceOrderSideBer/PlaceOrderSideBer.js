@@ -125,7 +125,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
         shippingMethodLoading])
     return (
 
-        <div className='bg-white  md:h-screen  flex justify-between flex-col md:pt-20 md:fixed  top-0 bottom-0'>
+        <div className='bg-white  md:h-screen  flex justify-between flex-col md:pt-20  top-0 bottom-0'>
             <div >
                 <div className=' p-2 flex justify-between '>
                     <div className='flex  items-center '>
@@ -133,7 +133,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
                     </div>
                 </div>
 
-                <div className='md:h-[42vh] md:overflow-y-scroll'>
+                <div className='md:h-[52vh] md:overflow-y-scroll'>
                     {
                         checkoutData?.lines?.map((data, i) => (
                             <AddToCartCard key={i} data={data} />
@@ -143,7 +143,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
             </div>
 
 
-            <div className='md:h-[42vh] bg-white border-t  pb-6'>
+            <div className='  bg-white border-t  pb-6'>
                 <div className='px-3 pt-5'>
                    {/* promo code*/}
                     <PromoCode/>

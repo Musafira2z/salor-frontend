@@ -152,7 +152,7 @@ const Checkout = () => {
     const paginateItem = searchAddress?.slice(startIndex, endIndex);
 
     return (
-        <div className='h-screen overflow-hidden overflow-y-auto'>
+        <div >
             <NavigationBar />
            <div className="container mx-auto">
                <div className='grid grid-cols-12 gap-5 ' >

@@ -142,7 +142,7 @@ const Product = ({ data }) => {
                         </div>
                     </div>
 
-                    <div className='col-span-1 flex flex-col justify-between  p-5'>
+                    <div className='col-span-1 flex flex-col justify-between px-5'>
                         <div className=' grid md:grid-cols-7 '>
 
                             <div className=' col-span-7 md:col-span-5'>

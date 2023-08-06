@@ -29,7 +29,7 @@ const ProductsDetails = () => {
 
         <div>
             <NavigationBar />
-        <div className='xl:mx-5 lg:mx-5 md:mx-5'>
+        <div className='container mx-auto'>
             {
                 loading ?
 
