@@ -21,15 +21,11 @@ const ProductsDetails = () => {
 
 
 
-
-    console.log(data)
-
-
     return (
 
         <div>
             <NavigationBar />
-        <div className='container mx-auto'>
+        <div className='container mx-auto pb-20'>
             {
                 loading ?
 

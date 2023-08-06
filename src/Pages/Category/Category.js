@@ -25,7 +25,6 @@ const Category = () => {
         }
     })
 
-
     useEffect(() => {
         data?.menu?.items?.forEach( item => {
 

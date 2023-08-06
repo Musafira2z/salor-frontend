@@ -20,7 +20,7 @@ const Home = () => {
             first: 20,
             channel: "default",
             locale: LanguageCodeEnum.En,
-            filter: { search: searchValue }
+            filter: { search: searchValue}
         },
         notifyOnNetworkStatusChange: true
     });
