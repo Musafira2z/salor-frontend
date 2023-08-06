@@ -74,7 +74,7 @@ const CategoryProducts = ({ data, checkoutToken /*fetchMore, setCursor, cursor, 
 
                     })
 
-                        : <h1>Product Not found!</h1>) :
+                        : <h1 className="text-2xl font-bold text-center col-span-5">Sorry, No result found!</h1>) :
 
 
                     newData?.map((data, index) => (
