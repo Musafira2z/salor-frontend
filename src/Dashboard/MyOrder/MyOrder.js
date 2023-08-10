@@ -33,7 +33,7 @@ const MyOrder = () => {
 
                 {loading ? <h1>Loading...</h1> :
 
-                    orders?.length ? <OrderItems orders={orders} /> : ''
+                    orders?.length ? <OrderItems orders={orders} /> : null
 
                 }
 

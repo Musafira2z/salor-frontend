@@ -2,10 +2,13 @@ import React from 'react';
 import { Carousel } from 'rsuite';
 import { useHomeBannerMenuQuery } from "../../../api";
 import { BannerSkeleton } from '../Skeletons/BannarSkeleton';
+// import {useNavigate} from "react-router-dom";
 
 
 
 const Slider = () => {
+// const navigate=useNavigate();
+
 
     const { data, loading } = useHomeBannerMenuQuery({
 
@@ -15,13 +18,22 @@ const Slider = () => {
         }
     })
 
+    const handleNavigate=(slug)=>{
+        // navigate(`/category/${slug}`)
+    }
+
     return (
         <div className=" xl:mt-5 lg:mt-5 pb-3">
             <Carousel autoplay className='w-full h-full xl:rounded-xl lg:rounded-xl' >
                 {loading && BannerSkeleton}
                 {
                     data?.menu?.items?.map((slideImage, index) => (
-                        <img key={index} className="  w-full" src={slideImage?.collection?.backgroundImage?.url} alt={`Banner-${index}`} />
+                        <img
+                            onClick={()=>handleNavigate(slideImage?.collection?.slug)}
+                            key={index}
+                            className="  w-full"
+                            src={slideImage?.collection?.backgroundImage?.url}
+                            alt={`Banner-${index}`} />
                     ))
                 }
             </Carousel>

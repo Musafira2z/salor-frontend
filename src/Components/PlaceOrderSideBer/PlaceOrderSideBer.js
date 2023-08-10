@@ -52,7 +52,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
 
 
 
-        if (checkoutData?.billingAddress || checkoutData?.shippingAddress) {
+        if (checkoutData?.billingAddress && checkoutData?.shippingAddress) {
             if (!checkoutData?.shippingMethod) {
                 await shippingMethodUpdate(
                     {
