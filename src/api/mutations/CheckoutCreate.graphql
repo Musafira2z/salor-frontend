@@ -1,5 +1,5 @@
 mutation CreateCheckout($email: String, $lines: [CheckoutLineInput!]!, $channel: String!) {
-  checkoutCreate(input: { channel: $channel, email: $email,  : $lines }) {
+  checkoutCreate(input: { channel: $channel, email: $email, lines: $lines }) {
     checkout {
       id
       token
