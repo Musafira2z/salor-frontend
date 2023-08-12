@@ -7,12 +7,15 @@ import { BiPlusMedical } from 'react-icons/bi';
 import { ImMinus } from 'react-icons/im';
 
 const Product = ({ data }) => {
-    const [media, setMedia] = useState('')
-    const checkoutToken=JSON.parse(localStorage.getItem('checkoutToken'));
+    const [media, setMedia] = useState('');
+
+
     const [checkoutAddProductLine, { data: checkoutAddProduct, loading }] = useCheckoutAddProductLineMutation();
     const [decrement, { data: decrementData, loading: decrementLoading }] = useCheckoutLineUpdateMutation();
     const [RemoveProductFromCheckout] = useRemoveProductFromCheckoutMutation();
     const description = JSON.parse(data?.product?.description);
+
+    const checkoutToken=JSON.parse(localStorage.getItem('checkoutToken'));
     const { data: checkoutData } = useCheckoutByTokenQuery({
         variables: {
             checkoutToken: checkoutToken,
@@ -69,11 +72,7 @@ const Product = ({ data }) => {
 
 
     useEffect(() => {
-        if (loading) {
-            toast.loading('Loading...', {
-                id: 'checkout'
-            })
-        }
+
         if (checkoutAddProduct?.checkoutLinesAdd?.checkout?.id) {
             toast.success(`Quantity: ${items?.quantity || "00"}`, {
                 id: 'checkout'
@@ -89,26 +88,24 @@ const Product = ({ data }) => {
     }, [
         checkoutAddProduct?.checkoutLinesAdd?.checkout?.id,
         checkoutAddProduct?.checkoutLinesAdd?.errors,
-        items?.quantity,
-        loading
+        items?.quantity
     ])
 
+
     useEffect(() => {
-        if (decrementLoading) {
-            toast.loading('Loading...', { id: 'checkout' })
+
+        if (decrementData?.checkoutLinesUpdate?.checkout?.id) {
+            toast.success(`Quantity: ${items?.quantity || "00"}`, { id: 'checkout' })
         }
         if (decrementData?.checkoutLinesUpdate?.errors?.[0]?.message) {
             toast.error(decrementData?.checkoutLinesUpdate?.errors?.[0]?.message, { id: 'checkout' })
         }
-        if (decrementData?.checkoutLinesUpdate?.checkout?.id) {
-            toast.success(`Quantity: ${items?.quantity || "00"}`, { id: 'checkout' })
-        }
+
 
     }, [
         items?.quantity,
         decrementData?.checkoutLinesUpdate?.errors,
         decrementData?.checkoutLinesUpdate?.checkout?.id,
-        decrementLoading
     ]);
 
 
@@ -209,7 +206,7 @@ const Product = ({ data }) => {
                     </div>
                 </div>
 
-                {checkoutData?.checkout?.lines?.length ? <Cart /> : ''}
+                {checkoutData?.checkout?.lines?.length ? <Cart /> : null}
             </div>
     );
 };

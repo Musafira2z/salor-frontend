@@ -13,7 +13,7 @@ const ProductCard = ({ data }) => {
 
     const { thumbnail, name, slug, variants } = data?.node;
 
-    const [checkoutAddProductLine, { data: checkoutAddProduct, loading }] = useCheckoutAddProductLineMutation();
+    const [checkoutAddProductLine, { data: checkoutAddProduct, checkoutAddProductLoading }] = useCheckoutAddProductLineMutation();
     const [decrement, { data: decrementData, loading: decrementLoading }] = useCheckoutLineUpdateMutation();
     const [RemoveProductFromCheckout] = useRemoveProductFromCheckoutMutation();
 
@@ -115,7 +115,7 @@ const ProductCard = ({ data }) => {
             })
 
         }
-        if (loading) {
+        if (checkoutAddProductLoading) {
             toast.loading('Loading...', {
                 id: 'checkout'
             })
@@ -129,7 +129,7 @@ const ProductCard = ({ data }) => {
         checkoutAddProduct?.checkoutLinesAdd?.checkout?.id,
         checkoutAddProduct?.checkoutLinesAdd?.errors,
         items?.quantity,
-        loading,
+        checkoutAddProductLoading,
     ])
 
 

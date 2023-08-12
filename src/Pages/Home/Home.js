@@ -8,10 +8,7 @@ import { Context } from '../../App';
 
 
 const Home = () => {
-    const { searchValue } = useContext(Context);
     const [cursor, setCursor] = useState('')
-
-
 
 
     const { loading, data, fetchMore, networkStatus } = useProductCollectionQuery({
@@ -20,7 +17,6 @@ const Home = () => {
             first: 20,
             channel: "default",
             locale: LanguageCodeEnum.En,
-            filter: { search: searchValue}
         },
         notifyOnNetworkStatusChange: true
     });

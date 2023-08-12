@@ -37,7 +37,6 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
 
 
 
-
     useEffect(() => {
         if (checkoutData?.billingAddress && checkoutData?.shippingAddress) {
             setWarning('');

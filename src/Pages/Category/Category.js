@@ -1,15 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
-// import Products from '../../Components/Products/Products';
+import React, {  useEffect, useState } from 'react';
 import SearchBox from '../../Components/Sheard/SearchBox/SearchBox';
 import { LanguageCodeEnum, useMainMenuQuery, useProductCollectionQuery } from '../../api';
 import { useParams } from 'react-router-dom';
-import { Context } from '../../App';
 import CategoryItems from "./CategoryItems";
 import CategoryProducts from './CategoryProducts';
 
 const Category = () => {
-    const { searchValue } = useContext(Context);
-    const [cursor, setCursor] = useState('')
     const [categoryId, setCategoryId] = useState("")
     const [category, setCategory] = useState('')
 
@@ -61,14 +57,13 @@ const Category = () => {
 
 
 
-    const { loading: loadingProduct, data: productsData, fetchMore, networkStatus } = useProductCollectionQuery({
+    const { loading: loadingProduct, data: productsData } = useProductCollectionQuery({
         variables: {
             after: '',
             first: 100,
             channel: "default",
             locale: LanguageCodeEnum.En,
             filter: {
-                search: searchValue,
                 categories: [categoryId]
             }
         }
@@ -114,16 +109,10 @@ const Category = () => {
                             <CategoryProducts
                                 data={productsData}
                                 loading={loadingProduct}
-                                fetchMore={fetchMore}
-                                setCursor={setCursor}
-                                cursor={cursor}
-                                networkStatus={networkStatus}
                             />}
                     </div>
 
                 }
-
-
             </div>
         </div>
 

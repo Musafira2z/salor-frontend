@@ -9,12 +9,12 @@ const MyOrder = () => {
     const { data, loading } = useOrdersQuery({
         variables: {
             before: '',
-            after: 20,
+            after: 20
         }
     })
 
     const orders = data?.me?.orders?.edges
-    /*  console.log(data?.me?.orders); */
+      console.log(data?.me?.orders);
 
     return (
         <div className=' bg-white w-full p-3 ' >
@@ -38,15 +38,6 @@ const MyOrder = () => {
                 }
 
             </div >
-
-
-
-
-
-
-
-
-
         </div >
     );
 };

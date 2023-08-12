@@ -1,27 +1,22 @@
-import React, { useContext, useState } from 'react';
-import { Context } from '../../../App';
+import React, { useState } from 'react';
 import {BiSearch} from 'react-icons/bi';
+import {useNavigate} from "react-router-dom";
 
 const SearchBox = () => {
-    const { setSearchValue } = useContext(Context);
-    const [value, setValue] = useState('');
-
-
+    const navigate=useNavigate()
+    const  [searchValue,setSearchValue]=useState('');
 
     const handleOnchange = (e) => {
-        if (e.target.value === '') {
-            setSearchValue('');
+        if (e.target.value) {
+           navigate(`/grocery?search=${e.target.value}`);
+            setSearchValue(e.target.value)
         } else {
-
-            setValue(e.target.value);
-            setSearchValue(e.target.value);
-
+          navigate('/');
+            setSearchValue('')
         }
     };
 
-    const handleSearch = () => {
-        setSearchValue(value);
-    }
+
 
     return (
         <div className='flex ' >
@@ -33,9 +28,9 @@ const SearchBox = () => {
                 <input
 
                     onChange={handleOnchange}
+                    value={searchValue}
                     onKeyDown={e => {
                         if (e.keyCode === 13) {
-                            handleSearch();
                             e.preventDefault();
                             e.stopPropagation();
                         }
@@ -45,7 +40,6 @@ const SearchBox = () => {
 
             </label >
             <button
-                onClick={handleSearch}
                 className=' bg-amber-500  flex gap-1 justify-center items-center w-32 text-slate-50 rounded-lg rounded-l-none text-base font-bold' ><BiSearch size={17}/>  Search</button >
         </div >
     );

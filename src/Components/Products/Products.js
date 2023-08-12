@@ -1,26 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import ProductCard from '../Sheard/ProductCard/ProductCard';
 import { Waypoint, } from "react-waypoint";
 import { LanguageCodeEnum } from '../../api';
-import { Context } from '../../App';
 
 
 const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
     const [newData, setNewData] = useState([]);
-    const [searchingProduct, setSearchingProduct] = useState([]);
-    const { searchValue } = useContext(Context);
 
 
     useEffect(() => {
         if (data?.products?.edges) {
-            if (!searchValue) {
                 setNewData([...newData, ...data?.products?.edges?.map(data => ({ ...data }))]);
-            }
-            else {
-                setSearchingProduct(data?.products?.edges?.map(data => ({ ...data })));
-            }
-
         }
     }, [data?.products?.edges]);
 
@@ -33,7 +24,7 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
                 first: 20,
                 channel: "default",
                 locale: LanguageCodeEnum.En,
-                filter: { search: searchValue }
+                filter: { }
 
             },
             updateQuery: (pv, { fetchMoreResult }) => {
@@ -56,22 +47,6 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
 
                 className=' grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 lg:gap-7 md:gap-5 sm:gap-3 gap-0'>
                 {
-                    searchValue ?
-
-
-                        (searchingProduct.length ? searchingProduct?.map((data, index) => {
-
-                            return <ProductCard
-
-                                data={data}
-                                key={index}
-                            />
-
-                        })
-
-                            : <h1 className="text-2xl font-bold text-center col-span-5">Sorry, No result found!</h1>) :
-
-
                         newData?.map((data, index) => (
 
                             <ProductCard
@@ -85,9 +60,9 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
 
 
             </div>
-            {!searchValue && <Waypoint
+             <Waypoint
                 onEnter={handleFetchMoreData}
-            />}
+            />
             {
                 networkStatus === 3 && <h1 className='text-center text-base'>Load more...</h1>
             }

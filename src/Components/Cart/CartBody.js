@@ -6,7 +6,7 @@ import ProductCalculation from './ProductCalculation';
 const CartBody = ({ children, isOpen, setIsOpen, checkoutData }) => {
 
     return (
-        <div className={`flex flex-col  justify-between max-h-screen  overflow-y-hidden `}>
+        <div className={`flex flex-col  justify-between max-h-screen  overflow-y-auto `}>
 
 
             <div className=' flex !justify-between px-5 py-5'>

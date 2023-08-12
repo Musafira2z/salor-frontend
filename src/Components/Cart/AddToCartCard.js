@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useCallback, useEffect} from 'react';
 import { BiPlusMedical } from 'react-icons/bi';
 import { ImMinus } from 'react-icons/im';
 import { RxCross2 } from 'react-icons/rx';
@@ -59,8 +59,21 @@ const AddToCartCard = ({ data }) => {
     }
 
 
+    const removeCallBack = useCallback(async () => {
+
+           await handleRemoveToCart()
+
+    }, []);
 
 
+    useEffect(() => {
+        if(data?.variant?.quantityAvailable===0) {
+            removeCallBack()
+                .then(res=>{
+                    console.log(res)
+                })
+        }
+    }, [removeCallBack]);
 
     // error handling ...........................
 
@@ -102,25 +115,26 @@ const AddToCartCard = ({ data }) => {
     ]);
 
 
-    
+
     return (
         <div className='border-t'>
             <div className=' grid grid-cols-12 py-4 md:px-3 px-2  h-auto w-auto content-center items-center bg-white' >
 
-                <div className="col-span-1 inline-flex flex-col gap-2 rounded-md bg-gray-100 py-2 w-8 " role="group">
+                <div className={`col-span-1 inline-flex flex-col gap-2 rounded-md  py-2 w-8 ${data?.variant?.quantityAvailable===data?.quantity?"bg-red-400 text-white ":"bg-gray-100 text-gray-500"}`} role="group">
                     <button
                         onClick={handleIncrementToCart}
                         type="button"
-                        className=" flex justify-center py-1  text-base  font-medium text-gray-500   rounded-t-lg ">
+                        disabled={data?.variant?.quantityAvailable===data?.quantity?true:false}
+                        className=" flex justify-center py-1  text-base  font-medium    rounded-t-lg ">
                         <BiPlusMedical size={12} />
                     </button>
-                    <button type="button" className="flex justify-center   text-base  font-medium text-gray-500   rounded-t-lg">
+                    <button type="button" className="flex justify-center   text-base  font-medium    rounded-t-lg">
 
                         {data?.quantity}
                     </button>
                     <button
                         onClick={handleDecrementToCart}
-                        type="button" className="flex justify-center py-1  text-base  font-medium text-gray-500   rounded-t-lg">
+                        type="button" className="flex justify-center py-1  text-base  font-medium    rounded-t-lg">
                         <ImMinus size={12} />
                     </button>
                 </div>

@@ -16,6 +16,7 @@ import PrivetRoute from "./PrivetRoute";
 import Success from "../Pages/Success/Success";
 import OrderDetails from "../Dashboard/MyOrder/OrderDetails";
 import NoteFoundPage from "../Pages/404/NoteFoundPage";
+import Grocery from "../Pages/Grocery/Grocery";
 
 
 
@@ -27,6 +28,10 @@ export const routers = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: `/grocery`,
+        element: <Grocery />,
       },
       {
         path: "/Category/:slug",

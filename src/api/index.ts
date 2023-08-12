@@ -23031,7 +23031,7 @@ export type OrderDetailsByTokenQueryVariables = Exact<{
 export type OrderDetailsByTokenQuery = { __typename?: 'Query', orderByToken?: { __typename?: 'Order', id: string, status: OrderStatus, number: string, shippingAddress?: { __typename?: 'Address', id: string, phone?: string | null, firstName: string, lastName: string, streetAddress1: string, city: string, cityArea: string, postalCode: string, countryArea: string, isDefaultBillingAddress?: boolean | null, isDefaultShippingAddress?: boolean | null, country: { __typename?: 'CountryDisplay', code: string, country: string } } | null, billingAddress?: { __typename?: 'Address', id: string, phone?: string | null, firstName: string, lastName: string, streetAddress1: string, city: string, cityArea: string, postalCode: string, countryArea: string, isDefaultBillingAddress?: boolean | null, isDefaultShippingAddress?: boolean | null, country: { __typename?: 'CountryDisplay', code: string, country: string } } | null, subtotal: { __typename?: 'TaxedMoney', net: { __typename?: 'Money', currency: string, amount: number }, tax: { __typename?: 'Money', currency: string, amount: number } }, total: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, lines: Array<{ __typename?: 'OrderLine', id: string, productName: string, variantName: string, quantity: number, thumbnail?: { __typename?: 'Image', url: string, alt?: string | null } | null, unitPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } }, totalPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } }>, shippingPrice: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', currency: string, amount: number } } } | null };
 
 export type OrdersQueryVariables = Exact<{
-  first?: Scalars['Int']['input'];
+  first?: InputMaybe<Scalars['Int']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
   after?: InputMaybe<Scalars['String']['input']>;
 }>;
@@ -25370,7 +25370,7 @@ export type OrderDetailsByTokenQueryHookResult = ReturnType<typeof useOrderDetai
 export type OrderDetailsByTokenLazyQueryHookResult = ReturnType<typeof useOrderDetailsByTokenLazyQuery>;
 export type OrderDetailsByTokenQueryResult = Apollo.QueryResult<OrderDetailsByTokenQuery, OrderDetailsByTokenQueryVariables>;
 export const OrdersDocument = gql`
-    query Orders($first: Int! = 10, $before: String, $after: String) {
+    query Orders($first: Int = 10, $before: String, $after: String) {
   me {
     orders(first: $first, before: $before, after: $after) {
       edges {

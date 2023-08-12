@@ -1,4 +1,4 @@
-query Orders($first: Int! = 10, $before: String, $after: String) {
+query Orders($first: Int = 10, $before: String, $after: String) {
   me {
     orders(first: $first, before: $before, after: $after) {
       edges {
