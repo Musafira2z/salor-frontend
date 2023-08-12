@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useCallback, useEffect} from 'react';
 import { BiPlusMedical } from 'react-icons/bi';
 import { ImMinus } from 'react-icons/im';
@@ -59,21 +60,18 @@ const AddToCartCard = ({ data }) => {
     }
 
 
-    const removeCallBack = useCallback(async () => {
+    const removeCallBack = useCallback( () => {
 
-           await handleRemoveToCart()
+            handleRemoveToCart()
 
-    }, []);
+    }, [handleRemoveToCart]);
 
 
     useEffect(() => {
         if(data?.variant?.quantityAvailable===0) {
-            removeCallBack()
-                .then(res=>{
-                    console.log(res)
-                })
+            removeCallBack();
         }
-    }, [removeCallBack]);
+    }, [data?.variant?.quantityAvailable,removeCallBack]);
 
     // error handling ...........................
 

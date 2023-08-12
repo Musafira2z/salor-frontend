@@ -10,8 +10,8 @@ const Product = ({ data }) => {
     const [media, setMedia] = useState('');
 
 
-    const [checkoutAddProductLine, { data: checkoutAddProduct, loading }] = useCheckoutAddProductLineMutation();
-    const [decrement, { data: decrementData, loading: decrementLoading }] = useCheckoutLineUpdateMutation();
+    const [checkoutAddProductLine, { data: checkoutAddProduct }] = useCheckoutAddProductLineMutation();
+    const [decrement, { data: decrementData }] = useCheckoutLineUpdateMutation();
     const [RemoveProductFromCheckout] = useRemoveProductFromCheckoutMutation();
     const description = JSON.parse(data?.product?.description);
 

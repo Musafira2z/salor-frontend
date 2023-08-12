@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Products from '../../Components/Products/Products';
 import Slider from '../../Components/Sheard/Banner/Slider';
 import SearchBox from '../../Components/Sheard/SearchBox/SearchBox';
 import { LanguageCodeEnum, useProductCollectionQuery } from '../../api';
-import { Context } from '../../App';
 
 
 
