@@ -12,6 +12,7 @@ import {
 } from '../../api';
 import { Context } from "../../App";
 import { useQuery } from "@apollo/client";
+import SearchBox from "../../Components/Sheard/SearchBox/SearchBox";
 
 
 
@@ -74,7 +75,9 @@ const HomeMainLayout = () => {
 
         <div  >
             <NavigationBar />
-
+            <div className=' lg:hidden md:block my-2 mx-2'>
+                <SearchBox />
+            </div>
             <div className='flex ' >
                 <div className=' fixed w-72 hidden sm:hidden  md:block lg:block  ' >
                     <SidebarMenu /> 

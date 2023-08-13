@@ -12,11 +12,11 @@ const OrderDetails = () => {
 
     const orderItems = data?.orderByToken?.lines;
 
-
+console.log(data)
 
    
     return (
-        <section className=' h-screen overflow-y-auto'>
+        <section className="mb-16">
             {/* <!-- component --> */}
 
             <div className='flex justify-end'>
@@ -26,9 +26,27 @@ const OrderDetails = () => {
                     Go Back
                 </button>
             </div>
+
+
             <div className=" rounded-lg  m-5">
 
+                <div
+                    className="grid grid-cols-12 px-2" >
 
+                    <div className="col-span-6 border-b-2">
+                        <h1 className="font-bold">Product name</h1>
+                    </div>
+                    <div className="col-span-2 border-b-2">
+                        <h1 className="font-bold">Quantity</h1>
+                    </div>
+                    <div className="col-span-2 border-b-2">
+                        <h1 className="font-bold">UnitPrice</h1>
+                    </div>
+                    <div className="col-span-2 border-b-2">
+                        <h1 className="font-bold">TotalPrice</h1>
+                    </div>
+
+                </div>
 
                 {
                  loading?<h1 className='text-lg text-center'>Loading..</h1> :
@@ -37,29 +55,63 @@ const OrderDetails = () => {
 
                         <div
                             key={index}
-                            className="grid grid-cols-12 xl:gap-5 lg:gap-5 md:gap-3 sm:gap-0 gap-0 py-2  border-b bg-white px-2" >
+                            className="grid grid-cols-12 px-2" >
 
-
-
-                            <div className='col-span-4 flex justify-center items-center '>
-                                <img className=' w-auto object-cover h-24' src={item?.thumbnail?.url} alt="" />
+                            <div className="col-span-6 border-b-2">
+                                <h1>{item?.productName}</h1>
                             </div>
-
-                            <div className=' col-span-8'>
-                                <p className=' text-xs  font-bold'>{item?.productName} </p>
-                                <p className='  font-bold '>Quantity: {item?.quantity}</p>
-                                <p className=' text-red-500 font-bold '>Price: R {item?.unitPrice?.gross?.amount}</p>
-                                <p className='  font-bold '>Total: R {item?.totalPrice?.gross?.amount}</p>
-
+                            <div className="col-span-2 border-b-2">
+                                <h1>{item?.quantity}</h1>
                             </div>
-
-
+                            <div className="col-span-2 border-b-2">
+                                <h1>R {item?.unitPrice?.gross?.amount}</h1>
+                            </div>
+                            <div className="col-span-2 border-b-2">
+                                <h1>R {item?.totalPrice?.gross?.amount}</h1>
+                            </div>
 
                         </div>
                     ))
                 }
 
+               <div className="flex justify-end">
+                   <div>
+                       <h1><span className="font-bold">Subtotal:</span> R {data?.orderByToken?.subtotal?.net?.amount}</h1>
+                       <h1><span className="font-bold">Shipping:</span> R {data?.orderByToken?.shippingPrice?.gross?.amount}</h1>
+                       <h1><span className="font-bold">Taxes (included):</span> R {data?.orderByToken?.subtotal?.tax?.amount}</h1>
+                       <h1><span className="font-bold">Total:</span> R {data?.orderByToken?.total?.gross?.amount} </h1>
+                   </div>
+               </div>
 
+                <div className="grid grid-cols-2 border-b-2 border-b-black">
+                    <div>
+                        <h1 className="text-lg font-bold">Billing address</h1>
+                    </div>
+                    <div>
+                        <h1 className="text-lg font-bold">Shipping address</h1>
+                    </div>
+                </div>
+
+
+                <div className="grid grid-cols-2">
+                    <div>
+                        <p>{data?.orderByToken?.billingAddress?.firstName} {data?.orderByToken?.billingAddress?.lastName}</p>
+                        <p>{data?.orderByToken?.billingAddress?.streetAddress1}</p>
+                        <p>{data?.orderByToken?.billingAddress?.city}</p>
+                        <p>{data?.orderByToken?.billingAddress?.postalCode}</p>
+                        <p>{data?.orderByToken?.billingAddress?.country?.country}</p>
+                        <p>{data?.orderByToken?.billingAddress?.phone}</p>
+
+                    </div>
+                    <div>
+                        <p>{data?.orderByToken?.shippingAddress?.firstName} {data?.orderByToken?.billingAddress?.lastName}</p>
+                        <p>{data?.orderByToken?.shippingAddress?.streetAddress1}</p>
+                        <p>{data?.orderByToken?.shippingAddress?.city}</p>
+                        <p>{data?.orderByToken?.shippingAddress?.postalCode}</p>
+                        <p>{data?.orderByToken?.shippingAddress?.country?.country}</p>
+                        <p>{data?.orderByToken?.shippingAddress?.phone}</p>
+                    </div>
+                </div>
             </div>
         </section>
     );
