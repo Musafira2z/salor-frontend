@@ -1,25 +1,23 @@
 import React, {  useEffect, useState } from 'react';
-import SearchBox from '../../Components/Sheard/SearchBox/SearchBox';
 import { LanguageCodeEnum, useMainMenuQuery, useProductCollectionQuery } from '../../api';
 import { useParams } from 'react-router-dom';
 import CategoryItems from "./CategoryItems";
 import CategoryProducts from './CategoryProducts';
 
 const Category = () => {
-    const [categoryId, setCategoryId] = useState("")
-    const [category, setCategory] = useState('')
+    const [categoryId, setCategoryId] = useState("");
+    const [category, setCategory] = useState('');
 
     const { slug } = useParams();
 
 
 
     const { data } = useMainMenuQuery({
-        errorPolicy: "all",
         variables: {
             locale: "EN",
             channel: "default"
         }
-    })
+    });
 
     useEffect(() => {
         data?.menu?.items?.forEach( item => {
@@ -78,9 +76,6 @@ const Category = () => {
         <div>
             <div >
                 <div className=' text-start'>
-                    <div className='  lg:hidden md:block mt-3 px-4'>
-                        <SearchBox />
-                    </div>
                     <h1 className=' md:ml-0 ml-5 text-xl font-bold py-5
                         '> {category?.name}</h1>
                 </div>
