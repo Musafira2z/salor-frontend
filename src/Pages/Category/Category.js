@@ -96,15 +96,19 @@ const Category = () => {
 
                     <div >
                         {
-                            loadingProduct?
-
-                                <h1 className="text-lg text-center">Loading...</h1>:
-
-                            productsData &&
                             <CategoryProducts
                                 data={productsData}
                                 loading={loadingProduct}
-                            />}
+                            />
+                        }
+                        {
+
+                            loadingProduct ?
+                                <h1 className='text-center text-2xl font-bold'>
+                                    Loading...</h1> :
+                                !productsData?.products?.edges?.length ?
+                                    <h1 className='text-center text-2xl font-bold'>Sorry! Product not found.</h1> : null
+                        }
                     </div>
 
                 }

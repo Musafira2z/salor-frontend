@@ -26,7 +26,6 @@ const Home = () => {
 
 
 
-
     return (
         <div >
             <Slider />

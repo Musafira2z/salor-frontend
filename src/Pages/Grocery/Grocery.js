@@ -51,7 +51,8 @@ const Grocery = () => {
                 {
 
                     loading ?
-                        <h1 className='text-center text-2xl font-bold'>Loading...</h1> :
+                        <h1 className='text-center text-2xl font-bold'>
+                            Loading...</h1> :
                         !data?.products?.edges?.length ?
                             <h1 className='text-center text-2xl font-bold'>Sorry! Product not found.</h1> : null
                 }

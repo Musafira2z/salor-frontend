@@ -5,7 +5,7 @@ import { Waypoint, } from "react-waypoint";
 import { LanguageCodeEnum } from '../../api';
 
 
-const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
+const Products = ({ data, fetchMore, setCursor, cursor, networkStatus,loading }) => {
     const [newData, setNewData] = useState([]);
 
 
@@ -63,8 +63,10 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
              <Waypoint
                 onEnter={handleFetchMoreData}
             />
+
             {
-                networkStatus === 3 && <h1 className='text-center text-base'>Load more...</h1>
+                 networkStatus === 3 && <h1 className=' text-center text-2xl font-bold mt-10'>Load more...</h1>
+
             }
         </div>
     );
