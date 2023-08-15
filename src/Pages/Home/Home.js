@@ -9,7 +9,7 @@ const Home = () => {
     const [cursor, setCursor] = useState('');
 
 
-    const { loading, data, fetchMore, networkStatus } = useProductCollectionQuery({
+    const {  data, fetchMore, networkStatus } = useProductCollectionQuery({
         variables: {
             after: '',
             first: 20,
@@ -38,7 +38,6 @@ const Home = () => {
                </div>
                 <Products
                     data={data}
-                    loading={loading}
                     fetchMore={fetchMore}
                     setCursor={setCursor}
                     cursor={cursor}
