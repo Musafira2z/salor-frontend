@@ -13,7 +13,7 @@ const Dashboard = () => {
                     <div className=' w-80 z-50 hidden xl:block lg:block md:block' >
                         <DashboardSidebar />
                     </div >
-                    <div className=' w-full xl:ml-64 lg:ml-56 md:ml-50 sm:mx-5 mx-5   mt-5' >
+                    <div className=' w-full xl:ml-64 lg:ml-56 md:ml-50 md:mx-5    mt-5' >
                         <Outlet />
                     </div >
                 </div >

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import {useOrderDetailsByTokenQuery} from '../../api';
-
+import {IoMdArrowRoundBack} from "react-icons/io"
 const OrderDetails = () => {
     const { token } = useParams();
     const { data, loading} = useOrderDetailsByTokenQuery({
@@ -12,7 +12,6 @@ const OrderDetails = () => {
 
     const orderItems = data?.orderByToken?.lines;
 
-console.log(data)
 
    
     return (
@@ -22,28 +21,28 @@ console.log(data)
             <div className='flex justify-end'>
                 <button
                     onClick={() => window.history.back()}
-                    className='font-bold  bg-amber-500 text-white px-2 rounded-full '>
-                    Go Back
+                    className='font-bold  bg-amber-500 text-white px-2 rounded-full flex items-center '>
+                   <IoMdArrowRoundBack/> Back
                 </button>
             </div>
 
 
-            <div className=" rounded-lg  m-5">
+            <div className=" rounded-lg ">
 
                 <div
-                    className="grid grid-cols-12 px-2" >
+                    className="grid grid-cols-12 gap-1 px-2" >
 
                     <div className="col-span-6 border-b-2">
-                        <h1 className="font-bold">Product name</h1>
+                        <h1 className="font-semibold">Product name</h1>
                     </div>
                     <div className="col-span-2 border-b-2">
-                        <h1 className="font-bold">Quantity</h1>
+                        <h1 className="font-semibold">Quantity</h1>
                     </div>
                     <div className="col-span-2 border-b-2">
-                        <h1 className="font-bold">UnitPrice</h1>
+                        <h1 className="font-semibold">UnitPrice</h1>
                     </div>
                     <div className="col-span-2 border-b-2">
-                        <h1 className="font-bold">TotalPrice</h1>
+                        <h1 className="font-semibold">TotalPrice</h1>
                     </div>
 
                 </div>
@@ -58,32 +57,32 @@ console.log(data)
                             className="grid grid-cols-12 px-2" >
 
                             <div className="col-span-6 border-b-2">
-                                <h1>{item?.productName}</h1>
+                                <p>{item?.productName}</p>
                             </div>
                             <div className="col-span-2 border-b-2">
-                                <h1>{item?.quantity}</h1>
+                                <p>{item?.quantity}</p>
                             </div>
                             <div className="col-span-2 border-b-2">
-                                <h1>R {item?.unitPrice?.gross?.amount}</h1>
+                                <p>R {item?.unitPrice?.gross?.amount}</p>
                             </div>
                             <div className="col-span-2 border-b-2">
-                                <h1>R {item?.totalPrice?.gross?.amount}</h1>
+                                <p>R {item?.totalPrice?.gross?.amount}</p>
                             </div>
 
                         </div>
                     ))
                 }
 
-               <div className="flex justify-end">
+               <div className="flex justify-end mt-2">
                    <div>
-                       <h1><span className="font-bold">Subtotal:</span> R {data?.orderByToken?.subtotal?.net?.amount}</h1>
-                       <h1><span className="font-bold">Shipping:</span> R {data?.orderByToken?.shippingPrice?.gross?.amount}</h1>
-                       <h1><span className="font-bold">Taxes (included):</span> R {data?.orderByToken?.subtotal?.tax?.amount}</h1>
-                       <h1><span className="font-bold">Total:</span> R {data?.orderByToken?.total?.gross?.amount} </h1>
+                       <p><span className="font-bold">Subtotal:</span> R {data?.orderByToken?.subtotal?.net?.amount}</p>
+                       <p><span className="font-bold">Shipping:</span> R {data?.orderByToken?.shippingPrice?.gross?.amount}</p>
+                       <p><span className="font-bold">Taxes (included):</span> R {data?.orderByToken?.subtotal?.tax?.amount}</p>
+                       <p><span className="font-bold">Total:</span> R {data?.orderByToken?.total?.gross?.amount} </p>
                    </div>
                </div>
 
-                <div className="grid grid-cols-2 border-b-2 border-b-black">
+                <div className="grid grid-cols-2 border-b-2 border-b-black mt-8">
                     <div>
                         <h1 className="text-lg font-bold">Billing address</h1>
                     </div>

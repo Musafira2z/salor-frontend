@@ -21,14 +21,11 @@ const OrderItems = ({ orders }) => {
                         <div className='col-span-12 md:col-span-3 flex justify-between md:justify-start items-center gap-2 '>
                             <p className='text-base'>Date</p>
                         </div>
-                        <div className=' col-span-12 md:col-span-2 flex justify-between md:justify-start items-center gap-2 '>
+                        <div className=' col-span-12 md:col-span-4 flex justify-between md:justify-start items-center gap-2 '>
                             <p className='text-base'>Status</p>
                         </div>
-                        <div className='col-span-12 md:col-span-3 flex justify-between md:justify-start items-center gap-2 '>
-                            <p className='text-base'> Status Display</p>
-                        </div>
 
-                        <div className='col-span-12 md:col-span-2 flex justify-between  md:justify-start items-center gap-2 '>
+                        <div className='col-span-12 md:col-span-3 flex justify-between  md:justify-start items-center gap-2 '>
                             <p className='text-base'>Total</p>
                         </div>
 
@@ -54,16 +51,13 @@ const OrderItems = ({ orders }) => {
                                 {order?.node?.created}
                             </Moment></p>
                         </div>
-                        <div className=' col-span-12 md:col-span-2 flex justify-between md:justify-start items-center gap-2 '>
+                        <div className=' col-span-12 md:col-span-4 flex justify-between md:justify-start items-center gap-2 '>
                             <p className='block md:hidden text-base font-bold'>Status</p>
                             <p className=' text-sm '>{order?.node?.status} </p>
                         </div>
-                        <div className='col-span-12 md:col-span-3 flex justify-between md:justify-start items-center gap-2 '>
-                            <p className='block md:hidden text-base font-bold'> Status Display</p>
-                            <p className='text-sm '>{order?.node?.statusDisplay} </p>
-                        </div>
 
-                        <div className='col-span-12 md:col-span-2 flex justify-between  md:justify-start items-center gap-2 '>
+
+                        <div className='col-span-12 md:col-span-3 flex justify-between  md:justify-start items-center gap-2 '>
 
                             <p className='block md:hidden text-base font-bold'>Total</p>
                             <p className=' text-sm '>{order?.node?.total?.net?.currency} {order?.node?.total?.net?.amount} </p>
