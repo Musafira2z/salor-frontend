@@ -6,7 +6,7 @@ import Footer from "./Footer";
 
 const Dashboard = () => {
     return (
-        <div className='h-screen' >
+        <div className='h-screen md:flex-none flex flex-col justify-between' >
             <NavigationBar />
             <div className='container mx-auto' >
                 <div className=' flex justify-around gap-5' >
@@ -18,7 +18,7 @@ const Dashboard = () => {
                     </div >
                 </div >
             </div >
-            <div className="mt-10 md:hidden">
+            <div className="mt-10 md:hidden ">
                 <Footer/>
             </div>
         </div >
