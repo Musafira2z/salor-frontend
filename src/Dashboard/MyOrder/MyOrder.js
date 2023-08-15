@@ -16,7 +16,6 @@ const MyOrder = () => {
     })
 
     const orders = data?.me?.orders?.edges
-      console.log(data?.me?.orders?.pageInfo);
 
     return (
         <div className=' bg-white w-full p-3 ' >
@@ -38,17 +37,17 @@ const MyOrder = () => {
                     orders?.length ? <OrderItems orders={orders} /> : null
 
                 }
-<div className="flex justify-end mt-1">
-    <div>
-        <button
-            onClick={()=>setBefore(data?.me?.orders?.pageInfo?.startCursor)}
-                className='border px-2'>Prev</button>
-        <button
-            onClick={()=>setAfter(data?.me?.orders?.pageInfo?.endCursor)}
-            className='border px-2'>Next</button>
-    </div>
+                <div className="flex justify-end mt-1">
+                    <div>
+                        <button
+                            onClick={()=>setBefore(data?.me?.orders?.pageInfo?.startCursor)}
+                                className='border px-2'>Prev</button>
+                        <button
+                            onClick={()=>setAfter(data?.me?.orders?.pageInfo?.endCursor)}
+                            className='border px-2'>Next</button>
+                    </div>
 
-</div>
+                </div>
             </div >
         </div >
     );

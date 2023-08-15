@@ -6,12 +6,12 @@ import ProductCalculation from './ProductCalculation';
 const CartBody = ({ children, isOpen, setIsOpen, checkoutData }) => {
 
     return (
-        <div className={`flex flex-col  justify-between max-h-screen  overflow-y-auto `}>
+        <div className={`flex flex-col  justify-between `}>
 
 
             <div className=' flex !justify-between px-5 py-5'>
                 <div className='flex  items-center text-black'>
-                    <img src="/favicon.ico" alt="" className='h-5' />  <h4 className='ml-2 font-bold'>  {checkoutData?.lines.length || "00"} Items</h4>
+                    <img src="/favicon.ico" alt="" className='h-5' />  <h4 className='ml-2 font-bold'>  {checkoutData?.lines.length || "00"}Items</h4>
                 </div>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
@@ -21,7 +21,7 @@ const CartBody = ({ children, isOpen, setIsOpen, checkoutData }) => {
 
             </div>
 
-            <div className=' h-[80vh] overflow-y-auto'>
+            <div className=' h-[50vh] overflow-y-auto'>
                 {
                     checkoutData?.lines?.map((data, i) => (
                         <AddToCartCard key={i} data={data} />
@@ -35,7 +35,7 @@ const CartBody = ({ children, isOpen, setIsOpen, checkoutData }) => {
 
 
 
-            <div className=' pb-6 border-t '>
+            <div className='  border-t '>
                 <div className='px-3'>
                     <ProductCalculation checkoutData={checkoutData}>
 

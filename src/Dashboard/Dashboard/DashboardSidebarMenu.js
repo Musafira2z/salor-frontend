@@ -17,7 +17,7 @@ const DashboardSidebarMenu = () => {
 
     const user = data?.me;
     return (
-        <nav>
+        <nav className="px-2">
             <ul>
                 <li className=' list-none pb-1 '>
                     <span className='p-0 m-0 font-bold hover:text-black  text-black block text-base'> {user?.firstName}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import NavigationBar from '../../Components/Sheard/NavigationBar/NavigationBar';
 import DashboardSidebar from './DashboardSidebar';
+import Footer from "./Footer";
 
 const Dashboard = () => {
     return (
@@ -17,6 +18,9 @@ const Dashboard = () => {
                     </div >
                 </div >
             </div >
+            <div className="mt-10 md:hidden">
+                <Footer/>
+            </div>
         </div >
     );
 };
