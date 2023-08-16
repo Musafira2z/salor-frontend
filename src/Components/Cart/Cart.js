@@ -14,6 +14,7 @@ const Cart = () => {
         variables: {
             checkoutToken: checkoutToken,
             locale: LanguageCodeEnum.En,
+
         }
     })
     const checkoutData = data?.checkout;

@@ -59,19 +59,31 @@ const AddToCartCard = ({ data }) => {
         }
     }
 
+    const outOfStockRemoveCallBack = useCallback( async () => {
+        if(data?.variant?.quantityAvailable === 0){
+         await   handleRemoveToCart();
+        }
 
-    const removeCallBack = useCallback( () => {
+        if(data?.variant?.quantityAvailable < data?.quantity && data?.variant?.quantityAvailable > 0){
+            await decrement({
+                variables: {
+                    token: checkoutToken,
+                    locale: LanguageCodeEnum.En,
+                    lines: [{
+                        quantity: data?.variant?.quantityAvailable,
+                        variantId: data?.variant.id
+                    }]
+                }
+            })
+        }
 
-            handleRemoveToCart()
-
-    }, [handleRemoveToCart]);
+    }, [handleRemoveToCart,data?.variant?.quantityAvailable,data?.quantity]);
 
 
     useEffect(() => {
-        if(data?.variant?.quantityAvailable===0) {
-            removeCallBack();
-        }
-    }, [data?.variant?.quantityAvailable,removeCallBack]);
+        outOfStockRemoveCallBack();
+
+    }, [outOfStockRemoveCallBack]);
 
     // error handling ...........................
 
@@ -80,10 +92,10 @@ const AddToCartCard = ({ data }) => {
             toast.loading('Loading...', { id: 'checkout' })
         }
         if (checkoutAddProductLineData?.checkoutLinesAdd?.errors?.[0]?.message) {
-            toast.error(checkoutAddProductLineData?.checkoutLinesAdd?.errors?.[0]?.message, { id: 'checkout' })
+            toast.error(checkoutAddProductLineData?.checkoutLinesAdd?.errors?.[0]?.message, { id: 'checkout' });
         }
         if (checkoutAddProductLineData?.checkoutLinesAdd?.checkout?.id) {
-            toast.success(`Quantity: ${data?.quantity}`, { id: 'checkout' })
+            toast.success(`Quantity: ${data?.quantity}`, { id: 'checkout' });
         }
 
     }, [
@@ -99,10 +111,10 @@ const AddToCartCard = ({ data }) => {
             toast.loading('Loading...', { id: 'checkout' })
         }
         if (decrementData?.checkoutLinesUpdate?.errors?.[0]?.message) {
-            toast.error(decrementData?.checkoutLinesUpdate?.errors?.[0]?.message, { id: 'checkout' })
+            toast.error(decrementData?.checkoutLinesUpdate?.errors?.[0]?.message, { id: 'checkout' });
         }
         if (decrementData?.checkoutLinesUpdate?.checkout?.id) {
-            toast.success(`Quantity: ${data?.quantity}`, { id: 'checkout' })
+            toast.success(`Quantity: ${data?.quantity}`, { id: 'checkout' });
         }
 
     }, [
