@@ -1,5 +1,6 @@
 import React from "react";
 import SideNavar from "./SideNavbar";
+import Footer from "../../Dashboard/Dashboard/Footer";
 
 
 const SidebarMenu = () => {
@@ -7,8 +8,11 @@ const SidebarMenu = () => {
 
     return (
 
-        <div className="h-screen overflow-y-auto bg-white">
+        <div className=" bg-white  h-screen overflow-y-auto pb-24  flex flex-col justify-between">
             <SideNavar />
+            <div className="px-3">
+                <Footer />
+            </div>
         </div>
 
 

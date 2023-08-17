@@ -45,14 +45,14 @@ function App() {
         setIsOpenCart
     };
 
-    
+
     return (
         <div className="bg-gray-100 h-screen w-screen md:overflow-y-auto overflow-x-auto" >
             <Context.Provider value={state}>
                 <SaleorAuthProvider {...saleorAuth}>
                     <ApolloProvider client={apolloClient}>
                         <RouterProvider router={routers} />
-                        <Toaster  position={"bottom-center"}/>
+                        <Toaster position={"bottom-center"} />
                     </ApolloProvider>
                 </SaleorAuthProvider>
             </Context.Provider>

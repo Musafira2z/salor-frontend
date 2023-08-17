@@ -1,8 +1,9 @@
-import React,{useState} from 'react';
-import { Drawer, ButtonToolbar,  IconButton } from 'rsuite';
+import React, { useState } from 'react';
+import { Drawer, ButtonToolbar, IconButton } from 'rsuite';
 
 import { RiMenu3Line } from 'react-icons/ri';
 import SideNav from "../../SidebarMenu/SideNavbar";
+import Footer from '../../../Dashboard/Dashboard/Footer';
 
 const SidebarDrawer = () => {
     const [open, setOpen] = useState(false);
@@ -23,13 +24,14 @@ const SidebarDrawer = () => {
             </ButtonToolbar>
 
 
-            <Drawer  className='!w-72 !block !sm:block  !md:hidden !lg:hidden !xl:hidden'   placement='left' open={open} onClose={() => setOpen(false)}>
+            <Drawer className='!w-72 !block !sm:block  !md:hidden !lg:hidden !xl:hidden !overflow-x-hidden' placement='left' open={open} onClose={() => setOpen(false)}>
                 <Drawer.Header>
                     <Drawer.Title>Musafir</Drawer.Title>
                 </Drawer.Header>
 
                 <Drawer.Body className='p-0'  >
                     <SideNav />
+                    <Footer />
                 </Drawer.Body>
             </Drawer>
         </div>

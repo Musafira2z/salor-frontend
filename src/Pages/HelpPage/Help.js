@@ -35,7 +35,7 @@ const Help = () => {
     ]
     return (
 
-        <div  >
+        <div className='px-3 bg-white'>
             <div className="flex flex-col items-center" >
                 <h1 className=' text-center py-2  w-full text-xl font-bold bg-amber-500 text-slate-50 my-2' > F.A.Q</h1 >
             </div >

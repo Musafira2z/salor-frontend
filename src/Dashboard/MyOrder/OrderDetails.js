@@ -1,10 +1,10 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import {useOrderDetailsByTokenQuery} from '../../api';
-import {IoMdArrowRoundBack} from "react-icons/io"
+import { useOrderDetailsByTokenQuery } from '../../api';
+import { IoMdArrowRoundBack } from "react-icons/io"
 const OrderDetails = () => {
     const { token } = useParams();
-    const { data, loading} = useOrderDetailsByTokenQuery({
+    const { data, loading } = useOrderDetailsByTokenQuery({
         variables: {
             token: token
         }
@@ -13,7 +13,7 @@ const OrderDetails = () => {
     const orderItems = data?.orderByToken?.lines;
 
 
-   
+
     return (
         <section className="mb-16">
             {/* <!-- component --> */}
@@ -22,7 +22,7 @@ const OrderDetails = () => {
                 <button
                     onClick={() => window.history.back()}
                     className='font-bold  bg-amber-500 text-white px-2 rounded-full flex items-center '>
-                   <IoMdArrowRoundBack/> Back
+                    <IoMdArrowRoundBack /> Back
                 </button>
             </div>
 
@@ -48,39 +48,39 @@ const OrderDetails = () => {
                 </div>
 
                 {
-                 loading?<h1 className='text-lg text-center'>Loading..</h1> :
-                 
-                 orderItems?.map((item, index) => (
+                    loading ? <h1 className='text-lg text-center'>Loading..</h1> :
 
-                        <div
-                            key={index}
-                            className="grid grid-cols-12 px-2" >
+                        orderItems?.map((item, index) => (
 
-                            <div className="col-span-6 border-b-2">
-                                <p>{item?.productName}</p>
-                            </div>
-                            <div className="col-span-2 border-b-2">
-                                <p>{item?.quantity}</p>
-                            </div>
-                            <div className="col-span-2 border-b-2">
-                                <p>R {item?.unitPrice?.gross?.amount}</p>
-                            </div>
-                            <div className="col-span-2 border-b-2">
-                                <p>R {item?.totalPrice?.gross?.amount}</p>
-                            </div>
+                            <div
+                                key={index}
+                                className="grid grid-cols-12 px-2" >
 
-                        </div>
-                    ))
+                                <div className="col-span-6 border-b-2">
+                                    <p>{item?.productName}</p>
+                                </div>
+                                <div className="col-span-2 border-b-2">
+                                    <p>{item?.quantity}</p>
+                                </div>
+                                <div className="col-span-2 border-b-2">
+                                    <p>R {item?.unitPrice?.gross?.amount}</p>
+                                </div>
+                                <div className="col-span-2 border-b-2">
+                                    <p>R {item?.totalPrice?.gross?.amount}</p>
+                                </div>
+
+                            </div>
+                        ))
                 }
 
-               <div className="flex justify-end mt-2">
-                   <div>
-                       <p><span className="font-bold">Subtotal:</span> R {data?.orderByToken?.subtotal?.net?.amount}</p>
-                       <p><span className="font-bold">Shipping:</span> R {data?.orderByToken?.shippingPrice?.gross?.amount}</p>
-                       <p><span className="font-bold">Taxes (included):</span> R {data?.orderByToken?.subtotal?.tax?.amount}</p>
-                       <p><span className="font-bold">Total:</span> R {data?.orderByToken?.total?.gross?.amount} </p>
-                   </div>
-               </div>
+                <div className="flex justify-end mt-2">
+                    <div>
+                        <p><span className="font-bold">Subtotal:</span> R {data?.orderByToken?.subtotal?.net?.amount}</p>
+                        <p><span className="font-bold">Shipping:</span> R {data?.orderByToken?.shippingPrice?.gross?.amount}</p>
+                        <p><span className="font-bold">Taxes (included):</span> R {data?.orderByToken?.subtotal?.tax?.amount}</p>
+                        <p><span className="font-bold">Total:</span> R {data?.orderByToken?.total?.gross?.amount} </p>
+                    </div>
+                </div>
 
                 <div className="grid grid-cols-2 border-b-2 border-b-black mt-8">
                     <div>

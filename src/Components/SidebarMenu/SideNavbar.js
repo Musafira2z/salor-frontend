@@ -4,7 +4,7 @@ import { SidebarSkeleton } from "../Sheard/Skeletons/SidebarSkeleton";
 import { NavLink, useParams } from "react-router-dom";
 
 const SideNavbar = () => {
-   
+
 
     const { slug } = useParams();
     const { loading, data } = useMainMenuQuery({
@@ -23,9 +23,9 @@ const SideNavbar = () => {
 
     const menuItems = data?.menu?.items;
 
-  
 
-   
+
+
     return (
 
         <nav className="px-5 pt-2 ">
@@ -63,15 +63,9 @@ const SideNavbar = () => {
                                 </div>
                             </NavLink>
                         </li>
-
-
                     )
                 })}
-
-
             </ul>
-
-        
         </nav>
 
     );
