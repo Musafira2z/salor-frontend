@@ -9,11 +9,12 @@ import { Toaster } from 'react-hot-toast';
 import './App.css'
 export const Context = React.createContext({});
 function App() {
-    const [searchValue, setSearchValue] = useState('');
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [isOpenCart, setIsOpenCart] = useState(false);
-
     const saleorAuth = useSaleorAuthClient({ saleorApiUrl: GRAPH_URL });
+
+
+
 
     const { apolloClient, reset, refetch } = useAuthenticatedApolloClient({
         uri: GRAPH_URL,
@@ -37,8 +38,6 @@ function App() {
 
 
     const state = {
-        searchValue,
-        setSearchValue,
         showLoginModal,
         setShowLoginModal,
         isOpenCart,

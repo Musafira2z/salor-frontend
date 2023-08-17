@@ -8,7 +8,7 @@ const SidebarMenu = () => {
 
     return (
 
-        <div className=" bg-white  h-screen overflow-y-auto pb-24  flex flex-col justify-between">
+        <div className=" bg-white  h-screen overflow-y-auto pb-24  flex flex-col justify-between relative">
             <SideNavar />
             <div className="px-3">
                 <Footer />
