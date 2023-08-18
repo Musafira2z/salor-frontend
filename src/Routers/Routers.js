@@ -11,12 +11,13 @@ import Help from "../Pages/HelpPage/Help";
 import HelpPage from "../Pages/HelpPage/HelpPage";
 import Home from "../Pages/Home/Home";
 import HomeMainLayout from "../Pages/Home/MainLayout";
-import ProductsDetails from "../Pages/Products/ProductsDetails/ProductsDetails";
+import ProductsDetails from "../Pages/ProductsDetails/ProductsDetails";
 import PrivetRoute from "./PrivetRoute";
 import Success from "../Pages/Success/Success";
 import OrderDetails from "../Dashboard/MyOrder/OrderDetails";
 import NoteFoundPage from "../Pages/404/NoteFoundPage";
 import Grocery from "../Pages/Grocery/Grocery";
+import Collections from "../Pages/Collections/Collections";
 
 
 
@@ -36,6 +37,10 @@ export const routers = createBrowserRouter([
       {
         path: "/Category/:slug",
         element: <Category />
+      },
+      {
+        path: "/Collections/:id",
+        element: <Collections />
       },
 
     ]
@@ -98,12 +103,10 @@ export const routers = createBrowserRouter([
         path: "/dashboard/help",
         element: <PrivetRoute>< Help /></PrivetRoute>
       },
-
-
     ]
   },
   {
-    path:'*',
-    element:<NoteFoundPage/>
+    path: '*',
+    element: <NoteFoundPage />
   }
 ]);

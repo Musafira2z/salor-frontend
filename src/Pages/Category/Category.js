@@ -1,16 +1,14 @@
-import React, {  useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LanguageCodeEnum, useMainMenuQuery, useProductCollectionQuery } from '../../api';
 import { useParams } from 'react-router-dom';
 import CategoryItems from "./CategoryItems";
-import CategoryProducts from './CategoryProducts';
+import Products from '../../Components/Products/Products';
 
 const Category = () => {
-    const [categoryId, setCategoryId] = useState("");
+    const [categoryId, setCategoryId] = useState(null);
     const [category, setCategory] = useState('');
-
+    const [cursor, setCursor] = useState('');
     const { slug } = useParams();
-
-
 
     const { data } = useMainMenuQuery({
         variables: {
@@ -20,23 +18,23 @@ const Category = () => {
     });
 
     useEffect(() => {
-        data?.menu?.items?.forEach( item => {
+        data?.menu?.items?.forEach(item => {
 
 
-            if(item?.category?.slug === slug){
+            if (item?.category?.slug === slug) {
                 return setCategory(item);
 
             }
 
             item.children?.forEach(item1 => {
-                if(item1?.category?.slug === slug) {
+                if (item1?.category?.slug === slug) {
                     return setCategory(item1);
 
                 }
-                
+
                 item1.children?.forEach(item2 => {
-                    if(item2?.category?.slug === slug) {
-                        return  setCategory(item2);
+                    if (item2?.category?.slug === slug) {
+                        return setCategory(item2);
 
                     }
                 })
@@ -55,16 +53,17 @@ const Category = () => {
 
 
 
-    const { loading: loadingProduct, data: productsData } = useProductCollectionQuery({
+    const { data: productsData, fetchMore, networkStatus } = useProductCollectionQuery({
         variables: {
             after: '',
-            first: 100,
+            first: 20,
             channel: "default",
             locale: LanguageCodeEnum.En,
             filter: {
                 categories: [categoryId]
             }
-        }
+        },
+        notifyOnNetworkStatusChange: true
     });
 
 
@@ -96,19 +95,16 @@ const Category = () => {
 
                     <div >
                         {
-                            <CategoryProducts
+                            <Products
                                 data={productsData}
-                                loading={loadingProduct}
+                                fetchMore={fetchMore}
+                                networkStatus={networkStatus}
+                                cursor={cursor}
+                                setCursor={setCursor}
+                                categoryId={categoryId}
                             />
                         }
-                        {
 
-                            loadingProduct ?
-                                <h1 className='text-center text-2xl font-bold'>
-                                    Loading...</h1> :
-                                !productsData?.products?.edges?.length ?
-                                    <h1 className='text-center text-2xl font-bold'>Sorry! Product not found.</h1> : null
-                        }
                     </div>
 
                 }

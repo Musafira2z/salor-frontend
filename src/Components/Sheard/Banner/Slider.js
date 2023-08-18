@@ -2,12 +2,12 @@ import React from 'react';
 import { Carousel } from 'rsuite';
 import { useHomeBannerMenuQuery } from "../../../api";
 import { BannerSkeleton } from '../Skeletons/BannarSkeleton';
-// import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Slider = () => {
-// const navigate=useNavigate();
+    const navigate = useNavigate();
 
 
     const { data, loading } = useHomeBannerMenuQuery({
@@ -18,9 +18,13 @@ const Slider = () => {
         }
     })
 
-    const handleNavigate=(slug)=>{
-        // navigate(`/category/${slug}`)
+
+
+    const handleNavigate = (id) => {
+        navigate(`/Collections/${id}`);
     }
+
+
 
     return (
         <div className=" xl:mt-5 lg:mt-5 pb-3">
@@ -29,9 +33,9 @@ const Slider = () => {
                 {
                     data?.menu?.items?.map((slideImage, index) => (
                         <img
-                            onClick={()=>handleNavigate(slideImage?.collection?.slug)}
+                            onClick={() => handleNavigate(slideImage?.collection?.id)}
                             key={index}
-                            className="  w-full"
+                            className="  w-full cursor-pointer"
                             src={slideImage?.collection?.backgroundImage?.url}
                             alt={`Banner-${index}`} />
                     ))

@@ -1,19 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {  useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductCard from '../Sheard/ProductCard/ProductCard';
 import { Waypoint, } from "react-waypoint";
 import { LanguageCodeEnum } from '../../api';
 
 
-const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
+const Products = ({ data, fetchMore, setCursor, cursor, networkStatus, collections, categoryId }) => {
     const [newData, setNewData] = useState([]);
 
 
     useEffect(() => {
         if (data?.products?.edges) {
-                setNewData([...newData, ...data?.products?.edges?.map(data => ({ ...data }))]);
+            setNewData([...newData, ...data?.products?.edges?.map(data => ({ ...data }))]);
         }
     }, [data?.products?.edges]);
+
 
 
 
@@ -24,7 +25,10 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
                 first: 20,
                 channel: "default",
                 locale: LanguageCodeEnum.En,
-                filter: { }
+                filter: {
+                    collections: collections || null,
+                    categories: categoryId ? [categoryId] : null
+                }
 
             },
             updateQuery: (pv, { fetchMoreResult }) => {
@@ -50,25 +54,25 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus }) => {
 
                 className=' grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 lg:gap-7 md:gap-5 sm:gap-3 gap-0'>
                 {
-                        newData?.map((data, index) => (
+                    newData?.map((data, index) => (
 
-                            <ProductCard
+                        <ProductCard
 
-                                data={data}
-                                key={index}
-                            />
+                            data={data}
+                            key={index}
+                        />
 
-                        ))
+                    ))
                 }
 
 
             </div>
-             <Waypoint
+            <Waypoint
                 onEnter={handleFetchMoreData}
             />
 
             {
-                 networkStatus === 3 && <h1 className=' text-center text-2xl font-bold mt-10'>Load more...</h1>
+                networkStatus === 3 && <h1 className=' text-center text-2xl font-bold mt-10'>Load more...</h1>
             }
         </div>
     );
