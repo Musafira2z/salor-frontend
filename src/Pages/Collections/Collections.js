@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState} from 'react'
 import { useParams } from 'react-router-dom';
 import { useProductCollectionQuery, LanguageCodeEnum } from '../../api';
 import Products from '../../Components/Products/Products';
 
 export default function Collections() {
     const [cursor, setCursor] = useState('');
+    const [restData, setRestData] = useState([]);
+
     const { id } = useParams();
+
 
     const { data: productsData, fetchMore, networkStatus } = useProductCollectionQuery({
         variables: {
@@ -27,15 +30,23 @@ export default function Collections() {
                 <h1 className=' text-2xl font-bold text-black  my-5'>Collections</h1>
 
             </div>
-            <Products
-                data={productsData}
-                fetchMore={fetchMore}
-                networkStatus={networkStatus}
-                cursor={cursor}
-                setCursor={setCursor}
-                collections={id}
-            />
+            {
+                productsData?.products?.edges?.length&&
 
+            <div>
+                <Products
+                    data={productsData}
+                    fetchMore={fetchMore}
+                    networkStatus={networkStatus}
+                    cursor={cursor}
+                    setCursor={setCursor}
+                    collections={id}
+                    restData={restData}
+                    setRestData={setRestData}
+                />
+            </div>
+
+            }
         </div>
     )
 }

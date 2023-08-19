@@ -11,7 +11,8 @@ const ProductsDetails = () => {
     const { id } = useParams();
     const [cursor, setCursor] = useState('')
     const [categoryId, setCategoryId] = useState(null)
-    const [category, setCategory] = useState('')
+    const [category, setCategory] = useState(null)
+    const [restData, setRestData] = useState([]);
 
 
     const { data, loading } = useProductBySlugQuery({
@@ -63,7 +64,8 @@ const ProductsDetails = () => {
 
     useEffect(() => {
         if (!category?.children?.length) {
-            setCategoryId(category?.category?.id)
+            setCategoryId(category?.category?.id);
+
         }
     }, [category]);
 
@@ -103,9 +105,12 @@ const ProductsDetails = () => {
 
                 <div>
                     <div >
-
+                        {
+                            productsData?.products?.edges?.length&&
                         <div>
-                            <h1 className="text-2xl font-bold my-8">Related products</h1>
+
+                                <h1 className="text-2xl font-bold my-8">Related products</h1>
+
 
                             <Products
                                 data={productsData}
@@ -114,10 +119,12 @@ const ProductsDetails = () => {
                                 cursor={cursor}
                                 setCursor={setCursor}
                                 categoryId={categoryId}
+                                restData={restData}
+                                setRestData={setRestData}
                             />
 
                         </div>
-
+                        }
 
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Products from '../../Components/Products/Products';
 import Slider from '../../Components/Sheard/Banner/Slider';
 import { LanguageCodeEnum, useProductCollectionQuery } from '../../api';
@@ -7,6 +7,7 @@ import { LanguageCodeEnum, useProductCollectionQuery } from '../../api';
 
 const Home = () => {
     const [cursor, setCursor] = useState('');
+    const [restData, setRestData] = useState([]);
 
 
     const { data, fetchMore, networkStatus } = useProductCollectionQuery({
@@ -39,6 +40,8 @@ const Home = () => {
                     setCursor={setCursor}
                     cursor={cursor}
                     networkStatus={networkStatus}
+                    restData={restData}
+                    setRestData={setRestData}
                 />
             </div>
         </div>
