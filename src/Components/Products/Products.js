@@ -1,22 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ProductCard from '../Sheard/ProductCard/ProductCard';
 import { Waypoint, } from "react-waypoint";
 import { LanguageCodeEnum } from '../../api';
 
 
-const Products = ({ data, fetchMore, setCursor, cursor, networkStatus, collections, categoryId }) => {
-    const [newData, setNewData] = useState([]);
+const Products = ({ data, fetchMore, setCursor, cursor, networkStatus, collections, categoryId, setRestData, restData }) => {
 
 
     useEffect(() => {
+
         if (data?.products?.edges) {
-            setNewData([...newData, ...data?.products?.edges?.map(data => ({ ...data }))]);
+            setRestData([...restData, ...data?.products?.edges?.map(data => ({ ...data }))]);
         }
     }, [data?.products?.edges]);
 
 
-    console.log(categoryId)
 
     const handleFetchMoreData = () => {
         fetchMore({
@@ -54,7 +53,7 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus, collectio
 
                 className=' grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 lg:gap-7 md:gap-5 sm:gap-3 gap-0'>
                 {
-                    newData?.map((data, index) => (
+                    restData?.map((data, index) => (
 
                         <ProductCard
 

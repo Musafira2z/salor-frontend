@@ -3,12 +3,22 @@ import { LanguageCodeEnum, useMainMenuQuery, useProductCollectionQuery } from '.
 import { useParams } from 'react-router-dom';
 import CategoryItems from "./CategoryItems";
 import Products from '../../Components/Products/Products';
+// import CategoryProducts from "./CategoryProducts";
 
 const Category = () => {
-    const [categoryId, setCategoryId] = useState(null);
+    const [categoryId, setCategoryId] = useState('');
+    const [restData, setRestData] = useState([]);
+
     const [category, setCategory] = useState('');
     const [cursor, setCursor] = useState('');
     const { slug } = useParams();
+
+
+    useEffect(() => {
+        if(categoryId){
+            setRestData([]);
+        }
+    }, [categoryId]);
 
     const { data } = useMainMenuQuery({
         variables: {
@@ -46,6 +56,7 @@ const Category = () => {
 
 
     useEffect(() => {
+
         if (!category?.children?.length) {
             setCategoryId(category?.category?.id)
         }
@@ -63,6 +74,7 @@ const Category = () => {
                 categories: [categoryId]
             }
         },
+
         notifyOnNetworkStatusChange: true
     });
 
@@ -95,6 +107,8 @@ const Category = () => {
 
                     <div >
                         {
+                            productsData?.products?.edges?.length&&
+
                             <Products
                                 data={productsData}
                                 fetchMore={fetchMore}
@@ -102,11 +116,12 @@ const Category = () => {
                                 cursor={cursor}
                                 setCursor={setCursor}
                                 categoryId={categoryId}
+                                restData={restData}
+                                setRestData={setRestData}
                             />
                         }
 
                     </div>
-
                 }
             </div>
         </div>

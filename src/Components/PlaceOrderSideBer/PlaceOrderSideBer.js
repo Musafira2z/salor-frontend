@@ -132,7 +132,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
                     </div>
                 </div>
 
-                <div className='md:h-[52vh] md:overflow-y-scroll'>
+                <div className='md:h-[50vh] md:overflow-y-auto'>
                     {
                         checkoutData?.lines?.map((data, i) => (
                             <AddToCartCard key={i} data={data} />
@@ -144,8 +144,8 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
 
             <div className='  bg-white border-t  pb-6'>
                 <div className='px-3 pt-5'>
-                   {/* promo code*/}
-                    <PromoCode/>
+                    {/* promo code*/}
+                    <PromoCode />
                     <ProductCalculation checkoutData={checkoutData} />
                 </div>
 

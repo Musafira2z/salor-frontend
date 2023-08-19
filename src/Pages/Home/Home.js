@@ -7,6 +7,7 @@ import { LanguageCodeEnum, useProductCollectionQuery } from '../../api';
 
 const Home = () => {
     const [cursor, setCursor] = useState('');
+    const [restData, setRestData] = useState([]);
 
 
     const { data, fetchMore, networkStatus } = useProductCollectionQuery({
@@ -39,6 +40,8 @@ const Home = () => {
                     setCursor={setCursor}
                     cursor={cursor}
                     networkStatus={networkStatus}
+                    restData={restData}
+                    setRestData={setRestData}
                 />
             </div>
         </div>

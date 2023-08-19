@@ -17,7 +17,7 @@ const ProductCard = ({ data }) => {
     const [decrement, { data: decrementData, loading: decrementLoading }] = useCheckoutLineUpdateMutation();
     const [RemoveProductFromCheckout] = useRemoveProductFromCheckoutMutation();
 
-    const checkoutToken=JSON.parse(localStorage.getItem('checkoutToken'));
+    const checkoutToken = JSON.parse(localStorage.getItem('checkoutToken'));
 
 
     const { data: checkoutProducts } = useCheckoutByTokenQuery({
@@ -110,7 +110,7 @@ const ProductCard = ({ data }) => {
 
     useEffect(() => {
         if (checkoutAddProduct?.checkoutLinesAdd?.checkout?.id) {
-            toast.success(`Quantity: ${items?.quantity||"00"}`, {
+            toast.success(`Quantity: ${items?.quantity || "00"}`, {
                 id: 'checkout'
             })
 
@@ -145,7 +145,7 @@ const ProductCard = ({ data }) => {
 
 
                 <div className=' flex justify-center h-36 ' >
-                    <img  src={thumbnail?.url} alt="" />
+                    <img src={thumbnail?.url} alt="" />
                 </div >
 
 
@@ -168,13 +168,13 @@ const ProductCard = ({ data }) => {
                     <button
                         disabled
                         className='  border-2 border-red-500 rounded-lg text-white bg-red-500   text-base font-semibold hover:duration-500 duration-500  py-1 px-2 md:px-3 w-full    ' >
-                            Out of stock</button > :
+                        Out of stock</button > :
 
                     <div>
                         {
                             items ?
 
-                                <div className={`border-2 ${data?.node?.variants?.[0]?.quantityAvailable === items?.quantity?"border-red-400 bg-red-400 text-white":"border-amber-500 bg-amber-500 text-white"}  rounded-lg   text-base font-semibold hover:duration-500 duration-500  py-1 px-2 md:px-6 w-full    `}>
+                                <div className={`border-2 ${data?.node?.variants?.[0]?.quantityAvailable === items?.quantity ? "border-red-400 bg-red-400 text-white" : "border-amber-500 bg-amber-500 text-white"}  rounded-lg   text-base font-semibold hover:duration-500 duration-500  py-1 px-2 md:px-6 w-full    `}>
                                     <div className=" flex justify-between flex-row-reverse items-center   rounded-md" >
                                         <button
                                             disabled={data?.node?.variants?.[0]?.quantityAvailable === items?.quantity ? true : false}
@@ -196,11 +196,11 @@ const ProductCard = ({ data }) => {
                                 :
                                 <button
                                     onClick={() => handleAddToCart(variants?.[0]?.id)}
-                                    className=' relative addToCart border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-2 md:px-6 w-full  flex items-center justify-center gap-x-1 hover:border-amber-500 hover:bg-amber-500 hover:text-white' > <FaCartPlus/> Add to cart
+                                    className=' relative addToCart border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-2 md:px-6 w-full  flex items-center justify-center gap-x-1 hover:border-amber-500 hover:bg-amber-500 hover:text-white' > <FaCartPlus /> Add to cart
 
 
                                     <div className='cartAnimation h-16 w-16 '>
-                                        <img  src={thumbnail?.url} alt="" />
+                                        <img src={thumbnail?.url} alt="" />
                                     </div>
                                 </button >
                         }
