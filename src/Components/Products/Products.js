@@ -16,7 +16,7 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus, collectio
     }, [data?.products?.edges]);
 
 
-
+    console.log(categoryId)
 
     const handleFetchMoreData = () => {
         fetchMore({
@@ -26,8 +26,8 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus, collectio
                 channel: "default",
                 locale: LanguageCodeEnum.En,
                 filter: {
-                    collections: collections || null,
-                    categories: categoryId ? [categoryId] : null
+                    collections: collections || undefined,
+                    categories: categoryId ? [categoryId] : undefined
                 }
 
             },
