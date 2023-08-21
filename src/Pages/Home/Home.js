@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import Products from '../../Components/Products/Products';
 import Slider from '../../Components/Sheard/Banner/Slider';
-import { LanguageCodeEnum, useProductCollectionQuery } from '../../api';
+import { CurrentUserDetailsDocument, LanguageCodeEnum, useProductCollectionQuery } from '../../api';
 
+import { useQuery } from '@apollo/client';
 
 
 const Home = () => {
     const [cursor, setCursor] = useState('');
     const [restData, setRestData] = useState([]);
+
+
+
+
+
+
 
 
     const { data, fetchMore, networkStatus } = useProductCollectionQuery({
@@ -22,7 +29,9 @@ const Home = () => {
 
 
 
+    const { userData } = useQuery(CurrentUserDetailsDocument);
 
+    console.log(userData)
 
     return (
         <div >

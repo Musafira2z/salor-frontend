@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import SearchBox from '../SearchBox/SearchBox';
 import Logo from '../../../Utility/Logo/saleor.svg'
 import LoginPage from '../../../Authentication/LoginLayout';
@@ -9,12 +9,29 @@ import { CurrentUserDetailsDocument } from '../../../api';
 import { useQuery } from '@apollo/client';
 import PlayStore from './imgs/playstore.webp';
 import SidebarDrawer from '../Drawer/SidebarDrawer';
+import ReactGA from 'react-ga';
 const NavigationBar = () => {
 
 
     const { data } = useQuery(CurrentUserDetailsDocument);
 
     const user = data?.me;
+
+
+    const callback = useCallback(async () => {
+        await user;
+        ReactGA.initialize('D51B9SHE25', {
+            debug: true,
+            titleCase: false,
+            gaOptions: {
+                userId: user?.email
+            }
+        });
+    }, [user])
+    useEffect(() => {
+        callback()
+    }, [callback])
+
 
     return (
         <header className='bg-white py-5 md:px-10 px-2 sticky top-0 z-50' >
