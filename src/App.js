@@ -6,12 +6,20 @@ import { useAuthenticatedApolloClient } from "@saleor/auth-sdk/react/apollo";
 import { ApolloProvider } from "@apollo/client";
 import { GRAPH_URL } from './api/GRAPH_URL/GRAPH_URL';
 import { Toaster } from 'react-hot-toast';
+import ReactGA from 'react-ga';
 import './App.css'
+
 export const Context = React.createContext({});
 function App() {
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [isOpenCart, setIsOpenCart] = useState(false);
     const saleorAuth = useSaleorAuthClient({ saleorApiUrl: GRAPH_URL });
+
+
+    // analytics.google
+
+    ReactGA.initialize('G-D51B9SHE25');
+    ReactGA.pageview(window.location.pathname + window.location.search);
 
 
 

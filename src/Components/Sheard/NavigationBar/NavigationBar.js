@@ -18,6 +18,10 @@ const NavigationBar = () => {
     const user = data?.me;
 
 
+    useEffect(() => {
+
+    }, [])
+
     const callback = useCallback(async () => {
         await user;
         ReactGA.initialize('D51B9SHE25', {
