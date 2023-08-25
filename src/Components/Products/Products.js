@@ -11,7 +11,7 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus, collectio
     useEffect(() => {
 
         if (data?.products?.edges) {
-            setRestData([...restData, ...data?.products?.edges?.map(data => ({ ...data }))]);
+            setRestData([...restData, ...data?.products?.edges]);
         }
     }, [data?.products?.edges]);
 

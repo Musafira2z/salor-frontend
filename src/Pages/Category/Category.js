@@ -15,7 +15,7 @@ const Category = () => {
 
 
     useEffect(() => {
-        if(categoryId){
+        if (categoryId) {
             setRestData([]);
         }
     }, [categoryId]);
@@ -107,7 +107,7 @@ const Category = () => {
 
                     <div >
                         {
-                            productsData?.products?.edges?.length&&
+                            productsData?.products?.edges?.length &&
 
                             <Products
                                 data={productsData}
