@@ -132,7 +132,6 @@ const ProductCard = ({ data }) => {
         checkoutAddProductLoading,
     ])
 
-
     return (
 
         <div className="  lg:rounded-lg md:rounded-lg sm:rounded-sm rounded-none  xl:border-none lg:border-none md:border-none sm:border-none border bg-white flex flex-col justify-between p-3">
@@ -157,7 +156,10 @@ const ProductCard = ({ data }) => {
 
                     <div className=' flex justify-between items-center  pb-4' >
                         <p style={{ color: "rgb(119, 121, 140)", fontWeight: "bold", fontSize: '13px' }}>{data?.node?.variants?.[0]?.attributes?.[0]?.values?.[0]?.name}</p>
-                        <p className=' text-transparent  bg-clip-text bg-gradient-to-r from-amber-500 to-pink-600 font-extrabold ' style={{ fontSize: '15px', fontWeight: '700' }}>R {variants?.[0]?.pricing?.price?.gross?.amount}</p >
+                        <div>
+                            {variants?.[0]?.pricing?.price?.gross?.amount !== variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount && <p className=' text-red-500 font-extrabold line-through' style={{ fontSize: '15px', fontWeight: '700' }}>R {variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount}</p >}
+                            <p className=' text-green-500 font-extrabold mt-0 ' style={{ fontSize: '15px', fontWeight: '700' }}>R {variants?.[0]?.pricing?.price?.gross?.amount}</p >
+                        </div>
                     </div >
 
                 </div >
@@ -197,7 +199,6 @@ const ProductCard = ({ data }) => {
                                 <button
                                     onClick={() => handleAddToCart(variants?.[0]?.id)}
                                     className=' relative addToCart border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-2 md:px-6 w-full  flex items-center justify-center gap-x-1 hover:border-amber-500 hover:bg-amber-500 hover:text-white' > <FaCartPlus /> Add to cart
-
 
                                     <div className='cartAnimation h-16 w-16 '>
                                         <img src={thumbnail?.url} alt="" />

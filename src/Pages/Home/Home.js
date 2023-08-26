@@ -1,21 +1,12 @@
 import React, { useState } from 'react';
 import Products from '../../Components/Products/Products';
 import Slider from '../../Components/Sheard/Banner/Slider';
-import { CurrentUserDetailsDocument, LanguageCodeEnum, useProductCollectionQuery } from '../../api';
-
-import { useQuery } from '@apollo/client';
+import { LanguageCodeEnum, useProductCollectionQuery } from '../../api';
 
 
 const Home = () => {
     const [cursor, setCursor] = useState('');
     const [restData, setRestData] = useState([]);
-
-
-
-
-
-
-
 
     const { data, fetchMore, networkStatus } = useProductCollectionQuery({
         variables: {
@@ -27,11 +18,6 @@ const Home = () => {
         notifyOnNetworkStatusChange: true
     });
 
-
-
-    const { userData } = useQuery(CurrentUserDetailsDocument);
-
-    console.log(userData)
 
     return (
         <div >

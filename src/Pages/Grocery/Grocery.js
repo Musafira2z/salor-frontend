@@ -5,7 +5,6 @@ import { useSearchParams } from "react-router-dom";
 
 const Grocery = () => {
     useSearchParams();
-
     let search = (new URLSearchParams(window.location.search)).get("search");
 
 
