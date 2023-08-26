@@ -70,7 +70,7 @@ const ResetPassword = ({ setIsResetPass }) => {
                         <button
                             type='button'
                             onClick={() => setIsResetPass(false)}
-                            className=' border-2 border-red-500 text-red text-red-500 hover:text-white mt-4 py-2 text-base  hover:bg-red-500 text-black p-0 rounded-lg font-bold hover:duration-500 duration-100 px-1 md:px-6 w-full'>Cancel</button>
+                            className=' border-2 border-red-500 text-red  hover:text-white mt-4 py-2 text-base  hover:bg-red-500 text-black p-0 rounded-lg font-bold hover:duration-500 duration-100 px-1 md:px-6 w-full'>Cancel</button>
                     </div>
                 </div>
 
