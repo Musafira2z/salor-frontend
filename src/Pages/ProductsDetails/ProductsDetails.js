@@ -92,7 +92,7 @@ const ProductsDetails = () => {
 
         <div>
             <NavigationBar />
-            <div className='container mx-auto pb-20'>
+            <div className='container mx-auto pb-20 px-3'>
                 {
                     loading ?
 
@@ -106,24 +106,24 @@ const ProductsDetails = () => {
                 <div>
                     <div >
                         {
-                            productsData?.products?.edges?.length&&
-                        <div>
+                            productsData?.products?.edges?.length &&
+                            <div>
 
                                 <h1 className="text-2xl font-bold my-8">Related products</h1>
 
 
-                            <Products
-                                data={productsData}
-                                fetchMore={fetchMore}
-                                networkStatus={networkStatus}
-                                cursor={cursor}
-                                setCursor={setCursor}
-                                categoryId={categoryId}
-                                restData={restData}
-                                setRestData={setRestData}
-                            />
+                                <Products
+                                    data={productsData}
+                                    fetchMore={fetchMore}
+                                    networkStatus={networkStatus}
+                                    cursor={cursor}
+                                    setCursor={setCursor}
+                                    categoryId={categoryId}
+                                    restData={restData}
+                                    setRestData={setRestData}
+                                />
 
-                        </div>
+                            </div>
                         }
 
                     </div>

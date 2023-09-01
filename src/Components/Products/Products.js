@@ -63,15 +63,13 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus, collectio
 
                     ))
                 }
-
-
             </div>
             <Waypoint
                 onEnter={handleFetchMoreData}
             />
 
             {
-                networkStatus === 3 && <h1 className=' text-center text-2xl font-bold mt-10'>Load more...</h1>
+                networkStatus === 3 ? <h1 className=' text-center text-2xl font-bold mt-10'>Loading more...</h1> : <h1 className=' text-center text-2xl font-bold mt-10'>Loading End</h1>
             }
         </div>
     );

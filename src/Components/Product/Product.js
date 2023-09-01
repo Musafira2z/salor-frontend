@@ -15,7 +15,7 @@ const Product = ({ data }) => {
     const [RemoveProductFromCheckout] = useRemoveProductFromCheckoutMutation();
     const description = JSON.parse(data?.product?.description);
 
-    const checkoutToken=JSON.parse(localStorage.getItem('checkoutToken'));
+    const checkoutToken = JSON.parse(localStorage.getItem('checkoutToken'));
     const { data: checkoutData } = useCheckoutByTokenQuery({
         variables: {
             checkoutToken: checkoutToken,
@@ -109,60 +109,60 @@ const Product = ({ data }) => {
     ]);
 
 
-    useEffect(()=>{
+    useEffect(() => {
         setMedia(data?.product?.media?.[0]?.url)
-    },[data?.product?.media]);
+    }, [data?.product?.media]);
     return (
-            <div>
-                <div className='relative top-4'>
-                    <BackButton />
+        <div>
+            <div className='relative top-4'>
+                <BackButton />
+            </div>
+            <div className=' grid  lg:grid-cols-2 md:grid-cols-1 gap-10 '>
+                <div className=' bg-white '>
+                    <div className=' flex justify-center items-center py-2'>
+                        <img className=' h-96' src={media || data?.product?.media?.[0]?.url} alt="" />
+                    </div>
+
+                    <div className='flex justify-center py-5 gap-2'>
+
+                        {data?.product?.media?.map((data, i) =>
+                            <div
+                                onClick={() => setMedia(data?.url)}
+                                key={i}
+                                className={`${media === data?.url ? "border-green-500" : "border-gray-500"}  w-24  border-2 rounded-lg p-2 cursor-pointer flex justify-center item-center`}>
+                                <img src={data?.url} alt="" />
+                            </div>
+
+                        )}
+
+
+                    </div>
                 </div>
-                <div className=' grid  lg:grid-cols-2 md:grid-cols-1 gap-10 '>
-                    <div className=' bg-white '>
-                        <div className=' flex justify-center items-center py-2'>
-                            <img className=' h-96' src={media || data?.product?.media?.[0]?.url} alt="" />
-                        </div>
 
-                        <div className='flex justify-center py-5 gap-2'>
+                <div className='col-span-1 flex flex-col justify-between '>
+                    <div className=' grid md:grid-cols-7 '>
 
-                            {data?.product?.media?.map((data,i) =>
-                                <div
-                                    onClick={() => setMedia(data?.url)}
-                                    key={i}
-                                    className={`${media===data?.url?"border-green-500":"border-gray-500"}  w-24  border-2 rounded-lg p-2 cursor-pointer flex justify-center item-center`}>
-                                    <img src={data?.url} alt="" />
-                                </div>
+                        <div className=' col-span-7 md:col-span-5'>
 
-                            )}
-
+                            <h1 className=' text-black font-bold text-lg leading-normal'>{data?.product?.name}</h1>
+                            <p className='text-lg font-bold pt-2'>Available Quantity: {data?.product?.variants[0]?.quantityAvailable} </p>
+                            <p className='text-lg '>{description?.blocks?.[0]?.data?.text}</p>
 
                         </div>
                     </div>
 
-                    <div className='col-span-1 flex flex-col justify-between px-5'>
-                        <div className=' grid md:grid-cols-7 '>
 
-                            <div className=' col-span-7 md:col-span-5'>
+                    <div className='grid grid-cols-2 md:gap-10 gap-2 mt-5'>
+                        <div className='flex justify-center items-center bg-green-500 rounded'>
+                            <p className='text-white font-extrabold  text-xl ' >R {data?.product?.variants[0]?.pricing?.price?.gross?.amount}</p>
 
-                                    <h1 className=' text-black font-bold' style={{fontSize:'21px'}}>{data?.product?.name}</h1>
-                                    <p className='text-lg font-bold'>Available Quantity: {data?.product?.variants[0]?.quantityAvailable} </p>
-                                    <p className='text-lg '>{description?.blocks?.[0]?.data?.text}</p>
-
-                            </div>
                         </div>
-
-
-                        <div className='grid grid-cols-2 md:gap-10 gap-2 mt-5'>
-                           <div className='flex justify-center items-center bg-green-500 rounded'>
-                               <p className='text-white font-extrabold  text-xl ' >R {data?.product?.variants[0]?.pricing?.price?.gross?.amount}</p>
-
-                          </div>
 
                         <div >
                             {
                                 items ?
 
-                                    <div className={`border-2 ${data?.product?.variants[0]?.quantityAvailable === items?.quantity?"border-red-400 bg-red-400 text-white":"border-amber-500 bg-amber-500 text-white"}  rounded   text-base font-semibold   py-1 px-4 md:px-6 w-full    `}>
+                                    <div className={`border-2 ${data?.product?.variants[0]?.quantityAvailable === items?.quantity ? "border-red-400 bg-red-400 text-white" : "border-amber-500 bg-amber-500 text-white"}  rounded   text-base font-semibold   py-1 px-4 md:px-6 w-full    `}>
                                         <div className=" flex justify-between flex-row-reverse items-center   rounded" >
                                             <button
                                                 disabled={data?.product?.variants[0]?.quantityAvailable === items?.quantity ? true : false}
@@ -193,7 +193,7 @@ const Product = ({ data }) => {
 
                                             <button onClick={handleAddToCart} className='addToCart border-2 border-amber-500 rounded text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full   hover:border-amber-500 hover:bg-amber-500 hover:text-white' >
                                                 <div className='cartAnimation h-16 w-16 '>
-                                                    <img  src={data?.product?.media?.[0]?.url} alt="" />
+                                                    <img src={data?.product?.media?.[0]?.url} alt="" />
                                                 </div>
                                                 Add to cart</button >
                                         }
@@ -203,11 +203,11 @@ const Product = ({ data }) => {
 
                     </div>
 
-                    </div>
                 </div>
-
-                {checkoutData?.checkout?.lines?.length ? <Cart /> : null}
             </div>
+
+            {checkoutData?.checkout?.lines?.length ? <Cart /> : null}
+        </div>
     );
 };
 
