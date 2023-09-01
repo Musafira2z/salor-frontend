@@ -4,6 +4,7 @@ import { LanguageCodeEnum, useMainMenuQuery, useProductBySlugQuery, useProductCo
 import { useParams } from 'react-router-dom';
 import NavigationBar from "../../Components/Sheard/NavigationBar/NavigationBar";
 import Products from '../../Components/Products/Products';
+import SearchBox from '../../Components/Sheard/SearchBox/SearchBox';
 
 
 const ProductsDetails = () => {
@@ -92,6 +93,9 @@ const ProductsDetails = () => {
 
         <div>
             <NavigationBar />
+            <div className=' lg:hidden md:block my-2 mx-2'>
+                <SearchBox />
+            </div>
             <div className='container mx-auto pb-20 px-3'>
                 {
                     loading ?
