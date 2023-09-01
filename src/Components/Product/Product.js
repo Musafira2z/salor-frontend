@@ -120,7 +120,7 @@ const Product = ({ data }) => {
             <div className=' grid  lg:grid-cols-2 md:grid-cols-1 gap-10 '>
                 <div className=' bg-white '>
                     <div className=' flex justify-center items-center py-2'>
-                        <img className=' h-96' src={media || data?.product?.media?.[0]?.url} alt="" />
+                        <img className='md:h--96 h-52' src={media || data?.product?.media?.[0]?.url} alt="" />
                     </div>
 
                     <div className='flex justify-center py-5 gap-2'>
@@ -129,13 +129,10 @@ const Product = ({ data }) => {
                             <div
                                 onClick={() => setMedia(data?.url)}
                                 key={i}
-                                className={`${media === data?.url ? "border-green-500" : "border-gray-500"}  w-24  border-2 rounded-lg p-2 cursor-pointer flex justify-center item-center`}>
+                                className={`${media === data?.url ? "border-green-500" : "border-gray-500"}  w-24   border-2 rounded-lg p-2 cursor-pointer flex justify-center item-center`}>
                                 <img src={data?.url} alt="" />
                             </div>
-
                         )}
-
-
                     </div>
                 </div>
 
