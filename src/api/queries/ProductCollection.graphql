@@ -4,6 +4,7 @@ query ProductCollection(
     $channel: String!
     $filter: ProductFilterInput!
     $locale: LanguageCodeEnum!
+    $sortBy: ProductOrder
 ) {
     products(
         first: $first
@@ -11,6 +12,7 @@ query ProductCollection(
         after: $after
         before: ""
         filter: $filter
+        sortBy: $sortBy
     ) {
         totalCount
         edges {

@@ -2,11 +2,10 @@
 import React, { useEffect } from 'react';
 import ProductCard from '../Sheard/ProductCard/ProductCard';
 import { Waypoint, } from "react-waypoint";
-import { LanguageCodeEnum } from '../../api';
+import { LanguageCodeEnum, OrderDirection, ProductOrderField } from '../../api';
 
 
 const Products = ({ data, fetchMore, setCursor, cursor, networkStatus, collections, categoryId, setRestData, restData }) => {
-
 
     useEffect(() => {
 
@@ -27,7 +26,12 @@ const Products = ({ data, fetchMore, setCursor, cursor, networkStatus, collectio
                 filter: {
                     collections: collections || undefined,
                     categories: categoryId ? [categoryId] : undefined
+                },
+                sortBy: {
+                    field: ProductOrderField.LastModifiedAt,
+                    direction: OrderDirection.Desc,
                 }
+
 
             },
             updateQuery: (pv, { fetchMoreResult }) => {

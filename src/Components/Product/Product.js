@@ -143,6 +143,15 @@ const Product = ({ data }) => {
 
                             <h1 className=' text-black font-bold text-lg leading-normal'>{data?.product?.name}</h1>
                             <p className='text-lg font-bold pt-2'>Available Quantity: {data?.product?.variants[0]?.quantityAvailable} </p>
+
+
+                            {data?.product?.variants?.[0]?.pricing?.price?.gross?.amount !== data?.product?.variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount &&
+                                <p
+                                    className=' text-red-500 text-lg font-extrabold line-through'>
+
+                                    R {data?.product?.variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount}</p >}
+
+
                             <p className='text-lg '>{description?.blocks?.[0]?.data?.text}</p>
 
                         </div>

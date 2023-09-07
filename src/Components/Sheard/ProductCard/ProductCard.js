@@ -157,8 +157,15 @@ const ProductCard = ({ data }) => {
                     <div className=' flex justify-between items-center  pb-4' >
                         <p style={{ color: "rgb(119, 121, 140)", fontWeight: "bold", fontSize: '13px' }}>{data?.node?.variants?.[0]?.attributes?.[0]?.values?.[0]?.name}</p>
                         <div>
-                            {variants?.[0]?.pricing?.price?.gross?.amount !== variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount && <p className=' text-red-500 font-extrabold line-through' style={{ fontSize: '15px', fontWeight: '700' }}>R {variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount}</p >}
-                            <p className=' text-green-500 font-extrabold mt-0 ' style={{ fontSize: '15px', fontWeight: '700' }}>R {variants?.[0]?.pricing?.price?.gross?.amount}</p >
+                            {variants?.[0]?.pricing?.price?.gross?.amount !== variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount &&
+                                <p
+                                    className=' text-red-500 font-extrabold line-through'
+                                    style={{ fontSize: '15px', fontWeight: '700' }}>
+
+                                    R {variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount}</p >}
+                            <p
+                                className=' text-green-500 font-extrabold mt-0 '
+                                style={{ fontSize: '15px', fontWeight: '700' }}>R {variants?.[0]?.pricing?.price?.gross?.amount}</p >
                         </div>
                     </div >
 
