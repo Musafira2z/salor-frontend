@@ -15,7 +15,6 @@ function App() {
     const [isOpenCart, setIsOpenCart] = useState(false);
     const saleorAuth = useSaleorAuthClient({ saleorApiUrl: GRAPH_URL });
 
-
     // analytics.google
 
     ReactGA.initialize('G-D51B9SHE25');
