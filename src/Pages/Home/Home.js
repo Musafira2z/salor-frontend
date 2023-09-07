@@ -18,6 +18,7 @@ const Home = () => {
         notifyOnNetworkStatusChange: true
     });
 
+    
 
     return (
         <div >
