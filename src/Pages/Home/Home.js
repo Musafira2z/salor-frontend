@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Products from '../../Components/Products/Products';
 import Slider from '../../Components/Sheard/Banner/Slider';
-import { LanguageCodeEnum, useProductCollectionQuery } from '../../api';
+import {LanguageCodeEnum, OrderDirection, ProductOrderField, useProductCollectionQuery} from '../../api';
 
 
 const Home = () => {
-    const [cursor, setCursor] = useState('');
-    const [restData, setRestData] = useState([]);
-
-    const { data, fetchMore, networkStatus } = useProductCollectionQuery({
+        const { data, fetchMore, networkStatus } = useProductCollectionQuery({
         variables: {
-            after: '',
+            after:"",
             first: 20,
             channel: "default",
             locale: LanguageCodeEnum.En,
+            sortBy: {
+                field: ProductOrderField.LastModifiedAt,
+                direction: OrderDirection.Desc,
+            },
+            filter:{}
         },
         notifyOnNetworkStatusChange: true
     });
 
-    
 
     return (
         <div >
@@ -33,11 +34,7 @@ const Home = () => {
                 <Products
                     data={data}
                     fetchMore={fetchMore}
-                    setCursor={setCursor}
-                    cursor={cursor}
                     networkStatus={networkStatus}
-                    restData={restData}
-                    setRestData={setRestData}
                 />
             </div>
         </div>

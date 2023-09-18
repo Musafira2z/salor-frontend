@@ -3,7 +3,7 @@ import ProductCard from "../../Components/Sheard/ProductCard/ProductCard";
 import {LanguageCodeEnum} from "../../api";
 import {Waypoint} from "react-waypoint";
 
-const CategoryProducts = ({ data, fetchMore, setCursor, cursor, networkStatus, categoryId,setRestData,restData }) => {
+const CategoryProducts = ({ data, fetchMore, setCursor, networkStatus, categoryId,setRestData,restData }) => {
 
 
     useEffect(() => {
@@ -19,7 +19,7 @@ const CategoryProducts = ({ data, fetchMore, setCursor, cursor, networkStatus, c
     const handleFetchMoreData = () => {
         fetchMore({
             variables: {
-                after: cursor,
+                after: "",
                 first: 20,
                 channel: "default",
                 locale: LanguageCodeEnum.En,

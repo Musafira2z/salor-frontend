@@ -3,29 +3,23 @@ import { LanguageCodeEnum, useMainMenuQuery, useProductCollectionQuery } from '.
 import { useParams } from 'react-router-dom';
 import CategoryItems from "./CategoryItems";
 import Products from '../../Components/Products/Products';
-// import CategoryProducts from "./CategoryProducts";
 
 const Category = () => {
     const [categoryId, setCategoryId] = useState('');
-    const [restData, setRestData] = useState([]);
-
     const [category, setCategory] = useState('');
-    const [cursor, setCursor] = useState('');
     const { slug } = useParams();
 
 
-    useEffect(() => {
-        if (categoryId) {
-            setRestData([]);
-        }
-    }, [categoryId]);
+
 
     const { data } = useMainMenuQuery({
         variables: {
-            locale: "EN",
+            locale: LanguageCodeEnum.En,
             channel: "default"
         }
     });
+
+
 
     useEffect(() => {
         data?.menu?.items?.forEach(item => {
@@ -64,7 +58,7 @@ const Category = () => {
 
 
 
-    const { data: productsData, fetchMore, networkStatus } = useProductCollectionQuery({
+    const { data: productsData, fetchMore, networkStatus} = useProductCollectionQuery({
         variables: {
             after: '',
             first: 20,
@@ -74,11 +68,8 @@ const Category = () => {
                 categories: [categoryId]
             }
         },
-
         notifyOnNetworkStatusChange: true
     });
-
-
 
 
 
@@ -107,18 +98,14 @@ const Category = () => {
 
                     <div >
                         {
-                            productsData?.products?.edges?.length &&
+                            productsData?.products?.edges?.length ?
 
                             <Products
                                 data={productsData}
                                 fetchMore={fetchMore}
                                 networkStatus={networkStatus}
-                                cursor={cursor}
-                                setCursor={setCursor}
                                 categoryId={categoryId}
-                                restData={restData}
-                                setRestData={setRestData}
-                            />
+                            />:null
                         }
 
                     </div>

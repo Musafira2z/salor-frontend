@@ -10,10 +10,8 @@ import SearchBox from '../../Components/Sheard/SearchBox/SearchBox';
 const ProductsDetails = () => {
 
     const { id } = useParams();
-    const [cursor, setCursor] = useState('')
     const [categoryId, setCategoryId] = useState(null)
     const [category, setCategory] = useState(null)
-    const [restData, setRestData] = useState([]);
 
 
     const { data, loading } = useProductBySlugQuery({
@@ -120,11 +118,7 @@ const ProductsDetails = () => {
                                     data={productsData}
                                     fetchMore={fetchMore}
                                     networkStatus={networkStatus}
-                                    cursor={cursor}
-                                    setCursor={setCursor}
                                     categoryId={categoryId}
-                                    restData={restData}
-                                    setRestData={setRestData}
                                 />
 
                             </div>
