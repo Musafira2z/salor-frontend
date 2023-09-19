@@ -76,10 +76,13 @@ const HomeMainLayout = () => {
 
         <div>
             <NavigationBar />
-            {add && <PlayStoreAdd handleRemoveAdd={handleRemoveAdd}/>}
 
-            <div className=' lg:hidden md:block my-2 mx-2'>
-                <SearchBox />
+
+            <div className=' lg:hidden md:block '>
+                {add && <PlayStoreAdd handleRemoveAdd={handleRemoveAdd}/>}
+              <div className="my-2 mx-2">
+                  <SearchBox />
+              </div>
 
             </div>
             <div className='flex ' >
