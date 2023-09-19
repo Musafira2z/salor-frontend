@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Product from '../../Components/Product/Product';
-import { LanguageCodeEnum, useMainMenuQuery, useProductBySlugQuery, useProductCollectionQuery } from '../../api';
+import {
+    LanguageCodeEnum, OrderDirection,
+    ProductOrderField,
+    useMainMenuQuery,
+    useProductBySlugQuery,
+    useProductCollectionQuery
+} from '../../api';
 import { useParams } from 'react-router-dom';
 import NavigationBar from "../../Components/Sheard/NavigationBar/NavigationBar";
 import Products from '../../Components/Products/Products';
@@ -80,7 +86,11 @@ const ProductsDetails = () => {
             locale: LanguageCodeEnum.En,
             filter: {
                 categories: [categoryId]
-            }
+            },
+            sortBy: {
+                field: ProductOrderField.LastModifiedAt,
+                direction: OrderDirection.Desc,
+            },
         },
         notifyOnNetworkStatusChange: true
     });

@@ -8,7 +8,7 @@ import { LanguageCodeEnum, OrderDirection, ProductOrderField } from '../../api';
                 await  fetchMore({
                     variables: {
                         after: data?.products?.pageInfo?.endCursor,
-                        first: 10,
+                        first: 20,
                         channel: "default",
                         locale: LanguageCodeEnum.En,
                         sortBy: {
