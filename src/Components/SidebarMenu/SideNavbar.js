@@ -2,6 +2,7 @@ import React from "react";
 import { useMainMenuQuery } from "../../api";
 import { SidebarSkeleton } from "../Sheard/Skeletons/SidebarSkeleton";
 import { NavLink, useParams } from "react-router-dom";
+import Footer from "../../Dashboard/Dashboard/Footer";
 
 const SideNavbar = () => {
 
@@ -28,16 +29,14 @@ const SideNavbar = () => {
 
     return (
 
-        <nav className="px-5 pt-2 ">
-
-
-            <ul>
-                <li className=" flex justify-center mt-2 mb-2">
+        <nav className="pt-2 px-2">
+            <ul >
+                <li className=" bg-white w-full ">
                     <button
-                        className=" w-full h-10 text-slate-50  text-lg tracking-[.10em] font-bold   bg-amber-500 rounded-md"> Offer
+                        className="mt-2 mb-2  w-full  h-10 text-slate-50  text-lg tracking-[.10em] font-bold   bg-amber-500 rounded-md"> Offer
                     </button>
+                    <hr className='mb-5' />
                 </li>
-                <hr className='mb-5' />
                 {menuItems?.map((item, i) => {
                     return (
 
@@ -66,6 +65,9 @@ const SideNavbar = () => {
                     )
                 })}
             </ul>
+            <div className=" fixed bottom-0">
+                <Footer />
+            </div>
         </nav>
 
     );

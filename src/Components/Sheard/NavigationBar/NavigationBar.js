@@ -10,6 +10,7 @@ import { useQuery } from '@apollo/client';
 import PlayStore from './imgs/playstore.webp';
 import SidebarDrawer from '../Drawer/SidebarDrawer';
 import ReactGA from 'react-ga';
+import useSmoothScrolling from "../../../Hooks/useSmoothScrolling";
 const NavigationBar = () => {
 
 
@@ -18,9 +19,7 @@ const NavigationBar = () => {
     const user = data?.me;
 
 
-    useEffect(() => {
 
-    }, [])
 
     const callback = useCallback(async () => {
         await user;
@@ -47,7 +46,7 @@ const NavigationBar = () => {
                             <SidebarDrawer />
                         </div>
                         <div  >
-                            <Link to='/'>
+                            <Link to='/' onClick={useSmoothScrolling}>
                                 <img
                                     className=' w-28 '
                                     src={Logo} alt="" />

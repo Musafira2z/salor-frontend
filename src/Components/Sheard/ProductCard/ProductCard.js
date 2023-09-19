@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { BiPlusMedical } from 'react-icons/bi';
 import { ImMinus } from 'react-icons/im';
 import { FaCartPlus } from 'react-icons/fa';
+import scrollToTop from "../../../Hooks/useSmoothScrolling";
 
 
 const ProductCard = ({ data }) => {
@@ -132,6 +133,7 @@ const ProductCard = ({ data }) => {
         checkoutAddProductLoading,
     ])
 
+
     return (
 
         <div className="  lg:rounded-lg md:rounded-lg sm:rounded-sm rounded-none  xl:border-none lg:border-none md:border-none sm:border-none border bg-white flex flex-col justify-between p-3">
@@ -139,6 +141,7 @@ const ProductCard = ({ data }) => {
 
 
             <Link to={`/product-details/${slug}`}
+                  onClick={scrollToTop}
                 className='hover:no-underline focus:no-underline hover:text-slate-700 focus:text-slate-700'
             >
 
