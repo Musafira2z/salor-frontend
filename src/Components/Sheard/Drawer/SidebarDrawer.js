@@ -3,7 +3,6 @@ import { Drawer, ButtonToolbar, IconButton } from 'rsuite';
 
 import { RiMenu3Line } from 'react-icons/ri';
 import SideNav from "../../SidebarMenu/SideNavbar";
-import Footer from '../../../Dashboard/Dashboard/Footer';
 
 const SidebarDrawer = () => {
     const [open, setOpen] = useState(false);
@@ -31,7 +30,6 @@ const SidebarDrawer = () => {
 
                 <Drawer.Body className='p-0'  >
                     <SideNav />
-                    <Footer />
                 </Drawer.Body>
             </Drawer>
         </div>
