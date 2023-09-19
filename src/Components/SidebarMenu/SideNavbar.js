@@ -30,16 +30,14 @@ const SideNavbar = () => {
 
         <nav className="pt-2 px-2">
             <ul >
-                <li className=" bg-white w-full ">
+              {/*  <li className=" bg-white w-full ">
                     <button
                         className="mt-2 mb-2  w-full  h-10 text-slate-50  text-lg tracking-[.10em] font-bold   bg-amber-500 rounded-md"> Offer
                     </button>
                     <hr className='mb-5' />
-                </li>
+                </li>*/}
                 {menuItems?.map((item, i) => {
                     return (
-
-
                         <li key={i}
                             className={` rounded-md !hover:text-white px-2 ${slug === item?.category?.slug && "bg-amber-500"}`}
                             style={{ fontSize: '15px', fontWeight: '500px', padding: '5px 5px', }}

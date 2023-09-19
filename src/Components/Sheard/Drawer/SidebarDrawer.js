@@ -25,7 +25,9 @@ const SidebarDrawer = () => {
 
             <Drawer className='!w-72 !block !sm:block  !md:hidden !lg:hidden !xl:hidden !overflow-x-hidden overflow-y-auto' placement='left' open={open} onClose={() => setOpen(false)}>
                 <Drawer.Header>
-                    <Drawer.Title>Musafir</Drawer.Title>
+                    <Drawer.Title>
+                        <img className="w-28" src="/static/media/saleor.e3167593a90392533db60c416b8e1883.svg" alt=""/>
+                    </Drawer.Title>
                 </Drawer.Header>
 
                 <Drawer.Body className='p-0 pb-56'  >

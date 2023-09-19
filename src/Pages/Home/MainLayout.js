@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { Outlet } from 'react-router-dom';
 import Cart from '../../Components/Cart/Cart';
 import NavigationBar from '../../Components/Sheard/NavigationBar/NavigationBar';
 import SidebarMenu from '../../Components/SidebarMenu/SidebarMenu';
-
 import {
     CurrentUserDetailsDocument,
     LanguageCodeEnum,
@@ -13,6 +12,7 @@ import {
 import { Context } from "../../App";
 import { useQuery } from "@apollo/client";
 import SearchBox from "../../Components/Sheard/SearchBox/SearchBox";
+import PlayStoreAdd from "../../Components/PlayStoreAdd/PlayStoreAdd";
 
 
 
@@ -23,6 +23,8 @@ const HomeMainLayout = () => {
     const checkoutToken = JSON.parse(localStorage.getItem('checkoutToken'));
 
 
+    const [add,setAdd]=useState(true);
+    const handleRemoveAdd=()=>setAdd(false);
 
     const { data } = useCheckoutByTokenQuery({
         variables: {
@@ -44,7 +46,6 @@ const HomeMainLayout = () => {
 
     const { data: userData } = useQuery(CurrentUserDetailsDocument);
     const user = userData?.me;
-
 
 
 
@@ -73,10 +74,13 @@ const HomeMainLayout = () => {
 
     return (
 
-        <div  >
+        <div>
             <NavigationBar />
+            {add && <PlayStoreAdd handleRemoveAdd={handleRemoveAdd}/>}
+
             <div className=' lg:hidden md:block my-2 mx-2'>
                 <SearchBox />
+
             </div>
             <div className='flex ' >
                 <div className=' fixed w-72 hidden sm:hidden  md:block lg:block  ' >
