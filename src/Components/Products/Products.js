@@ -49,7 +49,7 @@ import { LanguageCodeEnum, OrderDirection, ProductOrderField } from '../../api';
 
 
     return (
-        <div className='pb-14'>
+        <div className='md:14 pb-20'>
 
             <div
 
