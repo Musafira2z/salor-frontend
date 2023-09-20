@@ -1,8 +1,9 @@
 import React from 'react';
 import ProductCard from '../Sheard/ProductCard/ProductCard';
+import { Loader } from 'rsuite';
 import { Waypoint, } from "react-waypoint";
 import { LanguageCodeEnum, OrderDirection, ProductOrderField } from '../../api';
-    const Products = ({ data, fetchMore, networkStatus, collections, categoryId}) => {
+    const Products = ({ data, fetchMore, networkStatus, collections, categoryId,loading}) => {
 
     const handleFetchMoreData =async () => {
                 await  fetchMore({
@@ -72,10 +73,22 @@ import { LanguageCodeEnum, OrderDirection, ProductOrderField } from '../../api';
             }
 
             {
-                networkStatus === 3 ?
-                    <h1 className=' text-center text-2xl font-bold mt-10'>Loading more...</h1> :
-                    <h1 className=' text-center text-2xl font-bold mt-10'>Load End</h1>
+                networkStatus === 3 &&
+
+                    <div className=' text-center text-2xl font-bold mt-10'>
+                        <Loader size="sm"  content="Loading more..."  />
+                    </div>
             }
+
+            {
+                loading && networkStatus !== 3&&
+
+                <div className=' text-center text-2xl font-bold mt-10'>
+                    <Loader size="sm"  content="Loading..."  />
+                </div>
+            }
+            {data?.products && !data?.products?.pageInfo?.hasNextPage&& <h1 className=' text-center text-lg font-bold mt-10'>Load end</h1>}
+
         </div>
     );
 };

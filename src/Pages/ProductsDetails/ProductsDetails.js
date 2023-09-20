@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 import NavigationBar from "../../Components/Sheard/NavigationBar/NavigationBar";
 import Products from '../../Components/Products/Products';
 import SearchBox from '../../Components/Sheard/SearchBox/SearchBox';
+import {Loader} from "rsuite";
 
 
 const ProductsDetails = () => {
@@ -20,7 +21,7 @@ const ProductsDetails = () => {
     const [category, setCategory] = useState(null)
 
 
-    const { data, loading } = useProductBySlugQuery({
+    const { data, loading:detailsLoading } = useProductBySlugQuery({
         variables: {
             channel: "default",
             locale: LanguageCodeEnum.En,
@@ -78,7 +79,7 @@ const ProductsDetails = () => {
 
 
 
-    const { data: productsData, fetchMore, networkStatus } = useProductCollectionQuery({
+    const { data: productsData, fetchMore, networkStatus,productsloading } = useProductCollectionQuery({
         variables: {
             after: '',
             first: 20,
@@ -106,10 +107,10 @@ const ProductsDetails = () => {
             </div>
             <div className='container mx-auto pb-20 px-3'>
                 {
-                    loading ?
+                    detailsLoading ?
 
                         <div className={`flex justify-center items-center h-screen`}>
-                            <h1>Loading...</h1>
+                            <Loader size="sm"  content="Loading..."  />
                         </div>
                         :
                         <Product data={data} />
@@ -129,6 +130,7 @@ const ProductsDetails = () => {
                                     fetchMore={fetchMore}
                                     networkStatus={networkStatus}
                                     categoryId={categoryId}
+                                    loading={productsloading}
                                 />
 
                             </div>

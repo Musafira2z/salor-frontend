@@ -64,7 +64,7 @@ const Category = () => {
 
 
 
-    const { data: productsData, fetchMore, networkStatus} = useProductCollectionQuery({
+    const { data: productsData, fetchMore, networkStatus,loading} = useProductCollectionQuery({
         variables: {
             after: '',
             first: 20,
@@ -115,6 +115,7 @@ const Category = () => {
                                 fetchMore={fetchMore}
                                 networkStatus={networkStatus}
                                 categoryId={categoryId}
+                                loading={loading}
                             />:null
                         }
 

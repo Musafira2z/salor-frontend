@@ -5,7 +5,7 @@ import {LanguageCodeEnum, OrderDirection, ProductOrderField, useProductCollectio
 
 
 const Home = () => {
-        const { data, fetchMore, networkStatus } = useProductCollectionQuery({
+        const { data, fetchMore, networkStatus,loading } = useProductCollectionQuery({
         variables: {
             after:"",
             first: 20,
@@ -35,6 +35,7 @@ const Home = () => {
                     data={data}
                     fetchMore={fetchMore}
                     networkStatus={networkStatus}
+                    loading={loading}
                 />
             </div>
         </div>
