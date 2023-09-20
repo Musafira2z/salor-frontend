@@ -21,8 +21,8 @@ const Cart = () => {
     return (
        <div className="fixed md:top-1/2  bottom-3 md:left-auto left-0 right-0 mx-5 md:mx-0">
            <div className="w-full">
-               <button onClick={() => setIsOpenCart(!isOpenCart)} className="bg-amber-500 rounded-lg md:rounded-r-none z-30  select-none md:min-w-[7rem]  md:min-h-[7rem] md:w-[8rem] w-full h-14">
-                   <div  className='flex md:flex-col justify-between items-center cursor-pointer  '>
+               <button  className="bg-amber-500 rounded-lg md:rounded-r-none z-30  select-none md:min-w-[7rem]  md:min-h-[7rem] md:w-[8rem] w-full h-14">
+                   <div onClick={() => setIsOpenCart(!isOpenCart)} className='flex md:flex-col justify-between items-center cursor-pointer  '>
                 <span className=' text-slate-50 text-lg px-3 md:py-4  text-center font-bold flex  justify-center items-center gap-2'>
                     <BsFillBagCheckFill /> {checkoutData?.lines?.length || '00'} Items</span>
 
