@@ -2,6 +2,7 @@ import React from 'react';
 import Products from '../../Components/Products/Products';
 import Slider from '../../Components/Sheard/Banner/Slider';
 import {LanguageCodeEnum, OrderDirection, ProductOrderField, useProductCollectionQuery} from '../../api';
+import CartCarousel from "../../Components/CartCarousel/CartCarousel";
 
 
 const Home = () => {
@@ -25,6 +26,7 @@ const Home = () => {
         <div >
             <Slider />
             {/* <Banner/> */}
+            <CartCarousel data={data}/>
             <div >
                 {/*loop all categories here with 5 products*/}
                 <div className='sm:mx-0 mx-3'>

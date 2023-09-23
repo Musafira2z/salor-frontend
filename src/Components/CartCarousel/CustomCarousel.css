@@ -1,0 +1,8 @@
+/* CustomCarousel.css */
+.slick-dots {
+    display: none !important;
+}
+.slick-prev,
+.slick-next {
+    color: #d74c00 !important; /* Change to your desired color */
+}

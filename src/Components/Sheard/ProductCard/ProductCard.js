@@ -136,7 +136,7 @@ const ProductCard = ({ data }) => {
 
     return (
 
-        <div className="  lg:rounded-lg md:rounded-lg sm:rounded-sm rounded-none  xl:border-none lg:border-none md:border-none sm:border-none border bg-white flex flex-col justify-between p-3">
+        <div className="  lg:rounded-lg md:rounded-lg sm:rounded-sm rounded-none  xl:border-none lg:border-none md:border-none sm:border-none border bg-white flex flex-col justify-between p-3 h-72">
 
 
 
@@ -146,8 +146,8 @@ const ProductCard = ({ data }) => {
             >
 
 
-                <div className=' flex justify-center h-36 ' >
-                    <img src={thumbnail?.url} alt="" />
+                <div className=' flex justify-center  ' >
+                    <img src={thumbnail?.url} alt="" className="h-24 object-contain" />
                 </div >
 
 
