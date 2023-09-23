@@ -4,9 +4,9 @@ import Slider from '../../Components/Sheard/Banner/Slider';
 import {LanguageCodeEnum, OrderDirection, ProductOrderField, useProductCollectionQuery} from '../../api';
 import CartCarousel from "../../Components/CartCarousel/CartCarousel";
 
-
 const Home = () => {
-        const { data, fetchMore, networkStatus,loading } = useProductCollectionQuery({
+
+    const { data, fetchMore, networkStatus,loading } = useProductCollectionQuery({
         variables: {
             after:"",
             first: 20,
@@ -26,7 +26,9 @@ const Home = () => {
         <div >
             <Slider />
             {/* <Banner/> */}
-            <CartCarousel data={data}/>
+                <div>
+                    <CartCarousel/>
+                </div>
             <div >
                 {/*loop all categories here with 5 products*/}
                 <div className='sm:mx-0 mx-3'>

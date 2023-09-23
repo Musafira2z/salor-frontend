@@ -13,13 +13,13 @@ export const Context = React.createContext({});
 function App() {
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [isOpenCart, setIsOpenCart] = useState(false);
+    const [networkError, setNetworkError] = useState(null);
+
     const saleorAuth = useSaleorAuthClient({ saleorApiUrl: GRAPH_URL });
     // analytics.google
 
     ReactGA.initialize('G-D51B9SHE25');
     ReactGA.pageview(window.location.pathname + window.location.search);
-
-
 
 
     const { apolloClient, reset, refetch } = useAuthenticatedApolloClient({
@@ -47,8 +47,12 @@ function App() {
         showLoginModal,
         setShowLoginModal,
         isOpenCart,
-        setIsOpenCart
+        setIsOpenCart,
+        setNetworkError,
+        networkError
     };
+
+
 
 
     return (

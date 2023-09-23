@@ -1,19 +1,131 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import ProductCard from "../Sheard/ProductCard/ProductCard";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import './CustomCarousel.css';
-const CartCarousel = ({data:products}) => {
-    const data=products?.products?.edges;
+import {
+    LanguageCodeEnum,
+    OrderDirection,
+    ProductOrderField,
+    useMainMenuQuery,
+    useProductCollectionQuery
+} from "../../api";
+import {Loader} from "rsuite";
+import SampleNextArrow from "./SampleNextArrow";
+import SamplePrevArrow from "./SamplePrevArrow";
+const CartCarousel = () => {
+
+
+    const [categoryId, setCategoryId] = useState('');
+    const [category, setCategory] = useState('');
+    const slug = "special-offer";
+
+
+
+
+    const { data } = useMainMenuQuery({
+        variables: {
+            locale: LanguageCodeEnum.En,
+            channel: "default"
+        }
+    });
+
+
+
+    useEffect(() => {
+        data?.menu?.items?.forEach(item => {
+            if (item?.category?.slug === slug) {
+                return setCategory(item);
+
+            }
+        })
+    }, [data?.menu?.items, slug]);
+
+
+    useEffect(() => {
+
+        if (!category?.children?.length) {
+            setCategoryId(category?.category?.id)
+        }
+    }, [category]);
+
+
+
+    const { data: productsData, fetchMore, loading} = useProductCollectionQuery({
+        variables: {
+            after: '',
+            first: 5,
+            channel: "default",
+            locale: LanguageCodeEnum.En,
+            filter: {
+                categories: [categoryId]
+            },
+            sortBy: {
+                field: ProductOrderField.LastModifiedAt,
+                direction: OrderDirection.Desc,
+            },
+        },
+        notifyOnNetworkStatusChange: true
+    });
+
+
+    const handleFetchMoreData =async () => {
+        await  fetchMore({
+            variables: {
+                after: productsData?.products?.pageInfo?.endCursor,
+                first: 10,
+                channel: "default",
+                locale: LanguageCodeEnum.En,
+                filter:{
+                    categories: [categoryId],
+                },
+                sortBy: {
+                    field: ProductOrderField.LastModifiedAt,
+                    direction: OrderDirection.Desc,
+                },
+
+            },
+            updateQuery: (pv, { fetchMoreResult }) => {
+
+
+                if (!fetchMoreResult) {
+                    return pv;
+                }
+
+                return{
+                    products: {
+                        ...pv?.products,
+                        edges: [
+                            ...pv?.products?.edges,
+                            ...fetchMoreResult?.products?.edges,
+                        ],
+                        pageInfo: fetchMoreResult?.products?.pageInfo,
+                        __typename: fetchMoreResult?.products?.__typename,
+                    },
+                }
+            }
+        })
+    }
+
+
+
+
     const settings = {
-        dots: true,
+        dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 5, // Number of slides to show at once
-        slidesToScroll: 1, // Number of slides to scroll at a time
-        autoplay: true, // Enable auto-sliding
-        autoplaySpeed: 3000, // Adjust the auto-slide interval (in milliseconds)
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        cssEase: "linear",
+        nextArrow: <SampleNextArrow />,
+        prevArrow: <SamplePrevArrow />,
+        afterChange:async function(index) {
+           if(productsData?.products?.edges?.length-1===index && productsData?.products?.pageInfo?.hasNextPage){
+          return await handleFetchMoreData()
+           }
+        },
         responsive: [
             {
                 breakpoint: 1024, // Large screens and above
@@ -40,18 +152,30 @@ const CartCarousel = ({data:products}) => {
     };
 
     return (
-       <div className="max-w-screen-lg mx-auto">
-           <Slider {...settings} className="grid grid-cols-5">
-               {data?.map((data, index) => (
-                   <div
-                       key={index}
-className="p-1"
-                   >
-                       <ProductCard data={data}/>
-                   </div>
-               ))}
-           </Slider>
-       </div>
+     <section>
+         <div className='sm:mx-0 px-3'>
+             <h1 className=' text-2xl font-bold text-black  my-5'>Special offers</h1>
+         </div>
+         {
+             loading &&  !productsData?.products?.edges?.length&&
+
+             <div className=' text-center text-2xl font-bold mt-10'>
+                 <Loader size="sm"  content="Loading..."  />
+             </div>
+         }
+         <div className="max-w-screen-lg mx-auto">
+             <Slider {...settings} >
+                 {productsData?.products?.edges?.map((data, index) => (
+                     <div
+                         key={index}
+                         className="md:p-1 p-0"
+                     >
+                         <ProductCard data={data}/>
+                     </div>
+                 ))}
+             </Slider>
+         </div>
+     </section>
     );
 };
 
