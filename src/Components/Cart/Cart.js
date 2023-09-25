@@ -18,6 +18,7 @@ const Cart = () => {
     const checkoutData = data?.checkout;
 
 
+
     return (
        <div className="fixed z-30  md:top-1/2  bottom-3 md:left-auto left-0 right-0 mx-5 md:mx-0">
            <div className="w-full">

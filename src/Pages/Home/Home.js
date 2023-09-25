@@ -31,10 +31,10 @@ const Home = () => {
                 </div>
             <div >
                 {/*loop all categories here with 5 products*/}
-                <div className='sm:mx-0 mx-3'>
+                {data?.products?.edges?.length && <div className='sm:mx-0 mx-3'>
                     <h1 className=' text-2xl font-bold text-black  my-5'>Popular Product</h1>
 
-                </div>
+                </div>}
                 <Products
                     data={data}
                     fetchMore={fetchMore}

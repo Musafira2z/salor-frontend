@@ -10,7 +10,6 @@ import {
     useMainMenuQuery,
     useProductCollectionQuery
 } from "../../api";
-import {Loader} from "rsuite";
 import SampleNextArrow from "./SampleNextArrow";
 import SamplePrevArrow from "./SamplePrevArrow";
 const CartCarousel = () => {
@@ -51,7 +50,7 @@ const CartCarousel = () => {
 
 
 
-    const { data: productsData, fetchMore, loading} = useProductCollectionQuery({
+    const { data: productsData, fetchMore} = useProductCollectionQuery({
         variables: {
             after: '',
             first: 5,
@@ -153,17 +152,15 @@ const CartCarousel = () => {
 
     return (
      <section>
-         <div className='sm:mx-0 px-3'>
-             <h1 className=' text-2xl font-bold text-black  my-5'>Special offers</h1>
-         </div>
-         {
-             loading &&  !productsData?.products?.edges?.length&&
 
-             <div className=' text-center text-2xl font-bold mt-10'>
-                 <Loader size="sm"  content="Loading..."  />
+         {
+            productsData?.products?.edges?.length&&
+
+             <div className='sm:mx-0 px-3'>
+                 <h1 className=' text-2xl font-bold text-black  my-5'>Special offers</h1>
              </div>
          }
-         <div className="max-w-screen-lg mx-auto">
+         <div  className="mx-auto md:max-w-screen-lg w-5/6">
              <Slider {...settings} >
                  {productsData?.products?.edges?.map((data, index) => (
                      <div
