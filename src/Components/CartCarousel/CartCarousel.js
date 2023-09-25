@@ -13,6 +13,7 @@ import {
 } from "../../api";
 import SampleNextArrow from "./SampleNextArrow";
 import SamplePrevArrow from "./SamplePrevArrow";
+import {Link} from "react-router-dom";
 const CartCarousel = () => {
 
 
@@ -186,6 +187,9 @@ const CartCarousel = () => {
                      </div>
                  ))}
              </Slider>
+             <div className="flex justify-end">
+                 <Link to={`/category/${slug}`} className="px-3 py-2 hover:no-underline hover:text-amber-500 font-bold text-md">See all...</Link>
+             </div>
          </div>
      </section>
     );

@@ -20,7 +20,7 @@ const Cart = () => {
 
 
     return (
-       <div className="fixed z-30  md:top-1/2  bottom-3 md:left-auto left-0 right-0 mx-5 md:mx-0">
+       <div className="fixed z-30  md:top-1/2  bottom-3 md:left-auto left-0 right-0 mx-5 md:mx-0  md:h-[7rem]">
            <div className="w-full">
                <button  className="bg-amber-500 rounded-lg md:rounded-r-none  select-none md:min-w-[7rem]  md:min-h-[7rem] md:w-[8rem] w-full h-14">
                    <div onClick={() => setIsOpenCart(!isOpenCart)} className='flex md:flex-col justify-between items-center cursor-pointer  '>
