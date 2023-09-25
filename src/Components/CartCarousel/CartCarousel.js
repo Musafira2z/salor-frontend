@@ -152,7 +152,6 @@ const CartCarousel = () => {
 
     return (
      <section>
-
          {
             productsData?.products?.edges?.length&&
 
