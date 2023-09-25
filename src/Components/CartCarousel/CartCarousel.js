@@ -168,29 +168,30 @@ const CartCarousel = () => {
 
     return (
      <section>
-         {
-            productsData?.products?.edges?.length&&
+         { productsData?.products?.edges?.length&&
+         <div>
+                 <div className='sm:mx-0 px-3'>
+                     <h1 className=' text-2xl font-bold text-black  my-5'>Special offers</h1>
+                 </div>
 
-             <div className='sm:mx-0 px-3'>
-                 <h1 className=' text-2xl font-bold text-black  my-5'>Special offers</h1>
-             </div>
-         }
-         {/*mx-auto md:max-w-screen-md w-5/6*/}
-         <div  className="CartCarouselContainer">
-             <Slider {...settings} >
-                 {productsData?.products?.edges?.map((data, index) => (
-                     <div
-                         key={index}
-                         className="md:p-1 p-0"
-                     >
-                         <ProductCard data={data}/>
-                     </div>
-                 ))}
-             </Slider>
-             <div className="flex justify-end">
-                 <Link to={`/category/${slug}`} className="px-3 py-2 hover:no-underline hover:text-amber-500 font-bold text-md">See all...</Link>
+             {/*mx-auto md:max-w-screen-md w-5/6*/}
+             <div  className="CartCarouselContainer">
+                 <Slider {...settings} >
+                     {productsData?.products?.edges?.map((data, index) => (
+                         <div
+                             key={index}
+                             className="md:p-1 p-0"
+                         >
+                             <ProductCard data={data}/>
+                         </div>
+                     ))}
+                 </Slider>
+                 <div className="flex justify-end">
+                     <Link to={`/category/${slug}`} className="px-3 py-2 hover:no-underline hover:text-amber-500 font-bold text-md">See all...</Link>
+                 </div>
              </div>
          </div>
+         }
      </section>
     );
 };
