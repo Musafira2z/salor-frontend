@@ -1,0 +1,39 @@
+
+.CartCarouselContainer{
+    margin: auto;
+}
+@media (min-width: 360px) {
+    .CartCarouselContainer{
+        max-width: 85%;
+    }
+}
+
+@media (min-width: 640px) {
+    .CartCarouselContainer{
+        max-width: 85%;
+    }
+}
+
+ @media (min-width: 768px) {
+     .CartCarouselContainer{
+         max-width: 390px;
+     }
+ }
+
+@media (min-width: 1024px) {
+    .CartCarouselContainer{
+        max-width: 650px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .CartCarouselContainer{
+        max-width: 850px;
+    }
+}
+
+@media (min-width: 1536px) {
+    .CartCarouselContainer{
+        max-width: 1150px;
+    }
+}

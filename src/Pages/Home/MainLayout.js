@@ -78,19 +78,17 @@ const HomeMainLayout = () => {
             <NavigationBar />
 
 
-            <div className=' lg:hidden md:block '>
-                {add && <PlayStoreAdd handleRemoveAdd={handleRemoveAdd}/>}
-              <div className="my-2 mx-2">
-                  <SearchBox />
-              </div>
-
-            </div>
             <div className='flex ' >
                 <div className=' fixed w-72 hidden sm:hidden  md:block lg:block  ' >
                     <SidebarMenu /> 
                 </div >
                 <div className=" w-full md:ml-72 lg:ml-72 xl:ml72 lg:px-7 md:px-7 " >
-
+                    <div className='lg:hidden md:block'>
+                        {add && <PlayStoreAdd handleRemoveAdd={handleRemoveAdd}/>}
+                        <div className="my-2 md:mx-0 mx-2">
+                            <SearchBox />
+                        </div>
+                    </div>
                     <Outlet />
 
                 </div >
