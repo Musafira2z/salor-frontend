@@ -6,7 +6,7 @@ import { FaFacebook } from "react-icons/fa";
 
 const Footer = () => {
     return (
-        <footer className='border-t-2 bg-white   mt-5' >
+        <footer className='border-t-2 bg-white mt-5' >
             <h3 className=' font-bold text-center ' > Contact</h3 >
 
             <ul className=' flex  justify-around' >
@@ -17,7 +17,7 @@ const Footer = () => {
                         rel="noopener noreferrer"
                         className="hover:text-amber-500"
                     >
-                        <button className=' p-5 rounded-full hover:bg-green-100' >
+                        <button type="button" id="whatsapp"  className=' p-5 rounded-full hover:bg-green-100' >
                             <SiWhatsapp size={30} />
                         </button >
                     </a>
@@ -25,7 +25,7 @@ const Footer = () => {
                 <li className=' text-amber-500' >
                     <a href="mailto:musafirmiah4@gmail.com"
                         className="hover:text-amber-500">
-                        <button className=' p-5 rounded-full hover:bg-green-100' >
+                        <button type="button" id="mail" className=' p-5 rounded-full hover:bg-green-100' >
                             <CgMail size={30} />
                         </button >
                     </a>
@@ -35,13 +35,13 @@ const Footer = () => {
                         href="tel:+27219271482"
                         className="hover:text-amber-500"
                     >
-                        <button className=' p-5 rounded-full hover:bg-green-100' >
+                        <button type="button" id="tell" className=' p-5 rounded-full hover:bg-green-100' >
                             <BsTelephoneForwardFill size={30} />
                         </button >
                     </a>
                 </li >
                 <li className=' text-amber-500' >
-                    <button className=' p-5 rounded-full hover:bg-green-100' >
+                    <button type="button" id="facebook" className=' p-5 rounded-full hover:bg-green-100' >
                         <FaFacebook size={30} />
                     </button >
                 </li >
