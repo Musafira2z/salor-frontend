@@ -11,7 +11,7 @@ const CartBody = ({ children, isOpen, setIsOpen, checkoutData }) => {
 
             <div className=' flex !justify-between px-5 py-5'>
                 <div className='flex  items-center text-black'>
-                    <img src="/favicon.ico" alt="" className='h-5' />  <h4 className='ml-2 font-bold'>  {checkoutData?.lines?.length || "00"}Items</h4>
+                    <img src="/favicon.ico" alt="Loago" className='h-5' />  <h4 className='ml-2 font-bold'>  {checkoutData?.lines?.length || "00"}Items</h4>
                 </div>
                 <button
                     onClick={() => setIsOpen(!isOpen)}

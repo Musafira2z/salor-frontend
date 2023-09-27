@@ -128,7 +128,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
             <div >
                 <div className=' p-2 flex justify-between '>
                     <div className='flex  items-center '>
-                        <img src="/favicon.ico" alt="" className='h-5' /><h4 className=' ml-2 font-bold'>  {checkoutData?.lines.length || "00"} Items</h4>
+                        <img src="/favicon.ico" alt="musafir Logo" className='h-5' /><h4 className=' ml-2 font-bold'>  {checkoutData?.lines.length || "00"} Items</h4>
                     </div>
                 </div>
 

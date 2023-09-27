@@ -49,7 +49,7 @@ const NavigationBar = () => {
                             <Link to='/' onClick={useSmoothScrolling}>
                                 <img
                                     className=' w-28 '
-                                    src={Logo} alt="" />
+                                    src={Logo} alt="Musafir" />
                             </Link>
                         </div >
 
@@ -69,7 +69,7 @@ const NavigationBar = () => {
                                     <a href="https://play.google.com/store/apps/details?id=com.musafira2z.store" target="_blank" rel="noopener noreferrer">
                                         <img
                                             className=' w-28 h-8 '
-                                            src={PlayStore} alt="" />
+                                            src={PlayStore} alt="musafir app" />
                                     </a>
                                 </div >
 

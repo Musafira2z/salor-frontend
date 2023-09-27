@@ -60,7 +60,7 @@ const SideNavar = () => {
 
                                 <div className='flex items-center gap-4'>
                                     <img className='w-5 h-5 object-cover '
-                                        src={item?.category?.backgroundImage?.url} alt="" />
+                                        src={item?.category?.backgroundImage?.url} alt={item?.name} />
 
                                     <p className="text-black cursor-pointer "
 

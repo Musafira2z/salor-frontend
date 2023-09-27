@@ -120,7 +120,7 @@ const Product = ({ data }) => {
             <div className=' grid  lg:grid-cols-2 md:grid-cols-1 gap-10 '>
                 <div className=' bg-white '>
                     <div className=' flex justify-center items-center py-2'>
-                        <img className='md:h--96 h-52' src={media || data?.product?.media?.[0]?.url} alt="" />
+                        <img className='md:h--96 h-52' src={media || data?.product?.media?.[0]?.url} alt="media" />
                     </div>
 
                     <div className='flex justify-center py-5 gap-2'>
@@ -130,7 +130,7 @@ const Product = ({ data }) => {
                                 onClick={() => setMedia(data?.url)}
                                 key={i}
                                 className={`${media === data?.url ? "border-green-500" : "border-gray-500"}  w-24   border-2 rounded-lg p-2 cursor-pointer flex justify-center item-center`}>
-                                <img src={data?.url} alt="" />
+                                <img src={data?.url} alt="media" />
                             </div>
                         )}
                     </div>
@@ -199,7 +199,7 @@ const Product = ({ data }) => {
 
                                             <button onClick={handleAddToCart} className='addToCart border-2 border-amber-500 rounded text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1 px-4 md:px-6 w-full   hover:border-amber-500 hover:bg-amber-500 hover:text-white' >
                                                 <div className='cartAnimation h-16 w-16 '>
-                                                    <img src={data?.product?.media?.[0]?.url} alt="" />
+                                                    <img src={data?.product?.media?.[0]?.url} alt="img" />
                                                 </div>
                                                 Add to cart</button >
                                         }
