@@ -51,7 +51,7 @@ const Login = ({ setShowLoginModal, isResetPass, setIsResetPass }) => {
                     <input
                         placeholder="Email"
                         type="email"
-                        register  {...register("email", { required: true })}
+                        {...register("email", { required: true })}
                         className="mt-1 block w-full px-3 py-2 bg-white border border-amber-500 rounded-md text-base shadow-sm placeholder-slate-400 focus:outline-none
                         focus:border-amber-500 focus:ring-1 focus:ring-amber-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 
                          invalid:green-pink-500 invalid:text-pink-600 focus:invalid:border-amber-500 focus:invalid:ring-amber-500"

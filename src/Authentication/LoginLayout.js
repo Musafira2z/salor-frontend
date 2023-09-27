@@ -105,13 +105,8 @@ const LoginPage = () => {
                                             setIsLogin(!isLogin);
                                             setIsResetPass(false)
                                         }}
-                                        className='text-blue-500 text-base'> Please Registered.</button>
+                                        className='text-blue-500 text-base'> Please register here.</button>
                                 </span>
-                                {/* {!isResetPass && <div>
-                                    <span onClick={() => setIsResetPass(true)}
-                                        className=' text-sm text-blue-500 cursor-pointer'
-                                    >Reset your Password!</span>
-                                </div>} */}
 
                             </div>
                     }
