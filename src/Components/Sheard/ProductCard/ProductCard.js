@@ -6,7 +6,6 @@ import { LanguageCodeEnum, useCheckoutAddProductLineMutation, useCheckoutByToken
 import toast from 'react-hot-toast';
 import { BiPlusMedical } from 'react-icons/bi';
 import { ImMinus } from 'react-icons/im';
-import { FaCartPlus } from 'react-icons/fa';
 import scrollToTop from "../../../Hooks/useSmoothScrolling";
 
 
@@ -136,7 +135,7 @@ const ProductCard = ({ data }) => {
 
     return (
 
-        <div className=" md:h-[17rem] h-[16rem]   md:rounded-lg sm:rounded-sm rounded-none  sm:border-none border bg-white flex flex-col justify-between p-3">
+        <div className=" md:h-[17rem] h-[14rem]   md:rounded-lg sm:rounded-sm rounded-none  sm:border-none border bg-white flex flex-col justify-between md:p-3 p-2">
 
 
             <Link to={`/product-details/${slug}`}
@@ -146,46 +145,48 @@ const ProductCard = ({ data }) => {
 
 
                 <div className=' flex justify-center' >
-                    <img src={thumbnail?.url} alt={name} className="h-24 object-contain" loading={"lazy"}/>
+                    <img src={thumbnail?.url} alt={name} className="md:h-24 h-20 object-contain" loading={"lazy"}/>
                 </div >
 
 
 
-                <div className='xl:pt-7 lg:pt-7 md:pt-6 sm:pt-3 pt-3 ' >
+                <div className='md:mt-5 sm:mt-3 mt-2 ' >
                     <p className='truncate hover:text-clip' style={{ fontSize: '15px', color: 'rgb(13, 17, 54)', width: '100%', whiteSpace: 'nowrap', fontWeight: 'bold' }}>{name}</ p>
 
                     {/* <p className='text-md text-gray-500 font-bold'>Available Quantity: {data?.node?.variants?.[0]?.quantityAvailable}</p> */}
 
                     <div >
-                        <p className=" text-sm">{data?.node?.variants?.[0]?.attributes?.[0]?.values?.[0]?.name}</p>
-                        <div className="flex justify-between">
-                            {variants?.[0]?.pricing?.price?.gross?.amount !== variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount &&
-                                <del
-                                    className=' text-red-500 font-extrabold '
-                                    style={{ fontSize: '15px', fontWeight: '700' }}>
+                        <p className=" md:text-sm text-xs">{data?.node?.variants?.[0]?.attributes?.[0]?.values?.[0]?.name}</p>
 
-                                    R {variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount}</del >}
-                            <span
-                                className=' text-green-500 font-extrabold mt-0 '
-                                style={{ fontSize: '15px', fontWeight: '700' }}>R {variants?.[0]?.pricing?.price?.gross?.amount}</span >
-                        </div>
                     </div >
 
                 </div >
             </Link>
 
-            <div className=' lg:pt-5 md:pt-5  sm:pt-3  pt-3 '>
+            <div className=' '>
+                <div className="flex justify-between mb-3">
+                    {variants?.[0]?.pricing?.price?.gross?.amount !== variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount &&
+                        <del
+                            className=' text-red-500 font-extrabold '
+                            style={{ fontSize: '15px', fontWeight: '700' }}>
+
+                            R {variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount}</del >}
+                    <span
+                        className=' text-green-500 font-extrabold mt-0 '
+                        style={{ fontSize: '15px', fontWeight: '700' }}>R {variants?.[0]?.pricing?.price?.gross?.amount}</span >
+                </div>
+
                 {data?.node?.variants?.[0]?.quantityAvailable === 0 ?
                     <button
                         disabled
-                        className='  border-2 border-red-500 rounded-lg text-white bg-red-500   text-base font-semibold hover:duration-500 duration-500  py-1 px-2 md:px-3 w-full    ' >
+                        className='  border-2 border-red-500 rounded-lg text-white bg-red-500   md:text-base text-sm  font-semibold hover:duration-500 duration-500  py-1 px-2 md:px-3 w-full    ' >
                         Out of stock</button > :
 
                     <div>
                         {
                             items ?
 
-                                <div className={`border-2 ${data?.node?.variants?.[0]?.quantityAvailable === items?.quantity ? "border-red-400 bg-red-400 text-white" : "border-amber-500 bg-amber-500 text-white"}  rounded-lg   text-base font-semibold hover:duration-500 duration-500  py-1 px-2 md:px-6 w-full    `}>
+                                <div className={`border-2 ${data?.node?.variants?.[0]?.quantityAvailable === items?.quantity ? "border-red-400 bg-red-400 text-white" : "border-amber-500 bg-amber-500 text-white"}  rounded-lg   md:text-base text-sm font-semibold hover:duration-500 duration-500  py-1 px-2 md:px-6 w-full    `}>
                                     <div className=" flex justify-between flex-row-reverse items-center   rounded-md" >
                                         <button
                                             disabled={data?.node?.variants?.[0]?.quantityAvailable === items?.quantity ? true : false}
@@ -207,7 +208,7 @@ const ProductCard = ({ data }) => {
                                 :
                                 <button
                                     onClick={() => handleAddToCart(variants?.[0]?.id)}
-                                    className=' relative addToCart border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1  md:px-6 w-full  flex items-center justify-center gap-x-1 hover:border-amber-500 hover:bg-amber-500 hover:text-white' > <FaCartPlus /> Add to cart
+                                    className=' relative addToCart border-2 border-amber-500 rounded-lg text-amber-500 bg-white  md:text-base text-sm font-semibold hover:duration-500 duration-500  py-1  md:px-6 w-full  flex items-center justify-center gap-x-1 hover:border-amber-500 hover:bg-amber-500 hover:text-white' >Add to cart
 
                                     <div className='cartAnimation h-16 w-16 '>
                                         <img src={thumbnail?.url} alt={name} loading={"lazy"} />

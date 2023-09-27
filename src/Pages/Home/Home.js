@@ -32,7 +32,7 @@ const Home = () => {
             <div >
                 {/*loop all categories here with 5 products*/}
                 {data?.products?.edges?.length && <div className='sm:mx-0 mx-3'>
-                    <h1 className=' text-2xl font-bold text-black  my-5'>Popular Product</h1>
+                    <h1 className=' text-2xl font-bold text-black  my-2'>Popular Product</h1>
 
                 </div>}
                 <Products

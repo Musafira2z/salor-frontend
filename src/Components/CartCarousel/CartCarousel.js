@@ -152,14 +152,14 @@ const CartCarousel = () => {
             {
                 breakpoint: 768, // Medium screens
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                 },
             },
             {
                 breakpoint: 640, // Small screens and below
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                 },
             },
@@ -171,7 +171,7 @@ const CartCarousel = () => {
          { productsData?.products?.edges?.length&&
          <div>
                  <div className='sm:mx-0 px-3'>
-                     <h1 className=' text-2xl font-bold text-black  my-5'>Special offers</h1>
+                     <h1 className=' text-2xl font-bold text-black my-2'>Special offers</h1>
                  </div>
 
              {/*mx-auto md:max-w-screen-md w-5/6*/}
