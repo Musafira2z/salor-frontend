@@ -69,7 +69,7 @@ const NavigationBar = () => {
                                     <a href="https://play.google.com/store/apps/details?id=com.musafira2z.store" target="_blank" rel="noopener noreferrer">
                                         <img
                                             className=' w-28 h-8 '
-                                            src={PlayStore} alt="musafir app" />
+                                            src={PlayStore} alt="musafir app" loading="lazy" />
                                     </a>
                                 </div >
 

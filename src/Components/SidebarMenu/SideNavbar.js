@@ -49,12 +49,10 @@ const SideNavbar = () => {
                             >
 
                                 <div className='flex items-center gap-4'>
-                                    <img className='w-5 h-5 object-cover '
-                                        src={item?.category?.backgroundImage?.url} alt={item?.name} loading="lazy"/>
+                                     <img className='w-5 h-5'
+                                          src={item?.category?.backgroundImage?.url} alt={item?.name} loading="lazy"/>
 
                                     <p className={`${slug === item?.category?.slug ? "text-white" : "text-black"}  cursor-pointer`}
-
-
                                     >{item?.name}</p>
                                 </div>
                             </NavLink>

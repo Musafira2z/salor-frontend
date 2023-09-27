@@ -11,7 +11,6 @@ const Slider = () => {
 
 
     const { data, loading } = useHomeBannerMenuQuery({
-
         variables: {
             locale: "EN",
             channel: "default"
@@ -35,9 +34,11 @@ const Slider = () => {
                         <img
                             onClick={() => handleNavigate(slideImage?.collection?.id)}
                             key={index}
-                            className="  w-full cursor-pointer"
+                            className="w-full cursor-pointer"
                             src={slideImage?.collection?.backgroundImage?.url}
-                            alt={`Banner-${index}`} />
+                            alt={`Banner`}
+                            loading="lazy"
+                        />
                     ))
                 }
             </Carousel>
