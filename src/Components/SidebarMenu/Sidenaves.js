@@ -36,8 +36,6 @@ const SideNavar = () => {
     return (
 
         <nav className="px-5 pt-2 ">
-
-
                <ul>
                 <li className=" flex justify-center mt-2 mb-2">
                     <button
@@ -47,24 +45,16 @@ const SideNavar = () => {
                 <hr className='mb-5' />
                 {menuItems?.map((item, i) => {
                     return (
-
-
                         <li key={i}
                             style={{ fontSize: '15px', fontWeight: '500px', padding: '5px 0' }}
                         >
                             <NavLink to={`/category/${item?.category?.slug}`}
-
                                 className="hover:no-underline focus:no-underline"
-
                             >
-
                                 <div className='flex items-center gap-4'>
                                     <img className='w-5 h-5 object-cover '
-                                        src={item?.category?.backgroundImage?.url} alt={item?.name} />
-
+                                        src={item?.category?.backgroundImage?.url} alt={item?.name} loading="lazy"  />
                                     <p className="text-black cursor-pointer "
-
-
                                     >{item?.name}</p>
                                 </div>
                             </NavLink>
@@ -210,10 +200,6 @@ const SideNavar = () => {
                                         {item?.name}
                                     </Nav.Item>
                             )}
-
-
-
-
 
 
                     </Nav>

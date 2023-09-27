@@ -151,7 +151,7 @@ const AddToCartCard = ({ data }) => {
 
 
                 <div className='col-span-2  flex justify-center '>
-                    <img className=' object-cover h-9 w-9 px-2' src={data?.variant?.product?.thumbnail?.url} alt={data?.variant?.product?.name}/>
+                    <img className=' object-cover h-9 w-9 px-2' src={data?.variant?.product?.thumbnail?.url} alt={data?.variant?.product?.name} loading="lazy"/>
                 </div>
 
                 <div className=' col-span-6 pl-3 text-left'>

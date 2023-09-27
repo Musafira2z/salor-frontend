@@ -7,7 +7,7 @@ const PlayStoreAdd = ({handleRemoveAdd}) => {
             <div className="grid grid-cols-6 p-2 bg-amber-100  relative  left-0 ">
                 <button onClick={handleRemoveAdd} className="absolute -top-1 right-2  text-red-500 font-bold">X</button>
                 <div className="col-span-3 flex  items-center">
-                    <img className="w-12 h-12" src="/favicon.ico" alt="Musafir Logo"/>
+                    <img className="w-12 h-12" src="/favicon.ico"  alt="Musafir Logo" loading="lazy"/>
                     <div className="ml-3">
                         <p>Get exciting offers <br/> on our app</p>
                     </div>

@@ -145,8 +145,8 @@ const ProductCard = ({ data }) => {
             >
 
 
-                <div className=' flex justify-center  ' >
-                    <img src={thumbnail?.url} alt={name} className="h-24 object-contain" />
+                <div className=' flex justify-center' >
+                    <img src={thumbnail?.url} alt={name} className="h-24 object-contain" loading={"lazy"}/>
                 </div >
 
 
@@ -210,7 +210,7 @@ const ProductCard = ({ data }) => {
                                     className=' relative addToCart border-2 border-amber-500 rounded-lg text-amber-500 bg-white  text-base font-semibold hover:duration-500 duration-500  py-1  md:px-6 w-full  flex items-center justify-center gap-x-1 hover:border-amber-500 hover:bg-amber-500 hover:text-white' > <FaCartPlus /> Add to cart
 
                                     <div className='cartAnimation h-16 w-16 '>
-                                        <img src={thumbnail?.url} alt={name} />
+                                        <img src={thumbnail?.url} alt={name} loading={"lazy"} />
                                     </div>
                                 </button >
                         }
