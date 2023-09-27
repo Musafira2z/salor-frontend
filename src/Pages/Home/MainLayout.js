@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { Outlet } from 'react-router-dom';
 import Cart from '../../Components/Cart/Cart';
 import NavigationBar from '../../Components/Sheard/NavigationBar/NavigationBar';
@@ -12,7 +12,7 @@ import {
 import { Context } from "../../App";
 import { useQuery } from "@apollo/client";
 import SearchBox from "../../Components/Sheard/SearchBox/SearchBox";
-import PlayStoreAdd from "../../Components/PlayStoreAdd/PlayStoreAdd";
+// import PlayStoreAdd from "../../Components/PlayStoreAdd/PlayStoreAdd";
 
 
 
@@ -23,8 +23,8 @@ const HomeMainLayout = () => {
     const checkoutToken = JSON.parse(localStorage.getItem('checkoutToken'));
 
 
-    const [add,setAdd]=useState(true);
-    const handleRemoveAdd=()=>setAdd(false);
+    // const [add,setAdd]=useState(true);
+    // const handleRemoveAdd=()=>setAdd(false);
 
     const { data } = useCheckoutByTokenQuery({
         variables: {
@@ -84,7 +84,7 @@ const HomeMainLayout = () => {
                 </div >
                 <div className=" w-full md:ml-72 lg:ml-72 xl:ml72 lg:px-7 md:px-7 " >
                     <div className='lg:hidden md:block'>
-                        {add && <PlayStoreAdd handleRemoveAdd={handleRemoveAdd}/>}
+                        {/*{add && <PlayStoreAdd handleRemoveAdd={handleRemoveAdd}/>}*/}
                         <div className="my-2 md:mx-0 mx-2">
                             <SearchBox />
                         </div>
