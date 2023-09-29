@@ -28,7 +28,7 @@ const Grocery = () => {
 
 
     return (
-        <div className='my-5'>
+        <div className='md:mt-5 mt-16 m-10'>
             <div>
 
                 <div

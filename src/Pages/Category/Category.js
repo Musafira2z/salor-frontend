@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     LanguageCodeEnum,
     OrderDirection,
@@ -6,25 +6,22 @@ import {
     useMainMenuQuery,
     useProductCollectionQuery
 } from '../../api';
-import { useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import CategoryItems from "./CategoryItems";
 import Products from '../../Components/Products/Products';
 
 const Category = () => {
     const [categoryId, setCategoryId] = useState('');
     const [category, setCategory] = useState('');
-    const { slug } = useParams();
+    const {slug} = useParams();
 
 
-
-
-    const { data } = useMainMenuQuery({
+    const {data} = useMainMenuQuery({
         variables: {
             locale: LanguageCodeEnum.En,
             channel: "default"
         }
     });
-
 
 
     useEffect(() => {
@@ -63,8 +60,7 @@ const Category = () => {
     }, [category]);
 
 
-
-    const { data: productsData, fetchMore, networkStatus,loading} = useProductCollectionQuery({
+    const {data: productsData, fetchMore, networkStatus, loading} = useProductCollectionQuery({
         variables: {
             after: '',
             first: 10,
@@ -82,41 +78,40 @@ const Category = () => {
     });
 
 
-
-
     return (
-        <div>
-            <div >
-                <div className=' text-start'>
-                    <h1 className=' md:ml-0 ml-5 text-xl font-bold py-5
+        <div className="md:mt-0 mt-10">
+            <div>
+                <div className=' text-start py-3'>
+                    <h1 className=' md:ml-0 ml-5 text-xl font-bold
                         '> {category?.name}</h1>
                 </div>
 
 
                 {category?.children?.length ?
 
-                    <div className='grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 lg:gap-7 md:gap-5 sm:gap-3 gap-0'>
+                    <div
+                        className='grid 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 lg:gap-7 md:gap-5 sm:gap-3 gap-0'>
 
                         {
                             category?.children?.map((item, i) => {
-                                return <CategoryItems key={i} categoryItems={item} />
+                                return <CategoryItems key={i} categoryItems={item}/>
                             })
                         }
 
                     </div>
                     :
 
-                    <div >
+                    <div>
                         {
                             productsData?.products?.edges?.length ?
 
-                            <Products
-                                data={productsData}
-                                fetchMore={fetchMore}
-                                networkStatus={networkStatus}
-                                categoryId={categoryId}
-                                loading={loading}
-                            />:null
+                                <Products
+                                    data={productsData}
+                                    fetchMore={fetchMore}
+                                    networkStatus={networkStatus}
+                                    categoryId={categoryId}
+                                    loading={loading}
+                                /> : null
                         }
 
                     </div>
