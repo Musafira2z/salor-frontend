@@ -67,7 +67,7 @@ const Category = () => {
     const { data: productsData, fetchMore, networkStatus,loading} = useProductCollectionQuery({
         variables: {
             after: '',
-            first: 20,
+            first: 10,
             channel: "default",
             locale: LanguageCodeEnum.En,
             filter: {

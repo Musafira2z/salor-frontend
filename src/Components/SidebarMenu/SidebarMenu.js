@@ -6,7 +6,7 @@ const SidebarMenu = () => {
 
     return (
 
-        <div className=" bg-white  h-screen overflow-y-auto pb-64 overflow-x-hidden  flex flex-col justify-between relative">
+        <div className=" bg-white  rounded-xl overflow-y-auto">
             <SideNavbar />
         </div>
 

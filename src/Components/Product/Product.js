@@ -137,32 +137,30 @@ const Product = ({ data }) => {
                 </div>
 
                 <div className='col-span-1 flex flex-col justify-between '>
-                    <div className=' grid md:grid-cols-7 '>
+                    <div>
 
-                        <div className=' col-span-7 md:col-span-5'>
-
+                        <div>
                             <h1 className=' text-black font-bold text-lg leading-normal'>{data?.product?.name}</h1>
                             <p className='text-lg font-bold pt-2'>Available Quantity: {data?.product?.variants[0]?.quantityAvailable} </p>
 
-
-                            {data?.product?.variants?.[0]?.pricing?.price?.gross?.amount !== data?.product?.variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount &&
-                                <p
-                                    className=' text-red-500 text-lg font-extrabold line-through'>
-
-                                    R {data?.product?.variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount}</p >}
-
-
                             <p className='text-lg '>{description?.blocks?.[0]?.data?.text}</p>
 
+
+                            <div className="flex items-center gap-5 ">
+
+                                <p className="text-lg font-extrabold">Price:</p>
+                                {data?.product?.variants?.[0]?.pricing?.price?.gross?.amount !== data?.product?.variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount &&
+                                    <p
+                                        className=' text-red-500 text-lg mt-0 line-through'>
+
+                                        R {data?.product?.variants?.[0]?.pricing?.priceUndiscounted?.gross?.amount}</p >
+                                }
+                                <p className='text-green-500 font-extrabold  text-2xl mt-0' >R {data?.product?.variants[0]?.pricing?.price?.gross?.amount}</p>
+                            </div>
                         </div>
                     </div>
 
-
-                    <div className='grid grid-cols-2 md:gap-10 gap-2 mt-5'>
-                        <div className='flex justify-center items-center bg-green-500 rounded'>
-                            <p className='text-white font-extrabold  text-xl ' >R {data?.product?.variants[0]?.pricing?.price?.gross?.amount}</p>
-
-                        </div>
+                    <div className='flex md:justify-start justify-center md:gap-10 gap-2 mt-5'>
 
                         <div >
                             {

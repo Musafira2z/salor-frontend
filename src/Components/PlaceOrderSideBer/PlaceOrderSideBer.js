@@ -124,7 +124,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
         shippingMethodLoading])
     return (
 
-        <div className='bg-white  md:h-screen  flex justify-between flex-col md:pt-20  top-0 bottom-0'>
+        <div className='bg-white  rounded-md'>
             <div >
                 <div className=' p-2 flex justify-between '>
                     <div className='flex  items-center '>
@@ -132,7 +132,7 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
                     </div>
                 </div>
 
-                <div className='md:h-[50vh] md:overflow-y-auto'>
+                <div className='md:h-[40vh] md:overflow-y-auto'>
                     {
                         checkoutData?.lines?.map((data, i) => (
                             <AddToCartCard key={i} data={data} />
@@ -142,18 +142,17 @@ const PlaceOrderSideBer = ({ checkoutData }) => {
             </div>
 
 
-            <div className='  bg-white border-t  pb-6'>
+            <div className='border-t  pb-6'>
                 <div className='px-3 pt-5'>
-                    {/* promo code*/}
                     <PromoCode />
                     <ProductCalculation checkoutData={checkoutData} />
                 </div>
 
-                <div className='col-span-6  '>
+                <div >
                     <div className={`  ${warning ? "visible" : "invisible"} px-3`}>
                         {<WarningToast warning={warning} />}
                     </div>
-                    <div className='col-span-6 flex justify-center'>
+                    <div className='flex justify-center'>
                         <button
                             onClick={orderHandler}
                             className=' w-52   py-1 text-sm text-center rounded text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-amber-500  border border-amber-500'>Place order

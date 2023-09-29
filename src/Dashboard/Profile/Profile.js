@@ -58,7 +58,7 @@ const Profile = () => {
 
 
     return (
-        <div className=' bg-white w-full px-5 py-5  ' >
+        <div className=' bg-white w-full px-5 py-5 rounded-xl' >
             <div className=' font-bold pb-10' >
                 <h1 className='text-lg'>Your Profile</h1>
             </div >

@@ -6,21 +6,21 @@ import Footer from "./Footer";
 
 const Dashboard = () => {
     return (
-        <div className='flex flex-col justify-between h-screen overflow-y-auto '>
+        <div className='h-screen overflow-y-auto relative '>
             <div>
                 <NavigationBar />
-                <div className='container mx-auto ' >
-                    <div className=' flex justify-around gap-5' >
+                <div className="container mx-auto pb-32">
+                    <div className='flex justify-between gap-5' >
                         <div className=' w-80 z-50 hidden xl:block lg:block md:block' >
                             <DashboardSidebar />
                         </div >
-                        <div className=' w-full xl:ml-64 lg:ml-56 md:ml-50 md:mx-5    mt-5' >
+                        <div className=' w-full xl:ml-64 lg:ml-56  md:ml-16  mt-3 px-3' >
                             <Outlet />
                         </div >
                     </div >
                 </div >
             </div>
-            <div className="mt-10 md:hidden ">
+            <div className="mt-10 md:hidden bg-white fixed  bottom-0 left-0 right-0">
                 <Footer />
             </div>
         </div >

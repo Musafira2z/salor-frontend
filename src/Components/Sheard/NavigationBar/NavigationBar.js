@@ -37,24 +37,24 @@ const NavigationBar = () => {
 
 
     return (
-        <header className='bg-white py-5 md:px-10 px-2 sticky top-0 z-50' >
-            <div  >
-                <div className='grid grid-cols-12 '>
+        <header className='bg-white py-3 md:px-10 px-2 sticky top-0 z-50' >
+            <div >
+                <div className='grid grid-cols-12 gap-3 '>
 
-                    <div className='2xl:col-span-6 xl:col-span-8 lg:col-span-8 md:col-span-6 sm:col-span-4 col-span-6 flex  items-center  ' >
-                        <div className='block sm:block  md:hidden lg:hidden xl:hidden'>
+                    <div className='2xl:col-span-6 xl:col-span-8 lg:col-span-8 md:col-span-6 sm:col-span-4 col-span-6 grid grid-cols-12 gap-5 items-center  ' >
+                        <div className='block sm:block  md:hidden col-span-3'>
                             <SidebarDrawer />
                         </div>
-                        <div  >
+                        <div  className="col-span-5" >
                             <Link to='/' onClick={useSmoothScrolling}>
                                 <img
-                                    className=' w-28 '
+                                    className='w-28 '
                                     src={Logo} alt="Musafir" />
                             </Link>
                         </div >
 
 
-                        <div className=" hidden  lg:block xl:block w-full pl-52 pr-20">
+                        <div className=" hidden  md:block w-full col-span-7">
                             <SearchBox />
                         </div >
                     </div >

@@ -71,19 +71,16 @@ const HomeMainLayout = () => {
         }
     }, [user?.email, checkoutToken, checkoutCreate]);
 
-
     return (
 
         <div>
             <NavigationBar />
-
-
-            <div className='flex ' >
-                <div className=' fixed w-72 hidden sm:hidden  md:block lg:block  ' >
+            <div className='flex container mx-auto gap-5 md:mt-5' >
+                <div className=' fixed w-72 hidden  md:block' >
                     <SidebarMenu /> 
                 </div >
-                <div className=" w-full md:ml-72 lg:ml-72 xl:ml72 lg:px-7 md:px-7 " >
-                    <div className='lg:hidden md:block'>
+                <div className=" w-full md:ml-72  md:pl-7 relative " >
+                    <div className='lg:hidden md:hidden block absolute top-0 left-5 right-5 z-40 '>
                         {/*{add && <PlayStoreAdd handleRemoveAdd={handleRemoveAdd}/>}*/}
                         <div className="my-2 md:mx-0 mx-2">
                             <SearchBox />

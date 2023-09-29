@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { BiPlusMedical } from 'react-icons/bi';
 import { ImMinus } from 'react-icons/im';
 import scrollToTop from "../../../Hooks/useSmoothScrolling";
+import LazyImgLoader from "../../LazyImgLoader/LazyImgLoader";
 
 
 const ProductCard = ({ data }) => {
@@ -135,7 +136,7 @@ const ProductCard = ({ data }) => {
 
     return (
 
-        <div className=" md:h-[17rem] h-[14rem]   md:rounded-lg sm:rounded-sm rounded-none  sm:border-none border bg-white flex flex-col justify-between md:p-3 p-2">
+        <div className=" md:h-[17rem] h-[14rem]   lg:rounded-lg rounded-md   md:border-none border  border-amber-100  bg-white flex flex-col justify-between md:p-3 p-2">
 
 
             <Link to={`/product-details/${slug}`}
@@ -145,7 +146,12 @@ const ProductCard = ({ data }) => {
 
 
                 <div className=' flex justify-center' >
-                    <img src={thumbnail?.url} alt={name} className="md:h-24 h-20 object-contain" loading={"lazy"}/>
+                    {/*<img src={thumbnail?.url} alt={name} className="md:h-24 h-20 object-contain" loading={"lazy"}/>*/}
+                    <LazyImgLoader
+                        src={thumbnail?.url}
+                        alt={name}
+                        style={{height:"5rem", width:"100%"} }
+                    />
                 </div >
 
 

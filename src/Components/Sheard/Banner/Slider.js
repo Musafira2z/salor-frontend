@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
+
 const Slider = () => {
     const navigate = useNavigate();
 
@@ -26,22 +27,24 @@ const Slider = () => {
 
 
     return (
-        <div className=" xl:mt-5 lg:mt-5 pb-3">
-            <Carousel autoplay className='w-full h-full xl:rounded-xl lg:rounded-xl' >
-                {loading && BannerSkeleton}
-                {
-                    data?.menu?.items?.map((slideImage, index) => (
-                        <img
-                            onClick={() => handleNavigate(slideImage?.collection?.id)}
-                            key={index}
-                            className="w-full cursor-pointer"
-                            src={slideImage?.collection?.backgroundImage?.url}
-                            alt={`Banner`}
-                            loading="lazy"
-                        />
-                    ))
-                }
-            </Carousel>
+        <div className="lg:py-1.5">
+            {loading? BannerSkeleton: < Carousel autoplay className='w-full h-full  md:rounded-xl' >
+
+            {
+                data?.menu?.items?.map((slideImage, index) => (
+                <img
+                onClick={() => handleNavigate(slideImage?.collection?.id)}
+            key={index}
+            className="w-full cursor-pointer"
+            src={slideImage?.collection?.backgroundImage?.url}
+            alt={`Banner`}
+            loading="lazy"
+        />
+    )
+)
+}
+</Carousel>
+}
         </div>
     );
 };

@@ -3,6 +3,7 @@ import { useMainMenuQuery } from "../../api";
 import { SidebarSkeleton } from "../Sheard/Skeletons/SidebarSkeleton";
 import { NavLink, useParams } from "react-router-dom";
 import Footer from "../../Dashboard/Dashboard/Footer";
+import LazyImgLoader from "../LazyImgLoader/LazyImgLoader";
 
 const SideNavbar = () => {
 
@@ -16,26 +17,18 @@ const SideNavbar = () => {
         }
     })
 
-    if (loading) {
-        return SidebarSkeleton;
-    }
 
 
     const menuItems = data?.menu?.items;
 
 
-
-
     return (
 
-        <nav className="pt-2 px-2">
-            <ul >
-              {/*  <li className=" bg-white w-full ">
-                    <button
-                        className="mt-2 mb-2  w-full  h-10 text-slate-50  text-lg tracking-[.10em] font-bold   bg-amber-500 rounded-md"> Offer
-                    </button>
-                    <hr className='mb-5' />
-                </li>*/}
+        <nav className="pt-2 px-2  h-[85vh] overflow-hidden flex flex-col justify-between">
+            {
+                loading?SidebarSkeleton:
+
+            <ul className="h-[85vh] overflow-y-auto">
                 {menuItems?.map((item, i) => {
                     return (
                         <li key={i}
@@ -49,8 +42,13 @@ const SideNavbar = () => {
                             >
 
                                 <div className='flex items-center gap-4'>
-                                     <img className='w-5 h-5'
-                                          src={item?.category?.backgroundImage?.url} alt={item?.name} loading="lazy"/>
+                                    <LazyImgLoader
+                                        src={item?.category?.backgroundImage?.url}
+                                        alt={item?.name}
+                                        style={{height:"20px", width:"20px"}}
+                                    />
+                                     {/*<img className='w-5 h-5'*/}
+                                     {/*     loading="lazy"/>*/}
 
                                     <p className={`${slug === item?.category?.slug ? "text-white" : "text-black"}  cursor-pointer`}
                                     >{item?.name}</p>
@@ -60,7 +58,9 @@ const SideNavbar = () => {
                     )
                 })}
             </ul>
-            <div className=" fixed bottom-0">
+
+            }
+            <div >
                 <Footer />
             </div>
         </nav>

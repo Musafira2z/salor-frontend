@@ -2,6 +2,7 @@
 .CartCarouselContainer{
     margin: auto;
 }
+
 @media (min-width: 360px) {
     .CartCarouselContainer{
         max-width: 85%;
@@ -16,13 +17,13 @@
 
  @media (min-width: 768px) {
      .CartCarouselContainer{
-         max-width: 390px;
+         max-width: 400px;
      }
  }
 
 @media (min-width: 1024px) {
     .CartCarouselContainer{
-        max-width: 650px;
+        max-width: 655px;
     }
 }
 

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import OrderItems from './OrderItems';
 import { useOrdersQuery } from '../../api';
+import {Loader} from "rsuite";
 
 const MyOrder = () => {
     const [after, setAfter] = useState('');
@@ -18,7 +19,7 @@ const MyOrder = () => {
     const orders = data?.me?.orders?.edges
 
     return (
-        <div className=' bg-white w-full p-3 ' >
+        <div className=' bg-white w-full rounded-xl p-3 ' >
 
             <div className=' font-bold border-b'>
                 <h1 className='text-lg mb-2'>My Order</h1>
@@ -32,7 +33,7 @@ const MyOrder = () => {
                 }
 
 
-                {loading ? <h1>Loading...</h1> :
+                {loading ? <Loader size="sm" content="Loading.."/> :
 
                     orders?.length ? <OrderItems orders={orders} /> : null
 

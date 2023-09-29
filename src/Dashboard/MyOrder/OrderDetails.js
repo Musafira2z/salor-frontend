@@ -15,7 +15,7 @@ const OrderDetails = () => {
 
 
     return (
-        <section className="mb-16">
+        <section className="mb-16 bg-white p-3 rounded-xl">
             {/* <!-- component --> */}
 
             <div className='flex justify-end'>
@@ -33,16 +33,16 @@ const OrderDetails = () => {
                     className="grid grid-cols-12 gap-1 px-2" >
 
                     <div className="col-span-6 border-b-2">
-                        <h1 className="font-semibold">Product name</h1>
+                        <h1 className="font-bold">Product name</h1>
                     </div>
                     <div className="col-span-2 border-b-2">
-                        <h1 className="font-semibold">Quantity</h1>
+                        <h1 className="font-bold">Quantity</h1>
                     </div>
                     <div className="col-span-2 border-b-2">
-                        <h1 className="font-semibold">UnitPrice</h1>
+                        <h1 className="font-bold">UnitPrice</h1>
                     </div>
                     <div className="col-span-2 border-b-2">
-                        <h1 className="font-semibold">TotalPrice</h1>
+                        <h1 className="font-bold">TotalPrice</h1>
                     </div>
 
                 </div>

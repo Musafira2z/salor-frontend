@@ -82,7 +82,7 @@ const ProductsDetails = () => {
     const { data: productsData, fetchMore, networkStatus,productsloading } = useProductCollectionQuery({
         variables: {
             after: '',
-            first: 20,
+            first: 10,
             channel: "default",
             locale: LanguageCodeEnum.En,
             filter: {
@@ -102,10 +102,10 @@ const ProductsDetails = () => {
 
         <div>
             <NavigationBar />
-            <div className=' lg:hidden md:block my-2 mx-2'>
+            <div className=' lg:hidden md:block mt-2  mx-2'>
                 <SearchBox />
             </div>
-            <div className='container mx-auto pb-20 px-3'>
+            <div className='container mx-auto pb-28 px-3'>
                 {
                     detailsLoading ?
 

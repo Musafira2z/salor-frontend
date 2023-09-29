@@ -278,7 +278,7 @@ const Checkout = () => {
 
 
                    {/************** Place order sidebar *************/}
-                   <div className=' md:col-span-4 col-span-12  lg:-mt-24 pt-3' >
+                   <div className=' md:col-span-4 col-span-12  lg:mt-3' >
                        <PlaceOrderSideBer checkoutData={checkoutData} />
                    </div >
 

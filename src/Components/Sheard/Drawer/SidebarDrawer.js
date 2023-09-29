@@ -13,7 +13,7 @@ const SidebarDrawer = () => {
         setOpen(true);
     };
     return (
-        <div>
+        <section>
             <ButtonToolbar>
                 <IconButton className='!m-0' icon={<RiMenu3Line size={25} />}
 
@@ -30,11 +30,11 @@ const SidebarDrawer = () => {
                     </Drawer.Title>
                 </Drawer.Header>
 
-                <Drawer.Body className='p-0 pb-56'  >
+                <Drawer.Body className='p-0 overflow-hidden '  >
                     <SideNav />
                 </Drawer.Body>
             </Drawer>
-        </div>
+        </section>
     );
 };
 
