@@ -11,6 +11,7 @@ import {
 import toast from "react-hot-toast";
 import {BiPlusMedical} from 'react-icons/bi';
 import {ImMinus} from 'react-icons/im';
+import LazyImgLoader from "../LazyImgLoader/LazyImgLoader";
 
 const Product = ({data}) => {
     const [media, setMedia] = useState('');
@@ -121,9 +122,18 @@ const Product = ({data}) => {
             </div>
             <div className=' grid  lg:grid-cols-2 md:grid-cols-1 gap-10 '>
                 <div className=' bg-white '>
-                    <div className=' flex justify-center items-center py-2'>
-                        <img className='md:h--96 h-52' src={media || data?.product?.media?.[0]?.url} alt="media"
-                             loading="lazy"/>
+                    <div className=' flex justify-center items-center p-3 object-contain  h-52'>
+                        {/*<img className='md:h-96 h-52' src={media || data?.product?.media?.[0]?.url} alt="media"*/}
+                        {/*     loading="eager"/>*/}
+                        <LazyImgLoader
+                            src={media || data?.product?.media?.[0]?.url}
+                            alt="media"
+                            style={{
+                                height: "210px",
+                                width: "100%",
+                                objectFit: "contain"
+                            }}
+                        />
                     </div>
 
                     <div className='flex justify-center py-5 gap-2'>
@@ -132,8 +142,16 @@ const Product = ({data}) => {
                             <div
                                 onClick={() => setMedia(data?.url)}
                                 key={i}
-                                className={`${media === data?.url ? "border-green-500" : "border-gray-500"}  w-24   border-2 rounded-lg p-2 cursor-pointer flex justify-center item-center`}>
-                                <img src={data?.url} alt="media" loading="lazy"/>
+                                className={`${media === data?.url ? "border-green-500" : "border-gray-500"}  border-2 rounded-lg p-2 cursor-pointer flex justify-center item-center`}>
+                                {/*<img src={data?.url} alt="media" loading="lazy"/>*/}
+
+                                <LazyImgLoader
+                                    src={data?.url} alt="media"
+                                    style={{
+                                        height: "50px",
+                                        width: "50px"
+                                    }}
+                                />
                             </div>
                         )}
                     </div>

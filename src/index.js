@@ -7,14 +7,14 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-window.Buffer = window.Buffer || require("buffer").Buffer;
+window.Buffer = window.Buffer || require("buffer").SlowBuffer;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+        <App/>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

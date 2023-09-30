@@ -6,30 +6,30 @@ import CartCarousel from "../../Components/CartCarousel/CartCarousel";
 
 const Home = () => {
 
-    const { data, fetchMore, networkStatus,loading } = useProductCollectionQuery({
+    const {data, fetchMore, networkStatus, loading} = useProductCollectionQuery({
         variables: {
-            after:"",
-            first: 10,
+            after: "",
+            first: 20,
             channel: "default",
             locale: LanguageCodeEnum.En,
             sortBy: {
                 field: ProductOrderField.LastModifiedAt,
                 direction: OrderDirection.Desc,
             },
-            filter:{}
+            filter: {}
         },
         notifyOnNetworkStatusChange: true
     });
 
 
     return (
-        <div >
-            <Slider />
+        <div>
+            <Slider/>
             {/* <Banner/> */}
-                <div>
-                    <CartCarousel/>
-                </div>
-            <div >
+            <div>
+                <CartCarousel/>
+            </div>
+            <div>
                 {/*loop all categories here with 5 products*/}
                 {data?.products?.edges?.length && <div className='sm:mx-0 mx-3'>
                     <h1 className=' text-lg font-bold text-black  my-2'>Popular Product</h1>
