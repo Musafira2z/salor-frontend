@@ -7,7 +7,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-window.Buffer = window.Buffer || require("buffer").SlowBuffer;
+window.Buffer = window.Buffer || require("buffer").Buffer;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
