@@ -129,7 +129,7 @@ const Product = ({data}) => {
                             src={media || data?.product?.media?.[0]?.url}
                             alt="media"
                             style={{
-                                height: "210px",
+                                height: "175px",
                                 width: "100%",
                                 objectFit: "contain"
                             }}
