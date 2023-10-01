@@ -1,6 +1,6 @@
 export const BannerSkeleton =
 
-    <div role="status" className="  animate-pulse">
+    <div role="status" className="animate-pulse">
         <div
             className=" flex justify-center md:rounded-xl items-center  md:h-[25rem] h-[10rem]  w-full  object-center mb-4 bg-gray-300 rounded ">
             <svg className="w-10 h-10 text-gray-200 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -10,7 +10,5 @@ export const BannerSkeleton =
                 <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
             </svg>
         </div>
-
-
         <span className="sr-only">Loading...</span>
     </div>

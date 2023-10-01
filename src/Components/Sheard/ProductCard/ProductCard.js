@@ -64,7 +64,9 @@ const ProductCard = ({data}) => {
                 </div>
 
                 <AddToCartButton
-                    data={data}
+                    thumbnail={thumbnail}
+                    name={name}
+                    variants={variants}
                 />
             </div>
         </ div>
