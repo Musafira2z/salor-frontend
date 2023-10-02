@@ -1,8 +1,8 @@
 import React from 'react';
 
-const AddressCard = ({ data,checkoutAddress,checkoutShippingAddressUpdateHandler }) => {
+const AddressCard = ({ data, checkoutAddress, checkoutShippingAddressUpdateHandler }) => {
 
- 
+
     return (
         <div
             onClick={() => checkoutShippingAddressUpdateHandler(data)}
@@ -78,10 +78,10 @@ const AddressCard = ({ data,checkoutAddress,checkoutShippingAddressUpdateHandler
                 </div>
             </div>
             {
-                !checkoutAddress?.id?
+                !checkoutAddress?.id ?
                     <div className="mt-5">
-                        <button className='text-base font-bold bg-amber-500 px-3 py-1 rounded-md text-white'>Select your address</button>
-                    </div>:''
+                        <button className='text-base font-bold bg-orange-500 px-3 py-1 rounded-md text-white'>Select your address</button>
+                    </div> : ''
             }
 
         </div>

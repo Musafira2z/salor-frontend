@@ -98,12 +98,12 @@ const Profile = () => {
                                 <button
                                     onClick={() => setEditOption(false)}
                                     type='submit'
-                                    className=' bg-amber-500 h-10 mt-7  w-full text-slate-50 font-bold rounded-full' > Edit</button > :
+                                    className=' bg-orange-500 h-10 mt-7  w-full text-slate-50 font-bold rounded-full' > Edit</button > :
                                 <button
                                     onClick={() => setEditOption(true)}
 
                                     type='button'
-                                    className=' bg-amber-500 h-10 mt-7  w-full text-slate-50 font-bold rounded-full' > save</button >
+                                    className=' bg-orange-500 h-10 mt-7  w-full text-slate-50 font-bold rounded-full' > save</button >
                         }
                     </div >
                     <div className=' xl:col-span-5 lg:col-span-5 md:col-span-5 col-span-12 w-full ' >
@@ -128,7 +128,7 @@ const Profile = () => {
 
 
 
-          {/*   <div>
+            {/*   <div>
                 <h1 className=' font-bold mt-10 mb-5'>Billing Address</h1>
 
 

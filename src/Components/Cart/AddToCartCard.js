@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useCallback, useEffect} from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { BiPlusMedical } from 'react-icons/bi';
 import { ImMinus } from 'react-icons/im';
 import { RxCross2 } from 'react-icons/rx';
@@ -59,12 +59,12 @@ const AddToCartCard = ({ data }) => {
         }
     }
 
-    const outOfStockRemoveCallBack = useCallback( async () => {
-        if(data?.variant?.quantityAvailable === 0){
-         await   handleRemoveToCart();
+    const outOfStockRemoveCallBack = useCallback(async () => {
+        if (data?.variant?.quantityAvailable === 0) {
+            await handleRemoveToCart();
         }
 
-        if(data?.variant?.quantityAvailable < data?.quantity && data?.variant?.quantityAvailable > 0){
+        if (data?.variant?.quantityAvailable < data?.quantity && data?.variant?.quantityAvailable > 0) {
             await decrement({
                 variables: {
                     token: checkoutToken,
@@ -77,7 +77,7 @@ const AddToCartCard = ({ data }) => {
             })
         }
 
-    }, [handleRemoveToCart,data?.variant?.quantityAvailable,data?.quantity]);
+    }, [handleRemoveToCart, data?.variant?.quantityAvailable, data?.quantity]);
 
 
     useEffect(() => {
@@ -130,11 +130,11 @@ const AddToCartCard = ({ data }) => {
         <div className='border-t'>
             <div className=' grid grid-cols-12 py-4 md:px-3 px-2  h-auto w-auto content-center items-center bg-white' >
 
-                <div className={`col-span-1 inline-flex flex-col gap-2 rounded-md  py-2 w-8 ${data?.variant?.quantityAvailable===data?.quantity?"bg-red-400 text-white ":"bg-gray-100 text-gray-500"}`} role="group">
+                <div className={`col-span-1 inline-flex flex-col gap-2 rounded-md  py-2 w-8 ${data?.variant?.quantityAvailable === data?.quantity ? "bg-red-400 text-white " : "bg-gray-100 text-gray-500"}`} role="group">
                     <button
                         onClick={handleIncrementToCart}
                         type="button"
-                        disabled={data?.variant?.quantityAvailable===data?.quantity?true:false}
+                        disabled={data?.variant?.quantityAvailable === data?.quantity ? true : false}
                         className=" flex justify-center py-1  text-base  font-medium    rounded-t-lg ">
                         <BiPlusMedical size={12} />
                     </button>
@@ -151,12 +151,12 @@ const AddToCartCard = ({ data }) => {
 
 
                 <div className='col-span-2  flex justify-center '>
-                    <img className=' object-cover h-9 w-9 px-2' src={data?.variant?.product?.thumbnail?.url} alt={data?.variant?.product?.name} loading="lazy"/>
+                    <img className=' object-cover h-9 w-9 px-2' src={data?.variant?.product?.thumbnail?.url} alt={data?.variant?.product?.name} loading="lazy" />
                 </div>
 
                 <div className=' col-span-6 pl-3 text-left'>
                     <span className=' md:text-base  font-semibold  line-clamp-4 '>{data?.variant?.product?.name} </span>
-                    <p className=' md:text-base text-amber-500 font-semibold mt-0 '> R {data?.variant?.pricing?.price?.gross?.amount}</p>
+                    <p className=' md:text-base text-orange-500 font-semibold mt-0 '> R {data?.variant?.pricing?.price?.gross?.amount}</p>
                     <p className='  md:text-base text-gray-500  mt-0 '> {data?.quantity} x {data?.variant?.pricing?.price?.gross?.amount}</p>
 
                 </div>

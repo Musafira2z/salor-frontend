@@ -1,8 +1,12 @@
 import React from 'react';
-import { TiArrowBack } from 'react-icons/ti';
+import {HiArrowNarrowLeft} from 'react-icons/hi';
+
 const BackButton = () => {
     return (
-        <button onClick={() => window.history.back()} className=' py-1 px-5   bg-green-400 w-24 flex items-center text-slate-50 font-bold' > <TiArrowBack /> Back</button >
+        <button onClick={() => window.history.back()}
+                className=' py-1 px-5   bg-green-400 flex items-center text-slate-50 font-bold'><HiArrowNarrowLeft
+            size={20}/>
+        </button>
     );
 };
 

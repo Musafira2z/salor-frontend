@@ -37,7 +37,7 @@ const Help = () => {
 
         <div className='px-3 bg-white rounded-xl'>
             <div className="flex flex-col items-center ">
-                <h1 className=' text-center py-2  w-full text-xl font-bold bg-amber-500 text-slate-50 rounded-full my-2'> F.A.Q</h1>
+                <h1 className=' text-center py-2  w-full text-xl font-bold bg-orange-500  text-slate-50 rounded-full my-2'> F.A.Q</h1>
             </div>
             <div className="grid divide-y divide-neutral-200 w-full mx-auto ">
 

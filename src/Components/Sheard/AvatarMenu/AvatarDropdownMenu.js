@@ -10,7 +10,7 @@ const AvatarDropdownMenu = () => {
     return (
         <ButtonToolbar>
             <Whisper size="lg" placement="bottomEnd" trigger="click" speaker={renderMenu}>
-                <IconButton className='bg-amber-500 hover:bg-amber-500 active:bg-amber-500 focus:bg-amber-500 p-0' appearance="primary" icon={<FaUserAlt size={20} />} circle />
+                <IconButton className='bg-orange-500 hover:bg-orange-500 active:bg-orange-500 focus:bg-orange-500 p-0' appearance="primary" icon={<FaUserAlt size={20} />} circle />
             </Whisper>
         </ButtonToolbar>
     );

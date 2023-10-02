@@ -21,7 +21,7 @@ const OrderDetails = () => {
             <div className='flex justify-end'>
                 <button
                     onClick={() => window.history.back()}
-                    className='font-bold  bg-amber-500 text-white px-2 rounded-full flex items-center '>
+                    className='font-bold  bg-orange-500 text-white px-2 rounded-full flex items-center '>
                     <IoMdArrowRoundBack /> Back
                 </button>
             </div>

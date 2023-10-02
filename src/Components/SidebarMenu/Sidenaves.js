@@ -28,18 +28,18 @@ const SideNavar = () => {
 
 
 
- /*    const handleNavigate = (slug) => {
-        console.log(slug)
-        navigate(`/category/${slug}`)
-    } */
+    /*    const handleNavigate = (slug) => {
+           console.log(slug)
+           navigate(`/category/${slug}`)
+       } */
 
     return (
 
         <nav className="px-5 pt-2 ">
-               <ul>
+            <ul>
                 <li className=" flex justify-center mt-2 mb-2">
                     <button
-                        className=" w-full h-10 text-slate-50  text-lg font-extrabold    bg-gradient-to-r from-amber-500 rounded-lg to-pink-700"> Offer
+                        className=" w-full h-10 text-slate-50  text-lg font-extrabold    bg-gradient-to-r from-orange-500 rounded-lg to-pink-700"> Offer
                     </button>
                 </li>
                 <hr className='mb-5' />
@@ -53,7 +53,7 @@ const SideNavar = () => {
                             >
                                 <div className='flex items-center gap-4'>
                                     <img className='w-5 h-5 object-cover '
-                                        src={item?.category?.backgroundImage?.url} alt={item?.name} loading="lazy"  />
+                                        src={item?.category?.backgroundImage?.url} alt={item?.name} loading="lazy" />
                                     <p className="text-black cursor-pointer "
                                     >{item?.name}</p>
                                 </div>
@@ -73,7 +73,7 @@ const SideNavar = () => {
 
 
 
-         {/*    <Sidenav >
+            {/*    <Sidenav >
                 <Sidenav.Body >
                     <Nav activeKey="1" style={{ paddingLeft: '0px' }} >
 

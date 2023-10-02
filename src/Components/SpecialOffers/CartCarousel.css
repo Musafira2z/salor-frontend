@@ -1,0 +1,43 @@
+.react-multiple-carousel__arrow {
+    background-color: #f59e0b !important;
+    font-size: 2px !important;
+    min-height: 30px !important;
+    min-width: 30px !important;
+    z-index: 10 !important;
+
+}
+
+.CartCarouselContainer {
+    margin: auto;
+}
+
+
+@media (min-width: 640px) {
+    .CartCarouselContainer {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .CartCarouselContainer {
+        max-width: 500px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .CartCarouselContainer {
+        max-width: 700px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .CartCarouselContainer {
+        max-width: 950px;
+    }
+}
+
+@media (min-width: 1536px) {
+    .CartCarouselContainer {
+        max-width: 1225px;
+    }
+}

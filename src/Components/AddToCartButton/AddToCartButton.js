@@ -128,7 +128,7 @@ const AddToCartButton = ({thumbnail, name, variants}) => {
             {variants?.[0]?.quantityAvailable === 0 ?
                 <button
                     disabled
-                    className='  border-2 border-red-500 rounded-lg text-white bg-red-500   md:text-base text-sm  font-semibold hover:duration-500 duration-500  py-1  w-full    '>
+                    className='border-2 border-red-500 rounded-lg text-white bg-red-500   md:text-base text-sm  font-semibold hover:duration-500 duration-500  py-1  w-full    '>
                     Out of stock</button> :
 
                 <div>
@@ -136,7 +136,7 @@ const AddToCartButton = ({thumbnail, name, variants}) => {
                         items ?
 
                             <div
-                                className={`border-2 ${variants?.[0]?.quantityAvailable === items?.quantity ? "border-red-400 bg-red-400 text-white" : "border-amber-500 bg-amber-500 text-white"}  rounded-lg   md:text-base text-sm font-semibold hover:duration-500 duration-500  py-1 px-2 w-full`}>
+                                className={`border-2 ${variants?.[0]?.quantityAvailable === items?.quantity ? "border-red-400 bg-red-400 text-white" : "border-orange-500  bg-orange-500  text-white"}  rounded-lg   md:text-base text-sm font-semibold hover:duration-500 duration-500  py-1 px-2 w-full`}>
                                 <div
                                     className=" flex justify-between flex-row-reverse items-center   rounded-md">
                                     <button
@@ -158,7 +158,7 @@ const AddToCartButton = ({thumbnail, name, variants}) => {
                             :
                             <button
                                 onClick={() => handleAddToCart(variants?.[0]?.id)}
-                                className=' relative addToCart border-2 border-amber-500 rounded-lg text-amber-500 bg-white  md:text-base text-sm font-semibold hover:duration-500 duration-500  py-1  md:px-6 w-full  flex items-center justify-center gap-x-1 hover:border-amber-500 hover:bg-amber-500 hover:text-white'>Add
+                                className=' relative addToCart border-2 border-orange-500 rounded-lg text-orange-500  bg-white  md:text-base text-sm font-semibold hover:duration-500 duration-500  py-1  md:px-2 w-full  flex items-center justify-center gap-x-1 hover:border-orange-500  hover:bg-orange-500  hover:text-white'>Add
                                 to cart
 
                                 <div className='cartAnimation h-16 w-16 '>

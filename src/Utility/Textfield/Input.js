@@ -15,7 +15,7 @@ const Input = ({ ...props }) => {
                 <div>
                     <span className={required ? labelClass1 : labelClass2}>{label}</span>
                     <input
-                       
+
                         id={id}
                         type={type}
                         name={name}
@@ -26,11 +26,11 @@ const Input = ({ ...props }) => {
                         onBlur={onBlur}
                         disabled={disabled}
                         className=" mt-1 block  w-full px-3 py-2
-                        bg-white border border-amber-500
+                        bg-white border border-orange-500
                         rounded-md text-base font-bold shadow-sm
                         placeholder-slate-400 focus:outline-none
-                        focus:border-amber-500 focus:ring-1
-                        focus:ring-amber-500 disabled:bg-slate-50
+                        focus:border-orange-500 focus:ring-1
+                        focus:ring-orange-500 disabled:bg-slate-50
                         disabled:text-slate-500 disabled:border-slate-200 
                          invalid:text-red-600
                         focus:invalid:border-red-500 focus:invalid:ring-red-500"/>

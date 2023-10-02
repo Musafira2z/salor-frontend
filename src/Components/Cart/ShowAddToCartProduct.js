@@ -42,7 +42,7 @@ const ShowAddToCartProduct = ({ setIsOpenCart, isOpenCart, checkoutData }) => {
 
                     <button
                         onClick={handleNavigate}
-                        className=' w-52   py-1 text-sm text-center rounded text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-amber-500  border border-amber-500'
+                        className=' w-52   py-1 text-sm text-center rounded text-slate-50 hover:text-slate-50 active:text-slate-50 focus:text-slate-50    bg-orange-500  border border-orange-500'
                     >Checkout</button>
 
 

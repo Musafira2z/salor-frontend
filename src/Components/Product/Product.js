@@ -91,7 +91,7 @@ const Product = ({data}) => {
 
                     <div className='grid sm:grid-cols-2 grid-cols-1 justify-center md:gap-10 gap-2 mt-5'>
 
-                        <div>
+                        <div className="w-40 mx-auto">
                             <AddToCartButton
                                 variants={data?.product?.variants}
                                 navme={data?.product?.name}

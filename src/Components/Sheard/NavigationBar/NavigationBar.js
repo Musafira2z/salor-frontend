@@ -45,7 +45,7 @@ const NavigationBar = () => {
                         <div className='block sm:block  md:hidden col-span-3'>
                             <SidebarDrawer />
                         </div>
-                        <div  className="col-span-5" >
+                        <div className="col-span-5" >
                             <Link to='/' onClick={useSmoothScrolling}>
                                 <img
                                     className='w-28 '
@@ -77,7 +77,7 @@ const NavigationBar = () => {
 
 
                                 <div className="  items-center justify-center sm:block hidden" >
-                                    <NavLink to='/help' className="text-amber-500 text-base font-bold hover:no-underline hover:text-amber-500 active:text-amber-500 focus:text-amber-500 focus:no-underline" >
+                                    <NavLink to='/help' className="text-orange-500 text-base font-bold hover:no-underline hover:text-orange-500 active:text-orange-500 focus:text-orange-500 focus:no-underline" >
 
                                         <div className=' w-32 flex items-center ' >
                                             <MdOutlineLiveHelp size={24} />
