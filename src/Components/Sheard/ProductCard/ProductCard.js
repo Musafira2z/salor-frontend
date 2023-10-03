@@ -22,11 +22,13 @@ const ProductCard = ({data}) => {
             >
 
                 <div className=' flex justify-center'>
-                    {/*<img src={thumbnail?.url} alt={name} className="md:h-24 h-20 object-contain" loading={"lazy"}/>*/}
+                    {/*
+                    <img src={thumbnail?.url} alt={name} className="md:h-24 h-20 object-contain" loading={"lazy"}/>
+*/}
                     <LazyImgLoader
                         src={thumbnail?.url}
                         alt={name}
-                        style={{height: "5rem", width: "100%"}}
+                        style={{height: "96px", width: "100%"}}
                     />
                 </div>
 
