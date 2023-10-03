@@ -76,7 +76,7 @@ const ProductsDetails = () => {
     }, [category]);
 
 
-    const {data: productsData, fetchMore, networkStatus, productsloading} = useProductCollectionQuery({
+    const {data: productsData, fetchMore, networkStatus, loading: productsLoading} = useProductCollectionQuery({
         variables: {
             after: '',
             first: 10,
@@ -126,7 +126,7 @@ const ProductsDetails = () => {
                                     fetchMore={fetchMore}
                                     networkStatus={networkStatus}
                                     categoryId={categoryId}
-                                    loading={productsloading}
+                                    loading={productsLoading}
                                 />
 
                             </div>
