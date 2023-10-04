@@ -90,7 +90,7 @@ const ProductsDetails = () => {
 
     const {data: productsData, fetchMore, networkStatus, loading: productsLoading} = useProductCollectionQuery({
         variables: {
-            after: cursor || '',
+            after: cursor ,
             first: 20,
             channel: "default",
             locale: LanguageCodeEnum.En,

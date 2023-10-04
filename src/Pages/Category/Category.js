@@ -25,18 +25,21 @@ const Category = () => {
         },
     })
 
-    // useEffect(() => {
-    //     setNewData(
-    //         {
-    //             products: {
-    //                 edges:[],
-    //                 pageInfo:{},
-    //                 __typename:""
-    //
-    //             },
-    //         }
-    //     )
-    // }, [slug]);
+
+
+    useEffect(() => {
+       if(newData?.products?.edges?.length){
+           setNewData(
+               {
+                   products: {
+                       edges:[],
+                       pageInfo:{},
+                       __typename:""
+                   },
+               }
+           )
+       }
+    }, [slug]);
 
 
     const {data} = useMainMenuQuery({
@@ -49,7 +52,6 @@ const Category = () => {
 
     useEffect(() => {
         data?.menu?.items?.forEach(item => {
-
 
             if (item?.category?.slug === slug) {
                 return setCategory(item);
@@ -65,7 +67,6 @@ const Category = () => {
                 item1.children?.forEach(item2 => {
                     if (item2?.category?.slug === slug) {
                         return setCategory(item2);
-
                     }
                 })
             })
@@ -78,6 +79,7 @@ const Category = () => {
     useEffect(() => {
 
         if (!category?.children?.length) {
+
             setCategoryId(category?.category?.id)
         }
     }, [category]);
