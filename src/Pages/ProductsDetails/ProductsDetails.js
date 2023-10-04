@@ -21,6 +21,18 @@ const ProductsDetails = () => {
     const [categoryId, setCategoryId] = useState(null)
     const [category, setCategory] = useState(null)
 
+    const [newData,setNewData]=useState({
+        products: {
+            edges:[],
+            pageInfo:{},
+            __typename:""
+
+        },
+    })
+    const [cursor,setCursor]=useState("");
+
+
+
 
     const {data, loading: detailsLoading} = useProductBySlugQuery({
         variables: {
@@ -78,8 +90,8 @@ const ProductsDetails = () => {
 
     const {data: productsData, fetchMore, networkStatus, loading: productsLoading} = useProductCollectionQuery({
         variables: {
-            after: '',
-            first: 10,
+            after: cursor || '',
+            first: 20,
             channel: "default",
             locale: LanguageCodeEnum.En,
             filter: {
@@ -127,6 +139,9 @@ const ProductsDetails = () => {
                                     networkStatus={networkStatus}
                                     categoryId={categoryId}
                                     loading={productsLoading}
+                                    setCursor={setCursor}
+                                    setNewData={setNewData}
+                                    newData={newData}
                                 />
 
                             </div>

@@ -14,6 +14,29 @@ const Category = () => {
     const [categoryId, setCategoryId] = useState('');
     const [category, setCategory] = useState('');
     const {slug} = useParams();
+    const [cursor,setCursor]=useState("");
+
+
+    const [newData,setNewData]=useState({
+        products: {
+            edges:[],
+            pageInfo:{},
+            __typename:""
+        },
+    })
+
+    // useEffect(() => {
+    //     setNewData(
+    //         {
+    //             products: {
+    //                 edges:[],
+    //                 pageInfo:{},
+    //                 __typename:""
+    //
+    //             },
+    //         }
+    //     )
+    // }, [slug]);
 
 
     const {data} = useMainMenuQuery({
@@ -62,7 +85,7 @@ const Category = () => {
 
     const {data: productsData, fetchMore, networkStatus, loading} = useProductCollectionQuery({
         variables: {
-            after: '',
+            after:cursor,
             first: 10,
             channel: "default",
             locale: LanguageCodeEnum.En,
@@ -73,6 +96,7 @@ const Category = () => {
                 field: ProductOrderField.LastModifiedAt,
                 direction: OrderDirection.Desc,
             },
+
         },
         notifyOnNetworkStatusChange: true
     });
@@ -111,6 +135,10 @@ const Category = () => {
                                     networkStatus={networkStatus}
                                     categoryId={categoryId}
                                     loading={loading}
+                                    setCursor={setCursor}
+                                    setNewData={setNewData}
+                                    newData={newData}
+
                                 /> : null
                         }
 
