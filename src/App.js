@@ -1,29 +1,31 @@
-import React, { useState } from 'react';
-import { RouterProvider } from "react-router-dom";
-import { routers } from './Routers/Routers';
-import { SaleorAuthProvider, useAuthChange, useSaleorAuthClient } from "@saleor/auth-sdk/react";
-import { useAuthenticatedApolloClient } from "@saleor/auth-sdk/react/apollo";
-import { ApolloProvider } from "@apollo/client";
-import { GRAPH_URL } from './api/GRAPH_URL/GRAPH_URL';
-import { Toaster } from 'react-hot-toast';
+import React, {useState} from 'react';
+import {RouterProvider} from "react-router-dom";
+import {routers} from './Routers/Routers';
+import {SaleorAuthProvider, useAuthChange, useSaleorAuthClient} from "@saleor/auth-sdk/react";
+import {useAuthenticatedApolloClient} from "@saleor/auth-sdk/react/apollo";
+import {ApolloProvider, InMemoryCache} from "@apollo/client";
+import {GRAPH_URL} from './api/GRAPH_URL/GRAPH_URL';
+import {Toaster} from 'react-hot-toast';
 import ReactGA from 'react-ga';
 import './App.css'
 
 export const Context = React.createContext({});
+
 function App() {
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [isOpenCart, setIsOpenCart] = useState(false);
     const [networkError, setNetworkError] = useState(null);
 
-    const saleorAuth = useSaleorAuthClient({ saleorApiUrl: GRAPH_URL });
+    const saleorAuth = useSaleorAuthClient({saleorApiUrl: GRAPH_URL});
     // analytics.google
 
     ReactGA.initialize('G-D51B9SHE25');
     ReactGA.pageview(window.location.pathname + window.location.search);
 
 
-    const { apolloClient, reset, refetch } = useAuthenticatedApolloClient({
+    const {apolloClient, reset, refetch} = useAuthenticatedApolloClient({
         uri: GRAPH_URL,
+        cache: new InMemoryCache(),
         fetchWithAuth: saleorAuth.saleorAuthClient.fetchWithAuth,
         typePolicies: {
             Query: {
@@ -53,15 +55,13 @@ function App() {
     };
 
 
-
-
     return (
         <div>
             <Context.Provider value={state}>
                 <SaleorAuthProvider {...saleorAuth}>
                     <ApolloProvider client={apolloClient}>
-                        <RouterProvider router={routers} />
-                        <Toaster position={"bottom-center"} />
+                        <RouterProvider router={routers}/>
+                        <Toaster position={"bottom-center"}/>
                     </ApolloProvider>
                 </SaleorAuthProvider>
             </Context.Provider>

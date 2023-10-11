@@ -14,32 +14,29 @@ const Category = () => {
     const [categoryId, setCategoryId] = useState('');
     const [category, setCategory] = useState('');
     const {slug} = useParams();
-    const [cursor,setCursor]=useState("");
+    const [cursor, setCursor] = useState("");
 
 
-    const [newData,setNewData]=useState({
+    const [newData, setNewData] = useState({
         products: {
-            edges:[],
-            pageInfo:{},
-            __typename:""
+            edges: [],
+            pageInfo: {},
+            __typename: ""
         },
     })
 
 
-
     useEffect(() => {
-       if(newData?.products?.edges?.length){
-           setNewData(
-               {
-                   products: {
-                       edges:[],
-                       pageInfo:{},
-                       __typename:""
-                   },
-               }
-           )
-       }
-    }, [slug]);
+        setNewData(
+            {
+                products: {
+                    edges: [],
+                    pageInfo: {},
+                    __typename: ""
+                },
+            }
+        )
+    }, [categoryId]);
 
 
     const {data} = useMainMenuQuery({
@@ -70,8 +67,6 @@ const Category = () => {
                     }
                 })
             })
-
-
         })
     }, [data?.menu?.items, slug]);
 
@@ -87,7 +82,7 @@ const Category = () => {
 
     const {data: productsData, fetchMore, networkStatus, loading} = useProductCollectionQuery({
         variables: {
-            after:cursor,
+            after: cursor,
             first: 10,
             channel: "default",
             locale: LanguageCodeEnum.En,

@@ -1,25 +1,32 @@
-import React, {useState,useEffect} from 'react';
+import React, {useEffect} from 'react';
 import ProductCard from '../Sheard/ProductCard/ProductCard';
 import {Loader} from 'rsuite';
 import {Waypoint,} from "react-waypoint";
-import {LanguageCodeEnum, OrderDirection, ProductOrderField} from '../../api';
 
-const Products = ({data,newData,setNewData, fetchMore, networkStatus, collections, categoryId, loading,setCursor}) => {
-
-
+const Products = ({
+                      data,
+                      newData,
+                      setNewData,
+                      fetchMore,
+                      networkStatus,
+                      collections,
+                      categoryId,
+                      loading,
+                      setCursor
+                  }) => {
 
 
     useEffect(() => {
-                if(!newData?.products?.edges?.length){
-                    setNewData(data?.products)
-                }
-    }, [networkStatus]);
+        if (!newData?.products?.edges?.length) {
+            setNewData(data?.products)
+        }
+    }, [networkStatus, data, newData, setNewData]);
 
 
     const handleFetchMoreData = async () => {
-        if(newData?.products?.edges.length){
+        if (newData?.products?.edges.length) {
             await setCursor(data?.products?.pageInfo?.endCursor)
-             await setNewData((pv)=>{
+            await setNewData((pv) => {
                 return {
                     products: {
                         ...pv?.products,
@@ -32,49 +39,52 @@ const Products = ({data,newData,setNewData, fetchMore, networkStatus, collection
                     },
                 }
             })
-        }
-        else {
-            return setNewData({products: data?.products,edges:data.products.edges,pageInfo:data?.products?.pageInfo})
+        } else {
+            return setNewData({
+                products: data?.products,
+                edges: data.products.edges,
+                pageInfo: data?.products?.pageInfo
+            })
         }
 
 
-        // await fetchMore({
-        //     variables: {
-        //         after: data?.products?.pageInfo?.endCursor,
-        //         first: 20,
-        //         channel: "default",
-        //         locale: LanguageCodeEnum.En,
-        //         sortBy: {
-        //             field: ProductOrderField.LastModifiedAt,
-        //             direction: OrderDirection.Desc,
-        //         },
-        //         filter: {
-        //             categories: categoryId ? [categoryId] : undefined,
-        //             collections: collections
-        //
-        //         }
-        //
-        //     },
-        //     updateQuery: (pv, {fetchMoreResult}) => {
-        //
-        //
-        //         if (!fetchMoreResult) {
-        //             return pv;
-        //         }
-        //
-        //         return {
-        //             products: {
-        //                 ...pv?.products,
-        //                 edges: [
-        //                     ...pv?.products?.edges,
-        //                     ...fetchMoreResult?.products?.edges,
-        //                 ],
-        //                 pageInfo: fetchMoreResult?.products?.pageInfo,
-        //                 __typename: fetchMoreResult?.products?.__typename,
-        //             },
-        //         }
-        //     }
-        // })
+        /* await fetchMore({
+             variables: {
+                 after: data?.products?.pageInfo?.endCursor,
+                 first: 20,
+                 channel: "default",
+                 locale: LanguageCodeEnum.En,
+                 sortBy: {
+                     field: ProductOrderField.LastModifiedAt,
+                     direction: OrderDirection.Desc,
+                 },
+                 filter: {
+                     categories: categoryId ? [categoryId] : undefined,
+                     collections: collections
+
+                 }
+
+             },
+             updateQuery: (pv, {fetchMoreResult}) => {
+
+
+                 if (!fetchMoreResult) {
+                     return pv;
+                 }
+
+                 return {
+                     products: {
+                         ...pv?.products,
+                         edges: [
+                             ...pv?.products?.edges,
+                             ...fetchMoreResult?.products?.edges,
+                         ],
+                         pageInfo: fetchMoreResult?.products?.pageInfo,
+                         __typename: fetchMoreResult?.products?.__typename,
+                     },
+                 }
+             }
+         })*/
     }
 
 

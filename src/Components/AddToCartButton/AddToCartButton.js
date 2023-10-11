@@ -22,7 +22,8 @@ const AddToCartButton = ({thumbnail, name, variants}) => {
         variables: {
             checkoutToken: checkoutToken,
             locale: LanguageCodeEnum.En,
-        }
+        },
+        partialRefetch: false
     })
     const checkoutData = checkoutProducts?.checkout;
     const [RemoveProductFromCheckout] = useRemoveProductFromCheckoutMutation();
