@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { MdClose } from 'react-icons/md';
 const Modal = ({ children, showModal, setShowModal, modalOpenButton, title }) => {
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+    }else
+      document.body.style.overflow = 'unset';
+  }, [showModal]);
 
     return (
         <div>
