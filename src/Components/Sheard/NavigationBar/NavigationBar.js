@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import SearchBox from '../SearchBox/SearchBox';
-import Logo from '../../../Utility/Logo/saleor.svg'
+import Logo from '../../../Utility/Logo/musafir_logo.png'
 import LoginPage from '../../../Authentication/LoginLayout';
 import { Link, NavLink } from 'react-router-dom';
 import { MdOutlineLiveHelp } from 'react-icons/md';
