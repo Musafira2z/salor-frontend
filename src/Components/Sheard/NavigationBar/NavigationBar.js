@@ -48,7 +48,7 @@ const NavigationBar = () => {
                         <div className="col-span-5" >
                             <Link to='/' onClick={useSmoothScrolling}>
                                 <img
-                                    className='w-28 '
+                                    className='w-20'
                                     src={Logo} alt="Musafir" />
                             </Link>
                         </div >
