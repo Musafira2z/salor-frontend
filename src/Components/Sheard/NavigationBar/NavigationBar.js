@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import SearchBox from '../SearchBox/SearchBox';
-import Logo from '../../../Utility/Logo/musafir_logo.png'
+import Logo from '../../../Utility/Logo/musafir_logo_new.png'
 import LoginPage from '../../../Authentication/LoginLayout';
 import { Link, NavLink } from 'react-router-dom';
 import { MdOutlineLiveHelp } from 'react-icons/md';
@@ -48,7 +48,7 @@ const NavigationBar = () => {
                         <div className="col-span-5" >
                             <Link to='/' onClick={useSmoothScrolling}>
                                 <img
-                                    className='w-20'
+                                    className='w-32'
                                     src={Logo} alt="Musafir" />
                             </Link>
                         </div >

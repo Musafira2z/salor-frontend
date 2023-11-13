@@ -3,7 +3,7 @@ import { Drawer, ButtonToolbar, IconButton } from 'rsuite';
 
 import { RiMenu3Line } from 'react-icons/ri';
 import SideNav from "../../SidebarMenu/SideNavbar";
-import Logo from '../../../Utility/Logo/saleor.svg'
+import Logo from '../../../Utility/Logo/musafir_logo_new.png'
 
 const SidebarDrawer = () => {
     const [open, setOpen] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Modal from "../Components/Modal/Modal";
-import Logo from '../Utility/Logo/musafir_logo.png'
+import Logo from '../Utility/Logo/musafir_logo_new.png'
 import { LoginModalOpenButton } from "../Utility/Button/ModalOpenAnsCloseButton";
 
 // import LoginWithGoogle from './LoginWithGoogle';
@@ -39,7 +39,7 @@ const LoginPage = () => {
       title="Welcome to Musafir!"
     >
       <div className=" flex justify-center xl:my-10 lg:my-10 md:my-7 sm:my-5 my-5 ">
-        <img className="w-28 " src={Logo} alt="Musafir" />
+        <img className="w-32" src={Logo} alt="Musafir" />
       </div>
       <div className=" pb-5 md:w-96 mx-auto text-base">
         <div>
