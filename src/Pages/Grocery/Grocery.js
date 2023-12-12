@@ -11,7 +11,7 @@ const Grocery = () => {
     const { loading, data } = useProductCollectionQuery({
         variables: {
             after: '',
-            first: 20,
+            first: 30,
             filter: { search: search },
             channel: "default",
             locale: LanguageCodeEnum.En,

@@ -18,7 +18,7 @@ const Home = () => {
     const {data, fetchMore, networkStatus, loading} = useProductCollectionQuery({
         variables: {
             after: cursor||"",
-            first: 20,
+            first: 30,
             channel: "default",
             locale: LanguageCodeEnum.En,
             sortBy: {
