@@ -13,12 +13,11 @@ const Home = () => {
         },
     })
     const [cursor,setCursor]=useState("");   
-  
 
     const {data, fetchMore, networkStatus, loading} = useProductCollectionQuery({
         variables: {
             after: cursor||"",
-            first: 30,
+            first: 20,
             channel: "default",
             locale: LanguageCodeEnum.En,
             sortBy: {
@@ -31,12 +30,12 @@ const Home = () => {
     });
 
     useEffect(() => {
-        if (!newData?.products?.edges?.length) {
-            setNewData(data?.products)
-        }
-    }, [data, newData, networkStatus]);
+        if (!newData?.products) {
+            setNewData(data?.products);  
+        } 
+    }, [newData, setNewData, networkStatus]);
 
-
+   
 
     return (
         <div>

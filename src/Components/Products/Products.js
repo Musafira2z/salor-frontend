@@ -23,7 +23,6 @@ const Products = ({
     // }, [setNewData]);
 
 
-
     const handleFetchMoreData = async () => {
         if (newData?.products?.edges.length) {
             await setCursor(data?.products?.pageInfo?.endCursor)
@@ -95,10 +94,10 @@ const Products = ({
             <div
                 className=' grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 lg:gap-7 md:gap-5 sm:gap-3 gap-0'>
                 {
-                    newData?.products?.edges?.map((data, index) => (
+                    newData?.products?.edges?.map((dt, index) => (
 
                         <ProductCard
-                            data={data}
+                            data={dt}
                             key={index}
                         />
                     ))
