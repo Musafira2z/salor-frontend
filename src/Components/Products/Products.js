@@ -16,11 +16,11 @@ const Products = ({
                   }) => {
 
 
-    useEffect(() => {
-        if (!newData?.products?.edges?.length) {
-            setNewData(data?.products)
-        }
-    }, [setNewData]);
+    // useEffect(() => {
+    //     if (!newData?.products?.edges?.length) {
+    //         setNewData(data?.products)
+    //     }
+    // }, [setNewData]);
 
 
 

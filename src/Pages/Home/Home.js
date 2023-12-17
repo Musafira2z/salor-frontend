@@ -34,7 +34,7 @@ const Home = () => {
         if (!newData?.products?.edges?.length) {
             setNewData(data?.products)
         }
-    }, [data, newData]);
+    }, [data, newData, networkStatus]);
 
 
 
