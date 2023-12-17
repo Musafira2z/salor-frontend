@@ -20,7 +20,8 @@ const Products = ({
         if (!newData?.products?.edges?.length) {
             setNewData(data?.products)
         }
-    }, [networkStatus, data, newData, setNewData]);
+    }, [setNewData]);
+
 
 
     const handleFetchMoreData = async () => {
@@ -42,7 +43,7 @@ const Products = ({
         } else {
             return setNewData({
                 products: data?.products,
-                edges: data.products.edges,
+                edges: data?.products.edges,
                 pageInfo: data?.products?.pageInfo
             })
         }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Products from '../../Components/Products/Products';
 import Slider from '../../Components/Sheard/Banner/Slider';
 import {LanguageCodeEnum, OrderDirection, ProductOrderField, useProductCollectionQuery} from '../../api';
@@ -12,8 +12,8 @@ const Home = () => {
             __typename:""
         },
     })
-    const [cursor,setCursor]=useState("");
-
+    const [cursor,setCursor]=useState("");   
+  
 
     const {data, fetchMore, networkStatus, loading} = useProductCollectionQuery({
         variables: {
@@ -29,6 +29,13 @@ const Home = () => {
         },
         notifyOnNetworkStatusChange: true
     });
+
+    useEffect(() => {
+        if (!newData?.products?.edges?.length) {
+            setNewData(data?.products)
+        }
+    }, [data, newData]);
+
 
 
     return (
