@@ -37,9 +37,7 @@ const DeliveryAddressForm = ({ checkoutData, showAddressModal, setShowAddressMod
             }
         });
         
-        if(test?.data?.checkoutShippingAddressUpdate?.checkout) {
-            window.location.reload(false);
-        }
+     
         await checkoutBillingAddressUpdate({
             variables: {
                 token: checkoutData?.token,
@@ -47,6 +45,11 @@ const DeliveryAddressForm = ({ checkoutData, showAddressModal, setShowAddressMod
                 locale: LanguageCodeEnum.En
             }
         })
+
+
+        if(test?.data?.checkoutShippingAddressUpdate?.checkout) {
+            window.location.reload(false);
+        }
        
 
     }
