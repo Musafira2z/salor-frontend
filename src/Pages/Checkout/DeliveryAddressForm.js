@@ -29,14 +29,17 @@ const DeliveryAddressForm = ({ checkoutData, showAddressModal, setShowAddressMod
 
 
     const onSubmit = async (data) => {
-        await checkoutShippingAddressUpdate({
+       const test =  await checkoutShippingAddressUpdate({
             variables: {
                 token: checkoutData?.token,
                 address: { ...data, country: "ZA" },
                 locale: LanguageCodeEnum.En
             }
         });
-
+        
+        if(test?.data?.checkoutShippingAddressUpdate?.checkout) {
+            window.location.reload(false);
+        }
         await checkoutBillingAddressUpdate({
             variables: {
                 token: checkoutData?.token,
@@ -44,7 +47,7 @@ const DeliveryAddressForm = ({ checkoutData, showAddressModal, setShowAddressMod
                 locale: LanguageCodeEnum.En
             }
         })
-
+       
 
     }
 
