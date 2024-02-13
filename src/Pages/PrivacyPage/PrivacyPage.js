@@ -18,7 +18,7 @@ const PrivacyPage = () => {
   });
 
   const [content, setContent] = useState("");
-  console.log('d', data);
+ 
 
   useEffect(() => {
     if(data) {

@@ -4,6 +4,10 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.7.15",
+    "@editorjs/editorjs": "^2.29.0",
+    "@editorjs/header": "^2.8.1",
+    "@editorjs/link": "^2.6.2",
+    "@editorjs/list": "^1.9.0",
     "@material-tailwind/react": "^2.0.8",
     "@saleor/auth-sdk": "^0.9.0",
     "@testing-library/jest-dom": "^5.16.5",
