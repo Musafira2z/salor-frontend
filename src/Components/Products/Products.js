@@ -16,15 +16,20 @@ const Products = ({
                   }) => {
 
 
-    // useEffect(() => {
-    //     if (!newData?.products?.edges?.length) {
-    //         setNewData(data?.products)
-    //     }
-    // }, [setNewData]);
+    useEffect(() => {
+        if (!newData?.products?.edges?.length) {
+            setNewData({
+                products: data?.products,
+                edges: data?.products?.edges,
+                pageInfo: data?.products?.pageInfo
+            })
+        }
+    }, [setNewData]);
 
 
     const handleFetchMoreData = async () => {
-        if (newData?.products?.edges.length) {
+        if (newData?.products?.edges?.length) {
+           
             await setCursor(data?.products?.pageInfo?.endCursor)
             await setNewData((pv) => {
                 return {
@@ -42,7 +47,7 @@ const Products = ({
         } else {
             return setNewData({
                 products: data?.products,
-                edges: data?.products.edges,
+                edges: data?.products?.edges,
                 pageInfo: data?.products?.pageInfo
             })
         }
