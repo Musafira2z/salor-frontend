@@ -126,7 +126,7 @@ const Products = ({
                 </div>
             }
             {data?.products && !data?.products?.pageInfo?.hasNextPage &&
-                <h1 className=' text-center text-lg font-bold mt-10'>Load end</h1>}
+                <h1 className=' text-center text-lg font-bold mt-10'>No More Products To Show</h1>}
             {
                 data?.products?.pageInfo?.hasNextPage &&
                 <Waypoint

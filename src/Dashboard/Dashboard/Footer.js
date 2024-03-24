@@ -12,7 +12,7 @@ const Footer = () => {
             <ul className=' flex  justify-around' >
                 <li className=' text-orange-500' >
                     <a
-                        href="https://wa.me/+27219271482"
+                        href="https://wa.me/+27760705548"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hover:text-orange-500"
@@ -32,7 +32,7 @@ const Footer = () => {
                 </li >
                 <li className=' text-orange-500' >
                     <a
-                        href="tel:+27219271482"
+                        href="tel:+27760705548"
                         className="hover:text-orange-500"
                     >
                         <button type="button" id="tell" className=' p-5 rounded-full hover:bg-green-100' >
@@ -41,9 +41,9 @@ const Footer = () => {
                     </a>
                 </li >
                 <li className=' text-orange-500' >
-                    <button type="button" id="facebook" className=' p-5 rounded-full hover:bg-green-100' >
+                    <a href='https://www.facebook.com/MusafirCashAndCarry' target='_blank' type="button" id="facebook" className=' p-5 rounded-full hover:bg-green-100' >
                         <FaFacebook size={30} />
-                    </button >
+                    </a>
                 </li >
             </ul >
         </footer >
