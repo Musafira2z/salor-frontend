@@ -25477,6 +25477,8 @@ export const PagePathsDocument = gql`
     edges {
       node {
         slug
+        content
+        title
       }
     }
   }

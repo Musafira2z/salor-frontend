@@ -8,6 +8,7 @@ import Refer from "../Dashboard/Refer/Refer";
 import Checkout from "../Pages/Checkout/Checkout";
 import Category from "../Pages/Category/Category";
 import Help from "../Pages/HelpPage/Help";
+import TermsPage from "../Pages/TermsPage/TermsPage";
 import HelpPage from "../Pages/HelpPage/HelpPage";
 import Home from "../Pages/Home/Home";
 import HomeMainLayout from "../Pages/Home/MainLayout";
@@ -18,6 +19,7 @@ import OrderDetails from "../Dashboard/MyOrder/OrderDetails";
 import NoteFoundPage from "../Pages/404/NoteFoundPage";
 import Grocery from "../Pages/Grocery/Grocery";
 import Collections from "../Pages/Collections/Collections";
+
 
 
 
@@ -49,6 +51,11 @@ export const routers = createBrowserRouter([
   {
     path: "/help",
     element: <HelpPage />,
+
+  },
+  {
+    path: "/pages/:slug",
+    element: <TermsPage />,
 
   },
   {
