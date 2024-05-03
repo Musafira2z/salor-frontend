@@ -18,6 +18,7 @@ const Product = ({ data }) => {
     },
   });
 
+ 
   useEffect(() => {
     setMedia(data?.product?.media?.[0]?.url);
   }, [data?.product?.media]);
@@ -85,9 +86,19 @@ const Product = ({ data }) => {
                 {data?.product?.variants[0]?.quantityAvailable}{" "}
               </p>
 
-              <h2 className="text-lg ">
-                {description?.blocks?.[0]?.data?.text}
-              </h2>
+              <p className="text-lg font-bold pt-2">
+               Product Variant: {" "}
+                {data?.product?.variants[0]?.name}
+              </p>
+
+              {
+                description?.blocks.map((block, i) => (
+                  <h2 className="text-lg ">
+                  {block.data?.text}
+                </h2>
+                ))
+              }
+            
 
               <div className="flex items-center gap-5 ">
                 <p className="text-lg font-extrabold">Price:</p>
