@@ -10,8 +10,9 @@ import {
 } from "../../api";
 import toast from "react-hot-toast";
 
-const AddToCartButton = ({thumbnail, name, variants}) => {
+const AddToCartButton = ({thumbnail, name, variants, index}) => {
 
+ 
 
     const checkoutToken = JSON.parse(localStorage.getItem('checkoutToken'));
 
@@ -29,7 +30,7 @@ const AddToCartButton = ({thumbnail, name, variants}) => {
     const [RemoveProductFromCheckout] = useRemoveProductFromCheckoutMutation();
 
 
-    const items = checkoutData?.lines?.find(item => item?.variant?.id === variants?.[0]?.id);
+    const items = checkoutData?.lines?.find(item => item?.variant?.id === variants?.[index]?.id);
 
 
     const [checkoutAddProductLine, {
@@ -126,7 +127,7 @@ const AddToCartButton = ({thumbnail, name, variants}) => {
 
     return (
         <div>
-            {variants?.[0]?.quantityAvailable === 0 ?
+            {variants?.[index]?.quantityAvailable === 0 ?
                 <button
                     disabled
                     className='border-2 border-red-500 rounded-lg text-white bg-red-500   md:text-base text-sm  font-semibold hover:duration-500 duration-500  py-1  w-full    '>
@@ -137,12 +138,12 @@ const AddToCartButton = ({thumbnail, name, variants}) => {
                         items ?
 
                             <div
-                                className={`border-2 ${variants?.[0]?.quantityAvailable === items?.quantity ? "border-red-400 bg-red-400 text-white" : "border-orange-500  bg-orange-500  text-white"}  rounded-lg   md:text-base text-sm font-semibold hover:duration-500 duration-500  py-1 px-2 w-full`}>
+                                className={`border-2 ${variants?.[index]?.quantityAvailable === items?.quantity ? "border-red-400 bg-red-400 text-white" : "border-orange-500  bg-orange-500  text-white"}  rounded-lg   md:text-base text-sm font-semibold hover:duration-500 duration-500  py-1 px-2 w-full`}>
                                 <div
                                     className=" flex justify-between flex-row-reverse items-center   rounded-md">
                                     <button
                                         disabled={variants?.[0]?.quantityAvailable === items?.quantity || false}
-                                        onClick={() => handleAddToCart(variants?.[0]?.id)}
+                                        onClick={() => handleAddToCart(variants?.[index]?.id)}
                                         className=" cursor-pointer ">
                                         <BiPlusMedical size={15}/>
                                     </button>
@@ -158,7 +159,7 @@ const AddToCartButton = ({thumbnail, name, variants}) => {
                             </div>
                             :
                             <button
-                                onClick={() => handleAddToCart(variants?.[0]?.id)}
+                                onClick={() => handleAddToCart(variants?.[index]?.id)}
                                 className=' relative addToCart border-2 border-orange-500 rounded-lg text-orange-500  bg-white  md:text-base text-sm font-semibold hover:duration-500 duration-500  py-1  md:px-2 w-full  flex items-center justify-center gap-x-1 hover:border-orange-500  hover:bg-orange-500  hover:text-white'>Add
                                 to cart
 

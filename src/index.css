@@ -22,3 +22,15 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.product-info-div {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e7decd;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.variant-color {
+    color: orange;
+}
