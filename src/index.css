@@ -34,3 +34,8 @@ code {
 .variant-color {
     color: orange;
 }
+
+.brand_name {
+    font-size: 25px;
+    color: green;
+}

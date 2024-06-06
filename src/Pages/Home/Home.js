@@ -24,7 +24,7 @@ const Home = () => {
     {
       variables: {
         after: cursor || "",
-        first: 20,
+        first: 80,
         channel: "default",
         locale: LanguageCodeEnum.En,
         sortBy: {
@@ -39,11 +39,15 @@ const Home = () => {
 
   useEffect(() => {
     if (!newData?.products) {
-      setNewData(data?.products);
+      setNewData({
+        products: data?.products,
+        edges: data?.products?.edges,
+        pageInfo: data?.products?.pageInfo
+    })
     }
   }, [newData, setNewData, networkStatus]);
 
-  //    console.log('ff', data);
+  
 
   return (
     <div>

@@ -23,6 +23,7 @@ const Product = ({ data }) => {
     setMedia(data?.product?.media?.[0]?.url);
   }, [data?.product?.media]);
 
+
   return (
     <div>
       <Helmet>
@@ -99,6 +100,14 @@ const Product = ({ data }) => {
                     <p className="text-lg font-bold pt-2">
                       Product Variant: {variant.name}
                     </p>
+
+                    {
+                      variant?.attributes?.[0].values?.[0] &&
+                      <p className="text-lg font-bold pt-2">
+                      Brand: <b className="brand_name">{variant?.attributes?.[0].values?.[0].name}</b>
+                    </p>
+                    }
+                   
 
                     <div className="flex items-center gap-5 ">
                       <p className="text-lg font-extrabold">Price:</p>
