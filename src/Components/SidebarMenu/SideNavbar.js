@@ -50,7 +50,7 @@ const SideNavbar = () => {
                                             {/*<img className='w-5 h-5'*/}
                                             {/*     loading="lazy"/>*/}
 
-                                            <p className={`${slug === item?.category?.slug ? "text-white" : "text-black"}  cursor-pointer`}
+                                            <p className={`${slug === item?.category?.slug ? "text-white" : "text-black"}  cursor-pointer uppercase`}
                                             >{item?.name}</p>
                                         </div>
                                     </NavLink>
