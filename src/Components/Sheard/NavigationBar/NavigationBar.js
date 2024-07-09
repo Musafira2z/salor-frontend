@@ -105,6 +105,7 @@ const NavigationBar = () => {
                 </div>
 
             </div >
+           
         </header >
     );
 };
