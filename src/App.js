@@ -19,7 +19,7 @@ function App() {
     const saleorAuth = useSaleorAuthClient({saleorApiUrl: GRAPH_URL});
     // analytics.google
 
-    ReactGA.initialize('G-D51B9SHE25');
+    ReactGA.initialize('G-4FYDMJW0RX');
     ReactGA.pageview(window.location.pathname + window.location.search);
 
 
