@@ -1,23 +1,29 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Products from '../../Components/Products/Products';
 import Slider from '../../Components/Sheard/Banner/Slider';
 import {LanguageCodeEnum, OrderDirection, ProductOrderField, useProductCollectionQuery} from '../../api';
 import SpecialOffers from "../../Components/SpecialOffers/SpecialOffers";
+import {useProductState} from "./useProductState";
 
 const Home = () => {
-    const [newData,setNewData]=useState({
-        products: {
-            edges:[],
-            pageInfo:{},
-            __typename:""
-        },
-    })
-    const [cursor,setCursor]=useState("");
 
+    const { state, dispatch } = useProductState();
+
+    const [newData,setNewData] = useState(state.products)
+
+    const [cursor,setCursor] = useState(state.endCursor);
+
+    useEffect(() => {
+        dispatch({ type: 'SET_PRODUCTS', payload: newData });
+    }, [newData])
+
+    useEffect(() => {
+        dispatch({ type: 'SET_END_CURSOR', payload: cursor });
+    }, [cursor])
 
     const {data, fetchMore, networkStatus, loading} = useProductCollectionQuery({
         variables: {
-            after: cursor||"",
+            after: cursor || "",
             first: 20,
             channel: "default",
             locale: LanguageCodeEnum.En,
@@ -27,7 +33,8 @@ const Home = () => {
             },
             filter: {}
         },
-        notifyOnNetworkStatusChange: true
+        notifyOnNetworkStatusChange: true,
+        fetchPolicy: 'network-only'
     });
 
 

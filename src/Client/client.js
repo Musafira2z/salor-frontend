@@ -29,7 +29,6 @@ const link = from([
 const client = new ApolloClient({
   link:link,
   cache: new InMemoryCache(),
-
 });
 
 

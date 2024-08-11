@@ -8,6 +8,7 @@ import {GRAPH_URL} from './api/GRAPH_URL/GRAPH_URL';
 import {Toaster} from 'react-hot-toast';
 import ReactGA from 'react-ga';
 import './App.css'
+import {ProductProvider} from "./Pages/Home/useProductState";
 
 export const Context = React.createContext({});
 
@@ -60,7 +61,9 @@ function App() {
             <Context.Provider value={state}>
                 <SaleorAuthProvider {...saleorAuth}>
                     <ApolloProvider client={apolloClient}>
-                        <RouterProvider router={routers}/>
+                        <ProductProvider>
+                            <RouterProvider router={routers}/>
+                        </ProductProvider>
                         <Toaster position={"bottom-center"}/>
                     </ApolloProvider>
                 </SaleorAuthProvider>
