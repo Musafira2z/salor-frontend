@@ -12,9 +12,30 @@ body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    .ce-header{
+        font-size: 20px;
+        font-weight: bolder;
+    }
 }
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.product-info-div {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e7decd;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.variant-color {
+    color: orange;
+}
+
+.brand_name {
+    font-size: 25px;
+    color: green;
 }

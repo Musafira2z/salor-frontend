@@ -19,12 +19,17 @@ const Products = ({
 
     useEffect(() => {
         if (!newData?.products?.edges?.length) {
-            setNewData(data?.products)
+            setNewData({
+                products: data?.products,
+                edges: data?.products?.edges,
+                pageInfo: data?.products?.pageInfo
+            })
         }
-    }, [networkStatus, data, newData, setNewData]);
+    }, [setNewData]);
 
     const handleFetchMoreData = async () => {
-        if (newData?.products?.edges.length) {
+        if (newData?.products?.edges?.length) {
+           
             await setCursor(data?.products?.pageInfo?.endCursor)
             await setNewData((pv) => {
                 return {
@@ -42,7 +47,7 @@ const Products = ({
         } else {
             return setNewData({
                 products: data?.products,
-                edges: data.products.edges,
+                edges: data?.products?.edges,
                 pageInfo: data?.products?.pageInfo
             })
         }
@@ -55,10 +60,10 @@ const Products = ({
             <div
                 className=' grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-2 lg:gap-7 md:gap-5 sm:gap-3 gap-0'>
                 {
-                    newData?.products?.edges?.map((data, index) => (
+                    newData?.products?.edges?.map((dt, index) => (
 
                         <ProductCard
-                            data={data}
+                            data={dt}
                             key={index}
                         />
                     ))
@@ -82,7 +87,7 @@ const Products = ({
                 </div>
             }
             {data?.products && !data?.products?.pageInfo?.hasNextPage &&
-                <h1 className=' text-center text-lg font-bold mt-10'>Load end</h1>}
+                <h1 className=' text-center text-lg font-bold mt-10'>No More Products To Show</h1>}
             {
                 data?.products?.pageInfo?.hasNextPage &&
                 <Waypoint

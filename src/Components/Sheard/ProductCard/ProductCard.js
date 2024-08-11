@@ -10,6 +10,7 @@ const ProductCard = ({data}) => {
 
     const {thumbnail, name, slug, variants} = data?.node;
 
+    
     return (
 
         <div
@@ -67,6 +68,7 @@ const ProductCard = ({data}) => {
                     thumbnail={thumbnail}
                     name={name}
                     variants={variants}
+                    index = {0}
                 />
             </div>
         </ div>

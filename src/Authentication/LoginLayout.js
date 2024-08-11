@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import Modal from "../Components/Modal/Modal";
-import Logo from '../Utility/Logo/musafir_logo_new.png'
+import Logo from '../Utility/Logo/musafir_logo_new.png';
+import ShopCode from '../Utility/Logo/shop_code.png';
+import QrCode from '../Utility/Logo/qr_code.png';
 import { LoginModalOpenButton } from "../Utility/Button/ModalOpenAnsCloseButton";
 
 // import LoginWithGoogle from './LoginWithGoogle';
@@ -38,6 +40,10 @@ const LoginPage = () => {
       }
       title="Welcome to Musafir!"
     >
+      <div style={{display: 'none'}}>
+        <img className="w-32" src={ShopCode} alt="shopCode" />
+        <img className="w-32" src={QrCode} alt="shopCode" />
+      </div>
       <div className=" flex justify-center xl:my-10 lg:my-10 md:my-7 sm:my-5 my-5 ">
         <img className="w-32" src={Logo} alt="Musafir" />
       </div>

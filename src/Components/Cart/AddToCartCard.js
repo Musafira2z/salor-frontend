@@ -156,6 +156,7 @@ const AddToCartCard = ({ data }) => {
 
                 <div className=' col-span-6 pl-3 text-left'>
                     <span className=' md:text-base  font-semibold  line-clamp-4 '>{data?.variant?.product?.name} </span>
+                    <span className=' md:text-base  font-semibold  line-clamp-4 mt-2 variant-color'>variant: {data?.variant?.name} </span>
                     <p className=' md:text-base text-orange-500 font-semibold mt-0 '> R {data?.variant?.pricing?.price?.gross?.amount}</p>
                     <p className='  md:text-base text-gray-500  mt-0 '> {data?.quantity} x {data?.variant?.pricing?.price?.gross?.amount}</p>
 

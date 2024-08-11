@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form"
 import {
     LanguageCodeEnum,
@@ -21,23 +21,24 @@ const DeliveryAddressForm = ({ checkoutData, showAddressModal, setShowAddressMod
         loading: CheckoutShippingAddressLoading
     }] = useCheckoutShippingAddressUpdateMutation();
 
-
+   
     const [checkoutBillingAddressUpdate, {
         data: CheckoutBillingAddressData,
         loading: CheckoutBillingAddressLoading
     }] = useCheckoutBillingAddressUpdateMutation();
 
-
+   
     const onSubmit = async (data) => {
-        await checkoutShippingAddressUpdate({
+       const test =  await checkoutShippingAddressUpdate({
             variables: {
                 token: checkoutData?.token,
                 address: { ...data, country: "ZA" },
                 locale: LanguageCodeEnum.En
             }
         });
-
-        await checkoutBillingAddressUpdate({
+        
+     
+        const updatateAddress = await checkoutBillingAddressUpdate({
             variables: {
                 token: checkoutData?.token,
                 address: { ...data, country: "ZA" },
@@ -45,6 +46,12 @@ const DeliveryAddressForm = ({ checkoutData, showAddressModal, setShowAddressMod
             }
         })
 
+        if(updatateAddress?.data?.checkoutBillingAddressUpdate?.checkout){
+            window.location.reload(false);
+            
+        }
+
+       
 
     }
 
