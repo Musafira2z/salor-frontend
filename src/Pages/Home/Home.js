@@ -9,45 +9,41 @@ import {
   useProductCollectionQuery,
 } from "../../api";
 import SpecialOffers from "../../Components/SpecialOffers/SpecialOffers";
+import {useProductState} from "./useProductState";
 
 const Home = () => {
-  const [newData, setNewData] = useState({
-    products: {
-      edges: [],
-      pageInfo: {},
-      __typename: "",
-    },
-  });
-  const [cursor, setCursor] = useState("");
 
-  const { data, fetchMore, networkStatus, loading } = useProductCollectionQuery(
-    {
-      variables: {
-        after: cursor || "",
-        first: 80,
-        channel: "default",
-        locale: LanguageCodeEnum.En,
-        sortBy: {
-          field: ProductOrderField.LastModifiedAt,
-          direction: OrderDirection.Desc,
+    const { state, dispatch } = useProductState();
+
+    const [newData,setNewData] = useState(state.products)
+
+    const [cursor,setCursor] = useState(state.endCursor);
+
+    useEffect(() => {
+        dispatch({ type: 'SET_PRODUCTS', payload: newData });
+    }, [newData])
+
+    useEffect(() => {
+        dispatch({ type: 'SET_END_CURSOR', payload: cursor });
+    }, [cursor])
+
+    const {data, fetchMore, networkStatus, loading} = useProductCollectionQuery({
+        variables: {
+            after: cursor || "",
+            first: 20,
+            channel: "default",
+            locale: LanguageCodeEnum.En,
+            sortBy: {
+                field: ProductOrderField.LastModifiedAt,
+                direction: OrderDirection.Desc,
+            },
+            filter: {}
         },
-        filter: {},
-      },
-      notifyOnNetworkStatusChange: true,
-    }
-  );
+        notifyOnNetworkStatusChange: true
+    });
 
-  useEffect(() => {
-    if (!newData?.products) {
-      setNewData({
-        products: data?.products,
-        edges: data?.products?.edges,
-        pageInfo: data?.products?.pageInfo
-    })
-    }
-  }, [newData, setNewData, networkStatus]);
 
-  
+
 
   return (
     <div>

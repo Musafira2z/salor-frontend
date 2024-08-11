@@ -15,7 +15,7 @@ const ProductCard = ({data}) => {
 
         <div
             className=" md:h-[17rem] h-[14rem]   lg:rounded-lg rounded-md   md:border-none border  border-amber-100  bg-white flex flex-col justify-between md:p-3 p-2">
-            <Link to={`/product-details/${slug}`}
+            <Link preventScrollReset={true} to={`/product-details/${slug}`}
                   onClick={scrollToTop}
                   className='hover:no-underline focus:no-underline hover:text-slate-700 focus:text-slate-700'
             >

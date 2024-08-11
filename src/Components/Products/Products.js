@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import ProductCard from '../Sheard/ProductCard/ProductCard';
 import {Loader} from 'rsuite';
 import {Waypoint,} from "react-waypoint";
+import {useProductState} from "../../Pages/Home/useProductState";
 
 const Products = ({
                       data,
@@ -25,7 +26,6 @@ const Products = ({
             })
         }
     }, [setNewData]);
-
 
     const handleFetchMoreData = async () => {
         if (newData?.products?.edges?.length) {
@@ -51,45 +51,6 @@ const Products = ({
                 pageInfo: data?.products?.pageInfo
             })
         }
-
-
-        /* await fetchMore({
-             variables: {
-                 after: data?.products?.pageInfo?.endCursor,
-                 first: 20,
-                 channel: "default",
-                 locale: LanguageCodeEnum.En,
-                 sortBy: {
-                     field: ProductOrderField.LastModifiedAt,
-                     direction: OrderDirection.Desc,
-                 },
-                 filter: {
-                     categories: categoryId ? [categoryId] : undefined,
-                     collections: collections
-
-                 }
-
-             },
-             updateQuery: (pv, {fetchMoreResult}) => {
-
-
-                 if (!fetchMoreResult) {
-                     return pv;
-                 }
-
-                 return {
-                     products: {
-                         ...pv?.products,
-                         edges: [
-                             ...pv?.products?.edges,
-                             ...fetchMoreResult?.products?.edges,
-                         ],
-                         pageInfo: fetchMoreResult?.products?.pageInfo,
-                         __typename: fetchMoreResult?.products?.__typename,
-                     },
-                 }
-             }
-         })*/
     }
 
 
