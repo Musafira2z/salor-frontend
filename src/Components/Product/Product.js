@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet";
 import { LanguageCodeEnum, useCheckoutByTokenQuery } from "../../api";
 import LazyImgLoader from "../LazyImgLoader/LazyImgLoader";
 import AddToCartButton from "../AddToCartButton/AddToCartButton";
+import {Link} from "react-router-dom";
 
 const Product = ({ data }) => {
   const [media, setMedia] = useState("");
@@ -22,7 +23,6 @@ const Product = ({ data }) => {
   useEffect(() => {
     setMedia(data?.product?.media?.[0]?.url);
   }, [data?.product?.media]);
-
 
   return (
     <div>
@@ -87,11 +87,11 @@ const Product = ({ data }) => {
               </h1>
 
               {description?.blocks.map((block, i) => (
-                <h2 className="text-lg ">{block.data?.text}</h2>
+                <h2 key={i} className="text-lg ">{block.data?.text}</h2>
               ))}
 
               {data?.product?.variants.map((variant, index) => (
-                <>
+                <div key={index}>
                   <div className="product-info-div">
                     <p className="text-lg font-bold pt-2">
                       Available Quantity: {variant.quantityAvailable}{" "}
@@ -104,7 +104,11 @@ const Product = ({ data }) => {
                     {
                       variant?.attributes?.[0].values?.[0] &&
                       <p className="text-lg font-bold pt-2">
-                      Brand: <b className="brand_name">{variant?.attributes?.[0].values?.[0].name}</b>
+                      Brand: <b className="brand_name">
+                        <Link to={`/brand/${variant?.attributes?.[0].attribute?.slug}/${variant?.attributes?.[0].values?.[0].slug}`}>
+                          {variant?.attributes?.[0].values?.[0].name}
+                        </Link>
+                      </b>
                     </p>
                     }
                    
@@ -133,7 +137,7 @@ const Product = ({ data }) => {
                       </div>
                     </div>
                   </div>
-                </>
+                </div>
               ))}
             </div>
           </div>
