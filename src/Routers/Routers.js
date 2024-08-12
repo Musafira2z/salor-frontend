@@ -19,6 +19,7 @@ import OrderDetails from "../Dashboard/MyOrder/OrderDetails";
 import NoteFoundPage from "../Pages/404/NoteFoundPage";
 import Grocery from "../Pages/Grocery/Grocery";
 import Collections from "../Pages/Collections/Collections";
+import Brand from "../Pages/Brand/Brand";
 
 
 
@@ -39,6 +40,10 @@ export const routers = createBrowserRouter([
       {
         path: "/Category/:slug",
         element: <Category />
+      },
+      {
+        path: "/brand/:attributeSlug/:valuesSlug",
+        element: <Brand />
       },
       {
         path: "/Collections/:id",

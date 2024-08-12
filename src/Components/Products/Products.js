@@ -53,7 +53,7 @@ const Products = ({
         }
     }
 
-
+console.log(newData)
     return (
         <div className='md:14 pb-20'>
 
