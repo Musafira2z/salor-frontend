@@ -20,6 +20,9 @@ import NoteFoundPage from "../Pages/404/NoteFoundPage";
 import Grocery from "../Pages/Grocery/Grocery";
 import Collections from "../Pages/Collections/Collections";
 import Brand from "../Pages/Brand/Brand";
+import About from "../Components/About/About";
+import Faq from "../Components/Faq/Faq";
+import TermsCondition from "../Components/TermsCondition/TermsCondition";
 
 
 
@@ -48,6 +51,18 @@ export const routers = createBrowserRouter([
       {
         path: "/Collections/:id",
         element: <Collections />
+      },
+      {
+        path: "/about",
+        element: <About />
+      },
+      {
+        path: "/faq",
+        element: <Faq />
+      },
+      {
+        path: "/terms-condition",
+        element: <TermsCondition/>
       },
 
     ]
