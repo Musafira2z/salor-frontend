@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Product from '../../Components/Product/Product';
 import {
     LanguageCodeEnum,
@@ -8,33 +8,33 @@ import {
     useProductBySlugQuery,
     useProductCollectionQuery
 } from '../../api';
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import NavigationBar from "../../Components/Sheard/NavigationBar/NavigationBar";
 import Products from '../../Components/Products/Products';
 import SearchBox from '../../Components/Sheard/SearchBox/SearchBox';
-import {Loader} from "rsuite";
+import { Loader } from "rsuite";
 
 
 const ProductsDetails = () => {
 
-    const {id} = useParams();
+    const { id } = useParams();
     const [categoryId, setCategoryId] = useState(null)
     const [category, setCategory] = useState(null)
 
-    const [newData,setNewData]=useState({
+    const [newData, setNewData] = useState({
         products: {
-            edges:[],
-            pageInfo:{},
-            __typename:""
+            edges: [],
+            pageInfo: {},
+            __typename: ""
 
         },
     })
-    const [cursor,setCursor]=useState("");
+    const [cursor, setCursor] = useState("");
 
 
 
 
-    const {data, loading: detailsLoading} = useProductBySlugQuery({
+    const { data, loading: detailsLoading } = useProductBySlugQuery({
         variables: {
             channel: "default",
             locale: LanguageCodeEnum.En,
@@ -42,7 +42,7 @@ const ProductsDetails = () => {
 
         }
     })
-    const {data: menu} = useMainMenuQuery({
+    const { data: menu } = useMainMenuQuery({
         errorPolicy: "all",
         variables: {
             locale: "EN",
@@ -88,9 +88,9 @@ const ProductsDetails = () => {
     }, [category]);
 
 
-    const {data: productsData, fetchMore, networkStatus, loading: productsLoading} = useProductCollectionQuery({
+    const { data: productsData, fetchMore, networkStatus, loading: productsLoading } = useProductCollectionQuery({
         variables: {
-            after: cursor ,
+            after: cursor,
             first: 20,
             channel: "default",
             locale: LanguageCodeEnum.En,
@@ -109,19 +109,19 @@ const ProductsDetails = () => {
     return (
 
         <div>
-            <NavigationBar/>
+            <NavigationBar />
             <div className=' lg:hidden md:block mt-2  mx-2'>
-                <SearchBox/>
+                <SearchBox />
             </div>
             <div className='container mx-auto pb-28 px-3'>
                 {
                     detailsLoading ?
 
                         <div className={`flex justify-center items-center h-screen`}>
-                            <Loader size="sm" content="Loading..."/>
+                            <Loader size="sm" content="Loading..." />
                         </div>
                         :
-                        <Product data={data}/>
+                        <Product data={data} />
                 }
 
                 <div>
